@@ -13,11 +13,11 @@
         width: 100%;
         height: 100%;
         background-color:#000000;
-        height: 650px;
+        height: 670px;
         border-radius: 50px 0 0 50px;
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content:center;
 
         img{
             max-width: 187px;
@@ -55,6 +55,20 @@
     }
 }
 
+.resend-area{
+    float: left;
+    width: 100%;
+    text-align: center;
+    margin-top: 38px;
+    font-weight: 400;
+    color: #000;
+    font-size: 0.9rem;
+
+    a{
+        color: #274fbe;
+    }
+}
+
 
 
 .forgot-link{
@@ -67,6 +81,7 @@
     line-height: 28px;
     text-decoration: none;
     font-weight: 300;
+    cursor: pointer;
 }
 
 .signup-link{
@@ -92,4 +107,16 @@
         color: #0177fb; 
         text-decoration: underline;
     }
+}
+
+img.correct{
+    width: 104px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 45px;
+}
+
+.loginbtn{
+    margin-top: -30px;
+    margin-bottom: 15px;
 }
