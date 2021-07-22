@@ -1,0 +1,42 @@
+button{
+    background-color: #0177fb;
+    border-radius: 25px;
+    text-align: center;
+    min-height: 3rem;
+    min-width: 160px;
+    border: none;
+    font-size: 0.9rem;
+    color: #fff;
+    transition: all 0.5s;
+    padding-left: 30px;
+    padding-right: 30px;
+    font-weight: 400;
+
+    &:hover{
+        background-color: #012146;
+    }
+}
+
+button.dark{
+    background-color: #1b1b1b;
+}
+
+.form-control{
+    min-height: 3.3rem;
+    background-color: #ececec;
+    border: none;
+    padding-left: 15px;
+    padding-right: 15px;
+
+    &::placeholder{
+        color: #a8a8a8;
+    }
+}
+
+
+
+.centered{
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}

@@ -9,7 +9,7 @@
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="#">
-                  <img src="https://cdn.zeplin.io/60dd5628c0672308a271b51d/assets/ccaca1a9-ef72-4ca0-bd1f-860b48e2da49.svg" />
+                  <img src="images/logo/logo.png" />
               </a>
             </li>
           </ul>

@@ -86,7 +86,6 @@ export default {
                     this.role=false
                 }
         },
-
         SubmitForm() {
             console.log('sucess')
             this.v$.$validate() // checks all inputs

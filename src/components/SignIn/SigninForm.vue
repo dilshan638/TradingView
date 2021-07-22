@@ -1,37 +1,41 @@
 <template>
-    <div>
-        <div class="form-area">
-            <h2>Login to your Account</h2>
-            <h5>Please check the url before login</h5>
-            <ul class="nav nav-pills" id="pills-tab" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Email</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Mobile</button>
-                </li>
-            </ul>
-            <div class="tab-content" id="pills-tabContent">
-                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                    <sign-in-form-email />
-                </div>
-                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                    <sign-in-form-mobile />
+    <div class="form-layout">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="left-logo">
+                    <img src="images/logo/logo.png" />
                 </div>
             </div>
-        </div> 
+            <div class="col-md-8">
+                <div class="right-form">
+                    <h2>LDX Exchange</h2>
+                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing <br/>
+                    elitr, sed diam nonumy eirmod tempor invidunt ut</p>
+
+                    <input type="email" placeholder="Email Address" v-model="state.email" class="form-control" /><br/>
+                    <span class="error-msg" v-if="v$.email.$error">{{ v$.email.$errors[0].$message }} </span>
+
+                    <input type="password" placeholder="Password" v-model="state.password.password" class="form-control" /><br/>
+                    <span class="error-msg" v-if="v$.password.password.$error">{{ v$.password.$errors[0].$message }} </span>
+
+                    <button class="centered" @click="SubmitForm">Login</button>
+                    <a href="#" class="forgot-link">Forgot Password</a>
+                    <span class="reg">to LDX eFolio?  <router-link to="/signup">Register here</router-link></span>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 <script>
+import { Auth } from 'aws-amplify';
 import useValidate from '@vuelidate/core'
 import { required, email } from '@vuelidate/validators'
 import { reactive, computed } from 'vue'
-import SignInFormMobile from './SignInFormMobile.vue'
-import SignInFormEmail from './SignInFormEmail.vue'
 
 export default {
-  components: {SignInFormMobile, SignInFormEmail },
-    name:'signinform',
+    name:'signin',
+    components: {
+    },
     setup() {
         const state = reactive({
             email:'',
@@ -63,21 +67,47 @@ export default {
             showPassword: false,
             isHiddenMobile: false,
             showPasswordMobile: false
+
         }
     },
-    methods: {      
+    methods: {   
+        async login() {
+            var Cookies = require('vue-cookies')
+                try {
+                await Auth.signIn(this.state.email, this.state.password.password)
+                .then(data=>{
+                    console.log(Cookies.set('accessToken', data.signInUserSession))
+                    this.accToken=data.signInUserSession.accessToken.jwtToken
+                    this.role=true
+                    console.log(this.accToken)
+                })
+                    alert('Successfully logged in');
+                    console.log('Yes')
+                    //this.$store.commit("setAuthentication",true);
+                    this.$router.push('/home'); 
+                    
+                } catch (error) {
+                
+                    alert(error.message);
+                    console.log(error.message)
+                    console.log('No')
+                    this.role=false
+                }
+        },
+
         SubmitForm() {
             console.log('sucess')
             this.v$.$validate() // checks all inputs
             if (!this.v$.$error) { // if ANY fail validation
+                this.login();
                 console.log('Form successfully submitted.')
             } else {
                 console.log('Form failed validation')
             }
-        }
-    }    
+        }           
+    }  
 }
 </script>
-<style>
-        @import "signin.scss";
+<style lang="scss">
+        @import "signin";
 </style>
