@@ -117,3 +117,24 @@
     }
 
 }
+
+@media only screen and (max-width: 768px) {
+
+    .modal__header {
+        padding: 60px 30px !important;
+    }
+
+    .modal__header h2 {
+        font-size: 1.3rem !important;
+    }
+
+    .modal__body h5 {
+        margin-bottom: 10px !important;
+    }
+
+    .modal__body{
+        padding: 60px 30px !important;
+        padding-top: 0 !important;
+    }
+
+}
