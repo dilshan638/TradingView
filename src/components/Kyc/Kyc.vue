@@ -1,7 +1,7 @@
 <template>
-    <div class="kfc-page">
-      <div id='getid-component'>
-        <h2 style="color:white; text-align:center; width:100%;">Please wait. We will redirect to KYC PLatform</h2>
+    <div class="kfc-page" style="position: fixed; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+      <div id='getid-component' style="width:100%;">
+        <h2 style="color:white; text-align:center; width:100%; font-size: 1.6rem; font-weight: 500;">Please wait. We will redirect to KYC PLatform</h2>
       </div>
     </div>  
 </template>

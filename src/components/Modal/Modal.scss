@@ -133,8 +133,17 @@
     }
 
     .modal__body{
-        padding: 60px 30px !important;
+        padding: 30px 30px !important;
         padding-top: 0 !important;
+    }
+
+    .modal__footer {
+        padding: 30px !important;
+
+        button{
+            width: 100% !important;
+            max-width: none !important;
+        }
     }
 
 }
