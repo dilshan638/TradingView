@@ -1,7 +1,7 @@
 <template>
     <div class="kfc-page">
       <div id='getid-component'>
-        <h2 style="color:white">Loding...</h2>
+        <h2 style="color:white; text-align:center; width:100%;">Please wait. We will redirect to KYC PLatform</h2>
       </div>
     </div>  
 </template>
@@ -56,6 +56,6 @@ name:'Kyc',
 }
 </script>
 
-<style>
-
+<style lang="scss">
+        @import "kyc";
 </style>
