@@ -32,7 +32,7 @@
                 <template v-slot:body>
                     <h5 style="color:black">Enter your Email Address</h5>
                     <input type="email" class="form-control" placeholder="Email Address" style="color:#000" v-model="state.forgotpasswordemail" />
-                    <!-- <span class="error-msg" v-if="v$.forgotpasswordemail.$error">{{ v$.forgotpasswordemail.$errors[0].$message }} </span> -->
+                     <span class="error-msg" v-if="v$.forgotpasswordemail.$error">{{ v$.forgotpasswordemail.$errors[0].$message }} </span> 
                 </template>
 
                 <template v-slot:footer>
@@ -56,15 +56,19 @@
 
                     <div class="form-group mb-4">
                         <input type="text" class="form-control" placeholder="Email Verification code" v-model="state.verificationCode" />
-                    </div>
+                         <span class="error-msg" v-if="v$.verificationCode.$error">{{ v$.verificationCode.$errors[0].$message }} </span> 
+                 </div>
 
                     <div class="form-group mb-4">
-                        <input type="password" class="form-control" placeholder="Password" v-model="state.forgotPassword.newPassword" />
-                    </div>
+                        <input type="password" class="form-control" placeholder="Password" v-model="state.newPassword" />
+                          <span class="error-msg" v-if="v$.newPassword.$error">{{ v$.newPassword.$errors[0].$message }} </span> 
+                 </div>
 
                     <div class="form-group">
                         <input type="password" class="form-control" placeholder="Confirm Password" v-model="state.confirmPassword" />
-                    </div>                                                
+                       <span class="error-msg" v-if="v$.confirmPassword.$error">{{ v$.confirmPassword.$errors[0].$message }} </span> 
+               
+                  </div>                                                
                     
                 </template>
 
@@ -99,7 +103,7 @@
 <script>
 import { Auth } from 'aws-amplify';
 import useValidate from '@vuelidate/core'
-import { required, email } from '@vuelidate/validators'
+import { required, email,sameAs } from '@vuelidate/validators'
 import { reactive, computed } from 'vue'
 import Modal from "../Modal/Modal.vue";
 
@@ -113,7 +117,11 @@ export default {
             email:'',
             password: {
                 password: ''
-            }
+            },
+            forgotpasswordemail:'',
+            verificationCode:'',
+            newPassword:'',
+            confirmPassword:'',
         })
 
         const rules = computed(() => {
@@ -126,7 +134,22 @@ export default {
                     password: { 
                         required
                     }
-                }
+                },
+                forgotpasswordemail:{
+                    email,
+                    required
+                },
+                verificationCode:{
+                    required
+                },
+                newPassword:{
+                     required
+                },
+                confirmPassword:{
+                     required,
+                     sameAs:sameAs(state.newPassword)
+                },
+                
             }    
         }) 
         
@@ -172,14 +195,82 @@ export default {
 
         SubmitForm() {
             console.log('sucess')
-            this.v$.$validate() // checks all inputs
+            this.v$.email.$touch()
+                 this.v$.password.password.$touch()
             if (!this.v$.$error) { // if ANY fail validation
                 this.login();
                 console.log('Form successfully submitted.')
             } else {
                 console.log('Form failed validation')
             }
-        }           
+        }  ,
+        
+         async forgotpassword(){
+             this.v$.forgotpasswordemail.$touch()
+
+              if(!this.v$.$error){
+                  var username = this.state.forgotpasswordemail
+            try{
+                await Auth.forgotPassword(username)
+             .then(data => {
+                 console.log(data)
+                 console.log("Success");
+             })
+             this.$refs.forgotpasswordmodal.closeModal();
+             this.$refs.otpcodemodal.openModal()
+                
+            }catch(error){
+                 console.log('Sending  Failed Code')
+            }
+             }else{
+                 console.log('Sending  Failed Code') 
+             }
+           
+        },async otpcheck(){
+
+               this.v$.forgotpasswordemail.$touch()
+               this.v$.verificationCode.$touch()
+               this.v$.newPassword.$touch()
+               this.v$.confirmPassword.$touch()
+           
+           
+           if(!this.v$.$error){
+               try{
+                var username = this.state.forgotpasswordemail
+                var code = this.state.verificationCode
+                var new_password = this.state.newPassword
+
+                await Auth.forgotPasswordSubmit(username, code, new_password)
+               .then(data => {
+                 console.log(data)
+                 console.log("Success");
+             })
+
+              this.$refs.otpcodemodal.closeModal();
+             this.$refs.successmodal.openModal()
+    
+            }catch(error){
+                 console.log('Reset  Failed ')
+                 console.log(error);
+            }
+           }else{
+               console.log('Reset validation Failed ')
+           }
+        },
+
+        async resend(){
+            var username = this.state.forgotpasswordemail
+            
+              await Auth.forgotPassword(username)
+             .then(data => {
+                 console.log(data)
+                 console.log("Success");
+             })
+            
+          }
+
+
+        
     }  
 }
 </script>

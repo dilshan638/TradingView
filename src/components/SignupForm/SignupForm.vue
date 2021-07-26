@@ -2,7 +2,7 @@
     <div class="form-layout">
         <div class="row">
             <div class="col-md-12">
-                <div class="right-form">
+                <div class="right-form signup">
                     <h3>Register your account here.</h3>
                         <input type="hidden" v-model="picture" />
                         <input type="hidden" v-model="website" />
