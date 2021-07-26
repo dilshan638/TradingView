@@ -1,8 +1,9 @@
 <template>
-    <div class="form-layout">
+    <div class="form-layout signup-area">
         <div class="row">
             <div class="col-md-12">
                 <div class="right-form signup">
+                    <router-link to="/signin"><div class="close-mark"><i class="ri-close-line"></i></div></router-link>
                     <h3>Register your account here.</h3>
                         <input type="hidden" v-model="picture" />
                         <input type="hidden" v-model="website" />
@@ -137,16 +138,26 @@
                                     <div class="row">
                                         <div class="col-md-10">
                                             <div class="form-group mb-4">
-                                                <input type="password" placeholder="Password" v-model="state.password" class="form-control" />
-                                            <span class="error-msg" v-if="v$.password.$error">{{ v$.password.$errors[0].$message }} </span>                                            
+                                                <div class="eye-area mb-4">
+                                                    <input v-bind:type="[showPassword ? 'text' : 'password']" placeholder="Password" v-model="state.password" class="form-control" />
+                                                    <div class="eye-box">
+                                                        <i @click="showPassword = !showPassword" :class="[showPassword ? 'ri-eye-off-line' : 'ri-eye-line']" aria-hidden="true"></i>  
+                                                    </div>                                
+                                                    <span class="error-msg" v-if="v$.password.$error">{{ v$.password.$errors[0].$message }}</span>     
+                                                </div>                                       
                                             </div>
                                         </div>                                                                                                                                                                                
                                     </div>
                                     <div class="row">
                                         <div class="col-md-10">
                                             <div class="form-group mb-4">
-                                                <input type="password" placeholder="Confirm Password" v-model="state.confirm_password" class="form-control" />
-                                            <span class="error-msg" v-if="v$.confirm_password.$error">{{ v$.confirm_password.$errors[0].$message }} </span>                                            
+                                                <div class="eye-area">
+                                                    <input v-bind:type="[showPasswordConfirm ? 'text' : 'password']"   placeholder="Confirm Password" v-model="state.confirm_password" class="form-control" />
+                                                    <div class="eye-box">
+                                                        <i @click="showPasswordConfirm = !showPasswordConfirm" :class="[showPasswordConfirm ? 'ri-eye-off-line' : 'ri-eye-line']" aria-hidden="true"></i>  
+                                                    </div>
+                                                    <span class="error-msg" v-if="v$.confirm_password.$error">{{ v$.confirm_password.$errors[0].$message }} </span>  
+                                                </div>                                          
                                             </div>
                                         </div>                                                                                                                                                                                
                                     </div>
@@ -224,8 +235,8 @@ export default {
         return { 
             isHidden: false,
             showPassword: false,
+            showPasswordConfirm: false,
             isHiddenMobile: false,
-            showPasswordMobile: false,
             profileTab: true,
             addressTab: false,
             passwordTab: false,

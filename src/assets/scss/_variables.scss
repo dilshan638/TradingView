@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&display=swap');
+
+body{
+    font-family: 'Rubik', sans-serif;
+}
+
 button, .btn{
     background-color: #0177fb;
     border-radius: 25px;
@@ -22,6 +28,13 @@ button, .btn{
 button.dark,
 .btn.dark{
     background-color: #1b1b1b;
+}
+
+.close-mark{
+    position: absolute;
+    right: 40px;
+    top: 40px;
+    cursor: pointer;
 }
 
 .form-control{
@@ -57,7 +70,51 @@ button.dark,
     }
 }
 
+.eye-area{
+
+    float: left;
+    width: 100%;
+    position: relative;
+
+    .eye-box{
+        position: absolute;
+        top: 15px;
+        right: 25px;
+        cursor: pointer;
+    }
+}
+
 @media only screen and (max-width: 768px) {
+
+    .mobile-hide{
+        display: none !important;
+    }
+
+    .main-layout{
+
+        .right-form{
+            padding: 0 !important;
+
+            h3{
+                text-align: center;
+            }
+        }
+
+        .tab-view{
+            padding: 0 !important;
+        }
+
+        .slide-btn{
+            max-width: 100% !important;
+            min-width: auto !important;
+            margin-left: 0 !important;
+            margin-top: 30px !important;
+            float: left;
+        }
+
+    }
+
+
 
     .modal{
 
@@ -65,6 +122,34 @@ button.dark,
             margin-top: 5px !important;
         }
 
+    }
+
+    .right-form.signup{
+
+        .tab-area{
+
+            li{
+                float: left;
+                width: 100%;
+
+                button{
+                    padding-bottom: 9px;
+                }
+            }
+
+        }
+
+
+        h3{
+            font-size: 1.2rem;
+        }
+
+    }
+
+    .profile-pic {
+        width: 101px !important;
+        height: 100px !important;
+        margin-bottom: 20px !important;
     }
 
 
@@ -112,4 +197,45 @@ button.dark,
         height: 130px !important;
     }
 
+    label.btn{
+        height: 1rem !important;
+        font-size: 0.85rem !important;
+        min-height: 2.8rem !important;
+        line-height: 31px !important;
+        margin-bottom: 30px !important;
+    }
+
+    .form-layout.signup-area{
+        min-height: 835px !important;
+        margin-top: 60px !important;
+    }
+
+    .side-btn{
+        float: left !important;
+        margin-left: 0px !important;
+        margin-top: 30px !important;
+    }
+
+    body{
+        background-color: #fff !important;
+        }
+
 }
+
+@media only screen and (min-width: 768px) {
+
+    .no-padding{
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    body{
+        background-color: #182769 !important;
+    }
+
+    .form-layout.signup-area{
+        min-height: 590px !important;
+    }
+
+}
+

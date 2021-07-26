@@ -1,22 +1,29 @@
 <template>
     <div class="form-layout">
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-6 mobile-hide no-padding">
                 <div class="left-logo">
                     <img src="images/logo/logo.png" />
                 </div>
             </div>
-            <div class="col-md-7">
+            <div class="col-md-6 no-padding">
                 <div class="right-form">
                     <h2>LDX Exchange</h2>
-                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing <br/>
-                    elitr, sed diam nonumy eirmod tempor invidunt ut</p>
+                    <p>Lorem ipsum dolor sit amet ipsum<br/>
+                    consetetur sadipscing </p>
 
-                    <input type="email" placeholder="Email Address" v-model="state.email" class="form-control" /><br/>
-                    <span class="error-msg" v-if="v$.email.$error">{{ v$.email.$errors[0].$message }} </span>
+                    <div class="eye-area">
+                        <input placeholder="Email Addres.s" v-model="state.email" class="form-control" /><br/>
+                        <span class="error-msg" v-if="v$.email.$error">{{ v$.email.$errors[0].$message }} </span>
+                    </div>
 
-                    <input type="password" placeholder="Password" v-model="state.password.password" class="form-control" /><br/>
-                    <span class="error-msg" v-if="v$.password.password.$error">{{ v$.password.$errors[0].$message }} </span>
+                    <div class="eye-area">
+                        <input v-bind:type="[showPassword ? 'text' : 'password']" placeholder="Password" v-model="state.password.password" class="form-control" /><br/>
+                            <div class="eye-box">
+                                <i @click="showPassword = !showPassword" :class="[showPassword ? 'ri-eye-off-line' : 'ri-eye-line']" aria-hidden="true"></i>  
+                            </div>
+                        <span class="error-msg" v-if="v$.password.password.$error">{{ v$.password.$errors[0].$message }} </span>                        
+                    </div>
 
                     <button class="centered" @click="SubmitForm">Login</button>
                     <span class="forgot-link" @click="$refs.forgotpasswordmodal.openModal()">Forgot Password</span>
@@ -57,25 +64,34 @@
                     <div class="form-group mb-4">
                         <input type="text" class="form-control" placeholder="Email Verification code" v-model="state.verificationCode" />
                          <span class="error-msg" v-if="v$.verificationCode.$error">{{ v$.verificationCode.$errors[0].$message }} </span> 
-                 </div>
+                    </div>
 
                     <div class="form-group mb-4">
-                        <input type="password" class="form-control" placeholder="Password" v-model="state.newPassword" />
-                          <span class="error-msg" v-if="v$.newPassword.$error">{{ v$.newPassword.$errors[0].$message }} </span> 
-                 </div>
+                        <div class="eye-area">
+                            <input v-bind:type="[showPasswordotp ? 'text' : 'password']" class="form-control" placeholder="Password" v-model="state.newPassword" />
+                                <div class="eye-box">
+                                    <i @click="showPasswordotp = !showPasswordotp" :class="[showPasswordotp ? 'ri-eye-off-line' : 'ri-eye-line']" aria-hidden="true"></i>  
+                                </div>                        
+                            <span class="error-msg" v-if="v$.newPassword.$error">{{ v$.newPassword.$errors[0].$message }} </span> 
+                        </div>
+                    </div>
 
                     <div class="form-group">
-                        <input type="password" class="form-control" placeholder="Confirm Password" v-model="state.confirmPassword" />
-                       <span class="error-msg" v-if="v$.confirmPassword.$error">{{ v$.confirmPassword.$errors[0].$message }} </span> 
-               
-                  </div>                                                
+                        <div class="eye-area">
+                            <input v-bind:type="[showPasswordotpconfirm ? 'text' : 'password']" class="form-control" placeholder="Confirm Password" v-model="state.confirmPassword" />
+                                <div class="eye-box">
+                                    <i @click="showPasswordotpconfirm = !showPasswordotpconfirm" :class="[showPasswordotpconfirm ? 'ri-eye-off-line' : 'ri-eye-line']" aria-hidden="true"></i>  
+                                </div>                         
+                        <span class="error-msg" v-if="v$.confirmPassword.$error">{{ v$.confirmPassword.$errors[0].$message }} </span> 
+                        </div>
+                    </div>                                                
                     
                 </template>
 
                 <template v-slot:footer>
                     <div>
                         <button @click="otpcheck">Next</button>
-                        <span class="resend-area">Didn't Received <a href="#" @click="resend">Resend link</a></span>
+                        <span class="resend-area">Didn't Received <a href="#" @click="resend">Resend Code</a></span>
                     </div>
                 </template>
             </modal>   
@@ -160,6 +176,8 @@ export default {
         return { 
             isHidden: false,
             showPassword: false,
+            showPasswordotp: false,
+            showPasswordotpconfirm: false,
             isHiddenMobile: false,
             showPasswordMobile: false
 
@@ -207,7 +225,6 @@ export default {
         
          async forgotpassword(){
              this.v$.forgotpasswordemail.$touch()
-
               if(!this.v$.$error){
                   var username = this.state.forgotpasswordemail
             try{
@@ -216,8 +233,11 @@ export default {
                  console.log(data)
                  console.log("Success");
              })
-             this.$refs.forgotpasswordmodal.closeModal();
-             this.$refs.otpcodemodal.openModal()
+            
+                  this.$refs.forgotpasswordmodal.closeModal();
+                  this.$refs.otpcodemodal.openModal()
+            
+            
                 
             }catch(error){
                  console.log('Sending  Failed Code')
@@ -234,7 +254,7 @@ export default {
                this.v$.confirmPassword.$touch()
            
            
-           if(!this.v$.$error){
+           if(!this.v$.$error && this.state.confirmPassword===this.state.newPassword){
                try{
                 var username = this.state.forgotpasswordemail
                 var code = this.state.verificationCode
@@ -251,7 +271,6 @@ export default {
     
             }catch(error){
                  console.log('Reset  Failed ')
-                 console.log(error);
             }
            }else{
                console.log('Reset validation Failed ')
@@ -271,7 +290,10 @@ export default {
 
 
         
-    }  
+    },
+    mounted() {
+        
+    }
 }
 </script>
 <style lang="scss">
