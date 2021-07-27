@@ -8,17 +8,17 @@
             </div>
             <div class="col-md-6 no-padding">
                 <div class="right-form">
-                    <h2>LDX Exchange</h2>
+                    <h2>LDCX Exchange</h2>
                     <p>Lorem ipsum dolor sit amet ipsum<br/>
                     consetetur sadipscing </p>
 
-                    <div class="eye-area">
-                        <input placeholder="Email Addres.s" v-model="state.email" class="form-control" /><br/>
+                    <div class="eye-area mb-4">
+                        <input placeholder="Email Addres.s" v-model="state.email" class="form-control" />
                         <span class="error-msg" v-if="v$.email.$error">{{ v$.email.$errors[0].$message }} </span>
                     </div>
 
-                    <div class="eye-area">
-                        <input v-bind:type="[showPassword ? 'text' : 'password']" placeholder="Password" v-model="state.password.password" class="form-control" /><br/>
+                    <div class="eye-area mb-4">
+                        <input v-bind:type="[showPassword ? 'text' : 'password']" placeholder="Password" v-model="state.password.password" class="form-control" />
                             <div class="eye-box">
                                 <i @click="showPassword = !showPassword" :class="[showPassword ? 'ri-eye-off-line' : 'ri-eye-line']" aria-hidden="true"></i>  
                             </div>
@@ -270,7 +270,7 @@ export default {
              this.$refs.successmodal.openModal()
     
             }catch(error){
-                 console.log('Reset  Failed ')
+                 console.log(error);
             }
            }else{
                console.log('Reset validation Failed ')
@@ -292,7 +292,7 @@ export default {
         
     },
     mounted() {
-        
+        this.$refs.successmodal.closeModal();
     }
 }
 </script>

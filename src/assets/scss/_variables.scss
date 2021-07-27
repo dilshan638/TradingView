@@ -86,6 +86,11 @@ button.dark,
 
 @media only screen and (max-width: 768px) {
 
+    .close-mark {
+        right: 2px;
+        top: -3px;
+    }
+
     .mobile-hide{
         display: none !important;
     }
@@ -130,10 +135,15 @@ button.dark,
 
             li{
                 float: left;
-                width: 100%;
+                width: 33%;
 
                 button{
                     padding-bottom: 9px;
+                    width: 100% !important;
+                    min-width: initial;
+                    font-size: 0.72rem;
+                    min-height: 0;
+                    line-height: 25px;
                 }
             }
 
@@ -218,7 +228,27 @@ button.dark,
 
     body{
         background-color: #fff !important;
+    }
+
+    .right-form.signup {
+
+        h3{
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            margin-top: 30px;
         }
+
+    }
+
+    .form-check {
+        font-size: 0.9rem;
+    }
+
+    .right-form.signup .error-msg{
+        margin-top: -2px !important;
+        float: left !important;
+        font-size: 0.8rem !important;
+    }
 
 }
 

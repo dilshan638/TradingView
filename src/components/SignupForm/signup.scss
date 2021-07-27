@@ -6,7 +6,7 @@
         margin-top: 7px;
     }
 
-    .nav-link.active{
+    .nav-link.current{
         background-color: transparent !important;
         border-radius: 0;
         color: #363636;
@@ -55,6 +55,11 @@
     border-radius: 0;
     font-size: 1.2rem;
     color: #c5c5c5;
+}
+
+
+.form-check{
+    font-size: 1rem;
 }
 
 .nav-pills{

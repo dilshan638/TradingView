@@ -3,7 +3,6 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="right-form signup">
-                    <router-link to="/signin"><div class="close-mark"><i class="ri-close-line"></i></div></router-link>
                     <h3>Register your account here.</h3>
                         <input type="hidden" v-model="picture" />
                         <input type="hidden" v-model="website" />
@@ -26,6 +25,8 @@
                             </li>
                         </ul>
                         <div class="tab-content" id="pills-tabContent">
+
+
                             <div class="tab-pane fade"
                             v-bind:class="[profileTab ? 'show active' : '']"
                             id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
@@ -58,11 +59,9 @@
 
                                             <div class="form-group">
                                                 <div class="row">
-                                                    <!-- <div class="col-4">
-                                                        <input type="text" placeholder="+94" v-model="phcode" class="form-control" />
-                                                    </div> -->
+                                                     <div class="col-12">
+                                                      <vue-tel-input class="form-control" aria-autocomplete="none" v-model="phone" v-on:validate="countryChanged" :inputOptions="options" :dropdownOptions="options2"> </vue-tel-input></div> 
                                                     <div class="col-12">
-                                                        <input type="text" placeholder="Phone No" v-model="state.phone_number" class="form-control" />
                                                         <span class="error-msg" v-if="v$.phone_number.$error">{{ v$.phone_number.$errors[0].$message }} </span>
                                                     </div>
                                                 </div>
@@ -85,10 +84,13 @@
 
                                         <div class="col-md-6">
                                             <div class="form-group mb-4">
-                                                <input type="text" placeholder="Country" v-model="state.country" class="form-control" />
+                                                     <select placeholder="Country" v-model="state.country" class="form-control"  >
+                                                         <option value="">Select Country</option>
+                                                         <option  :value="country.name" v-for="(country) in countryList" :key="country.code">{{country.name}}</option>
+                                                    </select>
                                                 <span class="error-msg" v-if="v$.country.$error">{{ v$.country.$errors[0].$message }} </span>                                            
                                             </div>
-                                        </div>    
+                                        </div>
 
                                         <div class="col-md-6">
                                             <div class="form-group mb-4">
@@ -138,26 +140,16 @@
                                     <div class="row">
                                         <div class="col-md-10">
                                             <div class="form-group mb-4">
-                                                <div class="eye-area mb-4">
-                                                    <input v-bind:type="[showPassword ? 'text' : 'password']" placeholder="Password" v-model="state.password" class="form-control" />
-                                                    <div class="eye-box">
-                                                        <i @click="showPassword = !showPassword" :class="[showPassword ? 'ri-eye-off-line' : 'ri-eye-line']" aria-hidden="true"></i>  
-                                                    </div>                                
-                                                    <span class="error-msg" v-if="v$.password.$error">{{ v$.password.$errors[0].$message }}</span>     
-                                                </div>                                       
+                                                <input type="password" placeholder="Password" v-model="state.password" class="form-control" />
+                                            <span class="error-msg" v-if="v$.password.$error">{{ v$.password.$errors[0].$message }} </span>                                            
                                             </div>
                                         </div>                                                                                                                                                                                
                                     </div>
                                     <div class="row">
                                         <div class="col-md-10">
                                             <div class="form-group mb-4">
-                                                <div class="eye-area">
-                                                    <input v-bind:type="[showPasswordConfirm ? 'text' : 'password']"   placeholder="Confirm Password" v-model="state.confirm_password" class="form-control" />
-                                                    <div class="eye-box">
-                                                        <i @click="showPasswordConfirm = !showPasswordConfirm" :class="[showPasswordConfirm ? 'ri-eye-off-line' : 'ri-eye-line']" aria-hidden="true"></i>  
-                                                    </div>
-                                                    <span class="error-msg" v-if="v$.confirm_password.$error">{{ v$.confirm_password.$errors[0].$message }} </span>  
-                                                </div>                                          
+                                                <input type="password" placeholder="Confirm Password" v-model="state.confirm_password" class="form-control" />
+                                            <span class="error-msg" v-if="v$.confirm_password.$error">{{ v$.confirm_password.$errors[0].$message }} </span>                                            
                                             </div>
                                         </div>                                                                                                                                                                                
                                     </div>
@@ -179,6 +171,7 @@
                                     </div>                                  
                                 </div>
                             </div>
+ 
                         </div>                        
                     </div>
                 </div>
@@ -191,9 +184,11 @@ import useValidate from '@vuelidate/core'
 import { required, email,minLength, sameAs} from '@vuelidate/validators'
 import { reactive, computed } from 'vue'
 import { Auth } from 'aws-amplify';
+let countries = require('../SignupForm/countries');
 export default {
   components: { },
     name:'SignupForm',
+
     setup() {
         const state = reactive({         
             first_name:'',
@@ -210,6 +205,7 @@ export default {
             confirm_password:'',
             picture:'',
             website:'',
+            
         })
         const rules = computed(() => {
             return {
@@ -235,15 +231,32 @@ export default {
         return { 
             isHidden: false,
             showPassword: false,
-            showPasswordConfirm: false,
             isHiddenMobile: false,
+            showPasswordMobile: false,
             profileTab: true,
             addressTab: false,
             passwordTab: false,
-            picture:null
+            picture:null,
+            countryList: countries, 
+
+
+            options: { 
+                 placeholder: "Phone Number",
+                 autoFormat:true,
+                mode:true
+                     },
+            options2:{
+                showDialCodeInList:true,
+                showDialCodeInSelection:true,
+                showFlags:true,
+            }
         }
     },
-    methods: {     
+    methods: {   
+         countryChanged(phoneObject) {
+         this.state.phone_number = phoneObject.number
+         
+    },  
         profilesubmit() {
             this.addressTab = true;
             this.profileTab = false;
@@ -254,6 +267,9 @@ export default {
             this.passwordTab = true;
         },
          SubmitForm() {
+             console.log("Pno");
+             console.log(this.state.phone_number);
+     
             this.v$.$validate() // checks all inputs
             if (!this.v$.$error) { // if ANY fail validation
                 console.log('Form successfully submitted.')
@@ -283,7 +299,8 @@ export default {
 
                      }
                 });
-                alert('User successfully registered. Please login');
+               // alert('User successfully registered. Please login');
+                this.$router.push('/signin');
                 //this.$router.push('/check');
             } catch (error) {
                 alert(error.message);
@@ -301,6 +318,7 @@ export default {
             };
         }
     },
+   
     mounted() {
     }   
 }
