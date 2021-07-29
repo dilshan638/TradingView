@@ -13,7 +13,7 @@
                     consetetur sadipscing </p>
 
                     <div class="eye-area mb-4">
-                        <input placeholder="Email Addres.s" v-model="state.email" class="form-control" />
+                        <input placeholder="Email" v-model="state.email" class="form-control" />
                         <span class="error-msg" v-if="v$.email.$error">{{ v$.email.$errors[0].$message }} </span>
                     </div>
 
@@ -25,29 +25,53 @@
                         <span class="error-msg" v-if="v$.password.password.$error">{{ v$.password.$errors[0].$message }} </span>                        
                     </div>
 
-                    <button class="centered" @click="SubmitForm">Login</button>
+                    <button class="centered login-btn" @click="SubmitForm">Login</button>
                     <span class="forgot-link" @click="$refs.forgotpasswordmodal.openModal()">Forgot Password</span>
                     <span class="reg">to LDX eFolio?  <router-link to="/signup">Register here</router-link></span>
                 </div>
             </div>
         </div>
-            <modal ref="forgotpasswordmodal">
+            <modal ref="forgotpasswordmodal" class="forgot-modal">
                 <template v-slot:header>
                     <h2 style="color:black">Reset your Password</h2>
                 </template>
-
                 <template v-slot:body>
-                    <h5 style="color:black">Enter your Email Address</h5>
-                    <input type="email" class="form-control" placeholder="Email Address" style="color:#000" v-model="state.forgotpasswordemail" />
-                     <span class="error-msg" v-if="v$.forgotpasswordemail.$error">{{ v$.forgotpasswordemail.$errors[0].$message }} </span> 
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs modal-nav" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Email</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Mobile</button>
+                    </li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content modal-tab">
+
+                    <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">                                            
+
+                        
+                            <h5 style="color:black">Enter your Email Address</h5>
+                            <div class="form-group pos-rel">    
+                                <input type="email" class="form-control" placeholder="Email Address" style="color:#000" v-model="state.forgotpasswordemail" />
+                                <span class="error-msg" v-if="v$.forgotpasswordemail.$error">{{ v$.forgotpasswordemail.$errors[0].$message }} </span>  
+                            </div>
+
+                            <div class="modal-buttons">
+                                <button class="mb-3" @click="forgotpassword">Send Now</button>
+                                <button  class="second-btn mb-3" @click="$refs.forgotpasswordmodal.closeModal()">Cancel</button>
+                            </div>  
+
+                    </div>
+
+                    <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        Coming soon
+                    </div>
+                    
+                    </div>
+
                 </template>
 
-                <template v-slot:footer>
-                    <div>
-                        <button class="mb-3" @click="forgotpassword">Send Now</button>
-                        <button  class="second-btn mb-3" @click="$refs.forgotpasswordmodal.closeModal()">Cancel</button>
-                    </div>
-                </template>
             </modal>
 
             <modal ref="otpcodemodal">
@@ -98,7 +122,7 @@
 
             <modal ref="successmodal">
                 <template v-slot:header>
-                    <h2 style="color:black">Password Changed</h2>
+                    <h2 style="color:black">Password Changed!</h2>
                 </template>
 
                 <template v-slot:body>
@@ -203,8 +227,6 @@ export default {
                      
                     
                 } catch (error) {
-                
-                    alert(error.message);
                     console.log(error.message)
                     console.log('No')
                     this.role=false
@@ -221,9 +243,14 @@ export default {
             } else {
                 console.log('Form failed validation')
             }
-        }  ,
-        
+        },
+
+        closeModal() {
+            alert("test");
+        },
+            
          async forgotpassword(){
+
              this.v$.forgotpasswordemail.$touch()
               if(!this.v$.$error){
                   var username = this.state.forgotpasswordemail
@@ -232,10 +259,12 @@ export default {
              .then(data => {
                  console.log(data)
                  console.log("Success");
+                 this.state.forgotpasswordemail = ""
              })
+             
             
-                  this.$refs.forgotpasswordmodal.closeModal();
-                  this.$refs.otpcodemodal.openModal()
+            this.$refs.forgotpasswordmodal.closeModal();
+            this.$refs.otpcodemodal.openModal()
             
             
                 
@@ -246,7 +275,9 @@ export default {
                  console.log('Sending  Failed Code') 
              }
            
-        },async otpcheck(){
+        },
+        
+        async otpcheck(){
 
                this.v$.forgotpasswordemail.$touch()
                this.v$.verificationCode.$touch()
@@ -286,7 +317,12 @@ export default {
                  console.log("Success");
              })
             
-          }
+        },
+ 
+        openModal(){
+            alert("e");
+            
+        }
 
 
         

@@ -3,89 +3,67 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="right-form signup">
+                    <router-link to="/signin"><div class="close-mark"><i class="ri-close-line"></i></div></router-link>
                     <h3>Register your account here.</h3>
                         <input type="hidden" v-model="picture" />
                         <input type="hidden" v-model="website" />
-                    <div class="tab-area">
-                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link profile-link"
-                                v-bind:class="[profileTab ? 'active' : '']"
-                                id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Persoanl Info</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link address-link" 
-                                v-bind:class="[addressTab ? 'active' : '']"
-                                id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Address</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link password-link" 
-                                v-bind:class="[passwordTab ? 'active' : '']"
-                                id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Password</button>
-                            </li>
-                        </ul>
-                        <div class="tab-content" id="pills-tabContent">
-
-
-                            <div class="tab-pane fade"
-                            v-bind:class="[profileTab ? 'show active' : '']"
-                            id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                                <div class="tab-view profile-view">
-                                    <form>
-                                        <div class="row">
-                                            <div class="col-md-5">
-                                                <div class="profile-pic">
-                                                    <img :src="picture" class="uploading-image" />
-                                                </div>
-                                                <input type="file" accept="image/png, image/gif, image/jpeg" id="pro-pic" style="display:none" @change=uploadImage>
-                                                <label class="btn btn-primary dark centered" for="pro-pic">
-                                                    Update Profile Picture
-                                                </label>                                            
-                                            </div>
-                                            <div class="col-md-7">
-                                                <div class="form-group mb-3">
-                                                    <input type="text" placeholder="First Name" v-model="state.first_name" class="form-control" />
-                                                        <span class="error-msg" v-if="v$.first_name.$error">{{ v$.first_name.$errors[0].$message }} </span>         
-                                                </div>
-
-                                                <div class="form-group mb-3">
-                                                    <input type="text" placeholder="Last Name" v-model="state.last_name" class="form-control" />
-                                                <span class="error-msg" v-if="v$.last_name.$error">{{ v$.last_name.$errors[0].$message }} </span>                                            
-                                                </div>
-
-                                                <div class="form-group mb-3">
-                                                    <input type="email" placeholder="Email" v-model="state.email" class="form-control" />
-                                                    <span class="error-msg" v-if="v$.email.$error">{{ v$.email.$errors[0].$message }} </span>                                           
-                                                </div>     
-
-                                                <div class="form-group">
-                                                    <div class="row">
-                                                        <div class="col-12">
-                                                        <vue-tel-input class="form-control" aria-autocomplete="none" v-model="phone" v-on:validate="countryChanged" :inputOptions="options" :dropdownOptions="options2"> </vue-tel-input></div> 
-                                                        <div class="col-12">
-                                                            <span class="error-msg" v-if="v$.phone_number.$error">{{ v$.phone_number.$errors[0].$message }} </span>
-                                                        </div>
-                                                    </div>
-                                                    <span class="error-msg"></span>                                            
-                                                </div>                                                                              
-                                            </div>
-                                        </div>
-                                    </form>
+                    <div class="step-area">
+                        <div class="step-link-area">
+                            <div class="step-link" v-bind:class="[profileTab ? 'current' : '']">Personal Info</div>
+                            <div class="step-link" v-bind:class="[addressTab ? 'current' : '']">Address</div>
+                            <div class="step-link" v-bind:class="[passwordTab ? 'current' : '']">Password</div>
+                        </div>
+                        <div class="step-tab-content">
+                            <div class="tab-read" v-bind:class="{ 'current': profileTab, 'de': !profileTab }">
+                                <div class="view-tab">
                                     <div class="row">
-                                        <div class="col-md-12">
-                                            <button class="pull-right slide-btn" @click="profilesubmit">Next</button>
+                                        <div class="col-md-5">
+                                            <div class="profile-pic">
+                                                <img :src="picture" class="uploading-image" />
+                                            </div>
+                                            <input type="file" accept="image/png, image/gif, image/jpeg" id="pro-pic" style="display:none" @change=uploadImage>
+                                            <label class="btn btn-primary dark centered" for="pro-pic">
+                                                Update Profile Picture
+                                            </label>                                            
+                                        </div>
+                                        <div class="col-md-7">
+                                            <div class="form-group mb-3 pos-rel">
+                                                <input type="text" placeholder="First Name" v-model="state.first_name" class="form-control" />
+                                                    <span class="error-msg" v-if="v$.first_name.$error">{{ v$.first_name.$errors[0].$message }} </span>         
+                                            </div>
+
+                                            <div class="form-group mb-3 pos-rel">
+                                                <input type="text" placeholder="Last Name" v-model="state.last_name" class="form-control" />
+                                            <span class="error-msg" v-if="v$.last_name.$error">{{ v$.last_name.$errors[0].$message }} </span>                                            
+                                            </div>
+
+                                            <div class="form-group mb-3 pos-rel">
+                                                <input type="email" placeholder="Email" v-model="state.email" class="form-control" />
+                                                <span class="error-msg" v-if="v$.email.$error">{{ v$.email.$errors[0].$message }} </span>                                           
+                                            </div>     
+
+                                            <div class="form-group pos-rel">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                    <vue-tel-input class="form-control" aria-autocomplete="none" v-model="phone" v-on:validate="countryChanged" :inputOptions="options" :dropdownOptions="options2"> </vue-tel-input></div> 
+                                                    <div class="col-12">
+                                                        <span class="error-msg" v-if="v$.phone_number.$error">{{ v$.phone_number.$errors[0].$message }} </span>
+                                                    </div>
+                                                </div>
+                                                <span class="error-msg"></span>                                            
+                                            </div>                                                                              
                                         </div>
                                     </div>
                                 </div>
+                                <div class="btn-tab-area">
+                                    <button @click="goaddress" class="btn go-address">Next</button>
+                                </div>
                             </div>
-                            <div class="tab-pane fade" 
-                            v-bind:class="[addressTab ? 'show active' : '']"
-                            id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                                <div class="tab-view address-view">
+                            <div class="tab-read" v-bind:class="{ 'current': addressTab, 'de': !addressTab }">
+                                <div class="view-tab">
                                     <div class="row">
-
                                         <div class="col-md-6">
-                                            <div class="form-group mb-4">
+                                            <div class="form-group pos-rel mb-4">
                                                      <select placeholder="Country" v-model="state.country" class="form-control"  >
                                                          <option value="">Select Country</option>
                                                          <option  :value="country.name" v-for="(country) in countryList" :key="country.code">{{country.name}}</option>
@@ -99,46 +77,49 @@
                                                 <input type="text" placeholder="Address Line 01" v-model="state.address_line_one" class="form-control" />
                                             <span class="error-msg" v-if="v$.address_line_one.$error">{{ v$.address_line_one.$errors[0].$message }} </span>                                           
                                             </div>
-                                        </div>    
+                                        </div>   
 
                                         <div class="col-md-6">
-                                            <div class="form-group mb-4">
+                                            <div class="form-group pos-rel  mb-4">
                                                 <input type="text" placeholder="Address Line 02" v-model="state.address_line_two" class="form-control" />
                                             <span class="error-msg" v-if="v$.address_line_two.$error">{{ v$.address_line_two.$errors[0].$message }} </span>                                           
                                             </div>
                                         </div>  
 
                                         <div class="col-md-6">
-                                            <div class="form-group mb-4">
+                                            <div class="form-group pos-rel mb-4">
                                                 <input type="text" placeholder="City" v-model="state.city" class="form-control" />
                                                 <span class="error-msg" v-if="v$.city.$error">{{ v$.city.$errors[0].$message }} </span>                                            
                                             </div>
                                         </div>     
 
                                         <div class="col-md-6">
-                                            <div class="form-group mb-4">
+                                            <div class="form-group pos-rel mb-4">
                                                 <input type="text" placeholder="State/ProvinceRegion" v-model="state.state" class="form-control" />
                                                 <span class="error-msg" v-if="v$.state.$error">{{ v$.state.$errors[0].$message }} </span>                                            
                                             </div>
                                         </div>  
 
                                         <div class="col-md-6">
-                                            <div class="form-group mb-4">
+                                            <div class="form-group pos-rel mb-4">
                                                 <input type="text" placeholder="Zip/ Postal Code" v-model="state.zip_code" class="form-control" />
                                                 <span class="error-msg" v-if="v$.zip_code.$error">{{ v$.zip_code.$errors[0].$message }} </span>                                           
                                             </div>
-                                        </div>                                                                                                                                               
+                                        </div>                                                                                  
                                                                                 
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <button class="pull-right slide-btn" @click="addresssubmit">Next</button>
+                                            <div class="btn-tab-area">
+                                                <button @click="gopassword" class="btn go-password">Next</button>
+                                            </div> 
                                         </div>
-                                    </div>                                
+                                    </div>   
                                 </div>
+                               
                             </div>
-                            <div class="tab-pane fade" v-bind:class="[passwordTab ? 'show active' : '']" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-                                <div class="tab-view password-view">
+                            <div class="tab-read" v-bind:class="{ 'current': passwordTab, 'de': !passwordTab }">
+                                <div class="view-tab">
                                     <div class="row">
                                         <div class="col-md-10">
                                             <div class="form-group mb-4">
@@ -150,8 +131,7 @@
                                                     <span class="error-msg" v-if="v$.password.$error">{{ v$.password.$errors[0].$message }} </span>     
                                                 </div>                                           
                                             </div>
-                                        </div>  
-                                                                                                                                                                                                                     
+                                        </div>                                                                                                                                                                                  
                                     </div>
                                     <div class="row">
                                         <div class="col-md-10">
@@ -171,22 +151,21 @@
                                         <div class="col-md-12">
                                             <div class="form-check">
                                                 <input type="checkbox" class="form-check-input" id="terms">
-                                                <label class="form-check-label" for="terms">I have read and understand Terms of Use</label>
-                                                <span>Terms of Use & Privacy Policy</span>
+                                                <label class="form-check-label" for="terms">
+                                                    By creating an account, you agree to eFolio's Conditions of 
+                                                    </label>
+                                                <a href="#"><span> Use and Privacy Notice.</span></a>
                                             </div>
                                         </div>                                                                                                                                                                                
-                                    </div>                                
-                                    
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <button class="pull-right slide-btn" @click="SubmitForm">Submit</button>
-                                        </div>
-                                    </div>                                  
+                                    </div>                                   
                                 </div>
+                                <div class="btn-tab-area">
+                                    <button @click="gosignup" class="btn go-signup">Next</button>
+                                </div>                                
                             </div>
- 
-                        </div>                        
+                        </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -198,6 +177,8 @@ import { required, email,minLength, sameAs} from '@vuelidate/validators'
 import { reactive, computed } from 'vue'
 import { Auth } from 'aws-amplify';
 let countries = require('../SignupForm/countries');
+
+
 export default {
   components: { },
     name:'SignupForm',
@@ -217,7 +198,7 @@ export default {
             password:'',
             confirm_password:'',
             picture:'',
-            website:'',
+            website:''            
             
         })
         const rules = computed(() => {
@@ -231,7 +212,7 @@ export default {
                 address_line_two: { required,minLength: minLength(2)},
                 city: { required,minLength: minLength(2)},
                 state: { required,minLength: minLength(2)},
-                zip_code: { required},
+                zip_code: { required},                
                 password: { required},
                 confirm_password: { required, sameAs:sameAs(state.password)}
              }    
@@ -250,6 +231,7 @@ export default {
             addressTab: false,
             passwordTab: false,
             picture:null,
+            website:null,
             countryList: countries, 
             showPasswordConfirm:false,
 
@@ -257,7 +239,7 @@ export default {
                  placeholder: "Phone Number",
                  autoFormat:true,
                 mode:true
-                     },
+            },
             options2:{
                 showDialCodeInList:true,
                 showDialCodeInSelection:true,
@@ -267,22 +249,49 @@ export default {
     },
     methods: {   
          countryChanged(phoneObject) {
-         this.state.phone_number = phoneObject.number
-         
-    },  
-        profilesubmit() {
-            this.addressTab = true;
-            this.profileTab = false;
+            this.state.phone_number = phoneObject.number 
+        },  
+        uploadImage(e){
+            const image = e.target.files[0];
+            const reader = new FileReader();
+            reader.readAsDataURL(image);
+            reader.onload = e =>{
+                this.picture = e.target.result;
+                console.log(this.picture);
+            };
+        },        
+        async goaddress() {
+            console.log("go address")
+
+            this.v$.first_name.$touch()
+            this.v$.last_name.$touch()
+            this.v$.email.$touch()
+            this.v$.phone_number.$touch()
+
+            if(!this.v$.first_name.$error &&  !this.v$.last_name.$error && !this.v$.email.$error && !this.v$.phone_number.$error){
+                console.log("pass ggg")
+               this.profileTab = false;
+               this.addressTab = true;
+            }
+
         }, 
-        addresssubmit() {
-            this.addressTab = false;
-            this.profileTab = false;
-            this.passwordTab = true;
+        async gopassword() {
+            this.v$.country.$touch()
+            this.v$.address_line_one.$touch()
+            this.v$.address_line_two.$touch()
+            this.v$.city.$touch()
+            this.v$.state.$touch()
+            this.v$.zip_code.$touch()
+           // this.addressTab = false;
+          //  this.passwordTab = true;
+            if(!this.v$.country.$error &&  !this.v$.address_line_one.$error && !this.v$.address_line_two.$error && !this.v$.city.$error && !this.v$.state.$error && !this.v$.state.$error){
+                console.log("pass ggg")
+               this.addressTab = false;
+               this.passwordTab = true;
+            }         
         },
-         SubmitForm() {
-             console.log("Pno");
-             console.log(this.state.phone_number);
-     
+        async gosignup() {
+             console.log("signup f");
             this.v$.$validate() // checks all inputs
             if (!this.v$.$error) { // if ANY fail validation
                 console.log('Form successfully submitted.')
@@ -320,15 +329,6 @@ export default {
                 console.log(error.message)
                 console.log('Sign Up Failed ')
             }
-        }, 
-        uploadImage(e){
-            const image = e.target.files[0];
-            const reader = new FileReader();
-            reader.readAsDataURL(image);
-            reader.onload = e =>{
-                this.picture = e.target.result;
-                console.log(this.picture);
-            };
         }
     },
    

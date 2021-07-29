@@ -27,6 +27,22 @@
 
 }
 
+.step-link{
+    float: left;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    color: #c5c5c5;
+    font-weight: 400 !important;
+}
+
+.step-link.current{
+    color: #363636;
+    background-color: transparent!important;
+    border-bottom: 4px solid #0177fb;
+    font-weight: 500;
+    font-size: 1.2rem;
+}
+
 .right-form{
     float: left;
     width: 100%;
@@ -36,6 +52,7 @@
 
     button{
         margin-top: 30px;
+        float: right;
     }
 
     h2{
@@ -120,6 +137,11 @@ img.correct{
 .loginbtn{
     margin-top: -30px;
     margin-bottom: 15px;
+}
+
+.centered.login-btn{
+    margin-top: 5px !important;
+    float: none !important;
 }
 
 @media only screen and (max-width: 768px) {
