@@ -26,7 +26,7 @@
                     </div>
 
                     <button class="centered login-btn" @click="SubmitForm">Login</button>
-                    <span class="forgot-link" @click="$refs.forgotpasswordmodal.openModal()">Forgot Password</span>
+                    <span class="forgot-link" @click="$refs.otpcodemodal.openModal()">Forgot Password</span>
                     <span class="reg">to LDX eFolio?  <router-link to="/signup">Register here</router-link></span>
                 </div>
             </div>
@@ -84,8 +84,9 @@
                     your registered email on LDCX</p>
 
                     <b>ab*@*.com</b>
+                    <span class="resend-area">Didn't Received <a href="#" @click="resend">Resend Code</a></span>
 
-                    <div class="form-group mb-4">
+                    <div class="form-group pos-rel mb-4">
                         <input type="text" class="form-control" placeholder="Email Verification code" v-model="state.verificationCode" />
                          <span class="error-msg" v-if="v$.verificationCode.$error">{{ v$.verificationCode.$errors[0].$message }} </span> 
                     </div>
@@ -115,7 +116,6 @@
                 <template v-slot:footer>
                     <div>
                         <button @click="otpcheck">Next</button>
-                        <span class="resend-area">Didn't Received <a href="#" @click="resend">Resend Code</a></span>
                     </div>
                 </template>
             </modal>   
@@ -244,10 +244,6 @@ export default {
                 console.log('Form failed validation')
             }
         },
-
-        closeModal() {
-            alert("test");
-        },
             
          async forgotpassword(){
 
@@ -316,11 +312,6 @@ export default {
                  console.log(data)
                  console.log("Success");
              })
-            
-        },
- 
-        openModal(){
-            alert("e");
             
         }
 

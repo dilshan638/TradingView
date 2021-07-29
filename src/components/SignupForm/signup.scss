@@ -112,7 +112,9 @@
     float: left;
     width: 100%;
     padding-top: 15px;
-    padding-bottom: 44px;
+    margin-bottom: 44px;
+    border-bottom: 2px solid #ece8e8;
+    padding-bottom: 0 !important;
 }
 
 .step-tab-content{

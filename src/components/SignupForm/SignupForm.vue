@@ -160,7 +160,7 @@
                                     </div>                                   
                                 </div>
                                 <div class="btn-tab-area">
-                                    <button @click="gosignup" class="btn go-signup">Next</button>
+                                    <button @click="gosignup" class="btn go-signup">Create Acccount</button>
                                 </div>                                
                             </div>
                         </div>
