@@ -45,7 +45,7 @@
                                             <div class="form-group pos-rel">
                                                 <div class="row">
                                                     <div class="col-12">
-                                                    <vue-tel-input class="form-control" aria-autocomplete="none" v-model="phone" v-on:validate="countryChanged" :inputOptions="options" :dropdownOptions="options2"> </vue-tel-input></div> 
+                                                    <vue-tel-input class="form-control" :valid-characters-only="true" aria-autocomplete="none" v-model="phone" v-on:validate="countryChanged" :inputOptions="options" :dropdownOptions="options2"> </vue-tel-input></div> 
                                                     <div class="col-12">
                                                         <span class="error-msg" v-if="v$.phone_number.$error">{{ v$.phone_number.$errors[0].$message }} </span>
                                                     </div>
@@ -62,26 +62,41 @@
                             <div class="tab-read" v-bind:class="{ 'current': addressTab, 'de': !addressTab }">
                                 <div class="view-tab">
                                     <div class="row">
+
                                         <div class="col-md-6">
                                             <div class="form-group pos-rel mb-4">
                                                      <select placeholder="Country" v-model="state.country" class="form-control"  >
                                                          <option value="">Select Country</option>
-                                                         <option  :value="country.name" v-for="(country) in countryList" :key="country.code">{{country.name}}</option>
+                                                         <option :value="country.name" v-for="(country) in countryList" :key="country.code">{{country.name}}</option>
                                                     </select>
                                                 <span class="error-msg" v-if="v$.country.$error">{{ v$.country.$errors[0].$message }} </span>                                            
                                             </div>
                                         </div>
 
+                                        <div class="col-md-6" v-if="state.country === 'United Kingdom'">
+                                            <div class="form-group pos-rel mb-4">
+                                                <select placeholder="County" class="form-control">
+                                                    <option value="">County</option>
+                                                    <option value="England">England</option>
+                                                    <option value="Scotland">Scotland</option>
+                                                    <option value="Wales">Wales</option>
+                                                    <option value="Nothern Ireland">Nothern Ireland</option>
+                                                    <option value="Jersay">Jersay</option>
+                                                    <option value="Guernsey">Guernsey</option>
+                                                </select>                                          
+                                            </div>
+                                        </div>                                        
+
                                         <div class="col-md-6">
                                             <div class="form-group mb-4">
-                                                <input type="text" placeholder="Address Line 01" v-model="state.address_line_one" class="form-control" />
+                                                <input type="text" placeholder="House Number" v-model="state.address_line_one" class="form-control" />
                                             <span class="error-msg" v-if="v$.address_line_one.$error">{{ v$.address_line_one.$errors[0].$message }} </span>                                           
                                             </div>
                                         </div>   
 
                                         <div class="col-md-6">
                                             <div class="form-group pos-rel  mb-4">
-                                                <input type="text" placeholder="Address Line 02" v-model="state.address_line_two" class="form-control" />
+                                                <input type="text" placeholder="Address Line 01" v-model="state.address_line_two" class="form-control" />
                                             <span class="error-msg" v-if="v$.address_line_two.$error">{{ v$.address_line_two.$errors[0].$message }} </span>                                           
                                             </div>
                                         </div>  
@@ -238,12 +253,13 @@ export default {
             options: { 
                  placeholder: "Phone Number",
                  autoFormat:true,
-                mode:true
+                 mode:'international'
             },
             options2:{
                 showDialCodeInList:true,
                 showDialCodeInSelection:true,
                 showFlags:true,
+
             }
         }
     },
@@ -286,8 +302,9 @@ export default {
           //  this.passwordTab = true;
             if(!this.v$.country.$error &&  !this.v$.address_line_one.$error && !this.v$.address_line_two.$error && !this.v$.city.$error && !this.v$.state.$error && !this.v$.state.$error){
                 console.log("pass ggg")
-               this.addressTab = false;
+               this.addressTab = true;
                this.passwordTab = true;
+               this.profileTab = true;
             }         
         },
         async gosignup() {
@@ -325,9 +342,9 @@ export default {
                 this.$router.push('/signin');
                 //this.$router.push('/check');
             } catch (error) {
-                alert(error.message);
+                this.$toast.show("Email already registered.", {type: "error", position: "top-right"});
                 console.log(error.message)
-                console.log('Sign Up Failed ')
+                console.log('Sign Up Failed')
             }
         }
     },

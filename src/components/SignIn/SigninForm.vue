@@ -26,7 +26,7 @@
                     </div>
 
                     <button class="centered login-btn" @click="SubmitForm">Login</button>
-                    <span class="forgot-link" @click="$refs.otpcodemodal.openModal()">Forgot Password</span>
+                    <span class="forgot-link" @click="$refs.forgotpasswordmodal.openModal()">Forgot Password</span>
                     <span class="reg">to LDX eFolio?  <router-link to="/signup">Register here</router-link></span>
                 </div>
             </div>
@@ -227,6 +227,7 @@ export default {
                      
                     
                 } catch (error) {
+                    this.$toast.show(error.message, {type: "error", position: "top-right"});
                     console.log(error.message)
                     console.log('No')
                     this.role=false
@@ -234,10 +235,10 @@ export default {
         },
 
         SubmitForm() {
-            console.log('sucess')
+            console.log('submit')
             this.v$.email.$touch()
-                 this.v$.password.password.$touch()
-            if (!this.v$.$error) { // if ANY fail validation
+            this.v$.password.password.$touch()
+            if (!this.v$.email.$touch.error && !this.v$.password.password.$touch.error) { // if ANY fail validation
                 this.login();
                 console.log('Form successfully submitted.')
             } else {
@@ -248,15 +249,15 @@ export default {
          async forgotpassword(){
 
              this.v$.forgotpasswordemail.$touch()
-              if(!this.v$.$error){
+              if(!this.v$.forgotpasswordemail.$error){
                   var username = this.state.forgotpasswordemail
             try{
                 await Auth.forgotPassword(username)
-             .then(data => {
-                 console.log(data)
-                 console.log("Success");
-                 this.state.forgotpasswordemail = ""
-             })
+                .then(data => {
+                    console.log(data)
+                    console.log("Success");
+                    this.state.forgotpasswordemail = ""
+                })
              
             
             this.$refs.forgotpasswordmodal.closeModal();
@@ -313,13 +314,13 @@ export default {
                  console.log("Success");
              })
             
-        }
-
-
-        
+        },
+        async showModal() {
+            alert("rrr");
+        },        
     },
     mounted() {
-        this.$refs.successmodal.closeModal();
+        
     }
 }
 </script>
