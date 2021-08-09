@@ -146,7 +146,7 @@ import useValidate from '@vuelidate/core'
 import { required, email,sameAs } from '@vuelidate/validators'
 import { reactive, computed } from 'vue'
 import Modal from "../Modal/Modal.vue";
-
+import CryptoJS from "crypto-js";
 export default {
     name:'signin',
     components: {
@@ -203,37 +203,53 @@ export default {
             showPasswordotp: false,
             showPasswordotpconfirm: false,
             isHiddenMobile: false,
-            showPasswordMobile: false
+            showPasswordMobile: false,
 
+            
+             data: {
+                firstName: "",
+                lastName: "",
+                email: "",
+                url:'https://inspira.exus.live/'
+                },
+              secret: "LDXINspiraKey#@!",
+              encData:""   
         }
     },
-    methods: {   
+    methods: { 
+        
+    
         async login() {
-            var Cookies = require('vue-cookies')
-                try {
+               try {
                 await Auth.signIn(this.state.email, this.state.password.password)
                 .then(data=>{
-                    console.log(Cookies.set('accessToken', data.signInUserSession))
-                    console.log(Cookies.set('firstName', data.attributes.name))
-                    console.log(Cookies.set('lastName', data.attributes.middle_name))
-                    console.log(Cookies.set('url','https://dev.exus.live/#/dashboard'))
+                    // console.log(Cookies.set('accessToken', data.signInUserSession))
+                    // console.log(Cookies.set('firstName', data.attributes.name))
+                    // console.log(Cookies.set('lastName', data.attributes.middle_name))
+                    // console.log(Cookies.set('url','https://dev.exus.live/#/dashboard'))
                     this.accToken=data.signInUserSession.accessToken.jwtToken
-                    this.role=true
-                    console.log(this.accToken)
-                    console.log(data.attributes.name)
-                    console.log(data.attributes.middle_name)
+
+                    this.data.firstName=data.attributes.name
+                    this.data.lastName=data.attributes.middle_name
+                    this.data.email=this.state.email
+
                 })
                     console.log('Yes')
-                    this.$router.push('/kyc')
-                     
-                window.location.href = 'https://kyc.exus.live/#/kyc'   
-
-                } catch (error) {
+                    this.encryptData()
+                    window.location.href = `http://localhost:8081/kyc?data=${this.encData}`
+                    console.log(this.encData)  
+      
+                    
+              } catch (error) {
                     this.$toast.show(error.message, {type: "error", position: "top-right"});
                     console.log(error.message)
                     console.log('No')
                     this.role=false
                 }
+        },
+
+         encryptData() {
+           this.encData = CryptoJS.AES.encrypt( JSON.stringify(this.data), this.secret).toString();       
         },
 
         SubmitForm() {
@@ -321,7 +337,7 @@ export default {
         },        
     },
     mounted() {
-        
+     this.encryptData()
     }
 }
 </script>
