@@ -3,7 +3,8 @@ import { createRouter, createWebHashHistory } from "vue-router";
 import SignUp from '../views/SignUp.vue';
 import SignIn from '../views/Signin.vue';
 import Check from '../views/Check.vue';
-import Kyc from '../components/Kyc/Kyc.vue';
+
+import Security from '../components/Security/Security.vue';
 
 //Import store
 //import store from "../store";
@@ -19,23 +20,18 @@ const routes=[
     },
     {
         path:'/signin',
-        component:SignIn
+        component:SignIn,
+        props: (route) => ({ name: route.query.name })
     },
     {
         path:'/check',
         component:Check
     },
     {
-        path:'/kyc',
-        component:Kyc,
-       //beforeEnter:(to,from,next)=>{
-          // if(store.state.authenticated==false){
-           //  next(false)
-         //  }else{
-           // next()
-        // }
-    //  }
+        path:'/security',
+        component:Security
     }
+   
 ];
 
 const router = createRouter({
