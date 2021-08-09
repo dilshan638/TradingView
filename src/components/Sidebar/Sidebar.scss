@@ -1,0 +1,26 @@
+.sidebar{
+    padding: 0 !important;
+    border: none;
+    background-color: #191e54;
+    position: fixed;
+    width: 360px;
+    z-index: 99;
+    height: 100%;
+
+    ul{
+        border: none !important;
+        margin-top: 30px;
+
+        .nav-link{
+            border: none;
+            padding: 12px 30px !important;
+            font-weight: 300;
+            font-size: 1.1rem;
+        }
+        .active{
+            border: none;
+            background-color: #393e77 !important;
+            font-weight: 400;            
+        }
+    }    
+}

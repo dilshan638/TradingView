@@ -6,10 +6,12 @@ import router from "./router";
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import Toaster from '@meforma/vue-toaster';
+import HighchartsVue from 'highcharts-vue' 
 
 const app = createApp(App);
 app.use(router)
 app.use(Toaster)
+app.use(HighchartsVue)
 
 app.mount('#app');
 

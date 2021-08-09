@@ -18,18 +18,24 @@ export default {
         SigninForm
     },
     data(){
-    return{
-    email: '', 
-    password: '',
-    name:'',
-    middle_name:'',
-    picture:'',
-    website:'',
-    phone_number:''
-
-    }
+        return{
+            // email: '', 
+            password: '',
+            name:'',
+            middle_name:'',
+            picture:'',
+            website:'',
+            phone_number:'',
+            data: {
+                firstName: "sameera",
+                lastName: "Munasinghe",
+                address: "1/16,Sri soratha Mw,Nugegoda,11012",
+                email: "sameera@persystance.com",
+                url:'https://inspira.exus.live/'
+            }
+        }
     },
-    methods:{
+    methods: {
     async register() {
         try {
             await Auth.signUp({
@@ -54,7 +60,11 @@ export default {
             console.log(error.message)
         }
     },
+    },
+    mounted() {
+        console.log(this.data)
     }
+
 }
 </script>
 

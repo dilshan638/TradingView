@@ -20,7 +20,7 @@
                     <div class="eye-area mb-4">
                         <input v-bind:type="[showPassword ? 'text' : 'password']" placeholder="Password" v-model="state.password.password" class="form-control" />
                             <div class="eye-box">
-                                <i @click="showPassword = !showPassword" :class="[showPassword ? 'ri-eye-off-line' : 'ri-eye-line']" aria-hidden="true"></i>  
+                                <i @click="showPassword = !showPassword" :class="[showPassword ? 'ri-eye-off-line' : 'ri-eye-line']" aria-hidden="true"></i>
                             </div>
                         <span class="error-msg" v-if="v$.password.password.$error">{{ v$.password.$errors[0].$message }} </span>                        
                     </div>
@@ -216,6 +216,7 @@ export default {
                     console.log(Cookies.set('accessToken', data.signInUserSession))
                     console.log(Cookies.set('firstName', data.attributes.name))
                     console.log(Cookies.set('lastName', data.attributes.middle_name))
+                    console.log(Cookies.set('url','https://dev.exus.live/#/dashboard'))
                     this.accToken=data.signInUserSession.accessToken.jwtToken
                     this.role=true
                     console.log(this.accToken)
@@ -225,7 +226,8 @@ export default {
                     console.log('Yes')
                     this.$router.push('/kyc')
                      
-                    
+                window.location.href = 'https://kyc.exus.live/#/kyc'   
+
                 } catch (error) {
                     this.$toast.show(error.message, {type: "error", position: "top-right"});
                     console.log(error.message)
@@ -235,7 +237,6 @@ export default {
         },
 
         SubmitForm() {
-            console.log('submit')
             this.v$.email.$touch()
             this.v$.password.password.$touch()
             if (!this.v$.email.$touch.error && !this.v$.password.password.$touch.error) { // if ANY fail validation

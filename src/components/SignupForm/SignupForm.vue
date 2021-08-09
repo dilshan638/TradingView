@@ -253,12 +253,17 @@ export default {
             options: { 
                  placeholder: "Phone Number",
                  autoFormat:true,
-                 mode:'international'
+                 mode:"international",
+                 maxlength:12,
+                 validCharactersOnly:true
+                //type:Number,
+                // tabindex:Number
             },
             options2:{
                 showDialCodeInList:true,
                 showDialCodeInSelection:true,
                 showFlags:true,
+                autofocus:true
 
             }
         }

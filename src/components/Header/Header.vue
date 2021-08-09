@@ -1,22 +1,41 @@
 <template>
-  <div>
-    <nav class="navbar navbar-expand-lg navbar-light top-head">
-      <div class="container-fluid">
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">
-                  <img src="images/logo/logo.png" />
-              </a>
-            </li>
-          </ul>
-        </div>
+<div class="header-area">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-2">
+            <a class="navbar-brand" href="#">
+              <img src="images/logo/logo.png" />
+            </a>
       </div>
-    </nav>
+      <div class="col-md-7">
+        <nav class="navbar navbar-expand-lg">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>          
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="#">Buy LDXI</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Markets</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Trade</a>
+              </li>  
+              <li class="nav-item">
+                <a class="nav-link" href="#">Learn</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <div class="col-md-3" style="text-align:right">
+        <button class="btn btn-outline-success my-2 my-sm-0">Logout</button>
+      </div>
+    </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -31,14 +50,6 @@ export default {
 }
 </script>
 
-<style>
-
-.top-head{
-    background-color: #131313;
-    height: 80px;
-}
-
-.navTextColor{
-    color: aliceblue;
-}
+<style lang="scss" scoped>
+  @import "Header.scss"
 </style>
