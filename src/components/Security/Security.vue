@@ -234,7 +234,7 @@ export default {
   data() {
     return {
       showPassword: false,
-      value: "https://inspira.exus.live/",
+      value: "otpauth://totp/SupremeCrypX?secret=ZZZQPGOCPUYLJDMP",
       size: 300,
     };
   },

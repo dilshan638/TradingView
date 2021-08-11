@@ -2,33 +2,33 @@
     <div class="d-flex flex-column flex-shrink-0 p-3 text-white sidebar">
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-                <a href="#" class="nav-link active text-white">
-                    Dashboard
-                </a>
+                <router-link to="/dashboard" class="nav-link active text-white">
+                   <i class="ri-layout-masonry-line"></i> Dashboard
+                </router-link>
+            </li>
+            <li>
+                <router-link to="/wallet" class="nav-link text-white">
+                    <i class="ri-wallet-2-line"></i> Wallet
+                </router-link>
+            </li>
+            <li>
+                 <router-link to="/orders" class="nav-link text-white">
+                    <i class="ri-key-2-line"></i> Orders
+                </router-link>
+            </li>
+            <li>
+                <router-link to="/securitysetting" class="nav-link text-white">
+                    <i class="ri-shield-line"></i> Security
+                 </router-link>
             </li>
             <li>
                 <a href="#" class="nav-link text-white">
-                    Wallet
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link text-white">
-                    Orders
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link text-white">
-                    Security
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link text-white">
-                    Setting
+                    <i class="ri-settings-2-line"></i> Setting
                 </a>
             </li>            
             <li>
                 <a href="#" class="nav-link text-white">
-                    REfeeral
+                    <i class="ri-shape-fill"></i> Referral
                 </a>
             </li>
         </ul>

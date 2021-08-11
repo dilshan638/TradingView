@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&display=swap');
 
+@import "_card.scss";
+@import "_content.scss";
+
 body{
     font-family: 'Rubik', sans-serif;
 }
@@ -25,6 +28,36 @@ button, .btn{
     }
 }
 
+.text-right{
+    text-align: right;
+}
+
+button.btn-sm, .btn.btn-sm {
+    min-height: 24px;
+    min-width: 115px;
+    font-size: 0.85rem;
+    line-height: 30px;
+    margin-right: 15px;
+}
+button.btn-outline, .btn.btn-outline{
+    background-color: transparent;
+    border: solid 2px #0177fb;
+    color: #0177fb;
+    font-weight: 500;
+
+    &:hover{
+        background-color: #0177fb;
+        border: solid 2px #0177fb;
+        color: #fff;
+    }
+}
+
+button.btn-outline.active, .btn.btn-outline.active{
+    background-color: #0177fb;
+    border: solid 2px #0177fb;
+    color: #fff;
+}
+
 button.dark,
 .btn.dark{
     background-color: #1b1b1b;
@@ -33,9 +66,40 @@ button.dark,
 .main-area{
 
     .main-layout{
-        padding-left: 360px;
+        margin-left: 240px;
+        align-items: baseline;
+        width: 87%;
+
+        .container-area{
+            float: left;
+            width: 100%;
+            max-height: 892px;
+            overflow-y: auto;
+        }
     }
 
+}
+
+.eye-point{
+    font-size: 0.875rem;
+    font-weight: 300;
+    margin-left: 15px;
+
+    i{
+        position: relative;
+        top: 3px;
+        margin-right: 4px;
+    }
+}
+
+.only-card-header{
+
+    min-height: auto !important;
+
+    .card-header{
+        border-radius: 0;
+        border-bottom: none;
+    }
 }
 
 .close-mark{
@@ -353,3 +417,121 @@ button.dark,
 .pos-rel{
     position: relative;
 }
+.content{
+    float: left;
+      width: 100%;
+      padding: 15px;
+      min-height: 864px;
+  }
+  .no-padding-all{
+    padding-top: 0 !important;
+    padding-bottom: 0  !important;
+  }
+  .card{
+      min-height: 300px;
+      background-color: #2b2c3e;
+      border-radius: 10px;
+      padding: 0;
+      margin-bottom: 15px;
+  }
+  .card-header{
+      border-bottom: solid #393e77 2px;
+      padding-bottom: 30px;
+      padding: 30px
+  }
+  .card-body{
+      padding: 30px;
+  }
+  
+  .card-header h2{
+      color: #fff;
+      font-family: Rubik;
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0;
+  }
+  p{
+    margin-top: 0;
+      margin-bottom: 1rem;
+      font-size: 0.875rem;
+      color: #fff;
+      margin: 0;
+      padding-bottom: 10px;
+  }
+  h4{
+      font-size: 2rem;
+      color: #fff;
+      margin: 0;
+      font-weight: 600;
+
+      span{
+        font-size: 0.75rem;
+        color: #878787;
+      }
+  }
+  .view-more{
+    text-align: right;
+    float: left;
+    width: 100%;
+    padding: 30px;
+    color: #fff;
+    font-weight: 300;      
+  }
+  .block{
+    padding-bottom: 45px;
+    float: left;
+    width: 100%;
+  }
+  .success-text{
+      color: #2cb246;
+  }
+  .error-text{
+      color: #f14848;
+  }
+  .block:last-child{
+    padding-bottom: 0;
+  }
+  .list-group-item {
+      background-color: transparent;
+      color: #fff;
+      border: solid 1px #393e77;
+      border-left: none;
+      border-right: none;
+      font-size: 0.875rem;
+      padding: 15px 30px;
+      line-height: 20px;
+  }
+  .list-group-item:first-child{
+    border: none !important;
+  }
+  .list-group-item::before{
+      font-family: 'remixicon' !important;
+      font-style: normal;
+      -webkit-font-smoothing: antialiased;
+      content: "\ea6e";
+      right: 23px;
+      position: absolute;
+      top: 23px;
+  }
+  .card table{
+    margin-bottom: 0;
+  }
+  .card table tr th{
+  color: #a2a4bf;
+      font-size: 0.875rem;
+      font-weight: 400;
+      padding: 15px 30px;
+      border-bottom-color: #393e77 !important;
+  }
+  .card table tr td{
+  color: #fff;
+      font-size: 0.875rem;
+      padding: 15px 30px;
+      font-weight: 400;
+      border-bottom-color: #393e77;
+  }
+  .table-card .card-header{
+      border-bottom: none;
+      padding-bottom: 15px;
+  }
+  

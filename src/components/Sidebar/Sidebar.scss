@@ -3,8 +3,8 @@
     border: none;
     background-color: #191e54;
     position: fixed;
-    width: 360px;
-    z-index: 99;
+    width: 240px;
+    z-index: 0;
     height: 100%;
 
     ul{
@@ -13,14 +13,34 @@
 
         .nav-link{
             border: none;
-            padding: 12px 30px !important;
-            font-weight: 300;
-            font-size: 1.1rem;
+            padding: 13px 25px !important;
+            font-weight: 400;
+            font-size: 1rem;
+            line-height: 31px;
+
+            i{
+                position: relative;
+                top: 5px;
+                margin-right: 20px;
+                font-size: 23px;
+            }
+
+            &:hover{
+                border: none;
+                background-color: #393e77 !important;
+                font-weight: 600;   
+            }
         }
         .active{
             border: none;
             background-color: #393e77 !important;
-            font-weight: 400;            
+            font-weight: 600;            
         }
     }    
+}
+
+.nav-link {
+    font-size: 0.875rem;
+    color: #fff;
+    padding: .5rem 1.75rem !important;
 }
