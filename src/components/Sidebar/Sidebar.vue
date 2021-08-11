@@ -2,7 +2,7 @@
     <div class="d-flex flex-column flex-shrink-0 p-3 text-white sidebar">
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-                <router-link to="/dashboard" class="nav-link active text-white">
+                <router-link to="/dashboard" class="nav-link text-white">
                    <i class="ri-layout-masonry-line"></i> Dashboard
                 </router-link>
             </li>
@@ -22,12 +22,12 @@
                  </router-link>
             </li>
             <li>
-                <a href="#" class="nav-link text-white">
+                <a  class="nav-link text-white">
                     <i class="ri-settings-2-line"></i> Setting
                 </a>
             </li>            
             <li>
-                <a href="#" class="nav-link text-white">
+                <a class="nav-link text-white">
                     <i class="ri-shape-fill"></i> Referral
                 </a>
             </li>
