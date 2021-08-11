@@ -84,3 +84,48 @@
     }
 }
 
+.search-form{
+
+    position: relative;
+
+    .form-control{
+        max-height: none;
+        min-height: auto;
+        height: 45px;
+        background-color: #fff;
+        border-radius: 0;
+        padding-left: 45px;
+    }
+    
+    &::before{
+        font-family: "remixicon" !important;
+        font-style: normal;
+        -webkit-font-smoothing: antialiased;
+        content: "";
+        left: 14px;
+        position: absolute;
+        top: 11px;
+    }
+
+}
+
+.wallet-table{
+
+    h4{
+
+        display: inline-grid;
+        line-height: 27px;
+        font-size: 1.1rem;
+        padding-left: 15px;
+        width: 100px;
+    
+        span{
+            line-height: 9px;
+            color: #fff;
+            font-weight: 400;
+        }
+    
+    }
+
+}
+
