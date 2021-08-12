@@ -12,7 +12,7 @@ import Security from '../components/Security/Security.vue';
 
 //Import store
 //import store from "../store";
-
+import Test from '../views/Test.vue';
 const routes=[
     {
         path:'/',
@@ -54,6 +54,10 @@ const routes=[
     {
         path:'/security',
         component:Security
+    },
+    {
+        path:'/test',
+        component:Test
     }
    
 ];
@@ -61,6 +65,7 @@ const routes=[
 const router = createRouter({
     // mode:'history',
     linkActiveClass: "active",
+    linkExactActiveClass: "exact-active",
     history: createWebHashHistory(),
     routes
 });

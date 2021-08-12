@@ -204,22 +204,19 @@
                 </template>
             </modal>
 
-            <modal ref="securityGauthone">
+            <modal ref="securityGauthone" class="wizard-modal">
                 <template v-slot:header> </template>
 
                 <template v-slot:body>
-                <p>Download and install the Google Authenticator app</p>
-                <div class="form-group">
+                    <wizard/>
+                <!-- <div class="form-group">
                     <div class="eye-area">
                     <qrcode-vue :value="value" :size="size" level="H" class="cls" />
                     </div>
-                </div>
+                </div> -->              
                 </template>
 
                 <template v-slot:footer>
-                <div>
-                    <button>Next</button>
-                </div>
                 </template>
             </modal>     
   </default-layout>
@@ -228,7 +225,8 @@
 <script>
 import DefaultLayout from '../layout/DefaultLayout.vue'
 import Modal from "../components/Modal/Modal.vue";
-import QrcodeVue from "qrcode.vue";
+import Wizard from "../components/SecuritySetting/Wizard.vue";
+//import QrcodeVue from "qrcode.vue";
 import useValidate from "@vuelidate/core";
 import {
   required,
@@ -244,7 +242,8 @@ export default {
     components: { 
       DefaultLayout,
         Modal,
-        QrcodeVue
+        Wizard
+        //QrcodeVue
     //   OpenOrders
     },
     setup() {

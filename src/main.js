@@ -8,6 +8,7 @@ import VueAxios from 'vue-axios'
 import Toaster from '@meforma/vue-toaster';
 import VueApexCharts from "vue3-apexcharts";
 
+
 const app = createApp(App);
 app.use(router)
 app.use(Toaster)

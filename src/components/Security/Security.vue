@@ -284,11 +284,6 @@ export default {
 </script>
 
 <style>
-.cls {
-  margin-left: 55px;
-  margin-top: 40px;
-}
-
 .bclr {
   background-color: white;
 }
