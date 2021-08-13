@@ -22,9 +22,9 @@
                  </router-link>
             </li>
             <li>
-                <a  class="nav-link text-white">
+               <router-link to="/setting" class="nav-link text-white">
                     <i class="ri-settings-2-line"></i> Setting
-                </a>
+               </router-link>
             </li>            
             <li>
                 <a  class="nav-link text-white">

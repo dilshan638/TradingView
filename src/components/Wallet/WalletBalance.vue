@@ -5,7 +5,7 @@
             <div class="col-md-4">
                 <h2>Wallet Balances <span class="eye-point"><i class="ri-eye-line"></i> Hide Balances</span></h2>
                 <router-link to="/securitypage"><button type="button" class="btn btn-primary btn-sm btn-outline mt-4 active">Deposit</button></router-link>
-                <button type="button" class="btn btn-primary btn-sm mt-4  btn-outline">Withrow</button>                
+                <router-link to="/wallet/cryptoone">  <button type="button" class="btn btn-primary btn-sm mt-4  btn-outline">Withrow</button></router-link>                
             </div>
             <div class="col-md-8">
                 <div class="row">

@@ -7,7 +7,7 @@
             </div>
             <div class="col-md-9 text-right">
                 <router-link to="/securitypage"><button type="button" class="btn btn-primary btn-sm btn-outline active">Deposit</button></router-link>
-                <button type="button" class="btn btn-primary btn-sm btn-outline">Withrow</button>
+                 <button type="button" class="btn btn-primary btn-sm btn-outline">Withrow</button>
             </div>
         </div>
     </div>
