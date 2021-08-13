@@ -29,8 +29,8 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="inner-table-area">
-                                                    <button class="btn button" v-bind-class="[]" @click="showBtcMarketTabShow">BTC Markets</button>
-                                                    <button class="btn button btn-outline" v-bind-class="[]" @click="showAltsMarketTabShow">ALTS Markets</button>                                                    
+                                                    <button class="btn button" @click="showBtcMarketTabShow">BTC Markets</button>
+                                                    <button class="btn button btn-outline" @click="showAltsMarketTabShow">ALTS Markets</button>                                                    
                                                 </div>
                                             </div>
                                         </div>
