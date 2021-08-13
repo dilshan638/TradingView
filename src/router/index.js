@@ -8,6 +8,8 @@ import Wallet from '../views/Wallet';
 import SecurityPage from '../views/Security';
 import Orders from '../views/Orders';
 import SecuritySetting from '../views/SecuritySetting.vue';
+import Trade from '../views/Trade.vue';
+import Market from '../views/Market.vue';
 import Security from '../components/Security/Security.vue';
 
 //Import store
@@ -55,6 +57,14 @@ const routes=[
         path:'/security',
         component:Security
     },
+    {
+        path:'/market',
+        component:Market
+    },    {
+        path:'/market',
+        component:Trade
+    },
+
     {
         path:'/test',
         component:Test

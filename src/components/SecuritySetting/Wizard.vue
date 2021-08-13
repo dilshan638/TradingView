@@ -1,11 +1,30 @@
 <template>
     <div class="step-bar">
         <ul>
-            <li>Download App</li>
-            <li>Scan QR Code</li>
-            <li>Backup Key</li>
-            <li>Enabled Google authenticator</li>
-            <li>Complete</li>
+            <li v-bind:class="[showContentOne ? 'active' : 'passed']">
+                <div class="dot"></div>
+                <div class="line"></div>
+                Download App
+            </li>
+            <li v-bind:class="[showContentTwo && !showContentOne && !showContentThree ? 'active' : '']">
+                <div class="dot"></div>
+                <div class="line"></div>
+                Scan QR Code
+            </li>
+            <li v-bind:class="[showContentThree && !showContentFour ? 'active' : '']">
+                <div class="dot"></div>
+                <div class="line"></div>
+                Backup Key
+            </li>
+            <li v-bind:class="[showContentFour ? 'active' : '']">
+                <div class="dot"></div>
+                <div class="line"></div>
+                Enabled Google authenticator
+            </li>
+            <li>
+                <div class="dot"></div>
+                Complete
+            </li>
         </ul>
     </div>
     <div v-if="showContentOne" class="wizard-box">

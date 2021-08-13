@@ -1,7 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&display=swap');
 
+@import "color.scss";
 @import "_card.scss";
 @import "_content.scss";
+@import "responsive.scss";
+
 
 body{
     font-family: 'Rubik', sans-serif;
@@ -537,4 +540,39 @@ button.dark,
       border-bottom: none;
       padding-bottom: 15px;
   }
+  .table-tab{
+
+    .nav{
+
+        .nav-link{
+            font-size: 1rem !important;
+            font-weight: 400 !important;
+            color: #a2a4bf !important;
+            padding-bottom: 15px;
+        }
+
+        .nav-link.active{
+            color: #fff !important;
+            border-bottom: solid 3px !important;
+            font-weight: 400 !important;
+        }
+
+    }
+
+  }
+
+  .trade-area{
+
+    .main-layout{
+    justify-content: start;
+    align-items: flex-start;
+    background-color: $trade-bg-color;
+
+        .top-area{
+            margin-top: 0 !important;
+        }
+    }
+
+  }
+
   

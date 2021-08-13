@@ -24,7 +24,7 @@
 
 <script>
 export default {
-    name: 'openorder',
+    name: 'orderhistory',
     components: {
     },
     data(){

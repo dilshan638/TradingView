@@ -25,31 +25,15 @@
                             </li>
                             </ul>
                             <div class="tab-content" id="pills-tabContent">
-                            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Date</th>
-                                                <th scope="col">Pair</th>
-                                                <th scope="col">Type</th>
-                                                <th scope="col">Side</th>
-                                                <th scope="col">Price</th>
-                                                <th scope="col">Amount</th>
-                                                <th scope="col">Field</th>
-                                                <th scope="col">Total</th>
-                                                <th scope="col">Trigger Conditions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>                            
-                                        </tbody>
-                                    </table>                         
-                                    </div>
-                                </div>                                
-                            </div>
-                            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">2</div>
-                            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">3</div>
+                                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">     
+                                    <open-orders/>                         
+                                </div>
+                                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                                    <order-history />
+                                </div>
+                                <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+                                    <my-trade-history />
+                                </div>
                             </div>                      
                         </div>
                     </div>                    
@@ -62,13 +46,17 @@
 
 <script>
 import DefaultLayout from '../layout/DefaultLayout.vue'
-// import OpenOrders from '../components/Orders/OpenOrders.vue'
+import OpenOrders from '../components/Orders/OpenOrders.vue'
+import OrderHistory from '../components/Orders/OrderHistory.vue'
+import MyTradeHistory from '../components/Orders/MyTradeHistory.vue'
 
 export default {
     name:'order',
     components: { 
-      DefaultLayout,
-    //   OpenOrders
+        DefaultLayout,
+        OpenOrders,
+        OrderHistory,
+        MyTradeHistory
     },
     data() {
       return {
