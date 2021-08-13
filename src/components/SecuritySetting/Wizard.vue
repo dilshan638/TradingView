@@ -1,17 +1,17 @@
 <template>
     <div class="step-bar">
-        <ul>
+<ul>
             <li v-bind:class="[showContentOne ? 'active' : 'passed']">
                 <div class="dot"></div>
                 <div class="line"></div>
                 Download App
             </li>
-            <li v-bind:class="[showContentTwo && !showContentOne && !showContentThree ? 'active' : '']">
+            <li v-bind:class="[showContentTwo && !showContentOne && !showContentThree || showContentThree && !showContentFour ||showContentFour? 'active' : '']">
                 <div class="dot"></div>
                 <div class="line"></div>
                 Scan QR Code
             </li>
-            <li v-bind:class="[showContentThree && !showContentFour ? 'active' : '']">
+            <li v-bind:class="[showContentThree && !showContentFour ||showContentFour ? 'active' : '']">
                 <div class="dot"></div>
                 <div class="line"></div>
                 Backup Key
