@@ -10,11 +10,17 @@
                   <div class="col-md-5"></div>
               </div>
               <div class="row">
-                  <div class="col-md-6">
-                      <h4>$250.43</h4><span>$250.43</span>
+                  <div class="col-md-9">
+                      <h4>$250.43</h4><span class="span-sub">$250.43</span>
                   </div>
-                  <div class="col-md-6">
+                  <div class="col-md-3">
                       <div class="change-status">+6.25</div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-12">
+                      <h3>$35,607,434.74</h3>
+                      <b>Volume</b>
                   </div>
               </div>
             </div>
@@ -24,34 +30,76 @@
               <div class="row">
                   <div class="col-md-7">
                     <img src="images/icons/btc@3x.webp"/>
-                    <h5>BTC/<span>USD</span></h5>
+                    <h5>BTC<span>/USD</span></h5>
                   </div>
                   <div class="col-md-5"></div>
               </div>
-            ></div>
+              <div class="row">
+                  <div class="col-md-9">
+                      <h4>$250.43</h4><span class="span-sub">$250.43</span>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="change-status">+6.25</div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-12">
+                      <h3>$35,607,434.74</h3>
+                      <b>Volume</b>
+                  </div>
+              </div>
+            </div>
         </div>
         <div class="col-md-3">
             <div class="market-box">
               <div class="row">
                   <div class="col-md-7">
                     <img src="images/icons/btc@3x.webp"/>
-                    <h5>BTC/<span>USD</span></h5>
+                    <h5>BTC<span>/USD</span></h5>
                   </div>
                   <div class="col-md-5"></div>
               </div>
-            ></div>
+              <div class="row reduse">
+                  <div class="col-md-9">
+                      <h4>$250.43</h4><span class="span-sub">$250.43</span>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="change-status">+6.25</div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-12">
+                      <h3>$35,607,434.74</h3>
+                      <b>Volume</b>
+                  </div>
+              </div>
+            </div>
         </div>
         <div class="col-md-3">
             <div class="market-box">
               <div class="row">
                   <div class="col-md-7">
                     <img src="images/icons/btc@3x.webp"/>
-                    <h5>BTC/<span>USD</span></h5>
+                    <h5>BTC<span>/USD</span></h5>
                   </div>
                   <div class="col-md-5"></div>
               </div>
-            ></div>
-        </div>                        
+              <div class="row reduse">
+                  <div class="col-md-9">
+                      <h4>$250.43</h4><span class="span-sub">$250.43</span>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="change-status">+6.25</div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-12">
+                      <h3>$35,607,434.74</h3>
+                      <b>Volume</b>
+                  </div>
+              </div>
+            </div>
+        </div>                      
     </div>
 </template>
 

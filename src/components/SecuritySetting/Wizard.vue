@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="step-bar">
-        <ul>
+<ul>
             <li v-bind:class="[showContentOne ? 'active' : 'passed']">
                 <div class="dot"></div>
                 <div class="line"></div>

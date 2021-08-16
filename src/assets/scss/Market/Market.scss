@@ -24,8 +24,109 @@
     }
 
     h4{
-        font-size: 1.6rem;
+        font-size: 1.55rem;
         padding-top: 15px;
         color: #18e140;
+        float: left;
+        font-weight: 600;
     }
+
+    .span-sub{
+        color: #878787;
+        font-weight: 500;
+        float: left;
+        margin-left: 15px;
+        margin-top: 17px;
+    }
+
+    h3{
+        color: #fff;
+        font-weight: 400;
+        float: left;
+        width: 100%;
+        padding-top: 15px;
+    }
+
+    b{
+        float: left;
+        width: 100%;
+        margin-top: -6px;
+        font-weight: 400;
+        color: #878787;
+        font-size: 0.75rem;
+    }
+
+}
+
+.change-status{
+    float: left;
+    width: 100%;
+    border-radius: 4px;
+    background-color: #14952e;
+    color: #fff;
+    text-align: center;
+    padding: 4px;
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+.reduse {
+
+    h4{
+        color: #f14848 !important;
+    }
+
+    .change-status{
+        background-color: #f14848 !important;
+    }
+
+}
+
+.market-area{
+
+    padding-top: 60px;
+    padding-bottom: 60px;
+
+    h2{
+        color: #fff;
+        font-weight: bold;
+        margin-top: 0;
+        padding-top: 15px;
+        margin-bottom: 0;
+    }
+
+    .card{
+        margin-top: 60px;
+        margin-bottom: 0;
+    }
+
+    .market-card{
+
+        .card-body{
+            padding-top: 25px !important;
+        }
+
+        .nav-pills {
+            border-bottom: solid 2px #393e77 !important;
+            padding-left: 30px;
+        }
+
+    }
+
+}
+
+.inner-table-area{
+    float: left;
+    width: 100%;
+    padding: 15px 30px;
+
+    button{
+        margin-right: 30px;
+
+        &:last-child{
+            margin-right: 0;
+        }
+    }
+
+
 }
