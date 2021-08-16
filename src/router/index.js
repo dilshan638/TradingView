@@ -11,14 +11,9 @@ import SecuritySetting from '../views/SecuritySetting.vue';
 import Trade from '../views/Trade.vue';
 import Market from '../views/Market.vue';
 import Security from '../components/Security/Security.vue';
-import Setting from '../components/Setting/Setting.vue';
-import CryptoOne from '../components/Wallet/CryptoOne.vue';
-import CryptoTwo from '../components/Wallet/CryptoTwo.vue';
-import WizardSuccessfullyPage from '../components/SecuritySetting/WizardSuccessfullyPage.vue';
 
 //Import store
-//import store from "../store"; 
-
+//import store from "../store";
 const routes=[
     {
         path:'/',
@@ -62,31 +57,14 @@ const routes=[
         component:Security
     },
     {
+        path:'/trade',
+        component:Trade
+    },    
+    {
         path:'/market',
         component:Market
-    },    {
-        path:'/market',
-        component:Trade
-    },
-
-    {
+    }
    
-        path:'/setting',
-        component:Setting
-    },
-     {
-        path:'/successfully',
-        component:WizardSuccessfullyPage
-    },
-    {
-        path:'/wallet/cryptoone',
-        component:CryptoOne
-    },
-    {
-        path:'/wallet/cryptotwo',
-        component:CryptoTwo
-    },
-    
 ];
 
 const router = createRouter({

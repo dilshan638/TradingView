@@ -29,13 +29,30 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="inner-table-area">
-                                                    <button class="btn button" @click="showBtcMarketTabShow">BTC Markets</button>
-                                                    <button class="btn button btn-outline" @click="showAltsMarketTabShow">ALTS Markets</button>                                                    
+                                                    <button class="btn button btn-outline" v-bind:class="[BtcMarketTabShow ? 'active' : '']" @click="showBtcMarketTabShow">BTC Markets</button>
+                                                    <button class="btn button btn-outline" v-bind:class="[AltsMarketTabShow ? 'active' : '']" @click="showAltsMarketTabShow">ALTS Markets</button>                                                    
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-12" v-if="BtcMarketTabShow">1</div>
+                                            <div class="col-md-12" v-if="BtcMarketTabShow">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">Pair</th>
+                                                            <th scope="col">Last Price</th>
+                                                            <th scope="col">24h High</th>
+                                                            <th scope="col">24h Change</th>
+                                                            <th scope="col">24h Low</th>
+                                                            <th scope="col">Market Cap</th>
+                                                            <th scope="col">24h Volume</th>
+                                                            <th scope="col">Edit</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>                            
+                                                    </tbody>
+                                                </table>                                                
+                                            </div>
                                             <div class="col-md-12" v-if="AltsMarketTabShow">2</div>
                                         </div>
                                     </div>

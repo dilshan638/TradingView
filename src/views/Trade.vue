@@ -5,7 +5,15 @@
           <top-status />
         </div>
         <div class="col-md-5">
-            <div class="trade-box"></div>
+            <div class="row">
+                <div class="col-md-6 no-padding-right">
+                   <order-book />
+                   <recent-trades />
+                </div>
+                <div class="col-md-6">
+                    <buy-sell />
+                </div>
+            </div>
         </div>        
     </div>
   </trade-layout>
@@ -14,12 +22,18 @@
 <script>
 import TradeLayout from '../layout/TradeLayout.vue'
 import TopStatus from '../components/Trade/TopStatus.vue'
+import OrderBook from '../components/Trade/OrderBook.vue'
+import RecentTrades from '../components/Trade/RecentTrades.vue'
+import BuySell from '../components/Trade/BuySell.vue'
 
 export default {
     name:'trade',
     components: { 
       TradeLayout,
-      TopStatus
+      TopStatus,
+      OrderBook,
+      RecentTrades,
+      BuySell
     },
     data() {
       return {

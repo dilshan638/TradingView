@@ -18,10 +18,10 @@
                 <a class="nav-link" href="#">Buy LDXI</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Markets</a>
+                <router-link class="nav-link" to="/market">Markets</router-link>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Trade</a>
+                <router-link class="nav-link" to="/trade">Trade</router-link>
               </li>  
               <li class="nav-item">
                 <a class="nav-link" href="#">Learn</a>

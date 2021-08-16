@@ -3,19 +3,272 @@
     border-radius: 5px;
     background-color: #242424;
     padding: 15px;
-    min-height: 100px;
+    /* min-height: 100px; */
+    float: left;
+    width: 100%;
+    margin-bottom: 15px;
+
+    &:last-child{
+        margin-bottom: 0;
+    }
+
+    .trade-header{
+        font-size: 0.875rem;
+        
+        .sw-b{
+            width: 24px;
+            height: 24px;
+            float: right;
+            opacity: 0.7;
+            background-color: #fff;
+            margin-left: 10px;
+            border-radius: 3px;
+        }
+
+        .active{
+            opacity: 1;
+        }
+    }
+
+    .trade-body{
+
+        margin: -15px;
+        margin-top: 15px;
+
+        table{
+
+            margin: 0;
+            margin-top: 15px;
+
+            tr{
+
+                th{
+                    font-size: 0.625rem;
+                    color: #a2a4bf;
+                    font-weight: 400;
+                    border: none;
+                    border-bottom: solid 1px #393e77;
+                    padding-bottom: 15px;
+                    padding: 0.5rem 1rem;
+                }
+
+                td{
+                    border: none;
+                    font-size: 0.625rem;
+                    vertical-align: middle;
+                    padding: 0.5rem 1rem 0.1rem 1rem;
+                    color: #fff;
+
+                    &:first-child{
+                        color: #f14848;
+                    }
+                }
+
+                &:last-child{
+                    
+                    td{
+                        padding: 0.5rem 1rem 0.5rem 1rem;
+                    }
+
+                }
+
+            }
+            
+            .plus{
+
+                td{
+
+                    &:first-child{
+                        color: #1e8d34;
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
 
     .status1{
         float: left;
         width: 100%;
 
         img{
-            width: 20px;
-            float: left;
-        }
-        h3{
+            width: 40px;
             float: left;
             margin-right: 15px;
         }
+        h3{
+            FONT-WEIGHT: 500;
+            float: left;
+            margin-right: 15px;
+            font-size: 0.875rem;
+            margin-top: 13px;
+        }
     }
+
+    h4{
+        color: $success-color;
+        font-size: 0.875rem;
+        font-weight: 500;
+    }
+
+    .sub-bottom{
+        font-size: 0.625rem;
+        color: #878787;
+    } 
+
+}
+
+.top-sub{
+    float: left;
+    width: 20%;
+
+    h3{
+        color: #878787;
+        font-size: 0.625rem !important;
+        width: 100%;
+        margin: 0;
+        margin-right: 0 !important;
+        margin-top: 0 !important;
+        font-weight: 400 !important;
+    }
+
+    b{
+        color: #fff;
+        font-size: 0.75rem;
+    }
+}
+
+.buysell-form{
+
+    .nav-tabs.main-tab {
+        border-bottom: none;
+        /* text-align: center; */
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+
+        p{
+            text-align: center;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            font-weight: 500;
+        }
+
+        li{
+            display: inline-block;
+            margin-left: 15px;
+            margin-right: 15px;
+
+            .nav-link{
+                border-radius: 3px !important;
+                min-width: 147px;
+                color: #fff;
+                border: none;
+                background-color: #393939;
+                text-align: center;
+            }
+    
+        
+            .buy-btn.active{
+                background-color: $buy-btn;
+            }
+        
+            .sell-btn.active{
+                background-color: $sell-btn;
+            }
+
+        }
+    }
+
+    .sub-tab{
+        padding: 0 !important;
+        margin: 15px;
+        border-bottom: solid 1px #474747;
+
+        li{
+
+            .nav-link{
+                font-size: 0.625rem;
+                border: none !important;
+                background-color: transparent !important;
+                color: #878787 !important;
+                font-weight: 500;
+                padding-left: 0;
+                padding-right: 0;
+                margin-right: 30px;
+            }
+
+            .active{
+                border: none !important;
+                color: #fff !important;
+                border-bottom: solid 2px #fff;
+                margin-bottom: 0 !important;
+            }
+
+        }
+    }
+
+    .input-group{
+        height: 40px;
+
+        .form-control{
+            min-height: 100%;
+            border-radius: 0;
+            background-color: #393939;
+            color: #fff;
+            text-align: right;
+        }
+
+        .input-group-text{
+            border-radius: 0;
+            background-color: #4e4e4e;
+            border: none;
+            border-radius: 0 0 3px 3px;
+            color: #a8a8a8;
+            font-size: 0.65rem;
+            min-height: 100%;
+        }
+
+    }
+
+    .sub-tab-area{
+        padding: 15px;
+
+        button{
+            background-color: #60db78;
+            height: 40px;
+            width: 100%;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+    }
+
+    .bottom-v{
+        float: left;
+        width: 100%;
+        text-align: center;
+        color: #fff;
+        font-size: 0.625rem;
+        line-height: 20px;
+        padding-top: 8px;
+
+        b{
+            float: left;
+            width: 100%;
+            font-weight: 500;
+        }
+
+        span{
+            float: left;
+            width: 100%;
+            font-weight: 500;            
+        }
+    }
+
 }
