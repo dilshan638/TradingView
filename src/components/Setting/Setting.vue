@@ -5,9 +5,16 @@
         <div class="card table-card">
           <div class="card-header">
             <div class="row">
-              <div class="col-md-6">
-                <h2>Settings</h2>
-                <h2 class="Change-Password">Change Password</h2>
+              <div class="col-md-6 ">
+
+                <div class="setting">
+                  <h2 >Settings</h2>
+                </div>
+
+                <div class="change-password">
+                   <h2 class="Change-Password">Change Password</h2>
+                </div>
+               
                 <hr class="Line-23" />
               </div>
               <div class="col-md-8"></div>
@@ -17,17 +24,17 @@
           <div class="card-body">
             <div class="row">
               <div class="col-md-12">
-                <p>
+                <p class="paragraph">
                   Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
                   diam nonumy eirmod tempor
                 </p>
               </div>
             </div>
 
-            <div class="row">
+            <div class="row textFields" >
                 
               <div class="row sec-row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                   <div class="eye-area mb-4">
                     <input
                       v-bind:type="[showOldPassword ? 'text' : 'password']"
@@ -49,7 +56,7 @@
 
 
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                   <div class="eye-area mb-4">
                     <input
                       v-bind:type="[showNewPassword ? 'text' : 'password']"
@@ -72,7 +79,7 @@
 
 
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                   <div class="eye-area mb-4">
                     <input
                       v-bind:type="[showComfirmPassword ? 'text' : 'password']"
@@ -92,16 +99,22 @@
                 </div>
               </div>
 
-              <div>
-                  <button>Change Password</button>
-              </div>
+             
 
 
             </div>
+            <div >
+                  <button class="btn" >Change Password</button>
+              </div>
           </div>
+            
         </div>
+        
       </div>
+   
+  
     </div>
+    
   </default-layout>
 </template>
 
@@ -123,6 +136,6 @@ export default {
 };
 </script>
 
-<style >
-
+<style lang="scss" scoped>
+  @import "SettingTwo.scss"
 </style>
