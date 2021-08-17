@@ -6,7 +6,7 @@ import Check from '../views/Check.vue';
 import Dashboard from '../views/Dashboard';
 import Wallet from '../views/Wallet';
 import SecurityPage from '../views/Security';
-import Orders from '../views/Orders';
+import Orders from '../views/Orders'; 
 import SecuritySetting from '../views/SecuritySetting.vue';
 import Trade from '../views/Trade.vue';
 import Market from '../views/Market.vue';
@@ -89,6 +89,7 @@ const routes=[
         path:'/wallet/cryptotwo',
         component:CryptoTwo
     },
+   
    
 ];
 
