@@ -3,9 +3,9 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-2">
-            <a class="navbar-brand" href="#">
+            <router-link class="navbar-brand" to="/">
               <img src="images/logo/logo.png" />
-            </a>
+            </router-link>
       </div>
       <div class="col-md-7">
         <nav class="navbar navbar-expand-lg">

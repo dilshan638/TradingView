@@ -11,6 +11,7 @@ import SecuritySetting from '../views/SecuritySetting.vue';
 import Trade from '../views/Trade.vue';
 import Market from '../views/Market.vue';
 import Security from '../components/Security/Security.vue';
+import Home from '../views/Home.vue';
 
 
 import Setting from '../components/Setting/Setting.vue';
@@ -24,7 +25,7 @@ import WizardSuccessfullyPage from '../components/SecuritySetting/WizardSuccessf
 const routes=[
     {
         path:'/',
-        component:SignIn
+        component:Home
     },
     {
         path:'/signup',
