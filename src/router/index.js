@@ -11,13 +11,14 @@ import SecuritySetting from '../views/SecuritySetting.vue';
 import Trade from '../views/Trade.vue';
 import Market from '../views/Market.vue';
 import Security from '../components/Security/Security.vue';
+import Home from '../views/Home.vue';
 
 //Import store
 //import store from "../store";
 const routes=[
     {
         path:'/',
-        component:SignIn
+        component:Home
     },
     {
         path:'/signup',

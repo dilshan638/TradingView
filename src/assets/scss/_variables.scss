@@ -537,4 +537,14 @@ body{
 
   }
 
+
+.homepage {
+
+    .main-layout{
+        align-items: baseline;
+        overflow-y: auto;
+        height: calc(100vh - 89px);
+    }
+
+}
   
