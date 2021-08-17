@@ -3,16 +3,10 @@
     <div class="row">
       <div class="col-md-8">
           <WalletBalance/>
+          <Login-history/>
       </div>
       <div class="col-md-4">
           <Announcements/>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-8">
-          <Login-history/>
-      </div>
-      <div class="col-md-4">                 
       </div>
     </div>
   </default-layout>

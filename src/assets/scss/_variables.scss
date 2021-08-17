@@ -1,70 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&display=swap');
 
-@import "color.scss";
-@import "_card.scss";
-@import "_content.scss";
-@import "responsive.scss";
+@import "color";
+@import "button";
+@import "_card";
+@import "_content";
+@import "responsive";
 
 
 body{
     font-family: 'Rubik', sans-serif;
 }
 
-button, .btn{
-    background-color: #0177fb;
-    border-radius: 25px;
-    text-align: center;
-    min-height: 3rem;
-    min-width: 160px;
-    border: none;
-    font-size: 0.9rem;
-    color: #fff;
-    transition: all 0.5s;
-    padding-left: 30px;
-    padding-right: 30px;
-    font-weight: 400;
-    line-height: 38px;
-    max-width: 235px;
 
-    &:hover{
-        background-color: #012146;
-    }
-}
-
-.text-right{
-    text-align: right;
-}
-
-button.btn-sm, .btn.btn-sm {
-    min-height: 24px;
-    min-width: 115px;
-    font-size: 0.85rem;
-    line-height: 30px;
-    margin-right: 15px;
-}
-button.btn-outline, .btn.btn-outline{
-    background-color: transparent;
-    border: solid 2px #0177fb;
-    color: #0177fb;
-    font-weight: 500;
-
-    &:hover{
-        background-color: #0177fb;
-        border: solid 2px #0177fb;
-        color: #fff;
-    }
-}
-
-button.btn-outline.active, .btn.btn-outline.active{
-    background-color: #0177fb;
-    border: solid 2px #0177fb;
-    color: #fff;
-}
-
-button.dark,
-.btn.dark{
-    background-color: #1b1b1b;
-}
 
 .main-area{
 
@@ -81,6 +28,18 @@ button.dark,
         }
     }
 
+}
+
+.no-border-table-th{
+    border: none !important;
+}
+
+.pink-color{
+    color: $pink-color !important;
+}
+
+.light-blue{
+    color: $light-blue !important;
 }
 
 .eye-point{
@@ -567,6 +526,9 @@ button.dark,
     justify-content: start;
     align-items: flex-start;
     background-color: $trade-bg-color;
+    height: 94vh;
+    overflow-y: auto;
+
 
         .top-area{
             margin-top: 0 !important;

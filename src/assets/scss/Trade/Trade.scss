@@ -89,6 +89,32 @@
         }
 
     }
+    .trade-body.coins-body{
+
+        table{
+
+            tr{
+
+                td{
+    
+                    &:first-child{
+                        color: #fff !important;
+
+                        i{
+                            color: $favourite-color;
+                            margin-right: 5px;
+                            cursor: pointer;
+
+                        }
+                    }
+    
+                }
+    
+            }
+
+        }
+
+    }
 
     .status1{
         float: left;
@@ -159,12 +185,17 @@
 
         li{
             display: inline-block;
-            margin-left: 15px;
+            margin-left: 4%;
             margin-right: 15px;
+            width: 42%;
+
+            &:last-child{
+                margin-right: 0 !important;
+            }
 
             .nav-link{
                 border-radius: 3px !important;
-                min-width: 147px;
+                width: 100%;
                 color: #fff;
                 border: none;
                 background-color: #393939;
@@ -271,4 +302,78 @@
         }
     }
 
+}
+
+.search-head{
+
+    position: relative;
+    /* width: 93%; */
+    padding: 15px;
+    background-color: #2e2f31;
+    border-radius: 5px;
+    top: 3px;
+    cursor: pointer;
+
+    h4{
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #fff;
+    }
+
+    i{
+        position: absolute;
+        right: 20px;
+        top: 12px;
+    }
+}
+
+.search-body{
+    position: absolute;
+    width: 93%;
+    padding: 15px;
+    background-color: #2e2f31;
+    border-radius: 0 0 5px 5px;
+
+    .sub-tab-area{
+        padding: 0;
+
+        .sub-tab{
+            margin: 0;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+    }    
+
+    .form-control{
+        background-color: #393939;
+        height: 40px;
+        min-height: auto;
+    }
+}
+
+.chart-stat{
+    float: left;
+    margin-right: 4px;
+    font-size: 0.625rem;
+    line-height: 26px;
+
+    &:last-child{
+        margin-right: 0;
+    }
+
+    b{
+        float: left;
+        font-weight: 400;
+        color: #a2a4bf;
+        margin-right: 3px;
+    }
+
+    span{
+        float: left;
+        @extend .success-text;
+    }
+}
+
+.trades-card{
+    background-color: transparent !important;
 }

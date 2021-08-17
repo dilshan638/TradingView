@@ -8,7 +8,7 @@
                 <li class="nav-item">
                     <a class="nav-link buy-btn active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Buy</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" style="margin-right: 0 !important;">
                     <a class="nav-link sell-btn" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Sell</a>
                 </li>
                 <p>Balance 0.00 USD</p>
