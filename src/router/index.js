@@ -19,6 +19,7 @@ import CryptoOne from '../components/Wallet/CryptoOne.vue';
 import CryptoTwo from '../components/Wallet/CryptoTwo.vue';
 import WizardSuccessfullyPage from '../components/SecuritySetting/WizardSuccessfullyPage.vue';
 
+import History from '../components/History/History.vue';
 
 //Import store
 //import store from "../store";
@@ -88,6 +89,10 @@ const routes=[
     {
         path:'/wallet/cryptotwo',
         component:CryptoTwo
+    },
+    {
+        path:'/history',
+        component:History
     },
    
    

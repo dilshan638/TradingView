@@ -27,9 +27,9 @@
                </router-link>
             </li>            
             <li>
-                <a  class="nav-link text-white">
-                    <i class="ri-shape-fill"></i> Referral
-                </a>
+              <router-link to="/history" class="nav-link text-white">
+                    <i class="ri-shape-fill"></i> History
+              </router-link>
             </li>
         </ul>
     </div>

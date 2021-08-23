@@ -147,6 +147,7 @@ import { required, email,sameAs } from '@vuelidate/validators'
 import { reactive, computed } from 'vue'
 import Modal from "../Modal/Modal.vue";
 import CryptoJS from "crypto-js";
+
 export default {
     name:'signin',
     components: {
@@ -223,18 +224,27 @@ export default {
                try {
                 await Auth.signIn(this.state.email, this.state.password.password)
                 .then(data=>{
-                    this.accToken=data.signInUserSession.accessToken.jwtToken
-                    console.log("accessToken    "+data.signInUserSession.accessToken.jwtToken)
-                    console.log(data)
+                    // console.log(Cookies.set('accessToken', data.signInUserSession))
+                   this.accToken=data.signInUserSession.accessToken.jwtToken
                     this.data.firstName=data.attributes.name
                     this.data.lastName=data.attributes.middle_name
                     this.data.email=this.state.email
+
+                    console.log("AccessToken    "+data.signInUserSession.accessToken.jwtToken)
+                    localStorage.setItem('AccessToken',data.signInUserSession.accessToken.jwtToken)
+
+                    //  this.$session.start()
+                   //   this.$session.set('jwt', data)
 
                 })
                     console.log('Yes')
                     this.encryptData()
                    // window.location.href = `http://localhost:8081/kyc?data=${this.encData}`
-                 //   console.log(this.encData)  
+                     window.location.href = `http://localhost:8080/#/dashboard`
+                  //  console.log(this.$session.get('jwt'))    
+
+                  
+                  
       
                     
               } catch (error) {
