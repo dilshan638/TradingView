@@ -16,15 +16,9 @@ import Home from '../views/Home.vue';
 
 import Setting from '../components/Setting/Setting.vue';
 import CryptoOne from '../components/Wallet/CryptoOne.vue';
-<<<<<<< HEAD
-import WizardSuccessfullyPage from '../components/SecuritySetting/WizardSuccessfullyPage.vue';
-
-=======
-import CryptoTwo from '../components/Wallet/CryptoTwo.vue';
 import WizardSuccessfullyPage from '../components/SecuritySetting/WizardSuccessfullyPage.vue';
 
 import History from '../components/History/History.vue';
->>>>>>> b6757e44c5649aeb96c6e51e751cebe4fc3aa430
 
 //Import store
 //import store from "../store";
@@ -90,7 +84,11 @@ const routes=[
     {
         path:'/wallet/cryptoone',
         component:CryptoOne
-    }
+    },
+    {
+        path:'/history',
+        component:History
+    }    
 ];
 
 const router = createRouter({
