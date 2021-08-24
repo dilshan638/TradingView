@@ -289,20 +289,26 @@ export default {
                 await Auth.signIn(this.state.email, this.state.password.password)
                 .then(data=>{
                     // console.log(Cookies.set('accessToken', data.signInUserSession))
-                    // console.log(Cookies.set('firstName', data.attributes.name))
-                    // console.log(Cookies.set('lastName', data.attributes.middle_name))
-                    // console.log(Cookies.set('url','https://dev.exus.live/#/dashboard'))
-                    this.accToken=data.signInUserSession.accessToken.jwtToken
-
+                   this.accToken=data.signInUserSession.accessToken.jwtToken
                     this.data.firstName=data.attributes.name
                     this.data.lastName=data.attributes.middle_name
                     this.data.email=this.state.email
 
+                    console.log("AccessToken    "+data.signInUserSession.accessToken.jwtToken)
+                    localStorage.setItem('AccessToken',data.signInUserSession.accessToken.jwtToken)
+
+                    //  this.$session.start()
+                   //   this.$session.set('jwt', data)
+
                 })
                     console.log('Yes')
                     this.encryptData()
-                    window.location.href = `http://localhost:8081/kyc?data=${this.encData}`
-                    console.log(this.encData)  
+                   // window.location.href = `http://localhost:8081/kyc?data=${this.encData}`
+                     window.location.href = `http://localhost:8080/#/dashboard`
+                  //  console.log(this.$session.get('jwt'))    
+
+                  
+                  
       
                     
               } catch (error) {

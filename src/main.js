@@ -7,13 +7,14 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import Toaster from '@meforma/vue-toaster';
 import VueApexCharts from "vue3-apexcharts";
+//import VueSession from 'vue-session'
 
 
 const app = createApp(App);
 app.use(router)
 app.use(Toaster)
 app.use(VueApexCharts)
-
+//app.use(VueSession)
 app.mount('#app');
 
 import VueTelInput from 'vue3-tel-input'
