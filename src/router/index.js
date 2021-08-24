@@ -6,12 +6,18 @@ import Check from '../views/Check.vue';
 import Dashboard from '../views/Dashboard';
 import Wallet from '../views/Wallet';
 import SecurityPage from '../views/Security';
-import Orders from '../views/Orders';
+import Orders from '../views/Orders'; 
 import SecuritySetting from '../views/SecuritySetting.vue';
 import Trade from '../views/Trade.vue';
 import Market from '../views/Market.vue';
 import Security from '../components/Security/Security.vue';
 import Home from '../views/Home.vue';
+
+
+import Setting from '../components/Setting/Setting.vue';
+import CryptoOne from '../components/Wallet/CryptoOne.vue';
+import WizardSuccessfullyPage from '../components/SecuritySetting/WizardSuccessfullyPage.vue';
+
 
 //Import store
 //import store from "../store";
@@ -64,8 +70,20 @@ const routes=[
     {
         path:'/market',
         component:Market
-    }
+    },
+    {
    
+        path:'/setting',
+        component:Setting
+    },
+     {
+        path:'/successfully',
+        component:WizardSuccessfullyPage
+    },
+    {
+        path:'/wallet/cryptoone',
+        component:CryptoOne
+    }
 ];
 
 const router = createRouter({

@@ -1,5 +1,6 @@
 <template>
     <div class="form-layout">
+
         <div class="row">
             <div class="col-md-6 mobile-hide no-padding">
                 <div class="left-logo">
@@ -33,7 +34,7 @@
         </div>
             <modal ref="forgotpasswordmodal" class="forgot-modal">
                 <template v-slot:header>
-                    <h2 style="color:black">Reset your Password</h2>
+                    <h2 style="color:black">Forgot Password</h2>
                 </template>
                 <template v-slot:body>
                     <!-- Nav tabs -->
@@ -58,7 +59,7 @@
                             </div>
 
                             <div class="modal-buttons">
-                                <button class="mb-3" @click="forgotpassword">Send Now</button>
+                                <button class="mb-3" @click="forgotpassword">Next</button>
                                 <button  class="second-btn mb-3" @click="$refs.forgotpasswordmodal.closeModal()">Cancel</button>
                             </div>  
 
@@ -80,30 +81,59 @@
                 </template>
 
                 <template v-slot:body>
-                    <p>We have sent a 6 Digit code to <br/>
+                    <p style="color:#000">We have sent a 6 Digit code to <br/>
                     your registered email on LDCX</p>
 
                     <b>ab*@*.com</b>
                     <span class="resend-area">Didn't Received <a href="#" @click="resend">Resend Code</a></span>
 
-                    <div class="form-group pos-rel mb-4">
+                    <div class="input-group mb-4">
                         <input type="text" class="form-control" placeholder="Email Verification code" v-model="state.verificationCode" />
-                         <span class="error-msg" v-if="v$.verificationCode.$error">{{ v$.verificationCode.$errors[0].$message }} </span> 
-                    </div>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary input-group-btn" type="button">Send</button>
+                        </div>
+                        <span class="error-msg" v-if="v$.verificationCode.$error">{{ v$.verificationCode.$errors[0].$message }} </span> 
+                    </div>                    
 
-                    <div class="form-group mb-4">
-                        <div class="eye-area">
-                            <input v-bind:type="[showPasswordotp ? 'text' : 'password']" class="form-control" placeholder="Password" v-model="state.newPassword" />
+                    <div class="form-group mb-4 pos-rel">
+                        <div class="input_container" v-if="showPasswordLength">
+                            <!-- <password-generator /> -->
+                            <ul>
+                                <li v-bind:class="{ is_valid: contains_eight_characters }">8 Characters</li>
+                                <li v-bind:class="{ is_valid: contains_number }">Contains Number</li>
+                                <li v-bind:class="{ is_valid: contains_uppercase }">Contains Uppercase</li>
+                                <li v-bind:class="{ is_valid: contains_special_character }">Contains Special Character</li>
+                            </ul>
+                        </div> 
+                        <div class="password-suggestion-box" v-if="showPasswordSuggestion">
+                            <h3>Auto generated Password</h3>
+                            <div class="password-view">
+                                {{passwordsuggestionvalue}}
+                            </div>
+                            <div class="bottom-btn">
+                                <button class="btn btn-outline" @click="passwordGenereate">Generate New</button>
+                                <button class="btn btn-primary" @click="usePassword">Use this</button>
+                            </div>
+                        </div>                           
+                        <div class="input-group eye-area">
+                            <input v-bind:type="[showPasswordotp ? 'text' : 'password']" class="form-control" 
+                            @input="checkPassword" placeholder="Password" v-model="state.newPassword" @focus="showPasswordLength = true" @blur="showPasswordLength = false"
+                             />
                                 <div class="eye-box">
                                     <i @click="showPasswordotp = !showPasswordotp" :class="[showPasswordotp ? 'ri-eye-off-line' : 'ri-eye-line']" aria-hidden="true"></i>  
-                                </div>                        
+                                </div>                              
+                            <div class="input-group-append">
+                            <button class="btn btn-outline-secondary input-group-btn" @click="showPasswordSuggestion = true" type="button">
+                                <i class="ri-lock-password-line"></i>
+                            </button>
                             <span class="error-msg" v-if="v$.newPassword.$error">{{ v$.newPassword.$errors[0].$message }} </span> 
                         </div>
+                        </div>                        
                     </div>
 
                     <div class="form-group">
                         <div class="eye-area">
-                            <input v-bind:type="[showPasswordotpconfirm ? 'text' : 'password']" class="form-control" placeholder="Confirm Password" v-model="state.confirmPassword" />
+                            <input v-bind:type="[showPasswordotpconfirm ? 'text' : 'password']" class="form-control" placeholder="Confirm New Password" v-model="state.confirmPassword" />
                                 <div class="eye-box">
                                     <i @click="showPasswordotpconfirm = !showPasswordotpconfirm" :class="[showPasswordotpconfirm ? 'ri-eye-off-line' : 'ri-eye-line']" aria-hidden="true"></i>  
                                 </div>                         
@@ -146,11 +176,15 @@ import useValidate from '@vuelidate/core'
 import { required, email,sameAs } from '@vuelidate/validators'
 import { reactive, computed } from 'vue'
 import Modal from "../Modal/Modal.vue";
+// import PasswordGenerator from "../PasswordGenerator/PasswordGenerator.vue";
+var generator = require('generate-password');
 import CryptoJS from "crypto-js";
+
 export default {
     name:'signin',
     components: {
-        Modal
+        Modal,
+       // PasswordGenerator
     },
     setup() {
         const state = reactive({
@@ -204,6 +238,17 @@ export default {
             showPasswordotpconfirm: false,
             isHiddenMobile: false,
             showPasswordMobile: false,
+            showPasswordLength:false,
+            showPasswordSuggestion: false,
+            passwordsuggestionvalue: '',
+            newpasswordone: '',
+
+            password_length: 0,
+            contains_eight_characters: false,
+            contains_number: false,
+            contains_uppercase: false,
+            contains_special_character: false,
+            valid_password: false,         
 
             
              data: {
@@ -217,8 +262,28 @@ export default {
         }
     },
     methods: { 
-        
-    
+
+        checkPassword() {
+            this.password_length = this.state.newPassword.length;
+            //eslint-disable-next-line
+            const format = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+            if (this.password_length > 8) {
+                this.contains_eight_characters = true;
+            } else {
+                this.contains_eight_characters = false;
+            }
+            this.contains_number = /\d/.test(this.state.newPassword);
+            this.contains_uppercase = /[A-Z]/.test(this.state.newPassword);
+            this.contains_special_character = format.test(this.state.newPassword);
+            if (this.contains_eight_characters === true &&
+                    this.contains_special_character === true &&
+                    this.contains_uppercase === true &&
+                    this.contains_number === true) {
+                        this.valid_password = true;			
+            } else {
+                this.valid_password = false;
+            }
+        },   
         async login() {
                try {
                 await Auth.signIn(this.state.email, this.state.password.password)
@@ -334,13 +399,33 @@ export default {
         },
         async showModal() {
             alert("rrr");
-        },        
+        }, 
+        passwordGenereate() {
+            var passwordgene = generator.generate({
+                length: 12,
+                numbers: true,
+                uppercase: true,
+                lowercase: true,
+                symbols: true
+            });            
+             console.log(passwordgene);
+             this.passwordsuggestionvalue = passwordgene
+        },
+        usePassword() {
+              this.passwordsuggestionvalue = this.state.new_password
+        }             
     },
     mounted() {
      this.encryptData()
+     this.passwordGenereate();
     }
 }
 </script>
 <style lang="scss">
         @import "signin";
+        .content{
+            display: flex;
+            justify-content: center;
+            align-items: center;   /* <---- NEW    */
+        }
 </style>
