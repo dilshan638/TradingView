@@ -7,7 +7,7 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="setting">
-                  <h2 >Settings</h2>
+                  <h2>Settings</h2>
                 </div>
                 <div class="change-password">
                    <p class="no-padding-all">Change Password</p>
@@ -31,7 +31,12 @@
                       v-bind:type="[showNewPassword ? 'text' : 'password']"
                       placeholder="New Password"
                       class="form-control"
+                      v-model="state.oldPassword"
                     />
+                    <span class="error-msg" v-if="v$.oldPassword.$error"
+                      >{{ v$.oldPassword.$errors[0].$message }}
+                    </span>
+
                     <div class="eye-box">
                       <i
                         @click="showNewPassword = !showNewPassword"
@@ -51,7 +56,11 @@
                       v-bind:type="[showOldPassword ? 'text' : 'password']"
                       placeholder="Old Password"
                       class="form-control"
+                      v-model="state.newPassword"
                     />
+                    <span class="error-msg" v-if="v$.newPassword.$error"
+                      >{{ v$.newPassword.$errors[0].$message }}
+                    </span>
                     <div class="eye-box">
                       <i
                         @click="showOldPassword = !showOldPassword"
@@ -71,12 +80,18 @@
                       v-bind:type="[showComfirmPassword ? 'text' : 'password']"
                       placeholder="Confirm New Password"
                       class="form-control"
+                      v-model="state.confirmPassword"
                     />
+                    <span class="error-msg" v-if="v$.confirmPassword.$error"
+                      >{{ v$.confirmPassword.$errors[0].$message }}
+                    </span>
                     <div class="eye-box">
                       <i
                         @click="showComfirmPassword = !showComfirmPassword"
                         :class="[
-                          showComfirmPassword ? 'ri-eye-off-line' : 'ri-eye-line',
+                          showComfirmPassword
+                            ? 'ri-eye-off-line'
+                            : 'ri-eye-line',
                         ]"
                         aria-hidden="true"
                       ></i>
@@ -84,59 +99,62 @@
                   </div>
                 </div>
               </div>
-              <div class="row">
-                <div class="col-md-4 text-right">
-                  <button class="btn" @click="showsecuremodal">Change Password</button>
-                </div>
-              </div>
             </div>
+            <div>
+              <button class="btn" @click="changePassword">
+                Change Password
+              </button>
+            </div>
+          </div>
         </div>
       </div>
-      </div>
-    </div> 
-    <modal ref="forgotpasswordmodal" class="modal2-modal no-modal-footer border50">
-      <template v-slot:header>
-          <h2>Security Verification</h2>
-      </template>
-      <template v-slot:body>
-        <div class="form-group pos-rel sec-row mb-4">
-            <p class="sub-text">Please enter the  6 Digit code that we have sent a to  +9477***121</p>
-            <div class="input-group mb-2">
-              <input type="text" class="form-control" placeholder="Mobile verification code">
-              <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button">Send</button>
-              </div>
-            </div>
-            <p class="sub-text text-right">Didn't received? <a href="#">Resend</a></p>
-        </div>
-        <div class="form-group pos-rel sec-row">
-            <p class="sub-text">PPlease enter the  6 Digit code that we have sent a to  ab**@**.com</p>
-            <div class="input-group mb-2">
-              <input type="text" class="form-control" placeholder="Email verification code">
-              <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button">Send</button>
-              </div>
-            </div>
-            <p class="sub-text text-right">Didn't received? <a href="#">Resend</a></p>
-        </div>        
-        <div class="modal-buttons">
-            <button class="mb-3" @click="forgotpassword">Send Now</button>
-            <button  class="second-btn mb-3" @click="$refs.forgotpasswordmodal.closeModal()">Cancel</button>
-        </div>  
-      </template>
-    </modal>
+    </div>
   </default-layout>
 </template>
 
 <script>
-import DefaultLayout from '../../layout/DefaultLayout.vue'
-import Modal from '../../components/Modal/Modal.vue'
+import useValidate from "@vuelidate/core";
+import DefaultLayout from "../../layout/DefaultLayout.vue";
+import { Auth } from "aws-amplify";
+import { required, sameAs ,minLength ,maxLength} from "@vuelidate/validators";
+import { reactive, computed } from "vue";
 export default {
   name: "Setting",
-  components: { 
-      DefaultLayout,
-      Modal
-    },
+  components: {
+    DefaultLayout,
+  },
+  setup() {
+    const state = reactive({
+      oldPassword: "",
+      newPassword: "",
+      confirmPassword: "",
+    });
+
+    const rules = computed(() => {
+      return {
+        oldPassword: {
+          required,
+        },
+
+        newPassword: {
+          required,
+          minLength: minLength(8),
+            maxLength: maxLength(12),
+        },
+
+        confirmPassword: {
+          required,
+          sameAs: sameAs(state.newPassword),
+          minLength: minLength(8),
+            maxLength: maxLength(12),
+        },
+      };
+    });
+
+    const v$ = useValidate(rules, state);
+    return { state, v$ };
+  },
+
   data() {
     return {
       showOldPassword: false,
@@ -144,16 +162,43 @@ export default {
       showComfirmPassword: false,
     };
   },
+
   methods: {
-    showsecuremodal() {
-      this.$refs.forgotpasswordmodal.openModal()
-    }
+    changePassword() {
+      this.v$.$validate();
+
+      if (!this.v$.$error) {
+        console.log("Form successfully submitted.");
+        Auth.currentAuthenticatedUser()
+          .then((user) => {
+            return Auth.changePassword(
+              user,
+              this.state.oldPassword,
+              this.state.newPassword
+            );
+          })
+          .then((data) => {
+             this.$toast.show('Your password change successfully..!!', { 
+          type: "success",
+          position: "top-right",
+        });
+            
+            console.log(data)})
+          .catch((err) => {
+            console.log(err)
+            this.$toast.show('Does not match your old password, Please check..!!', {
+          type: "error",
+          position: "top-right",
+        });
+          });
+      } else {
+        console.log("Form Failed Validation");
+      }
+    },
   },
-  mounted(){
-  }
 };
 </script>
 
 <style lang="scss" scoped>
-  @import "SettingTwo.scss"
+@import "SettingTwo.scss";
 </style>
