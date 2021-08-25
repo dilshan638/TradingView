@@ -31,7 +31,7 @@
         </nav>
       </div>
       <div class="col-md-3" style="text-align:right">
-        <button class="btn btn-outline-success my-2 my-sm-0">Logout</button>
+        <router-link  to="/signin"> <button class="btn btn-outline-success my-2 my-sm-0" @click="logout">Logout</button></router-link>
       </div>
     </div>
   </div>
@@ -45,6 +45,14 @@ export default {
       return{
 
       }
+  },
+
+  methods:{
+    logout(){
+      localStorage.removeItem('AccessToken')
+       localStorage.removeItem('createdAddress')
+       localStorage.removeItem('createdAddressSelectList')
+    }
   }
 
 }
