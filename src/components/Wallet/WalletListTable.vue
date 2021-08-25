@@ -62,7 +62,7 @@
       <template v-slot:body>
         <div class="row">
           <div class="col-md-12">
-            <img class="icon2" src="images/icons/ic_new_wallet@3x.webp" />
+            <img class="icon2" src="images/icons/ic_new_wallet@3x.webp"/>
 
             <p class="black">
               Before you can use this asset, you will need to create a Digital

@@ -1,8 +1,8 @@
 <template>
   <div>
-        <login-layout>
-            <signin-form />
-        </login-layout>
+    <login-layout class="before-login">
+        <signin-form />
+    </login-layout>
   </div>
 </template>
 

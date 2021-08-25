@@ -2,61 +2,28 @@
   <default-layout>
     <div class="row">
       <div class="col-md-12">
-        <div class="card table-card">
+        <div class="card">
           <div class="card-header">
             <div class="row">
               <div class="col-md-6">
                 <div class="setting">
                   <h2>Settings</h2>
                 </div>
-
                 <div class="change-password">
-                  <h2 class="Change-Password">Change Password</h2>
+                   <p class="no-padding-all">Change Password</p>
                 </div>
-
-                <hr class="Line-23" />
               </div>
               <div class="col-md-8"></div>
             </div>
           </div>
-
           <div class="card-body">
             <div class="row">
               <div class="col-md-12">
-                <p class="paragraph">
+                <p class="paragraph mb-3">
                   Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
                   diam nonumy eirmod tempor
                 </p>
               </div>
-            </div>
-
-            <div class="row textFields">
-              <div class="row sec-row">
-                <div class="col-md-4">
-                  <div class="eye-area mb-4">
-                    <input
-                      v-bind:type="[showOldPassword ? 'text' : 'password']"
-                      placeholder="Old Password"
-                      class="form-control"
-                      v-model="state.oldPassword"
-                    />
-                    <span class="error-msg" v-if="v$.oldPassword.$error"
-                      >{{ v$.oldPassword.$errors[0].$message }}
-                    </span>
-
-                    <div class="eye-box">
-                      <i
-                        @click="showOldPassword = !showOldPassword"
-                        :class="[
-                          showOldPassword ? 'ri-eye-off-line' : 'ri-eye-line',
-                        ]"
-                        aria-hidden="true"
-                      ></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
               <div class="row">
                 <div class="col-md-4">
                   <div class="eye-area mb-4">
@@ -64,11 +31,12 @@
                       v-bind:type="[showNewPassword ? 'text' : 'password']"
                       placeholder="New Password"
                       class="form-control"
-                      v-model="state.newPassword"
+                      v-model="state.oldPassword"
                     />
-                    <span class="error-msg" v-if="v$.newPassword.$error"
-                      >{{ v$.newPassword.$errors[0].$message }}
+                    <span class="error-msg" v-if="v$.oldPassword.$error"
+                      >{{ v$.oldPassword.$errors[0].$message }}
                     </span>
+
                     <div class="eye-box">
                       <i
                         @click="showNewPassword = !showNewPassword"
@@ -81,7 +49,30 @@
                   </div>
                 </div>
               </div>
-
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="eye-area mb-4">
+                    <input
+                      v-bind:type="[showOldPassword ? 'text' : 'password']"
+                      placeholder="Old Password"
+                      class="form-control"
+                      v-model="state.newPassword"
+                    />
+                    <span class="error-msg" v-if="v$.newPassword.$error"
+                      >{{ v$.newPassword.$errors[0].$message }}
+                    </span>
+                    <div class="eye-box">
+                      <i
+                        @click="showOldPassword = !showOldPassword"
+                        :class="[
+                          showOldPassword ? 'ri-eye-off-line' : 'ri-eye-line',
+                        ]"
+                        aria-hidden="true"
+                      ></i>
+                    </div>
+                  </div>
+                </div>                
+              </div>
               <div class="row">
                 <div class="col-md-4">
                   <div class="eye-area mb-4">

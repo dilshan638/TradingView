@@ -22,7 +22,7 @@
 .modal__dialog {
     background-color: #fff;
     position: relative;
-    width: 530px;
+    width: 550px;
     margin: 50px auto;
     display: flex;
     flex-direction: column;
@@ -171,4 +171,51 @@
       width: 630px;
       
      }
-   }
+}
+
+.modal2-modal{
+
+    p.sub-text{
+        font-size: 0.875rem;
+        font-weight: 300;
+        margin-bottom: 5px;
+        color: #000;
+
+        a{
+            color: #274fbe !important;
+        }
+    }
+
+    .sec-row{
+
+        button{
+            border-radius: 0 !important;
+            min-width: auto !important;
+            min-height: 52px !important;
+            line-height: 36px !important;
+        }
+
+    }
+
+}
+
+.no-modal-footer{
+
+    .modal__footer{
+        display: none !important;
+    }
+
+    .modal__body{
+        padding-bottom: 45px !important;
+    }
+
+}
+
+.border50{
+
+    .modal__dialog{
+        border-radius: 50px !important;
+    }
+
+
+}
