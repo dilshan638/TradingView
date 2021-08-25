@@ -1,8 +1,7 @@
 .Withdraw-Crypto{
-    margin-left: 30px;
-   font-family: Rubik;
    font-size: 1rem;
    font-weight: 600;
+   padding-bottom: 0;
 }
 
 .labels{
@@ -11,7 +10,7 @@
     font-weight: normal;
 }
 .textFields{
-    margin-left: 60px;
+    margin-left: 0;
  
   }
   .BTC-available {
@@ -26,7 +25,6 @@
   }
 
   .BTC-spot-balance {
-   
     font-family: Rubik;
     font-size: 0.75rem;
     font-weight: normal;
@@ -41,17 +39,18 @@
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
+    padding-bottom: 30px;
   
   }
   
   .crd{
     background-color: #3f4054;
-    width: 20.813rem;
-    height: 0.0;
-    margin: 0.5rem 0 6.7rem 8.125rem;
-    padding: 1.125rem 1.688rem 2.5rem;
+    width: 100%;
+    height: 0;
+    margin: 0;
+    padding: 30px;
     border-radius: 10px;
-    margin-left: 5rem;
+    margin-left: 0;
   }
 
   .Receive-Amount {
@@ -74,6 +73,12 @@
     font-weight: 600;
     font-stretch: normal;
     font-style: normal;
+
+    span{
+      color: #878787;
+      font-size: 0.75rem;
+      padding-left: 5px;
+    }
    
   }
   .btc{
@@ -98,11 +103,11 @@
   }
 
   .btn{
-      margin-top: -9rem;
-      margin-left: 16rem;
-      font-family: Rubik;
-      font-size: 1rem;
-      font-weight: normal;
+    margin-top: -9rem;
+    margin-left: 2rem;
+    font-family: Rubik;
+    font-size: 1rem;
+    font-weight: normal;
       
   }
   .Security-Verification {
@@ -155,12 +160,47 @@
   margin-left: 17rem;
 }
 
-.Modal-Textfiel{
- margin-left: 3.9rem;
- margin-top: -1rem;
-}
-
 .Modal-btn{
   margin-top: -1.4rem;
   margin-left: 1rem;
+}
+
+.bottom-grey{
+  color: #878787;
+  font-size: 1rem;
+  font-weight: 400;
+  text-align: right;
+  padding-top: 15px;
+}
+
+.success-head-text{
+  margin-bottom: 45px;
+}
+
+p.sm-texture{
+  color: #000;
+
+}
+
+.p-child{
+  color: #707070 !important;
+}
+
+.l-child{
+  padding-bottom: 45px;
+}
+
+.middle-img{
+  margin-left: auto;
+  margin-right: auto;
+  width: 6.2rem;
+  margin-bottom: 15px;
+}
+
+.amount-card{
+  height: 100%;
+  margin-top: 25px;
+  min-height: auto;
+  margin-bottom: 0;
+  margin-left: 10px;
 }

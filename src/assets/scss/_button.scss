@@ -53,3 +53,13 @@ button.dark,
 .btn.dark{
     background-color: #1b1b1b;
 }
+
+.input-group-btn{
+    min-width: auto;
+    border-radius: 0;
+    min-height: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+    text-align: center;
+    min-width: 65px;
+}

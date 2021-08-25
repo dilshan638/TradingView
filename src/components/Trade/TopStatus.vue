@@ -29,7 +29,19 @@
             <div class="top-sub">
                 <h3>24h Change</h3>
                 <b>1,433,454,545.87</b>
-            </div>                                         
+            </div>
+            <div class="top-sub">
+                <h3>MA(7)</h3>
+                <b>434234.43</b>
+            </div>
+            <div class="top-sub">
+                <h3>MA(25)</h3>
+                <b>434234.43</b>
+            </div>   
+            <div class="top-sub">
+                <h3>MA(99)</h3>
+                <b>434234.43</b>
+            </div>                       
         </div>
         </div>
     </div>
