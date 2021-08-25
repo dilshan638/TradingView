@@ -135,35 +135,59 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                
+                <trade-chart />
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import TradeChart from './test.vue'
+const dataMapper = (data) =>
+  [
+    { name: "ETH", prop: "coinsPerHour" },
+    { name: "BTC", prop: "btcPerHour" },
+  ].map((o) => ({
+    name: o.name,
+    data: data.map((i) => [i.time * 1e3, i[o.prop]]),
+    animation: false,
+  }));
 
 export default {
-    name:'topchart',
-    components: {
-        
+  name: "App",
+  components: {
+    TradeChart,
+  },
+  data: () => ({
+    dailyStats: [],
+    yearlyStats: [],
+    toggle: true,
+    dropdownshow: false
+  }),
+  computed: {
+    series() {
+      return this.toggle ? this.yearlyStats : this.dailyStats;
     },
-    data() {
-        return{
-            dropdownshow: false
-        }
+  },
+  methods: {
+    updateData() {
+      this.toggle = !this.toggle;
     },
-    methods: {   
-        async dropdowntoggle() {
-            console.log("rt");
-        }
-    },
-    mounted() {
-    }   
+  },
+  created() {
+    fetch("https://ethermine-api.herokuapp.com/stats/allStats?interval=YEAR")
+      .then((res) => {
+          console.log(res.stat)
+      })
 
-}
+    fetch("https://ethermine-api.herokuapp.com/stats/allStats?interval=DAY")
+      .then((res) => res.json())
+      .then((res) => {
+        this.dailyStats = dataMapper(res.stats);
+      });
+  },
+};
 </script>
-
 <style lang="scss" scoped>
   @import "../../assets/scss/Trade/Trade";
 </style>

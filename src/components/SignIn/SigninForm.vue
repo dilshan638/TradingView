@@ -1,6 +1,5 @@
 <template>
     <div class="form-layout">
-
         <div class="row">
             <div class="col-md-6 mobile-hide no-padding">
                 <div class="left-logo">
@@ -32,142 +31,140 @@
                 </div>
             </div>
         </div>
-            <modal ref="forgotpasswordmodal" class="forgot-modal">
-                <template v-slot:header>
-                    <h2 style="color:black">Forgot Password</h2>
-                </template>
-                <template v-slot:body>
-                    <!-- Nav tabs -->
-                    <ul class="nav nav-tabs modal-nav" id="myTab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Email</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Mobile</button>
-                    </li>
-                    </ul>
-                    <!-- Tab panes -->
-                    <div class="tab-content modal-tab">
+        <modal ref="forgotpasswordmodal" class="forgot-modal">
+            <template v-slot:header>
+                <h2 style="color:black">Forgot Password</h2>
+            </template>
+            <template v-slot:body>
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs modal-nav" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Email</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Mobile</button>
+                </li>
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content modal-tab">
 
-                    <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">                                            
+                <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">                                            
 
-                        
-                            <h5 style="color:black">Enter your Email Address</h5>
-                            <div class="form-group pos-rel">    
-                                <input type="email" class="form-control" placeholder="Email Address" style="color:#000" v-model="state.forgotpasswordemail" />
-                                <span class="error-msg" v-if="v$.forgotpasswordemail.$error">{{ v$.forgotpasswordemail.$errors[0].$message }} </span>  
-                            </div>
-
-                            <div class="modal-buttons">
-                                <button class="mb-3" @click="forgotpassword">Next</button>
-                                <button  class="second-btn mb-3" @click="$refs.forgotpasswordmodal.closeModal()">Cancel</button>
-                            </div>  
-
-                    </div>
-
-                    <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                        Coming soon
-                    </div>
                     
+                        <h5 style="color:black">Enter your Email Address</h5>
+                        <div class="form-group pos-rel">    
+                            <input type="email" class="form-control" placeholder="Email Address" style="color:#000" v-model="state.forgotpasswordemail" />
+                            <span class="error-msg" v-if="v$.forgotpasswordemail.$error">{{ v$.forgotpasswordemail.$errors[0].$message }} </span>  
+                        </div>
+
+                        <div class="modal-buttons">
+                            <button class="mb-3" @click="forgotpassword">Next</button>
+                            <button  class="second-btn mb-3" @click="$refs.forgotpasswordmodal.closeModal()">Cancel</button>
+                        </div>  
+
+                </div>
+
+                <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    Coming soon
+                </div>
+                
+                </div>
+
+            </template>
+
+        </modal>
+        <modal ref="otpcodemodal">
+            <template v-slot:header>
+                <h2 style="color:black">Security Verification</h2>
+            </template>
+
+            <template v-slot:body>
+                <p style="color:#000">We have sent a 6 Digit code to <br/>
+                your registered email on LDCX</p>
+
+                <b>ab*@*.com</b>
+                <span class="resend-area">Didn't Received <a href="#" @click="resend">Resend Code</a></span>
+
+                <div class="input-group mb-4">
+                    <input type="text" class="form-control" placeholder="Email Verification code" v-model="state.verificationCode" />
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary input-group-btn" type="button">Send</button>
                     </div>
+                    <span class="error-msg" v-if="v$.verificationCode.$error">{{ v$.verificationCode.$errors[0].$message }} </span> 
+                </div>                    
 
-                </template>
-
-            </modal>
-
-            <modal ref="otpcodemodal">
-                <template v-slot:header>
-                    <h2 style="color:black">Security Verification</h2>
-                </template>
-
-                <template v-slot:body>
-                    <p style="color:#000">We have sent a 6 Digit code to <br/>
-                    your registered email on LDCX</p>
-
-                    <b>ab*@*.com</b>
-                    <span class="resend-area">Didn't Received <a href="#" @click="resend">Resend Code</a></span>
-
-                    <div class="input-group mb-4">
-                        <input type="text" class="form-control" placeholder="Email Verification code" v-model="state.verificationCode" />
+                <div class="form-group mb-4 pos-rel">
+                    <div class="input_container" v-if="showPasswordLength">
+                        <!-- <password-generator /> -->
+                        <ul>
+                            <li v-bind:class="{ is_valid: contains_eight_characters }">8 Characters</li>
+                            <li v-bind:class="{ is_valid: contains_number }">Contains Number</li>
+                            <li v-bind:class="{ is_valid: contains_uppercase }">Contains Uppercase</li>
+                            <li v-bind:class="{ is_valid: contains_special_character }">Contains Special Character</li>
+                        </ul>
+                    </div> 
+                    <div class="password-suggestion-box" v-if="showPasswordSuggestion">
+                        <h3>Auto generated Password</h3>
+                        <div class="password-view">
+                            {{passwordsuggestionvalue}}
+                        </div>
+                        <div class="bottom-btn">
+                            <button class="btn btn-outline" @click="passwordGenereate">Generate New</button>
+                            <button class="btn btn-primary" @click="usePassword">Use this</button>
+                        </div>
+                    </div>                           
+                    <div class="input-group eye-area">
+                        <input v-bind:type="[showPasswordotp ? 'text' : 'password']" class="form-control" 
+                        @input="checkPassword" placeholder="Password" v-model="state.newPassword" @focus="showPasswordLength = true" @blur="showPasswordLength = false"
+                            />
+                            <div class="eye-box">
+                                <i @click="showPasswordotp = !showPasswordotp" :class="[showPasswordotp ? 'ri-eye-off-line' : 'ri-eye-line']" aria-hidden="true"></i>  
+                            </div>                              
                         <div class="input-group-append">
-                            <button class="btn btn-outline-secondary input-group-btn" type="button">Send</button>
-                        </div>
-                        <span class="error-msg" v-if="v$.verificationCode.$error">{{ v$.verificationCode.$errors[0].$message }} </span> 
-                    </div>                    
-
-                    <div class="form-group mb-4 pos-rel">
-                        <div class="input_container" v-if="showPasswordLength">
-                            <!-- <password-generator /> -->
-                            <ul>
-                                <li v-bind:class="{ is_valid: contains_eight_characters }">8 Characters</li>
-                                <li v-bind:class="{ is_valid: contains_number }">Contains Number</li>
-                                <li v-bind:class="{ is_valid: contains_uppercase }">Contains Uppercase</li>
-                                <li v-bind:class="{ is_valid: contains_special_character }">Contains Special Character</li>
-                            </ul>
-                        </div> 
-                        <div class="password-suggestion-box" v-if="showPasswordSuggestion">
-                            <h3>Auto generated Password</h3>
-                            <div class="password-view">
-                                {{passwordsuggestionvalue}}
-                            </div>
-                            <div class="bottom-btn">
-                                <button class="btn btn-outline" @click="passwordGenereate">Generate New</button>
-                                <button class="btn btn-primary" @click="usePassword">Use this</button>
-                            </div>
-                        </div>                           
-                        <div class="input-group eye-area">
-                            <input v-bind:type="[showPasswordotp ? 'text' : 'password']" class="form-control" 
-                            @input="checkPassword" placeholder="Password" v-model="state.newPassword" @focus="showPasswordLength = true" @blur="showPasswordLength = false"
-                             />
-                                <div class="eye-box">
-                                    <i @click="showPasswordotp = !showPasswordotp" :class="[showPasswordotp ? 'ri-eye-off-line' : 'ri-eye-line']" aria-hidden="true"></i>  
-                                </div>                              
-                            <div class="input-group-append">
-                            <button class="btn btn-outline-secondary input-group-btn" @click="showPasswordSuggestion = true" type="button">
-                                <i class="ri-lock-password-line"></i>
-                            </button>
-                            <span class="error-msg" v-if="v$.newPassword.$error">{{ v$.newPassword.$errors[0].$message }} </span> 
-                        </div>
-                        </div>                        
+                        <button class="btn btn-outline-secondary input-group-btn" @click="showPasswordSuggestion = true" type="button">
+                            <i class="ri-lock-password-line"></i>
+                        </button>
+                        <span class="error-msg" v-if="v$.newPassword.$error">{{ v$.newPassword.$errors[0].$message }} </span> 
                     </div>
+                    </div>                        
+                </div>
 
-                    <div class="form-group">
-                        <div class="eye-area">
-                            <input v-bind:type="[showPasswordotpconfirm ? 'text' : 'password']" class="form-control" placeholder="Confirm New Password" v-model="state.confirmPassword" />
-                                <div class="eye-box">
-                                    <i @click="showPasswordotpconfirm = !showPasswordotpconfirm" :class="[showPasswordotpconfirm ? 'ri-eye-off-line' : 'ri-eye-line']" aria-hidden="true"></i>  
-                                </div>                         
-                        <span class="error-msg" v-if="v$.confirmPassword.$error">{{ v$.confirmPassword.$errors[0].$message }} </span> 
-                        </div>
-                    </div>                                                
-                    
-                </template>
-
-                <template v-slot:footer>
-                    <div>
-                        <button @click="otpcheck">Next</button>
+                <div class="form-group">
+                    <div class="eye-area">
+                        <input v-bind:type="[showPasswordotpconfirm ? 'text' : 'password']" class="form-control" placeholder="Confirm New Password" v-model="state.confirmPassword" />
+                            <div class="eye-box">
+                                <i @click="showPasswordotpconfirm = !showPasswordotpconfirm" :class="[showPasswordotpconfirm ? 'ri-eye-off-line' : 'ri-eye-line']" aria-hidden="true"></i>  
+                            </div>                         
+                    <span class="error-msg" v-if="v$.confirmPassword.$error">{{ v$.confirmPassword.$errors[0].$message }} </span> 
                     </div>
-                </template>
-            </modal>   
+                </div>                                                
+                
+            </template>
 
-            <modal ref="successmodal">
-                <template v-slot:header>
-                    <h2 style="color:black">Password Changed!</h2>
-                </template>
+            <template v-slot:footer>
+                <div>
+                    <button @click="otpcheck">Next</button>
+                </div>
+            </template>
+        </modal>   
+        <modal ref="successmodal">
+            <template v-slot:header>
+                <h2 style="color:black">Password Changed!</h2>
+            </template>
 
-                <template v-slot:body>
-                    <img class="correct" src="images/icons/correct.png" />
-                    <p>
-                        Please log in with the <br/>
-                        New Password
-                    </p>
-                </template>
-                <template v-slot:footer>
-                    <div>
-                        <button @click="$refs.successmodal.closeModal()" class="loginbtn">Login</button>
-                    </div>
-                </template>
-            </modal>
+            <template v-slot:body>
+                <img class="correct" src="images/icons/correct.png" />
+                <p>
+                    Please log in with the <br/>
+                    New Password
+                </p>
+            </template>
+            <template v-slot:footer>
+                <div>
+                    <button @click="$refs.successmodal.closeModal()" class="loginbtn">Login</button>
+                </div>
+            </template>
+        </modal>
     </div>
 </template>
 <script>
@@ -176,15 +173,13 @@ import useValidate from '@vuelidate/core'
 import { required, email,sameAs } from '@vuelidate/validators'
 import { reactive, computed } from 'vue'
 import Modal from "../Modal/Modal.vue";
-// import PasswordGenerator from "../PasswordGenerator/PasswordGenerator.vue";
 var generator = require('generate-password');
 import CryptoJS from "crypto-js";
 
 export default {
     name:'signin',
     components: {
-        Modal,
-       // PasswordGenerator
+        Modal
     },
     setup() {
         const state = reactive({
@@ -429,9 +424,4 @@ export default {
 </script>
 <style lang="scss">
         @import "signin";
-        .content{
-            display: flex;
-            justify-content: center;
-            align-items: center;   /* <---- NEW    */
-        }
 </style>
