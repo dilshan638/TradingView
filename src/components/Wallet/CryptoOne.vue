@@ -15,9 +15,9 @@
             <div class="col-md-6">
               <div class="form-group pos-rel mb-4">
                 <p class="labels">Select Coin</p>
-
-                <select placeholder="BTC-BITCOIN" class="form-control">
-                  <option value="BTC-BITCOIN">BTC-BITCOIN</option>
+             
+                <select placeholder="BTC-BITCOIN" class="form-control  ">
+                  <option  value="BTC-BITCOIN" >BTC-BITCOIN</option>
                 </select>
               </div>
             </div>
@@ -109,4 +109,6 @@ export default {
 
 <style lang="scss" scoped>
 @import "Crypto.scss";
+
+
 </style>

@@ -9,23 +9,28 @@
           <div class="card-body">
             <div class="row">
               <div class="col-md-4">
-                <select-coin/>
+                <select-coin @ads="getPassingAddress"/>
               </div>
               <div class="col-md-8">
                   <div class="barcode-area">
-                    <div class="barcode-img"></div>
+                    <div class="barcode-img">
+                      <qrcode-vue :value="value" :size="size" level="H" class="qr" />
+                    </div>
                     <p>Scan the code on the withdrawal page of<br/>
                         the trading platform APP or wallet APP</p>
+
+                        
                   </div>
                   <div class="barcode-detail">
                     <ul class="row">
-                      <li class="col-md-12"> 
+
+                       <li class="col-md-12"  > 
                         <b>Address</b>
-                        <p>12HSARkd7Q4xt5XWBpbUns1SQvHtSRyyzx</p>
-                        <i class="ri-file-copy-line"></i>
-                      </li>
+                        <p >{{generatedAddress}}</p>
+                     </li>
+                    
                       <li class="col-md-6"> 
-                        <b>MInimum Deposit</b>
+                        <b>MInimum Deposit</b> 
                         <p>0.00000001 BTC</p>
                       </li>    
                       <li class="col-md-6"> 
@@ -54,17 +59,69 @@
 <script>
 import DefaultLayout from '../layout/DefaultLayout.vue'
 import SelectCoin from '../components/SecurityPage/SelectCoin.vue'
-
+import axios from "axios";
+import QrcodeVue from "qrcode.vue";
 export default {
     name:'security',
     components: { 
       DefaultLayout,
-      SelectCoin
+      SelectCoin,
+      QrcodeVue
     },
     data() {
       return {
+        address:[],
+        createdAddress:'',
+        generatedAddress:'',
+        selectedListCoin:'',
+        value: "otpauth://totp/SupremeCrypX?secret=ZZZQPGOCPUYLJDMP",
+      size: 142,
       }
-    }    
+    }  ,
+    
+    methods:{
+      getAddress(){
+         const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("AccessToken")}`,
+      };
+      axios
+        .get("https://dapi.exus.live/api/mobile/v1/wallet/user/crypto", {
+          headers: headers,
+        })
+        .then((response) => {
+         console.log(response)
+         this.address=response.data[0]
+         
+        })
+        .catch(function (error) {
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        });
+      },
+
+      async createdAddressManual(){
+
+        this.generatedAddress=localStorage.getItem("createdAddress");
+       // console.log(this.generatedAddress)
+       this.selectedListCoin= localStorage.getItem("createdAddressSelectList");
+       console.log(this.selectedListCoin)
+      },
+      
+
+      getPassingAddress(ad){
+          console.log(ad)
+      }
+
+
+
+    },
+
+    mounted(){
+  this.getAddress()
+  this.createdAddressManual()
+    }
 }
 </script>
 
