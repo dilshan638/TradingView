@@ -40,9 +40,13 @@
                     {{ crypto.amount }}
                   </td>
                   <td class="action-td">
-                    <a >Deposit</a>
+                    <a>Deposit</a>
                     <a>Withdraw</a>
-                    <a class="clr" @click="openModal(crypto.symbol)">
+                    <a
+                      v-if="crypto.address == null"
+                      class="clr"
+                      @click="openModal(crypto.symbol)"
+                    >
                       Create Wallet
                     </a>
                   </td>
@@ -62,7 +66,7 @@
       <template v-slot:body>
         <div class="row">
           <div class="col-md-12">
-            <img class="icon2" src="images/icons/ic_new_wallet@3x.webp"/>
+            <img class="icon2" src="images/icons/ic_new_wallet@3x.webp" />
 
             <p class="black">
               Before you can use this asset, you will need to create a Digital
@@ -91,6 +95,7 @@
 <script>
 import axios from "axios";
 import Modal from "../Modal/Modal.vue";
+
 export default {
   data() {
     return {
@@ -99,6 +104,10 @@ export default {
       marketPrice: [],
       selectedCurrency: "",
       allSymbol: [],
+      arraySymbol: [],
+      arrayCoinsLocalStorage: [],
+
+      arrayTemp:[]
     };
   },
 
@@ -119,7 +128,7 @@ export default {
         .then((response) => {
           this.cryptoAll = response.data[0];
           localStorage.setItem("coin", JSON.stringify(response.data[0]));
-          console.log(JSON.parse(localStorage.getItem("coin")));
+          // console.log(JSON.parse(localStorage.getItem("coin")));
 
           axios
             .get("https://dapi.exus.live/api/mobile/v1/wallet/user/crypto", {
@@ -177,11 +186,34 @@ export default {
         hed
       );
       this.marketPrice = response.data.price;
-      console.log(response.data.price);
+
     },
 
     async openModal(symbal) {
       this.selectedCurrency = symbal;
+
+     
+      this.arrayCoinsLocalStorage = JSON.parse(localStorage.getItem("arraySymbol")
+      );
+
+      if(this.arrayCoinsLocalStorage==null){
+         for (var i = 1; i <= 1; i++) {
+         this.arraySymbol.push({ symbol: symbal });
+      }
+
+      this.arrayTemp=this.arraySymbol
+      }else{
+
+       for (var j = 1; j <= 1; j++) {
+         this.arrayCoinsLocalStorage.push({ symbol: symbal });
+      }
+
+       this.arrayTemp=this.arrayCoinsLocalStorage
+   
+      }
+      localStorage.setItem("arraySymbol", JSON.stringify(this.arrayTemp));
+      console.log(JSON.parse(localStorage.getItem("arraySymbol")));
+
       this.$refs.createAddressModal.openModal();
     },
 
@@ -207,14 +239,23 @@ export default {
       );
 
       this.createdAddress = response.data.address;
-      console.log(this.createdAddress);
+       //console.log(response);
+
+      //  for (let i = 0; i <=1; i++)
+              //{
+             // this.cryptoAll[i]["address"] =  this.createdAddress;
+            //  }
+
+            //  console.log(this.cryptoAll)
+
+
       localStorage.setItem("createdAddress", this.createdAddress);
       this.$toast.show("Your address created successfully..!!", {
         type: "success",
         position: "top-right",
       });
 
-        this.$refs.createAddressModal.closeModal();
+      this.$refs.createAddressModal.closeModal();
     },
   },
 
@@ -246,7 +287,7 @@ export default {
   color: black;
 }
 
-.button2{
+.button2 {
   margin-top: -20px;
 }
 </style>

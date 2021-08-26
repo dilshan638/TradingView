@@ -2,9 +2,9 @@
   <div class="inner-guard">
     <p>Select Coin</p>
     <div class="form-field">
-      <select class="form-control" v-model="selectCoin"  @change="onChange($event)">
-        <option disabled selected value>Select Coin</option>
-        <option v-for="coins in coin" :key="coins.symbol" :value="coins.symbol">
+      <select class="form-control" v-model="selectCoin" @change="onChange($event)">
+        
+        <option v-for="coins in arrayCoins" :key="coins.symbol" :value="coins.symbol">
           {{ coins.symbol }}
         </option>
       </select>
@@ -25,7 +25,10 @@ export default {
     return {
       coin: [],
       createdAddress:[],
-      selectCoin:''
+      selectCoin:'',
+      arrayCoins:[],
+      
+     
     };
 
     
@@ -34,6 +37,10 @@ export default {
   methods: {
     async getCoins() {
       this.coin = JSON.parse(localStorage.getItem("coin"));
+      this.arrayCoins= JSON.parse(localStorage.getItem("arraySymbol"));
+      console.log(this.arrayCoins)
+
+    
     },
 
    

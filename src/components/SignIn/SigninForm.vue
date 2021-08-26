@@ -301,12 +301,7 @@ export default {
                    // window.location.href = `http://localhost:8081/kyc?data=${this.encData}`
                      window.location.href = `http://localhost:8080/#/dashboard`
                     
-
-                  
-                  
-      
-                    
-              } catch (error) {
+             } catch (error) {
                     this.$toast.show(error.message, {type: "error", position: "top-right"});
                     console.log(error.message)
                     console.log('No')
@@ -337,7 +332,7 @@ export default {
             try{
                 await Auth.forgotPassword(username)
                 .then(data => {
-                    console.log(data)
+                    console.log(data.CodeDeliveryDetails.Destination)
                     console.log("Success");
                     this.state.forgotpasswordemail = ""
                 })

@@ -52,7 +52,7 @@ export default {
       localStorage.removeItem('AccessToken')
        localStorage.removeItem('createdAddress')
        localStorage.removeItem('createdAddressSelectList')
-       
+        localStorage.removeItem('arraySymbol')
 
 
     }
