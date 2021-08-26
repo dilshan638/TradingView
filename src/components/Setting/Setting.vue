@@ -96,14 +96,16 @@
                         aria-hidden="true"
                       ></i>
                     </div>
-                  </div>
+                  </div>                 
                 </div>
-              </div>
-            </div>
-            <div>
-              <button class="btn" @click="changePassword">
-                Change Password
-              </button>
+              </div>  
+              <div class="row">
+                  <div class="col-md-4">
+                    <button class="btn pull-right" @click="changePassword">
+                      Change Password
+                    </button>                     
+                  </div>
+              </div> 
             </div>
           </div>
         </div>

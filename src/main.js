@@ -15,6 +15,7 @@ app.use(router)
 app.use(Toaster)
 app.use(VueApexCharts)
 app.use(VueHighcharts)
+
 //app.use(VueSession)
 app.mount('#app');
 
