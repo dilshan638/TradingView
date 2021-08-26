@@ -17,7 +17,10 @@
                   <div class="form-group pos-rel mb-4">
                     <p class="labels">Select Coin</p>
                     <select placeholder="BTC-BITCOIN" class="form-control">
-                      <option value="BTC-BITCOIN">BTC-BITCOIN</option>
+                     <option disabled selected value>Select Coin</option>
+                      <option v-for="coins in coin" :key="coins.symbol" :value="coins.symbol">
+                        {{ coins.symbol }}
+                      </option>
                     </select>
                   </div>
                 </div>
@@ -167,7 +170,8 @@ export default {
   },
   data() {
     return{
-      shownetwork: false
+      shownetwork: false,
+      coin:''
     }
   },
   methods: {
@@ -187,8 +191,17 @@ export default {
     },
     Closesuccesswithdrowmodal(){
       this.$refs.successwithdrowmodal.closeModal();
-    }
-  }
+    },
+
+      async getCoins() {
+      this.coin = JSON.parse(localStorage.getItem("coin"));
+    },
+  },
+
+   mounted() {
+    this.getCoins();
+    
+  },
 };
 </script>
 

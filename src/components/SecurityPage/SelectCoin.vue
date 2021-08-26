@@ -2,7 +2,7 @@
   <div class="inner-guard">
     <p>Select Coin</p>
     <div class="form-field">
-      <select class="form-control" v-model="selectCoin"  @change="onChange($event)" @click="$emit('ads',this.createdAddress)">
+      <select class="form-control" v-model="selectCoin"  @change="onChange($event)">
         <option disabled selected value>Select Coin</option>
         <option v-for="coins in coin" :key="coins.symbol" :value="coins.symbol">
           {{ coins.symbol }}
@@ -10,8 +10,8 @@
       </select>
 
     
-    </div>
-  </div>
+    </div> 
+  </div>    
 </template>
 
 <script>
@@ -59,6 +59,8 @@ export default {
       this.createdAddress = response.data.address;
       console.log(this.createdAddress);
       localStorage.setItem("createdAddressSelectList", this.createdAddress);
+
+      this.$emit('AddList',this.createdAddress)
     
         }
 

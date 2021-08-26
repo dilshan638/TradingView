@@ -28,16 +28,24 @@
         </div>
         <div class="col-md-8">
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-3">
               <div class="block">
                 <p>Total Balance</p>
                 <h4>{{ this.totalBalance }} <span>BTC</span></h4>
               </div>
             </div>
-            <div class="col-md-6">
+
+            <div class="col-md-1">
+              <div class="block">
+                <br>
+                <h4>|</h4>
+              </div>
+            </div>
+
+            <div class="col-md-8">
               <div class="block">
                 <p>Market Value</p>
-                <h4>{{ this.marketvalue }} $</h4>
+                <h4>${{ this.marketvalue }} </h4>
               </div>
             </div>
           </div>
@@ -90,8 +98,12 @@ export default {
                   this.totalBalance = 0;
                 } else {
                   this.totalBalance = +((this.cryptoAll[i].amount * this.marketPrice) /this.marketvalue);
+                     
                 }
               }
+
+                
+               
             });
         })
         .catch(function (error) {
@@ -138,8 +150,14 @@ export default {
         hed
       );
       this.marketPrice = response.data.price;
+
       console.log(response.data.price);
     },
+
+  
+     
+      
+  
 
     
   },
@@ -148,6 +166,7 @@ export default {
     this.getCryptoAll();
 
     this.getMarketPrice();
+    
   },
 };
 </script>

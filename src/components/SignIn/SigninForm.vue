@@ -117,7 +117,8 @@
                         <input v-bind:type="[showPasswordotp ? 'text' : 'password']" class="form-control" 
                         @input="checkPassword" placeholder="Password" v-model="state.newPassword" @focus="showPasswordLength = true" @blur="showPasswordLength = false"
                             />
-                            <div class="eye-box">
+                            
+                            <div class="eye-box ">
                                 <i @click="showPasswordotp = !showPasswordotp" :class="[showPasswordotp ? 'ri-eye-off-line' : 'ri-eye-line']" aria-hidden="true"></i>  
                             </div>                              
                         <div class="input-group-append">
@@ -134,7 +135,8 @@
                         <input v-bind:type="[showPasswordotpconfirm ? 'text' : 'password']" class="form-control" placeholder="Confirm New Password" v-model="state.confirmPassword" />
                             <div class="eye-box">
                                 <i @click="showPasswordotpconfirm = !showPasswordotpconfirm" :class="[showPasswordotpconfirm ? 'ri-eye-off-line' : 'ri-eye-line']" aria-hidden="true"></i>  
-                            </div>                         
+                            </div>      
+                                               
                     <span class="error-msg" v-if="v$.confirmPassword.$error">{{ v$.confirmPassword.$errors[0].$message }} </span> 
                     </div>
                 </div>                                                
@@ -292,15 +294,13 @@ export default {
                     console.log("AccessToken    "+data.signInUserSession.accessToken.jwtToken)
                     localStorage.setItem('AccessToken',data.signInUserSession.accessToken.jwtToken)
 
-                    //  this.$session.start()
-                   //   this.$session.set('jwt', data)
 
                 })
                     console.log('Yes')
                     this.encryptData()
                    // window.location.href = `http://localhost:8081/kyc?data=${this.encData}`
                      window.location.href = `http://localhost:8080/#/dashboard`
-                  //  console.log(this.$session.get('jwt'))    
+                    
 
                   
                   
@@ -401,7 +401,7 @@ export default {
         async showModal() {
             alert("rrr");
         }, 
-        passwordGenereate() {
+     async   passwordGenereate() { //
             var passwordgene = generator.generate({
                 length: 12,
                 numbers: true,
@@ -411,9 +411,14 @@ export default {
             });            
              console.log(passwordgene);
              this.passwordsuggestionvalue = passwordgene
+
+             
         },
-        usePassword() {
-              this.passwordsuggestionvalue = this.state.new_password
+     async   usePassword() { //
+            //  this.state.new_password = this.passwordsuggestionvalue
+                this.state.newPassword=this.passwordsuggestionvalue
+              console.log( this.state.newPassword)
+              this.showPasswordSuggestion = false
         }             
     },
     mounted() {
@@ -424,4 +429,6 @@ export default {
 </script>
 <style lang="scss">
         @import "signin";
+
+        
 </style>
