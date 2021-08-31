@@ -43,72 +43,125 @@
         </div>
       </div>
     </div>
+  <div style="text-align: left;">
+    <h3>Static mode sample</h3>
+    <label>SearchBy:</label><input v-model="searchTerm" />
+  </div>    
+<table-lite
+    :is-static-mode="true"
+    :has-checkbox="true"
+    :columns="table2.columns"
+    :rows="table2.rows"
+    :total="table2.totalRecordCount"
+    :sortable="table2.sortable"
+    @return-checked-rows="updateCheckedRows"
+  ></table-lite>
   </default-layout>
 </template>
 
 <script>
-import DefaultLayout from "../../layout/DefaultLayout.vue";
-import axios from "axios";
-export default {
-  name: "History",
+import { defineComponent, reactive, ref, computed } from "vue";
+import TableLite from "vue3-table-lite";
+import DefaultLayout from '../../layout/DefaultLayout.vue';
+
+export default defineComponent({
+  name: "App",
   components: {
-    DefaultLayout,
+    TableLite,
+    DefaultLayout
   },
   data() {
+    // loginhistory: [];
+  },
+  setup() {
+    const updateCheckedRows = (rowsKey) => {
+      console.log(rowsKey);
+    };
+    const searchTerm = ref("");
+    const data = reactive([]); 
+    for (let i = 0; i < 126; i++) {
+      data.push({
+        id: i,
+        name: "TEST" + i,
+        email: "test" + i + "@example.com",
+      });
+    }
+    const table2 = reactive({
+      columns: [
+        {
+          label: "ID",
+          field: "id",
+          width: "3%",
+          sortable: true,
+          isKey: true,
+        },
+        {
+          label: "Name",
+          field: "name",
+          width: "10%",
+          sortable: true,
+          display: function (row) {
+            return (
+              '<a href="#" data-id="' +
+              row.user_id +
+              '" class="is-rows-el name-btn">' +
+              row.name +
+              "</a>"
+            );
+          },
+        },
+        {
+          label: "Email",
+          field: "email",
+          width: "15%",
+          sortable: true,
+        },
+        {
+          label: "",
+          field: "quick",
+          width: "10%",
+          display: function (row) {
+            return (
+              '<button type="button" data-id="' +
+              row.user_id +
+              '" class="is-rows-el quick-btn">Button</button>'
+            );
+          },
+        },
+      ],
+      rows: computed(() => {
+        return data.filter(
+          (x) =>
+            x.email.toLowerCase().includes(searchTerm.value.toLowerCase()) ||
+            x.name.toLowerCase().includes(searchTerm.value.toLowerCase())
+        );
+      }),
+      totalRecordCount: computed(() => {
+        return table2.rows.length;
+      }),
+      sortable: {
+        order: "id",
+        sort: "asc",
+      },
+      messages: {
+        pagingInfo: "Showing {0}-{1} of {2}",
+        pageSizeChangeLabel: "Row count:",
+        gotoPageLabel: "Go to page:",
+        noDataAvailable: "No data",
+      },
+    });
     return {
-      loginHistory: [],
+      searchTerm,
+      table2,
+      updateCheckedRows,
     };
   },
-
   methods: {
-    getCount() {
-      const headers = {
-        Authorization: `Bearer ${localStorage.getItem("AccessToken")}`,
-        "Content-Type": "application/json",
-      };
-      axios
-        .get("https://dapi.exus.live/api/mobile/v1/history/login/count", {
-          headers: headers,
-        })
-        .then((response) => {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
+    // async getHistory() {
 
-    async getHistory() {
-      var data = {
-        limit: "55",
-        offset: 1,
-        search: "",
-      };
-
-      let hed = {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("AccessToken")}`,
-          "Content-Type": "application/json",
-        },
-      };
-      let response = await this.axios.post(
-        "https://dapi.exus.live/api/mobile/v1/history/login",
-        data,
-        hed
-      );
-      this.loginHistory = response.data;
-      for (let i = 0; i < this.loginHistory.length; i++) {
-        this.loginHistory[i]["No"] = i + 1;
-      }
-      console.log(this.loginHistory);
-    },
-  },
-
-  mounted() {
-    this.getCount();
-    this.getHistory();
-  },
-};
+    // }  
+  }
+});
 </script>
 
 <style>
