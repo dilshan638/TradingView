@@ -5,7 +5,7 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12">
-              <div class="row top-area" style="margin-top: 15px;">
+              <div class="row top-area">
                 <div class="col-md-12 no-padding">
                   <div class="content">
                     <slot/>

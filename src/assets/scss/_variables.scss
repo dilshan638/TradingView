@@ -524,11 +524,11 @@ body{
   .trade-area{
 
     .main-layout{
-    justify-content: start;
-    align-items: flex-start;
-    background-color: $trade-bg-color;
-    height: 94vh;
-    overflow-y: auto;
+    // justify-content: start;
+    // align-items: flex-start;
+    // background-color: $trade-bg-color;
+    // height: 94vh;
+    // overflow-y: auto;
 
 
         .top-area{
@@ -542,9 +542,9 @@ body{
 .homepage {
 
     .main-layout{
-        align-items: baseline;
-        overflow-y: auto;
-        height: calc(100vh - 89px);
+        // align-items: baseline;
+        // overflow-y: auto;
+        // height: calc(100vh - 89px);
     }
 
 }
@@ -620,4 +620,19 @@ body{
         font-size: 0.75rem;
         font-weight: 400;
     }
+}
+
+.main-layout.login-layout{
+
+    .content{
+        display: flex;
+        justify-content: center;
+        /* align-self: center;    <---- REMOVE */
+        align-items: center;   /* <---- NEW    */
+    }
+
+}
+
+.after-login{
+    padding-top: 92px;
 }

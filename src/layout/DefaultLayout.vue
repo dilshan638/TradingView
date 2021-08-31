@@ -1,5 +1,5 @@
 <template>
-  <div class="main-area">
+  <div class="main-area after-login">
        <Header />
        <sidebar />
        <PageContent>

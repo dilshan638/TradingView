@@ -1,5 +1,5 @@
 <template>
-    <PageContent>
+    <PageContent class="login-layout">
         <slot />
     </PageContent>
     <Footer />
@@ -16,6 +16,6 @@ export default {
 }
 </script>
 
-<style>
-    @import "../assets/scss/layout/loginlayout.scss";
+<style lang="scss" scoped>
+    @import "../assets/scss/layout/loginlayout";
 </style>

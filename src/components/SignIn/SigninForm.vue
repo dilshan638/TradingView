@@ -291,6 +291,8 @@ export default {
 
                     console.log("AccessToken    "+data.signInUserSession.accessToken.jwtToken)
                     localStorage.setItem('AccessToken',data.signInUserSession.accessToken.jwtToken)
+                    // this.$store.commit("setAuthentication",true);
+
 
                     //  this.$session.start()
                    //   this.$session.set('jwt', data)

@@ -75,7 +75,7 @@ export default {
                 })
                     alert('Successfully logged in');
                     console.log('Yes')
-                    //this.$store.commit("setAuthentication",true);
+                    // this.$store.commit("setAuthentication",true);
                     this.$router.push('/home'); 
                     
                 } catch (error) {
