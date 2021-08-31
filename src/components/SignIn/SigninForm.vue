@@ -102,6 +102,7 @@
                             <li v-bind:class="{ is_valid: contains_uppercase }">Contains Uppercase</li>
                             <li v-bind:class="{ is_valid: contains_special_character }">Contains Special Character</li>
                         </ul>
+
                     </div> 
                     <div class="password-suggestion-box" v-if="showPasswordSuggestion">
                         <h3>Auto generated Password</h3>
@@ -129,7 +130,6 @@
                     </div>
                     </div>                        
                 </div>
-
                 <div class="form-group">
                     <div class="eye-area">
                         <input v-bind:type="[showPasswordotpconfirm ? 'text' : 'password']" class="form-control" placeholder="Confirm New Password" v-model="state.confirmPassword" />
@@ -293,6 +293,8 @@ export default {
 
                  
                     localStorage.setItem('AccessToken',data.signInUserSession.accessToken.jwtToken)
+                    // this.$store.commit("setAuthentication",true);
+
 
 
                 })

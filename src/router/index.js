@@ -21,7 +21,8 @@ import WizardSuccessfullyPage from '../components/SecuritySetting/WizardSuccessf
 import History from '../components/History/History.vue';
 
 //Import store
-//import store from "../store";
+// import store from "../store";
+
 const routes=[
     {
         path:'/',
@@ -43,6 +44,13 @@ const routes=[
     {
         path:'/dashboard',
         component:Dashboard
+        // BeforeEnter : (to, from, next) => {
+        //     if(store.state.Authenticated == false){
+        //         next("/signin");
+        //     } else{
+        //         next();
+        //     }
+        // }
     },
     {
         path:'/wallet',
@@ -98,5 +106,6 @@ const router = createRouter({
     history: createWebHashHistory(),
     routes
 });
+
 
 export default router;

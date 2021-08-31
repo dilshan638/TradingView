@@ -28,7 +28,7 @@
             </li>            
             <li>
               <router-link to="/history" class="nav-link text-white">
-                    <i class="ri-shape-fill"></i> History
+                    <i class="ri-history-fill"></i> History
               </router-link>
             </li>
         </ul>

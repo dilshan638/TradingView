@@ -96,7 +96,7 @@
                         aria-hidden="true"
                       ></i>
                     </div>
-                  </div>
+                  </div>                 
                 </div>
               </div>
             </div>
@@ -105,6 +105,14 @@
                 Change Password
               </button>
               <button  v-on:click="sendMessage('hello')">Send Message</button>
+              </div>  
+              <div class="row">
+                  <div class="col-md-4">
+                    <button class="btn pull-right" @click="changePassword">
+                      Change Password
+                    </button>                     
+                  </div>
+              </div> 
             </div>
           </div>
         </div>
