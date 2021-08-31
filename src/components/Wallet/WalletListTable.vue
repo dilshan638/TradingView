@@ -30,7 +30,7 @@
                   <td>
                     <img :src="crypto.image" />
                     <h4>
-                      {{ crypto.symbol }}
+                      {{ crypto.symbol }} 
                       <span>{{ crypto.name }}</span>
                     </h4>
                   </td>
@@ -40,10 +40,13 @@
                     {{ crypto.amount }}
                   </td>
                   <td class="action-td">
-                    <a>Deposit</a>
+                      <router-link to="/securitypage">
+                       <a  @click="selectedCoin(crypto.symbol)">Deposit</a>
+                      </router-link>
+                   
                     <a>Withdraw</a>
                     <a
-                      v-if="crypto.address == null"
+                      v-if="crypto.address == ''"
                       class="clr"
                       @click="openModal(crypto.symbol)"
                     >
@@ -106,8 +109,17 @@ export default {
       allSymbol: [],
       arraySymbol: [],
       arrayCoinsLocalStorage: [],
+      createdAddress: "",
+      arrayTemp: [],
 
-      arrayTemp:[]
+      arrayAddress: [],
+      arrayAddress2: [],
+      arrayAddress3: [],
+      arrayAddress4: [],
+
+      arraySymbolWithInAddress: [],
+     
+
     };
   },
 
@@ -116,7 +128,7 @@ export default {
   },
 
   methods: {
-    getCryptoAll() {
+    async getCryptoAll() {
       const headers = {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("AccessToken")}`,
@@ -127,9 +139,8 @@ export default {
         })
         .then((response) => {
           this.cryptoAll = response.data[0];
-          localStorage.setItem("coin", JSON.stringify(response.data[0]));
-          // console.log(JSON.parse(localStorage.getItem("coin")));
 
+       
           axios
             .get("https://dapi.exus.live/api/mobile/v1/wallet/user/crypto", {
               headers: headers,
@@ -137,29 +148,45 @@ export default {
             .then((response) => {
               this.usergetCrypto = response.data[0];
 
-              for (let i = 0; i < this.cryptoAll.length; i++) {
-                this.cryptoAll[i]["amount"] = this.usergetCrypto[i].amount;
-              }
-            });
-        })
-        .catch(function (error) {
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
-        });
-    },
+              this.arrayAddress4 = JSON.parse(
+                localStorage.getItem("AddressListArray")
+              );
 
-    getUsergetCrypto() {
-      const headers = {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("AccessToken")}`,
-      };
-      axios
-        .get("https://dapi.exus.live/api/mobile/v1/wallet/user/crypto", {
-          headers: headers,
-        })
-        .then((response) => {
-          this.usergetCrypto = response.data[0];
+              for (let i = 0; i < this.cryptoAll.length; i++) {
+                this.cryptoAll[i]["amount"] = this.usergetCrypto[i]["amount"];
+                this.cryptoAll[i]["address"] = this.usergetCrypto[i]["address"];
+              }
+
+              if (this.arrayAddress4 == null) {
+                console.log("Address Already Created..!!");
+              } else {
+                for (let j = 0; j < this.arrayAddress4.length; j++) {
+                  if (
+                    this.cryptoAll[j]["symbol"] ==
+                    this.arrayAddress4[j]["symbol"]
+                  ) {
+                    this.cryptoAll[j]["address"] =
+                      this.arrayAddress4[j]["address"];
+                  }
+                }
+              }
+
+              for (let z = 0; z < this.cryptoAll.length; z++) {
+                if (this.cryptoAll[z]["address"] != null) {
+                  this.arrayCoinsLocalStorage.push({
+                    symbol: this.cryptoAll[z]["symbol"],
+                  });
+                  this.arraySymbolWithInAddress = this.arrayCoinsLocalStorage;
+                }
+              }
+
+              localStorage.setItem(
+                "arraySymbol",
+                JSON.stringify(this.arraySymbolWithInAddress)
+              );
+
+              console.log(this.cryptoAll);
+            });
         })
         .catch(function (error) {
           console.log(error.response.data);
@@ -186,33 +213,29 @@ export default {
         hed
       );
       this.marketPrice = response.data.price;
-
     },
 
     async openModal(symbal) {
       this.selectedCurrency = symbal;
 
-     
-      this.arrayCoinsLocalStorage = JSON.parse(localStorage.getItem("arraySymbol")
+      this.arrayCoinsLocalStorage = JSON.parse(
+        localStorage.getItem("arraySymbol")
       );
 
-      if(this.arrayCoinsLocalStorage==null){
-         for (var i = 1; i <= 1; i++) {
-         this.arraySymbol.push({ symbol: symbal });
-      }
+      if (this.arrayCoinsLocalStorage == null) {
+        for (var i = 1; i <= 1; i++) {
+          this.arraySymbol.push({ symbol: symbal });
+        }
 
-      this.arrayTemp=this.arraySymbol
-      }else{
+        this.arrayTemp = this.arraySymbol;
+      } else {
+        for (var j = 1; j <= 1; j++) {
+          this.arrayCoinsLocalStorage.push({ symbol: symbal });
+        }
 
-       for (var j = 1; j <= 1; j++) {
-         this.arrayCoinsLocalStorage.push({ symbol: symbal });
-      }
-
-       this.arrayTemp=this.arrayCoinsLocalStorage
-   
+        this.arrayTemp = this.arrayCoinsLocalStorage;
       }
       localStorage.setItem("arraySymbol", JSON.stringify(this.arrayTemp));
-      console.log(JSON.parse(localStorage.getItem("arraySymbol")));
 
       this.$refs.createAddressModal.openModal();
     },
@@ -239,17 +262,36 @@ export default {
       );
 
       this.createdAddress = response.data.address;
-       //console.log(response);
 
-      //  for (let i = 0; i <=1; i++)
-              //{
-             // this.cryptoAll[i]["address"] =  this.createdAddress;
-            //  }
+      //this.arrayAddress= JSON.parse(localStorage.getItem("AddressListArray"));
 
-            //  console.log(this.cryptoAll)
+      this.arrayAddress = JSON.parse(localStorage.getItem("AddressListArray"));
 
+      if (this.arrayAddress == null) {
+        for (var x = 1; x <= 1; x++) {
+          this.arrayAddress3.push({
+            symbol: this.selectedCurrency,
+            address: this.createdAddress,
+          });
+        }
+        localStorage.setItem(
+          "AddressListArray",
+          JSON.stringify(this.arrayAddress3)
+        );
+      } else {
+        for (var c = 1; c <= 1; c++) {
+          this.arrayAddress.push({
+            symbol: this.selectedCurrency,
+            address: this.createdAddress,
+          });
+        }
+        localStorage.setItem(
+          "AddressListArray",
+          JSON.stringify(this.arrayAddress)
+        );
+      }
 
-      localStorage.setItem("createdAddress", this.createdAddress);
+      console.log(this.cryptoAll);
       this.$toast.show("Your address created successfully..!!", {
         type: "success",
         position: "top-right",
@@ -257,11 +299,16 @@ export default {
 
       this.$refs.createAddressModal.closeModal();
     },
+
+    async selectedCoin(symbol){
+       localStorage.setItem("selectedCoin", JSON.stringify(symbol));
+
+
+    }
   },
 
   mounted() {
     this.getCryptoAll();
-
     this.getMarketPrice();
   },
 };

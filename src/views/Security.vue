@@ -34,20 +34,25 @@
                     </li>
 
                     <li class="col-md-6">
-                      <b>MInimum Deposit</b>
-                      <p>0.00000001 BTC</p>
+                      <b>Minimum Deposit</b>
+                      <p v-if="minimum_deposite!==null">--</p>
+                      <p v-else>{{minimum_deposite}} BTC</p>
                     </li>
+                    
                     <li class="col-md-6">
                       <b>Average Arrival Time</b>
-                      <p>0.00000001 BTC</p>
+                       <p v-if="avarege_arrival_time!==null">--</p>
+                      <p v-else>{{avarege_arrival_time}}  BTC</p>
                     </li>
                     <li class="col-md-6">
                       <b>Expected arrival</b>
-                      <p>1 network confirmations</p>
+                       <p v-if="expected_arrival!==null">--</p>
+                      <p v-else>{{expected_arrival}}</p>
                     </li>
                     <li class="col-md-6">
                       <b>Expected Unlock</b>
-                      <p>1 network confirmations</p>
+                       <p v-if="expected_unlock!==null">--</p>
+                      <p v-else>{{expected_unlock}}</p>
                     </li>
                   </ul>
                 </div>
@@ -81,11 +86,15 @@ export default {
       value: "otpauth://totp/SupremeCrypX?secret=ZZZQPGOCPUYLJDMP",
       size: 142,
       addressList: "",
+       minimum_deposite: "",
+      avarege_arrival_time: "",
+      expected_arrival: "",
+      expected_unlock: "",
     };
   },
 
   methods: {
-    getAddress() {
+  async  getAddress() {
       const headers = {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("AccessToken")}`,
@@ -95,8 +104,7 @@ export default {
           headers: headers,
         })
         .then((response) => {
-          console.log(response);
-          this.address = response.data[0];
+         this.address = response.data[0];
         })
         .catch(function (error) {
           console.log(error.response.data);
@@ -105,22 +113,29 @@ export default {
         });
     },
 
-    // async createdAddressManual(){
-
-    //  this.generatedAddress=localStorage.getItem("createdAddress");
-    //   this.selectedListCoin= localStorage.getItem("createdAddressSelectList");
-
-    //  },
-
+  
     async getPassingAddress(ad) {
       console.log(ad);
       this.addressList = ad;
     },
+
+    async depositDetails(){
+      this.minimum_deposite= localStorage.getItem("minimum_deposite");
+       this.avarege_arrival_time= localStorage.getItem("avarege_arrival_time");
+        this.expected_arrival= localStorage.getItem("expected_arrival");
+         this.expected_unlock= localStorage.getItem("expected_unlock");
+
+         console.log(this.minimum_deposite)
+
+      
+      
+
+    }
   },
 
   mounted() {
     this.getAddress();
-    // this.createdAddressManual()
+    this.depositDetails()
   },
 };
 </script>

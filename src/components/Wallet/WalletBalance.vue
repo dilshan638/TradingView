@@ -9,8 +9,8 @@
               ><i class="ri-eye-line"></i> Hide Balances</span
             >
           </h2>
-          <router-link to="/securitypage"
-            ><button
+          <router-link to="/securitypage">
+          <button
               type="button"
               class="btn btn-primary btn-sm btn-outline mt-4 active"
             >
@@ -62,11 +62,13 @@ export default {
     return {
       cryptoAll: [],
       usergetCrypto: [],
-      marketPrice: [],
+      marketPrice: 0,
 
       // total:0,
       totalBalance: 0,
       marketvalue: 0,
+
+    
     };
   },
 
@@ -91,13 +93,15 @@ export default {
               this.usergetCrypto = response.data[0];
 
               for (let i = 0; i < this.cryptoAll.length; i++) {
-                this.cryptoAll[i]["amount"] = this.usergetCrypto[i].amount;
-                this.marketvalue = +this.cryptoAll[i].amount;
+                this.cryptoAll[i]["amount"] = this.usergetCrypto[i]["amount"];
+                this.marketvalue =  this.marketvalue +JSON.parse(this.cryptoAll[i]["amount"]);
 
-                if (this.marketvalue == 0) {
+               
+
+             if (this.marketvalue == 0) {
                   this.totalBalance = 0;
                 } else {
-                  this.totalBalance = +((this.cryptoAll[i].amount * this.marketPrice) /this.marketvalue);
+                  this.totalBalance =  this.totalBalance +JSON.parse((this.cryptoAll[i]["amount"] * this.marketPrice) /this.marketvalue);
                      
                 }
               }
@@ -152,20 +156,23 @@ export default {
       this.marketPrice = response.data.price;
 
       console.log(response.data.price);
+
+     
+
     },
 
   
      
-      
   
 
     
   },
 
   mounted() {
+    this.getMarketPrice();
     this.getCryptoAll();
 
-    this.getMarketPrice();
+   
     
   },
 };

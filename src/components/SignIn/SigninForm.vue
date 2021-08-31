@@ -291,7 +291,7 @@ export default {
                     this.data.lastName=data.attributes.middle_name
                     this.data.email=this.state.email
 
-                    console.log("AccessToken    "+data.signInUserSession.accessToken.jwtToken)
+                 
                     localStorage.setItem('AccessToken',data.signInUserSession.accessToken.jwtToken)
 
 

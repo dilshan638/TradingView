@@ -104,6 +104,7 @@
               <button class="btn" @click="changePassword">
                 Change Password
               </button>
+              <button  v-on:click="sendMessage('hello')">Send Message</button>
             </div>
           </div>
         </div>
@@ -160,6 +161,8 @@ export default {
       showOldPassword: false,
       showNewPassword: false,
       showComfirmPassword: false,
+
+      connection: null
     };
   },
 
@@ -195,7 +198,27 @@ export default {
         console.log("Form Failed Validation");
       }
     },
+
+     sendMessage: function(message) {
+      console.log(this.connection);
+      this.connection.send(message);
+    }
   },
+
+   created: function() {
+    console.log("Starting connection to WebSocket Server")
+    this.connection = new WebSocket("wss://echo.websocket.org")
+
+    this.connection.onmessage = function(event) {
+      console.log(event);
+    }
+
+    this.connection.onopen = function(event) {
+      console.log(event)
+      console.log("Successfully connected to the echo websocket server...")
+    }
+
+  }
 };
 </script>
 

@@ -171,7 +171,7 @@ export default {
   data() {
     return{
       shownetwork: false,
-      coin:''
+      coin:[]
     }
   },
   methods: {
@@ -194,7 +194,7 @@ export default {
     },
 
       async getCoins() {
-      this.coin = JSON.parse(localStorage.getItem("coin"));
+      this.coin =  JSON.parse(localStorage.getItem("arraySymbol"));
     },
   },
 

@@ -6,17 +6,19 @@
           <h2>Wallet Balances</h2>
         </div>
         <div class="col-md-9 text-right">
-          <router-link to="/securitypage"
-            ><button
+          <router-link to="/securitypage">
+          <button
               type="button"
-              class="btn btn-primary btn-sm btn-outline active"
-            >
+              class="btn btn-primary btn-sm btn-outline active">
               Deposit
-            </button></router-link
-          >
+            </button>
+            </router-link  >
+
+           <router-link to="/wallet/cryptoone">
           <button type="button" class="btn btn-primary btn-sm btn-outline">
             Withrow
           </button>
+     </router-link  >
         </div>
       </div>
     </div>
@@ -32,7 +34,7 @@
             <h4>${{ this.marketvalue }}</h4>
           </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6" >
           <apexchart
             width="350"
             :options="chartOptions"
@@ -52,15 +54,17 @@ export default {
     return {
       cryptoAll: [],
       usergetCrypto: [],
-      marketPrice: [],
+    //  cryptoBalance:[],
+      marketPrice: 0,
       totalBalance: 0,
       marketvalue: 0,
-      marketValue: "",
       depositTab: true,
       withrowTab: false,
-      series: [44, 55, 41, 17],
+     // series: [44, 55, 41, 17],
+      series:[],
       chartOptions: {
-        labels: ["LDXI", "BTC", "ETH", "HNT"],
+       // labels: ["LDXI", "BTC", "ETH", "HNT"],
+       labels: [],
         chart: {
           type: "donut",
         },
@@ -115,6 +119,31 @@ export default {
       this.depositTab = false;
     },
 
+      async getMarketPrice() {
+      var data = {
+        pair: "BTC/USD",
+        type: "buy",
+      };
+
+      let hed = {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("AccessToken")}`,
+          "Content-Type": "application/json",
+        },
+      };
+      let response = await this.axios.post(
+        "https://dapi.exus.live/api/mobile/v1//trade/marcket",
+        data,
+        hed
+      );
+      this.marketPrice = response.data.price;
+
+      console.log(response.data.price);
+
+     
+
+    },
+
     async getCryptoAll() {
       const headers = {
         "Content-Type": "application/json",
@@ -126,25 +155,27 @@ export default {
         })
         .then((response) => {
           this.cryptoAll = response.data[0];
-
+          
           axios
             .get("https://dapi.exus.live/api/mobile/v1/wallet/user/crypto", {
               headers: headers,
             })
             .then((response) => {
               this.usergetCrypto = response.data[0];
+             
 
               for (let i = 0; i < this.cryptoAll.length; i++) {
-                this.cryptoAll[i]["amount"] = this.usergetCrypto[i].amount;
-                this.marketvalue = +this.cryptoAll[i].amount;
+                this.cryptoAll[i]["amount"] = this.usergetCrypto[i]["amount"];
+                this.marketvalue =  this.marketvalue +JSON.parse(this.cryptoAll[i]["amount"]);
+
+                this.series.push(this.cryptoAll[i]["amount"]*this.marketPrice)
+                this.chartOptions.labels.push(this.cryptoAll[i]["symbol"])
+            
 
                 if (this.marketvalue == 0) {
                   this.totalBalance = 0;
                 } else {
-                  this.totalBalance = +(
-                    (this.cryptoAll[i].amount * this.marketPrice) /
-                    this.marketvalue
-                  );
+                    this.totalBalance =  this.totalBalance +JSON.parse((this.cryptoAll[i]["amount"] * this.marketPrice) /this.marketvalue);
                 }
               }
             });
@@ -158,6 +189,7 @@ export default {
   },
 
   mounted() {
+    this.getMarketPrice();
     this.getCryptoAll();
   },
 };
