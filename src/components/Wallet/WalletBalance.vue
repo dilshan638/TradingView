@@ -9,8 +9,8 @@
               ><i class="ri-eye-line"></i> Hide Balances</span
             >
           </h2>
-          <router-link to="/securitypage"
-            ><button
+          <router-link to="/securitypage">
+            <button
               type="button"
               class="btn btn-primary btn-sm btn-outline mt-4 active"
             >
@@ -28,16 +28,24 @@
         </div>
         <div class="col-md-8">
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-3">
               <div class="block">
                 <p>Total Balance</p>
                 <h4>{{ this.totalBalance }} <span>BTC</span></h4>
               </div>
             </div>
-            <div class="col-md-6">
+
+            <div class="col-md-1">
+              <div class="block">
+                <br />
+                <h4>|</h4>
+              </div>
+            </div>
+
+            <div class="col-md-8">
               <div class="block">
                 <p>Market Value</p>
-                <h4>{{ this.marketvalue }} $</h4>
+                <h4>${{ this.marketvalue }}</h4>
               </div>
             </div>
           </div>
@@ -54,11 +62,12 @@ export default {
     return {
       cryptoAll: [],
       usergetCrypto: [],
-      marketPrice: [],
+      marketPrice: 0,
 
       // total:0,
       totalBalance: 0,
       marketvalue: 0,
+      total:[]
     };
   },
 
@@ -83,15 +92,25 @@ export default {
               this.usergetCrypto = response.data[0];
 
               for (let i = 0; i < this.cryptoAll.length; i++) {
-                this.cryptoAll[i]["amount"] = this.usergetCrypto[i].amount;
-                this.marketvalue = +this.cryptoAll[i].amount;
+                this.cryptoAll[i]["amount"] = this.usergetCrypto[i]["amount"];
+                this.marketvalue =
+                  this.marketvalue + JSON.parse(this.cryptoAll[i]["amount"]);
+                  this.total.push({ symbol: this.cryptoAll[i]["symbol"], balance:  this.cryptoAll[i]["amount"]*this.marketPrice });
+                  
 
                 if (this.marketvalue == 0) {
                   this.totalBalance = 0;
                 } else {
-                  this.totalBalance = +((this.cryptoAll[i].amount * this.marketPrice) /this.marketvalue);
+                  this.totalBalance =
+                    this.totalBalance +
+                    JSON.parse(
+                      (this.cryptoAll[i]["amount"] * this.marketPrice) /
+                        this.marketvalue
+                    );
                 }
               }
+
+               localStorage.setItem("totalBalances", JSON.stringify(this.total));
             });
         })
         .catch(function (error) {
@@ -138,16 +157,14 @@ export default {
         hed
       );
       this.marketPrice = response.data.price;
+
       console.log(response.data.price);
     },
-
-    
   },
 
   mounted() {
-    this.getCryptoAll();
-
     this.getMarketPrice();
+    this.getCryptoAll();
   },
 };
 </script>
