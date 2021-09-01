@@ -5,7 +5,87 @@
 }
 
 @media only screen and (min-width: 1200px) {
-    .container{
+    .container {
         max-width: 94%;
+    }
+}
+
+@media only screen and (max-width: 768px) { 
+    .content {
+        padding: 0 !important;
+    }
+    .container{
+        max-width: 100% !important;
+    }
+    .homepage .main-layout .home .block-one {
+        padding: 90px 0 !important;
+        min-height: auto !important;
+    }
+    .homepage .main-layout .home h1{
+        font-size: 25px !important;
+        text-align: center !important;
+    }
+    body .homepage .main-layout .home .block-one h5 {
+        font-size: 1.2rem !important;
+        line-height: 30px !important;
+        padding-top: 30px !important;
+        text-align: center;
+    }    
+    .homepage .main-layout .home .block-one h4 {
+        font-size: 28px !important;
+        text-align: center !important;
+    } 
+    .header-area, .landing-area, .trade-area {
+        padding-top: 109px;
+    }  
+    .homepage .main-layout .home .block-one .block-btn{
+        min-width: 100% !important;
+    }  
+    .homepage .main-layout .home .block-two .block-line h6 {
+        padding-bottom: 0px !important;
+    }   
+    .homepage .main-layout .home .block-two .block-line P {
+        padding-bottom: 0px !important;
+        padding-left: 0 !important;
+    }  
+    .homepage .main-layout .home .block-two p {
+        text-align: center !important;
+        line-height: 30px !important;
+    }
+    body .homepage .main-layout .home .block-three h2 {
+        font-size: 1.5rem !important;
+    }
+    .homepage .main-layout .home .block-three p {
+        line-height: 37px;
+        color: #fff;
+        font-size: 0.9rem;
+        line-height: 30px !important;
+    }
+
+    body .homepage .main-layout .home .block-three{
+        background-image: none !important;
+    }
+    .block-four.logo-section{
+        img{
+            width: 100% !important;
+        }
+    }
+    body .homepage .main-layout .home .block-four h2{
+        font-size: 1.5rem !important;
+        line-height: 40px !important;
+        padding-top: 30px !important;
+    }
+    .homepage .main-layout .home .block-four {
+        padding: 0px 15px !important;
+    }
+    .main-area .main-layout {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }  
+    .sidebar{
+        display: none !important;
+    }  
+    .row.top-area{
+        margin-top: 15px !important;
     }
 }

@@ -2,12 +2,12 @@
 <div class="header-area">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-2">
+      <div class="col-2">
             <router-link class="navbar-brand" to="/">
               <img src="images/logo/logo.png" />
             </router-link>
       </div>
-      <div class="col-md-7">
+      <div class="col-7">
         <nav class="navbar navbar-expand-lg">
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -31,7 +31,7 @@
         </nav>
       </div>
       <div class="col-md-3" style="text-align:right">
-        <router-link  to="/signin"> <button class="btn btn-outline-success my-2 my-sm-0" @click="logout">Logout</button></router-link>
+        <router-link  to="/signin"> <button class="btn btn-outline-success my-2 my-sm-0 mobile-hide" @click="logout">Logout</button></router-link>
       </div>
     </div>
   </div>
