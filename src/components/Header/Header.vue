@@ -76,6 +76,8 @@ export default {
       localStorage.removeItem("avarege_arrival_time");
       localStorage.removeItem("expected_arrival");
       localStorage.removeItem("expected_unlock");
+      
+       localStorage.removeItem("selectedCoinWithdraw");
     },
   },
 };

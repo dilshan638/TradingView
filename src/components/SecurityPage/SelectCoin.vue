@@ -3,14 +3,16 @@
     <p>Select Coin</p>
     <div class="form-field">
       <select
-        class="form-control"
+        class="form-control "
         v-model="selectCoin"
         @change="onChange($event)"
       >
         <option
+       
           v-for="coins in arrayCoins"
           :key="coins.symbol"
           :value="coins.symbol"
+         
         >
           {{ coins.symbol }}
         </option>
@@ -29,7 +31,7 @@ export default {
       selectCoin: "",
       arrayCoins: [],
 
-      selectedsingkeCoin: "",
+      selectedsingkeCoin: "", 
       cryptoAll: [],
       minimum_deposite: "",
       avarege_arrival_time: "",
@@ -152,4 +154,6 @@ export default {
 </script>
 
 <style>
+
+
 </style>

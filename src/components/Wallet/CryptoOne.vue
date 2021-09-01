@@ -16,7 +16,7 @@
                 <div class="col-md-12">
                   <div class="form-group pos-rel mb-4">
                     <p class="labels">Select Coin</p>
-                    <select placeholder="BTC-BITCOIN" class="form-control">
+                    <select placeholder="BTC-BITCOIN"  v-model="selectCoin" class="form-control">
                      <option disabled selected value>Select Coin</option>
                       <option v-for="coins in coin" :key="coins.symbol" :value="coins.symbol">
                         {{ coins.symbol }}
@@ -171,7 +171,10 @@ export default {
   data() {
     return{
       shownetwork: false,
-      coin:[]
+      coin:[],
+      selectCoin: "",
+      selectedsingkeCoin:""
+     
     }
   },
   methods: {
@@ -195,6 +198,12 @@ export default {
 
       async getCoins() {
       this.coin =  JSON.parse(localStorage.getItem("arraySymbol"));
+
+       this.selectedsingkeCoin = JSON.parse( localStorage.getItem("selectedCoinWithdraw"));
+
+      if (this.selectedsingkeCoin != null) {
+        this.selectCoin = this.selectedsingkeCoin;
+      }
     },
   },
 

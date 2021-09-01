@@ -44,7 +44,10 @@
                        <a  @click="selectedCoin(crypto.symbol)">Deposit</a>
                       </router-link>
                    
-                    <a>Withdraw</a>
+                  
+                      <router-link to="/wallet/cryptoone" >
+                       <a @click="selectedCoinWithdraw(crypto.symbol)">Withdraw</a>
+                      </router-link>
                     <a
                       v-if="crypto.address == ''"
                       class="clr"
@@ -151,7 +154,6 @@ export default {
               this.arrayAddress4 = JSON.parse(
                 localStorage.getItem("AddressListArray")
               );
-
               for (let i = 0; i < this.cryptoAll.length; i++) {
                 this.cryptoAll[i]["amount"] = this.usergetCrypto[i]["amount"];
                 this.cryptoAll[i]["address"] = this.usergetCrypto[i]["address"];
@@ -161,21 +163,16 @@ export default {
                 console.log("Address Already Created..!!");
               } else {
                 for (let j = 0; j < this.arrayAddress4.length; j++) {
-                  if (
-                    this.cryptoAll[j]["symbol"] ==
-                    this.arrayAddress4[j]["symbol"]
+                  if ( this.cryptoAll[j]["symbol"] == this.arrayAddress4[j]["symbol"]
                   ) {
-                    this.cryptoAll[j]["address"] =
-                      this.arrayAddress4[j]["address"];
+                    this.cryptoAll[j]["address"] =  this.arrayAddress4[j]["address"];
                   }
                 }
               }
 
               for (let z = 0; z < this.cryptoAll.length; z++) {
                 if (this.cryptoAll[z]["address"] != null) {
-                  this.arrayCoinsLocalStorage.push({
-                    symbol: this.cryptoAll[z]["symbol"],
-                  });
+                  this.arrayCoinsLocalStorage.push({symbol: this.cryptoAll[z]["symbol"]});
                   this.arraySymbolWithInAddress = this.arrayCoinsLocalStorage;
                 }
               }
@@ -304,6 +301,10 @@ export default {
        localStorage.setItem("selectedCoin", JSON.stringify(symbol));
 
 
+    },
+
+    async selectedCoinWithdraw(symbol){
+       localStorage.setItem("selectedCoinWithdraw", JSON.stringify(symbol));
     }
   },
 
