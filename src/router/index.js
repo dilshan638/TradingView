@@ -18,7 +18,7 @@ import Setting from '../components/Setting/Setting.vue';
 import CryptoOne from '../components/Wallet/CryptoOne.vue';
 import WizardSuccessfullyPage from '../components/SecuritySetting/WizardSuccessfullyPage.vue';
 
-import History from '../components/History/History.vue';
+import History from '../views/History.vue';
 
 //Import store
 // import store from "../store";
