@@ -24,7 +24,7 @@
 <script>
 import axios from "axios";
 export default {
-  emits: ["ads"],
+  emits: ["ads"], 
   data() {
     return {
       createdAddress: [],

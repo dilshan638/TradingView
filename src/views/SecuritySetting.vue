@@ -113,7 +113,7 @@
                 </template>
 
                 <template v-slot:body>
-                <p>
+                <p style="color:#000 !important">
                     We have sent a 6 Digit code to <br />
                     following Mobile No
                 </p>

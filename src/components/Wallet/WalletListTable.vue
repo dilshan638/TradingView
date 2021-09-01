@@ -41,17 +41,18 @@
                   </td>
                   <td class="action-td">
                       <router-link to="/securitypage">
-                       <a  @click="selectedCoin(crypto.symbol)">Deposit</a>
+                       <a  @click="selectedCoin(crypto.symbol)" >Deposit</a>
                       </router-link>
                    
                   
                       <router-link to="/wallet/cryptoone" >
-                       <a @click="selectedCoinWithdraw(crypto.symbol)">Withdraw</a>
+                       <a @click="selectedCoinWithdraw(crypto.symbol)" style="margin-left:15px">Withdraw</a>
                       </router-link>
                     <a
                       v-if="crypto.address == ''"
                       class="clr"
                       @click="openModal(crypto.symbol)"
+                      style="margin-left:15px"
                     >
                       Create Wallet
                     </a>
@@ -107,7 +108,7 @@ export default {
     return {
       cryptoAll: [],
       usergetCrypto: [],
-      marketPrice: [],
+      marketPrice: 0,
       selectedCurrency: "",
       allSymbol: [],
       arraySymbol: [],
@@ -121,6 +122,8 @@ export default {
       arrayAddress4: [],
 
       arraySymbolWithInAddress: [],
+
+    
      
 
     };
@@ -210,6 +213,8 @@ export default {
         hed
       );
       this.marketPrice = response.data.price;
+
+    
     },
 
     async openModal(symbal) {
@@ -288,7 +293,6 @@ export default {
         );
       }
 
-      console.log(this.cryptoAll);
       this.$toast.show("Your address created successfully..!!", {
         type: "success",
         position: "top-right",
@@ -305,12 +309,16 @@ export default {
 
     async selectedCoinWithdraw(symbol){
        localStorage.setItem("selectedCoinWithdraw", JSON.stringify(symbol));
-    }
+    },
+
+      
   },
 
   mounted() {
     this.getCryptoAll();
     this.getMarketPrice();
+  
+    
   },
 };
 </script>

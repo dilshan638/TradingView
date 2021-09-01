@@ -64,7 +64,7 @@
         <template v-slot:body>
           <p>
             We have sent a 6 Digit code to <br />
-            following Mobile No
+            following Mobile No 
           </p>
 
           <b>+9477***121</b>

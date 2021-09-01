@@ -29,10 +29,10 @@
                                     <history />
                                 </div>
                                 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                                   Coming Soon
+                                    <withdraw/>
                                 </div>
                                 <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-                                   Coming Soon
+                                  <deposit/>
                                 </div>
                             </div>                      
                         </div>
@@ -46,13 +46,18 @@
 
 <script>
 import DefaultLayout from '../layout/DefaultLayout.vue'
-import History from '../components/History/History.vue'
+import History from '../components/History/History.vue' 
+import Deposit from '../components/History/Deposit.vue'
+import Withdraw from '../components/History/Withdraw.vue'
+
 
 export default {
     name:'order',
     components: { 
         DefaultLayout,
-        History
+        History,
+        Deposit,
+        Withdraw
     },
     data() {
       return {

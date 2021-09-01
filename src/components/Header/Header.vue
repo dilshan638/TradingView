@@ -78,6 +78,7 @@ export default {
       localStorage.removeItem("expected_unlock");
       
        localStorage.removeItem("selectedCoinWithdraw");
+       localStorage.removeItem("totalBalances");
     },
   },
 };
