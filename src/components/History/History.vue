@@ -1,8 +1,5 @@
 <template>
   <div class="card table-card">
-    <div class="card-header">
-      <h2>Login History</h2>
-    </div>
     <div class="card-body no-padding no-padding-all">
       <div class="row">
         <div class="col-md-12">

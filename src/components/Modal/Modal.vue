@@ -23,12 +23,12 @@ export default {
   name: "Modal",
   data() {
     return {
-      show: false
+      show: false,
+      formreset: false
     };
   },
   methods: {
     closeModal() {
-      this.show = false;
       document.querySelector("body").classList.remove("open-modal");
     },
     openModal() {

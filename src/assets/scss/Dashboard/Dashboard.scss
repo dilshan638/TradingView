@@ -1,0 +1,52 @@
+.top-info{
+    margin-top: -15px;
+    min-height: 78px;
+    background-color:$dark-main-color;
+    margin-bottom: 15px;
+    padding: 15px;    
+    color: #fff;
+    
+    .profile-img{
+        width: 3.063rem;
+        height: 3.063rem;
+        position: relative;
+        float: left;
+        margin-right: 15px;
+
+        img{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-radius: 50%;
+        }
+
+    }
+
+    .pro-detail{
+        float: left;
+
+        .info1 {
+
+            strong{
+                font-size: 0.875rem;
+                font-weight: 400;
+                margin-right: 15px;
+            }
+            .badge{
+                background-color: $personal-color !important;
+                font-weight: 400;
+            }
+
+        }
+
+        .userid{
+            color: #878787;
+            font-size: 0.75rem;
+            font-weight: 400;
+        }
+                
+    }
+
+}

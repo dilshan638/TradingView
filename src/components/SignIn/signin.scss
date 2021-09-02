@@ -145,6 +145,23 @@ img.correct{
     float: none !important;
 }
 
+.sub-action {
+    position: relative;
+    z-index: 2;
+    min-width: 80px;
+}
+.eye-custom{
+    right: 110px !important;
+    z-index: 1;
+}
+
+.remove-icon{
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    cursor: pointer;
+}
+
 @media only screen and (max-width: 768px) {
 
     .error-msg{

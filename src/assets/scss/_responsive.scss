@@ -11,9 +11,9 @@
 }
 
 @media only screen and (max-width: 768px) { 
-    body{
-        background-color: #182769 !important;
-    }
+    // body{
+    //     background-color: #182769 !important;
+    // }
     .content {
         padding: 0 !important;
     }
@@ -120,4 +120,8 @@
     .card-body {
         padding: 15px !important;
     }
+    .landing-area{
+        background-color: #182769 !important;
+    }
+
 }

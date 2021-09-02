@@ -53,9 +53,19 @@
       position: absolute;
       top: 23px;
   }
-  
+
   .header-area,
   .landing-area,
   .trade-area{
     padding-top: 85px;
   }
+
+  .login-layout{
+
+    .content{
+        min-height: auto;
+        position: fixed;
+        height: 100%;
+    }
+
+}

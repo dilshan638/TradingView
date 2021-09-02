@@ -219,3 +219,20 @@
 
 
 }
+
+.no-footer{
+
+    .modal__footer{
+        display: none;
+    }
+
+}
+
+.modal-text-p{
+    color: rgb(0, 0, 0) !important;
+    text-align: left !important;
+    padding-bottom: 14px !important;
+    FONT-WEIGHT: 400 !important;
+    padding-top: 15px !important;
+    padding-bottom: 25px !important;
+}

@@ -31,7 +31,7 @@
                 </div>
             </div>
         </div>
-        <modal ref="forgotpasswordmodal" class="forgot-modal border50">
+        <modal ref="forgotpasswordmodal" class="forgot-modal border50 no-footer">
             <template v-slot:header>
                 <h2 style="color:black">Forgot Password</h2>
             </template>
@@ -77,18 +77,12 @@
             <template v-slot:header>
                 <h2 style="color:black">Security Verification</h2>
             </template>
-
             <template v-slot:body>
-                <p style="color:#000">We have sent a 6 Digit code to <br/>
-                your registered email on LDCX</p>
-
-                <b>ab*@*.com</b>
-                <span class="resend-area">Didn't Received <a href="#" @click="resend">Resend Code</a></span>
-
+                <p class="modal-text-p">Enter the 6 digit code received by v2**@**.com</p>
                 <div class="input-group mb-4">
                     <input type="text" class="form-control" placeholder="Email Verification code" v-model="state.verificationCode" />
                     <div class="input-group-append">
-                        <button class="btn btn-outline-secondary input-group-btn" type="button">Send</button>
+                        <button class="btn btn-outline-secondary input-group-btn sub-action" @click="resend" type="button">Resend</button>
                     </div>
                     <span class="error-msg" v-if="v$.verificationCode.$error">{{ v$.verificationCode.$errors[0].$message }} </span> 
                 </div>                    
@@ -106,6 +100,7 @@
                     </div> 
                     <div class="password-suggestion-box" v-if="showPasswordSuggestion">
                         <h3>Auto generated Password</h3>
+                        <i class="ri-close-line remove-icon" @click="closepasswordbox"></i>
                         <div class="password-view">
                             {{passwordsuggestionvalue}}
                         </div>
@@ -116,18 +111,18 @@
                     </div>                           
                     <div class="input-group eye-area">
                         <input v-bind:type="[showPasswordotp ? 'text' : 'password']" class="form-control" 
-                        @input="checkPassword" placeholder="Password" v-model="state.newPassword" @focus="showPasswordLength = true" @blur="showPasswordLength = false"
+                        @input="checkPassword" placeholder="Password" v-model="state.newPassword" @focus="showPasswordLength = true" @blur="removepophover"
                             />
                             
-                            <div class="eye-box ">
+                            <div class="eye-box eye-custom">
                                 <i @click="showPasswordotp = !showPasswordotp" :class="[showPasswordotp ? 'ri-eye-off-line' : 'ri-eye-line']" aria-hidden="true"></i>  
                             </div>                              
                         <div class="input-group-append">
-                        <button class="btn btn-outline-secondary input-group-btn" @click="showPasswordSuggestion = true" type="button">
+                        <button class="btn btn-outline-secondary input-group-btn sub-action" @click="showPasswordSuggestion = true" type="button">
                             <i class="ri-lock-password-line"></i>
                         </button>
-                        <span class="error-msg" v-if="v$.newPassword.$error">{{ v$.newPassword.$errors[0].$message }} </span> 
                     </div>
+                    <span class="error-msg" v-if="v$.newPassword.$error">{{ v$.newPassword.$errors[0].$message }} </span> 
                     </div>                        
                 </div>
                 <div class="form-group">
@@ -260,6 +255,11 @@ export default {
     },
     methods: { 
 
+        removepophover() {
+            this.showPasswordSuggestion = false;
+            this.showPasswordLength = false
+        },
+
         checkPassword() {
             this.password_length = this.state.newPassword.length;
             //eslint-disable-next-line
@@ -285,13 +285,13 @@ export default {
                try {
                 await Auth.signIn(this.state.email, this.state.password.password)
                 .then(data=>{
+                    console.log(data);
                     // console.log(Cookies.set('accessToken', data.signInUserSession))
                    this.accToken=data.signInUserSession.accessToken.jwtToken
                     this.data.firstName=data.attributes.name
                     this.data.lastName=data.attributes.middle_name
                     this.data.email=this.state.email
-
-                 
+                    localStorage.setItem('emailmask', data.signInUserSession.accessToken.payload.username)                 
                     localStorage.setItem('AccessToken',data.signInUserSession.accessToken.jwtToken)
                     // this.$store.commit("setAuthentication",true);
 
@@ -389,16 +389,18 @@ export default {
             var username = this.state.forgotpasswordemail
             
               await Auth.forgotPassword(username)
-             .then(data => {
-                 console.log(data)
-                 console.log("Success");
+             .then(data => {console.log(data)
+                 this.$toast.show("Su", {type: "success", position: "top-right"});
+             })
+            .catch(error => {console.log(error)
+                 this.$toast.show(error.message, {type: "error", position: "top-right"});
              })
             
         },
         async showModal() {
             alert("rrr");
         }, 
-     async   passwordGenereate() { //
+        async   passwordGenereate() { //
             var passwordgene = generator.generate({
                 length: 12,
                 numbers: true,
@@ -408,15 +410,17 @@ export default {
             });            
              console.log(passwordgene);
              this.passwordsuggestionvalue = passwordgene
-
-             
         },
-     async   usePassword() { //
-            //  this.state.new_password = this.passwordsuggestionvalue
-                this.state.newPassword=this.passwordsuggestionvalue
-              console.log( this.state.newPassword)
-              this.showPasswordSuggestion = false
-        }             
+        async   usePassword() { //
+    //  this.state.new_password = this.passwordsuggestionvalue
+        this.state.newPassword=this.passwordsuggestionvalue
+        console.log( this.state.newPassword)
+        this.showPasswordSuggestion = false
+        this.checkPassword()
+        },
+        closepasswordbox() {
+            this.showPasswordSuggestion = false;
+        }   
     },
     mounted() {
      this.encryptData()
