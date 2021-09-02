@@ -195,27 +195,27 @@ export default {
         });
     },
 
-    async getMarketPrice() {
-      var data = {
-        pair: "BTC/USD",
-        type: "buy",
-      };
+   // async getMarketPrice() {
+   //   var data = {
+     //   pair: "BTC/USD",
+     //   type: "buy",
+    //  };
 
-      let hed = {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("AccessToken")}`,
-          "Content-Type": "application/json",
-        },
-      };
-      let response = await this.axios.post(
-        "https://dapi.exus.live/api/mobile/v1//trade/marcket",
-        data,
-        hed
-      );
-      this.marketPrice = response.data.price;
+     // let hed = {
+      //  headers: {
+       //   Authorization: `Bearer ${localStorage.getItem("AccessToken")}`,
+       //   "Content-Type": "application/json",
+       // },
+     // };
+     // let response = await this.axios.post(
+     //   "https://dapi.exus.live/api/mobile/v1//trade/marcket",
+      //  data,
+      //  hed
+     // );
+    //  this.marketPrice = response.data.price;
 
     
-    },
+   // },
 
     async openModal(symbal) {
       this.selectedCurrency = symbal;
@@ -316,7 +316,7 @@ export default {
 
   mounted() {
     this.getCryptoAll();
-    this.getMarketPrice();
+    //this.getMarketPrice();
   
     
   },
