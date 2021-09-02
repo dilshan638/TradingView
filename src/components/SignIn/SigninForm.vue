@@ -31,7 +31,7 @@
                 </div>
             </div>
         </div>
-        <modal ref="forgotpasswordmodal" class="forgot-modal">
+        <modal ref="forgotpasswordmodal" class="forgot-modal border50">
             <template v-slot:header>
                 <h2 style="color:black">Forgot Password</h2>
             </template>
@@ -73,7 +73,7 @@
             </template>
 
         </modal>
-        <modal ref="otpcodemodal">
+        <modal ref="otpcodemodal" class="border50">
             <template v-slot:header>
                 <h2 style="color:black">Security Verification</h2>
             </template>
@@ -149,7 +149,7 @@
                 </div>
             </template>
         </modal>   
-        <modal ref="successmodal">
+        <modal ref="successmodal" class="border50">
             <template v-slot:header>
                 <h2 style="color:black">Password Changed!</h2>
             </template>

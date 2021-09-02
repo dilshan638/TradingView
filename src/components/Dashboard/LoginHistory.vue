@@ -6,28 +6,30 @@
     <div class="card-body no-padding no-padding-all">
       <div class="row">
         <div class="col-md-12">
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th scope="col">Date & Time</th>
-                <th scope="col">IP Address</th>
-                <th scope="col">Browser</th>
-                <th scope="col">Location</th>
-                <th scope="col">Address</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="lghistory in loginHistory" :key="lghistory.created_at">
-                <td>{{ lghistory.created_at }}</td>
-                <td>{{ lghistory.ip_address }}</td>
-                <td>{{ lghistory.browser_name }}</td>
-                <td>{{ lghistory.city }},{{ lghistory.country }}</td>
-                <td>
-                  <span class="success-text">{{ lghistory.activity }}</span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">Date & Time</th>
+                  <th scope="col">IP Address</th>
+                  <th scope="col">Browser</th>
+                  <th scope="col">Location</th>
+                  <th scope="col">Address</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="lghistory in loginHistory" :key="lghistory.created_at">
+                  <td>{{ lghistory.created_at }}</td>
+                  <td>{{ lghistory.ip_address }}</td>
+                  <td>{{ lghistory.browser_name }}</td>
+                  <td>{{ lghistory.city }},{{ lghistory.country }}</td>
+                  <td>
+                    <span class="success-text">{{ lghistory.activity }}</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
       <div class="row">

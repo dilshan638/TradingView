@@ -11,6 +11,9 @@
 }
 
 @media only screen and (max-width: 768px) { 
+    body{
+        background-color: #182769 !important;
+    }
     .content {
         padding: 0 !important;
     }
@@ -86,6 +89,35 @@
         display: none !important;
     }  
     .row.top-area{
-        margin-top: 15px !important;
+        margin-top: 0 !important;
+    }
+    .navbar.navbar-expand-lg{
+        float: right !important;
+        width: 120% !important;
+        display: inline-block;
+
+        button{
+            width: 48px;
+            height: 48px;
+            min-width: auto;
+            border-radius: 50% !important;
+            padding-left: 0;
+            padding-right: 0;
+            float: right;
+        }
+    }
+    .header-area {
+        .navbar-collapse{
+            margin-top: 60px !important;
+        }
+        .navbar-toggler-icon{
+            display: none;
+        }
+    }
+    .header-area .navbar-nav .nav-link{
+        padding-left: 1.02rem;
+    }
+    .card-body {
+        padding: 15px !important;
     }
 }

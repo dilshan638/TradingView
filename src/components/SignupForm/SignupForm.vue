@@ -269,7 +269,7 @@ export default {
         }
     },
     methods: {   
-         countryChanged(phoneObject) {
+        countryChanged(phoneObject) {
             this.state.phone_number = phoneObject.number 
         },  
         uploadImage(e){
@@ -305,11 +305,11 @@ export default {
             this.v$.zip_code.$touch()
            // this.addressTab = false;
           //  this.passwordTab = true;
-            if(!this.v$.country.$error &&  !this.v$.address_line_one.$error && !this.v$.address_line_two.$error && !this.v$.city.$error && !this.v$.state.$error && !this.v$.state.$error){
+            if(!this.v$.country.$error &&  !this.v$.address_line_one.$error && !this.v$.address_line_two.$error && !this.v$.city.$error && !this.v$.state.$error && !this.v$.zip_code.$error){
                 console.log("pass ggg")
-               this.addressTab = true;
-               this.passwordTab = true;
-               this.profileTab = true;
+               this.addressTab = false;
+               this.profileTab = false;
+            this.passwordTab = true;
             }         
         },
         async gosignup() {
