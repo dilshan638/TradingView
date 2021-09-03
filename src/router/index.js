@@ -23,6 +23,23 @@ import History from '../views/History.vue';
 //Import store
 // import store from "../store";
 
+function guardmyrouter(to, from, next) {
+    var isauthoticated = false;
+    if(localStorage.getItem("X-LDX-Inspira-Access-Token")!=null){
+        isauthoticated = true;
+    }
+    else{
+        isauthoticated = false;
+    }
+    if(isauthoticated) {
+        next();
+    }
+    else{
+        next("/signin")
+    }
+
+}
+
 const routes=[
     {
         path:'/',
@@ -44,6 +61,7 @@ const routes=[
     {
         path:'/dashboard',
         component:Dashboard,
+        beforeEnter : guardmyrouter
 
     //     BeforeEnter : (to, from, next) => {
     //          if(localStorage.getItem("X-LDX-Inspira-Access-Token")==null){
@@ -55,27 +73,33 @@ const routes=[
     },
     {
         path:'/wallet',
-        component:Wallet
+        component:Wallet,
+        beforeEnter : guardmyrouter
     },    
     {
         path:'/securitypage',
-        component:SecurityPage
+        component:SecurityPage,
+        beforeEnter : guardmyrouter
     }, 
     {
         path:'/orders',
-        component:Orders
+        component:Orders,
+        beforeEnter : guardmyrouter
     },    
     {
         path:'/securitysetting',
-        component:SecuritySetting
+        component:SecuritySetting,
+        beforeEnter : guardmyrouter
     },       
     {
         path:'/security',
-        component:Security
+        component:Security,
+        beforeEnter : guardmyrouter
     },
     {
         path:'/trade',
-        component:Trade
+        component:Trade,
+        beforeEnter : guardmyrouter
     },    
     {
         path:'/market',
@@ -84,19 +108,23 @@ const routes=[
     {
    
         path:'/setting',
-        component:Setting
+        component:Setting,
+        beforeEnter : guardmyrouter
     },
      {
         path:'/successfully',
-        component:WizardSuccessfullyPage
+        component:WizardSuccessfullyPage,
+        beforeEnter : guardmyrouter
     },
     {
         path:'/wallet/cryptoone',
-        component:CryptoOne
+        component:CryptoOne,
+        beforeEnter : guardmyrouter
     },
     {
         path:'/history',
-        component:History
+        component:History,
+        beforeEnter : guardmyrouter
     }    
 ];
 
