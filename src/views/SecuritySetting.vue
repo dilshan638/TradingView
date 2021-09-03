@@ -208,7 +208,7 @@
       <template v-slot:footer>
         <div>
           <button
-            @click="$refs.successfullyModal.closeModal()"
+            @click="Continue"
             class="loginbtn"
           >
             Continue
@@ -351,6 +351,30 @@ export default {
       console.log(response)
       this.$refs.successfullyModal.openModal();
     },
+
+    async Continue(){
+   
+          var data = {
+          token:this.state.emailCode,
+          status: "enable",
+          stage: 1
+     };
+
+      let hed = {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("AccessToken")}`,
+          "Content-Type": "application/json",
+        },
+      };
+      let response = await this.axios.post(
+        "https://dapi.exus.live/api/twofa/email/status",
+       data,
+        hed
+      );
+      console.log(response)
+       this.$refs.successfullyModal.closeModal()
+    }
+      
   },
 };
 </script>
