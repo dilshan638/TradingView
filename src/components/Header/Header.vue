@@ -65,6 +65,7 @@ export default {
       
        localStorage.removeItem("selectedCoinWithdraw");
        localStorage.removeItem("totalBalances");
+       localStorage.removeItem("emailmask");
     },
   },
 };
