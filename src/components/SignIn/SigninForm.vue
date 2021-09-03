@@ -298,7 +298,7 @@ export default {
                     localStorage.setItem('X-LDX-Inspira-Access-Token',data.signInUserSession.accessToken.jwtToken)
                     // this.$store.commit("setAuthentication",true);
 
-                   // console.log(data)
+                    console.log(data)
                   
                  
 
