@@ -1,10 +1,10 @@
-<template>
+<template>  
   <div class="top-info">
       <div class="profile-img">
         <img :src="images.url" />
       </div>
       <div class="pro-detail">
-          <div class="info1"><strong>{{ this.emailmask }}</strong> <span class="badge bg-primary">Personal</span></div>
+          <div class="info1"><strong>{{ emailmask }}</strong> <span class="badge bg-primary">Personal</span></div>
           <span class="userid">User ID: 4234235523</span>
       </div>
   </div>
@@ -19,14 +19,14 @@ export default {
                     url:"",
                 }            
             ],
-            emailmask:''
+            emailmask:""
         }
     },
     methods: {
-        getimage() {
+      async  getimage() {
             this.images.url = "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50.jpg";
         },
-        getUserData() {
+     async   getUserData() {
             console.log("test");
             this.emailmask = localStorage.getItem("emailmask")
         }

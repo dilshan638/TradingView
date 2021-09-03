@@ -43,14 +43,15 @@ const routes=[
     },
     {
         path:'/dashboard',
-        component:Dashboard
-        // BeforeEnter : (to, from, next) => {
-        //     if(store.state.Authenticated == false){
-        //         next("/signin");
-        //     } else{
-        //         next();
-        //     }
-        // }
+        component:Dashboard,
+
+    //     BeforeEnter : (to, from, next) => {
+    //          if(localStorage.getItem("X-LDX-Inspira-Access-Token")==null){
+    //             next("/signin");
+    //      } else{
+    //          next();
+    //      }
+    //  }
     },
     {
         path:'/wallet',

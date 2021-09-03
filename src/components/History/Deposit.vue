@@ -63,7 +63,7 @@ export default {
   methods: {
     getCount() {
       const headers = {
-        Authorization: `Bearer ${localStorage.getItem("AccessToken")}`,
+        Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
         "Content-Type": "application/json",
       };
       axios
@@ -89,7 +89,7 @@ export default {
 
       let hed = {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("AccessToken")}`,
+          Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
           "Content-Type": "application/json",
         },
       };

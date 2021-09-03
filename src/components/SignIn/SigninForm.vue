@@ -286,22 +286,30 @@ export default {
                 await Auth.signIn(this.state.email, this.state.password.password)
                 .then(data=>{
                     console.log(data);
-                    // console.log(Cookies.set('accessToken', data.signInUserSession))
+                   
+                   
+                   
+                   // console.log(Cookies.set('accessToken', data.signInUserSession))
                    this.accToken=data.signInUserSession.accessToken.jwtToken
                     this.data.firstName=data.attributes.name
                     this.data.lastName=data.attributes.middle_name
                     this.data.email=this.state.email
                     localStorage.setItem('emailmask', data.signInUserSession.accessToken.payload.username)                 
-                    localStorage.setItem('AccessToken',data.signInUserSession.accessToken.jwtToken)
+                    localStorage.setItem('X-LDX-Inspira-Access-Token',data.signInUserSession.accessToken.jwtToken)
                     // this.$store.commit("setAuthentication",true);
 
-                    console.log(data)
+                   // console.log(data)
+                  
+                 
 
                 })
                     console.log('Yes')
                     this.encryptData()
                    // window.location.href = `http://localhost:8081/kyc?data=${this.encData}`
-                     window.location.href = `http://localhost:8080/#/dashboard`
+                  //  window.location.href = `http://localhost:8080/#/dashboard`
+                  
+                    this.$router.push("/dashboard");
+                
                     
              } catch (error) {
                     this.$toast.show(error.message, {type: "error", position: "top"});
@@ -420,11 +428,17 @@ export default {
         },
         closepasswordbox() {
             this.showPasswordSuggestion = false;
-        }   
+        } ,
+
+    
+
+
     },
     mounted() {
      this.encryptData()
      this.passwordGenereate();
+   //  this.getAttributes()
+     
     }
 }
 </script>

@@ -137,7 +137,7 @@
 
         <b>ab**@**.com</b>
         <span class="resend-area"
-          >Didn't received? <button @click="resend">Resend</button></span
+          >Didn't received? <a class="link" @click="resend">Resend</a></span
         >
 
         <div class="form-group mb-4">
@@ -208,7 +208,7 @@
       <template v-slot:footer>
         <div>
           <button
-            @click="$refs.successfullyModal.closeModal()"
+            @click="Continue"
             class="loginbtn"
           >
             Continue
@@ -284,7 +284,7 @@ export default {
 
       const headers = {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("AccessToken")}`,
+        Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
       };
 
       axios
@@ -303,7 +303,7 @@ export default {
     async resend() {
       const headers = {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("AccessToken")}`,
+        Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
       };
 
       axios
@@ -339,7 +339,7 @@ export default {
 
      let hed = {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("AccessToken")}`,
+        Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
           "Content-Type": "application/json",
         },
       };
@@ -351,10 +351,36 @@ export default {
       console.log(response)
       this.$refs.successfullyModal.openModal();
     },
+
+    async Continue(){
+   
+          var data = {
+          token:this.state.emailCode,
+          status: "enable",
+          stage: 1
+     };
+
+      let hed = {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
+          "Content-Type": "application/json",
+        },
+      };
+      let response = await this.axios.post(
+        "https://dapi.exus.live/api/twofa/email/status",
+       data,
+        hed
+      );
+      console.log(response)
+       this.$refs.successfullyModal.closeModal()
+    }
+      
   },
 };
 </script>
 
 <style lang="scss" scoped>
 @import "../assets/scss/SecuritySetting/SecuritySetting";
+
+
 </style>
