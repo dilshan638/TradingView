@@ -68,7 +68,7 @@ export default {
                 try {
                 await Auth.signIn(this.state.email, this.state.password.password)
                 .then(data=>{
-                    console.log(Cookies.set('accessToken', data.signInUserSession))
+                    console.log(Cookies.set('X-LDX-Inspira-Access-Token', data.signInUserSession))
                     this.accToken=data.signInUserSession.accessToken.jwtToken
                     this.role=true
                     console.log(this.accToken)

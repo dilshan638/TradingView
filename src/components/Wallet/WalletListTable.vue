@@ -137,7 +137,7 @@ export default {
     async getCryptoAll() {
       const headers = {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("AccessToken")}`,
+        Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
       };
       axios
         .get("https://dapi.exus.live/api/mobile/v1/wallet/all/crypto", {
@@ -203,7 +203,7 @@ export default {
 
      // let hed = {
       //  headers: {
-       //   Authorization: `Bearer ${localStorage.getItem("AccessToken")}`,
+       //   Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
        //   "Content-Type": "application/json",
        // },
      // };
@@ -253,7 +253,7 @@ export default {
 
       let hed = {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("AccessToken")}`,
+          Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
           "Content-Type": "application/json",
         },
       };

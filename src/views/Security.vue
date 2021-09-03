@@ -97,7 +97,7 @@ export default {
   async  getAddress() {
       const headers = {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("AccessToken")}`,
+        Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
       };
       axios
         .get("https://dapi.exus.live/api/mobile/v1/wallet/user/crypto", {

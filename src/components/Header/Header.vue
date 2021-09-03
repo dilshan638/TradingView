@@ -53,8 +53,8 @@ export default {
 
   methods: {
     logout() {
-      alert("test");
-      localStorage.removeItem("AccessToken");
+      
+      localStorage.removeItem("X-LDX-Inspira-Access-Token");
       localStorage.removeItem("createdAddress");
       localStorage.removeItem("createdAddressSelectList");
       localStorage.removeItem("arraySymbol");
@@ -70,13 +70,15 @@ export default {
        localStorage.removeItem("selectedCoinWithdraw");
        localStorage.removeItem("totalBalances");
        localStorage.removeItem("emailmask");
+
+          this.$router.push("/signin");
     },
     checklogin() {
-      if(localStorage.getItem("accessToken")){
-          this.alareadylogin = true;
+      if(localStorage.getItem("X-LDX-Inspira-Access-Token")!=null){
+          this.alareadylogin = false;
       }
       else{
-        this.alareadylogin = false
+        this.alareadylogin = true
       }
     }
   },

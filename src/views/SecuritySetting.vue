@@ -137,7 +137,7 @@
 
         <b>ab**@**.com</b>
         <span class="resend-area"
-          >Didn't received? <button @click="resend">Resend</button></span
+          >Didn't received? <a class="link" @click="resend">Resend</a></span
         >
 
         <div class="form-group mb-4">
@@ -284,7 +284,7 @@ export default {
 
       const headers = {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("AccessToken")}`,
+        Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
       };
 
       axios
@@ -303,7 +303,7 @@ export default {
     async resend() {
       const headers = {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("AccessToken")}`,
+        Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
       };
 
       axios
@@ -339,7 +339,7 @@ export default {
 
      let hed = {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("AccessToken")}`,
+        Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
           "Content-Type": "application/json",
         },
       };
@@ -362,7 +362,7 @@ export default {
 
       let hed = {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("AccessToken")}`,
+          Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
           "Content-Type": "application/json",
         },
       };
@@ -381,4 +381,6 @@ export default {
 
 <style lang="scss" scoped>
 @import "../assets/scss/SecuritySetting/SecuritySetting";
+
+
 </style>

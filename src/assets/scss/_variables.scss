@@ -65,6 +65,11 @@ body{
     }
 }
 
+.link{
+    cursor: pointer;
+    text-decoration: underline;
+    color: $dark-main-color;
+}
 .close-mark{
     position: absolute;
     right: 40px;
