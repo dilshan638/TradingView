@@ -304,7 +304,7 @@ export default {
                      window.location.href = `http://localhost:8080/#/dashboard`
                     
              } catch (error) {
-                    this.$toast.show(error.message, {type: "error", position: "top-right"});
+                    this.$toast.show(error.message, {type: "error", position: "top"});
                     console.log(error.message)
                     console.log('No')
                     this.role=false

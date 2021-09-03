@@ -32,7 +32,8 @@
         </nav>
       </div>
       <div class="col-md-3" style="text-align:right">
-        <router-link  to="/signin"> <button class="btn btn-outline-success my-2 my-sm-0 mobile-hide" @click="logout">Logout</button></router-link>
+        <button class="btn btn-outline-success my-2 my-sm-0 mobile-hide" v-if="alareadylogin" @click="logout">Logout</button>
+        <router-link v-else  to="/signin"> <button class="btn btn-outline-success my-2 my-sm-0 mobile-hide">Login</button></router-link>
       </div>
     </div>
   </div>
@@ -45,11 +46,14 @@ export default {
   },
   name: "header",
   data() {
-    return {};
+    return {
+      alareadylogin: false
+    };
   },
 
   methods: {
     logout() {
+      alert("test");
       localStorage.removeItem("AccessToken");
       localStorage.removeItem("createdAddress");
       localStorage.removeItem("createdAddressSelectList");
@@ -67,7 +71,18 @@ export default {
        localStorage.removeItem("totalBalances");
        localStorage.removeItem("emailmask");
     },
+    checklogin() {
+      if(localStorage.getItem("accessToken")){
+          this.alareadylogin = true;
+      }
+      else{
+        this.alareadylogin = false
+      }
+    }
   },
+  mounted() {
+    this.checklogin();
+  }
 };
 </script>
 
