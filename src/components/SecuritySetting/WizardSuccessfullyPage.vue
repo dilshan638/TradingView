@@ -3,7 +3,7 @@
  <modal ref="successfullyModal">
       <template v-slot:header>
         <h2 style="color: black">
-          Google Authenticator <br />
+          Google Authenticator <br />  
           Successfully Enabled
         </h2>
       </template>

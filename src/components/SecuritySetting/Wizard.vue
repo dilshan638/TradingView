@@ -51,8 +51,10 @@
       <div class="wizard-inner">
         <p class="mb-5">Scan this QR code using Google Authenticator app</p>
         <div class="qr">
-          <qrcode-vue :value="value" :size="size" level="H" class="cls" />
-          <b>PUWGGOQRYYABG64V</b>
+           <img :src="qrdata"/>
+          <b>{{token[1]}}</b>
+         
+         
         </div>
         <p class="sub">
           If you are unable to scan the QR code, please enter this code manually
@@ -72,7 +74,9 @@
           Google Authenticator in case of phone loss.
         </p>
         <div class="qr">
-          <b class="btn-type">PUWGGOQRYYABG64V</b>
+          <b class="btn-type">{{token[1]}}</b>
+
+         
         </div>
         <p class="sub">
           Resetting your Google Authentication requires opening a<br />
@@ -151,7 +155,9 @@
                 <input
                   type="text"
                   class="form-control"
-                  placeholder="Email verification code"
+                  placeholder="Google Authentication Code"
+                  v-model="googleAuthenticationCode"
+                
                 />
               </div>
               <div class="col-md-5"></div>
@@ -170,12 +176,13 @@
 </template>
 
 <script>
-import QrcodeVue from "qrcode.vue";
+
+import axios from 'axios';
 
 export default {
   name: "wizard",
   components: {
-    QrcodeVue,
+   
    
   },
   data() {
@@ -184,8 +191,11 @@ export default {
       showContentThree: false,
       showContentFour: false,
       showPassword: false,
-      value: "otpauth://totp/SupremeCrypX?secret=ZZZQPGOCPUYLJDMP",
+      value: "",
       size: 120,
+      qrdata:"",
+      token:"",
+      googleAuthenticationCode:""
       //  showContentFive: false,
     };
   },
@@ -193,7 +203,7 @@ export default {
   methods: {
     nextOneToTwo() {
       this.showContentOne = false;
-      this.showContentTwo = true;
+      this.showContentTwo = true;  
     },
     previousTwoToOne() {
       this.showContentOne = true;
@@ -214,12 +224,87 @@ export default {
       this.showContentThree = true;
       this.showContentFour = false;
     },
-    submit() {
+   async submit() {
       // alert('Success')
+
+      //if(this.googleAuthenticationCode.length=6){
+  //@input="submit"
+     // }
        this.$router.push('/successfully')
+         console.log(this.token[1])
+        console.log(this.googleAuthenticationCode)
+
+      
+
+       let hed = {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("AccessToken")}`,
+          "Content-Type": "application/json",
+        },
+      };
+
+        let response = await this.axios.post(
+        "https://dapi.exus.live/api/twofa/ga/status",
+       {secret:this.token[1], token:this.googleAuthenticationCode, status: "disable",stage: 1},
+        hed
+      );
+
+      console.log(response)
+
+       
      
     },
+     async getCryptoAll() {
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("AccessToken")}`,
+      };
+      axios
+        .get("https://dapi.exus.live/api/twofa/generate/ga/qr", {
+          headers: headers,
+        })
+        .then((response) => {
+         console.log(response)
+         this.value=response.data.secretdata
+         this.qrdata=response.data.qrdata
+         console.log( this.value)
+         this.token=response.data.secretdata.split("otpauth://totp/Inspira?secret=")
+         console.log(this.token)
+
+        })
+        .catch(function (error) {
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        });
+    },
+
+
+    async postGoogleAuthenticator() {
+       console.log(this.token)
+        console.log(this.googleAuthenticationCode)
+
+
+     // var data = {
+    //  secret:"JFXHG4DJOJQTCMRTGNSGS3TFONUEA4DFOJZXS43UMFXGGZJOMNXW2",
+    //	token:"700703",
+    //  status: "disable",
+    //  stage: 1
+    //  };
+
+     
+
+    
+    },
+
+
+
   },
+
+  mounted() {
+    this.getCryptoAll()
+    this.postGoogleAuthenticator()
+ },
 };
 </script>
 
