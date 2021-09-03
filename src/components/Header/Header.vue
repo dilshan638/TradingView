@@ -72,7 +72,7 @@ export default {
        localStorage.removeItem("emailmask");
     },
     checklogin() {
-      if(localStorage.getItem("accessToken")){
+      if(localStorage.getItem("accessToken")) {
           this.alareadylogin = true;
       }
       else{
