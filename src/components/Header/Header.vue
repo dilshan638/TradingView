@@ -75,10 +75,10 @@ export default {
     },
     checklogin() {
       if(localStorage.getItem("X-LDX-Inspira-Access-Token")!=null){
-          this.alareadylogin = false;
+          this.alareadylogin = true;
       }
       else{
-        this.alareadylogin = true
+        this.alareadylogin = false
       }
     }
   },

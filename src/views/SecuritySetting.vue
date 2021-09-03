@@ -90,19 +90,13 @@
           >
             <h5 style="color: black">Enter your Mobile no</h5>
             <div class="form-group pos-rel">
-              <input
-                class="form-control"
-                placeholder="Mobile No"
-                style="color: #000"
-                v-model="state.mobileno"
-              />
-              <span class="error-msg" v-if="v$.mobileno.$error"
-                >{{ v$.mobileno.$errors[0].$message }}
-              </span>
+             
+        <vue-tel-input class="form-control" :valid-characters-only="true" aria-autocomplete="none" v-model="state.mobileno" v-on:validate="countryChanged" :inputOptions="options" :dropdownOptions="options2"> </vue-tel-input>
+                                                  
             </div>
 
             <div class="modal-buttons">
-              <button class="mb-3" @click="secTwo">Send Now</button>
+              <button class="mb-3" @click="sendMobileCode">Send Now</button>
               <button
                 class="second-btn mb-3"
                 @click="$refs.securitytwo.closeModal()"
@@ -156,9 +150,15 @@
       </template>
 
       <template v-slot:footer>
-        <div>
-          <button @click="emailCodeSubmit">Next</button>
-        </div>
+         <div class="modal-buttons">
+              <button class="mb-3" @click="sendMobileCode">Send Now</button>
+              <button
+                class="second-btn mb-3"
+                @click="$refs.securitytwo.closeModal()"
+              >
+                Cancel
+              </button>
+            </div>
       </template>
     </modal>
 
@@ -209,6 +209,52 @@
         <div>
           <button
             @click="Continue"
+            class="loginbtn"
+          >
+            Continue
+          </button>
+        </div>
+      </template>
+    </modal>
+
+       <modal ref="mobileAndEmailCodeModal">
+      <template v-slot:header>
+        <h2 style="color: black">
+          Security Verification
+        </h2>
+      </template>
+
+      <template v-slot:body>
+          <input placeholder="sad"/>
+          <input placeholder="sad"/>
+      </template>
+      <template v-slot:footer>
+         <div class="modal-buttons">
+              <button class="mb-3" @click="sendMobileCode">Submit</button>
+              <button
+                class="second-btn mb-3"
+                @click="$refs.mobileAndEmailCodeModal.closeModal()"
+              >
+                Cancel
+              </button>
+            </div>
+      </template>
+    </modal>
+
+        <modal ref="successfullyModalSMS">
+      <template v-slot:header>
+        <h2 style="color: black">
+          SMS Security Verification
+        </h2>
+      </template>
+
+      <template v-slot:body>
+        <img class="correct" src="images/icons/correct.png" />
+      </template>
+      <template v-slot:footer>
+        <div>
+          <button
+            @click="ContinueSMS"
             class="loginbtn"
           >
             Continue
@@ -272,9 +318,30 @@ export default {
       showPassword: false,
       value: "otpauth://totp/SupremeCrypX?secret=ZZZQPGOCPUYLJDMP",
       size: 300,
+
+       options: { 
+                 placeholder: "Phone Number",
+                 autoFormat:true,
+                 mode:"international",
+                 maxlength:12,
+                 validCharactersOnly:true
+                //type:Number,
+                // tabindex:Number
+            },
+            options2:{
+                showDialCodeInList:true,
+                showDialCodeInSelection:true,
+                showFlags:true,
+                autofocus:true
+
+            }
     };
   },
   methods: {
+
+     countryChanged(phoneObject) {
+         this.state.mobileno = phoneObject.number
+        },
     async SecurityTwo() {
       this.$refs.securitytwo.openModal();
     },
@@ -327,7 +394,26 @@ export default {
       this.$refs.securityGauthone.openModal();
     },
 
-    async secTwo() {},
+    async sendMobileCode() {
+         var data = {
+          mobile:this.state.mobileno,
+         
+      };
+
+     let hed = {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
+          "Content-Type": "application/json",
+        },
+      };
+      let response = await this.axios.post(
+        "https://dapi.exus.live/api/twofa/sms/code",
+        data,
+        hed
+      );
+      console.log(response)
+        this.$refs.mobileAndEmailCodeModal.openModal();
+    },
 
     async emailCodeSubmit() {
            
@@ -373,9 +459,38 @@ export default {
       );
       console.log(response)
        this.$refs.successfullyModal.closeModal()
+    },
+
+   async ContinueSMS(){
+
+         var data = {
+          mobile:this.state.emailCode,
+          code:"795078",
+          status: "enable",
+          stage: 1
+     };
+
+      let hed = {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
+          "Content-Type": "application/json",
+        },
+      };
+      let response = await this.axios.post(
+        "https://dapi.exus.live/api/twofa/email/status",
+       data,
+        hed
+      );
+      console.log(response)
+
+       this.$refs.successfullyModalSMS.closeModal()
     }
       
   },
+
+  mounted(){
+    
+  }
 };
 </script>
 
