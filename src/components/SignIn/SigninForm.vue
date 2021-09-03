@@ -301,7 +301,7 @@ export default {
                     console.log('Yes')
                     this.encryptData()
                    // window.location.href = `http://localhost:8081/kyc?data=${this.encData}`
-                     window.location.href = `http://localhost:8080/#/dashboard`
+                   //  window.location.href = `http://localhost:8080/#/dashboard`
                     
              } catch (error) {
                     this.$toast.show(error.message, {type: "error", position: "top-right"});
