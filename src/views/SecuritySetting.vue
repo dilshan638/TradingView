@@ -217,12 +217,31 @@
       </template>
     </modal>
     <!-- start security verification modal -->
-      <modal ref="secruritymodal" class="modal2-modal border50 no-modal-body-b">
+      <modal ref="secruritymodal2" class="modal2-modal border50 no-modal-body-b">
       <template v-slot:header>
         <h2 class="Security-Verification">Security Verification</h2>
       </template>
       <template v-slot:body>
-        <security-verification />
+        <div class="form-group pos-rel sec-row mb-3 mt-3">
+            <p class="sub-text">Please enter the  6 Digit code that we have sent a to  +9477***121</p>
+            <div class="input-group mb-2">
+                <input type="text" class="form-control" placeholder="Mobile verification code">
+                <div class="input-group-append">
+                <button class="btn btn-outline-secondary" style="margin-top: 0rem; margin-left: 0rem;" type="button">Send</button>
+                </div>
+            </div>
+            <p class="sub-text text-right">Didn't received? <a href="#">Resend</a></p>
+        </div>
+        <div class="form-group pos-rel sec-row">
+            <p class="sub-text">PPlease enter the  6 Digit code that we have sent a to  ab**@**.com</p>
+            <div class="input-group mb-2">
+                <input type="text" class="form-control" placeholder="Email verification code">
+                <div class="input-group-append">
+                <button class="btn btn-outline-secondary" style="margin-top: 0rem; margin-left: 0rem;" type="button">Send</button>
+                </div>
+            </div>
+            <p class="sub-text text-right">Didn't received? <a href="#">Resend</a></p>
+        </div> 
       </template>
       <template v-slot:footer>
         <div class="modal-buttons Modal-btn">
@@ -257,7 +276,7 @@ export default {
   components: {
     DefaultLayout,
     Modal,
-    Wizard,
+    Wizard
     //QrcodeVue
     //   OpenOrders
   },
@@ -297,8 +316,7 @@ export default {
                  mode:"international",
                  maxlength:12,
                  validCharactersOnly:true
-                //type:Number,
-                // tabindex:Number
+                
             },
             options2:{
                 showDialCodeInList:true,
@@ -459,9 +477,8 @@ export default {
     }
       
   },
-
-  mounted(){
-    
+  mounted() {
+    this.$refs.secruritymodal2.openModal();
   }
 };
 </script>
