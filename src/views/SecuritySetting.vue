@@ -216,52 +216,24 @@
         </div>
       </template>
     </modal>
-
-       <modal ref="mobileAndEmailCodeModal">
+    <!-- start security verification modal -->
+      <modal ref="secruritymodal" class="modal2-modal border50 no-modal-body-b">
       <template v-slot:header>
-        <h2 style="color: black">
-          Security Verification
-        </h2>
+        <h2 class="Security-Verification">Security Verification</h2>
       </template>
-
       <template v-slot:body>
-          <input placeholder="sad"/>
-          <input placeholder="sad"/>
+        <security-verification />
       </template>
       <template v-slot:footer>
-         <div class="modal-buttons">
-              <button class="mb-3" @click="sendMobileCode">Submit</button>
-              <button
-                class="second-btn mb-3"
-                @click="$refs.mobileAndEmailCodeModal.closeModal()"
-              >
-                Cancel
-              </button>
-            </div>
-      </template>
-    </modal>
-
-        <modal ref="successfullyModalSMS">
-      <template v-slot:header>
-        <h2 style="color: black">
-          SMS Security Verification
-        </h2>
-      </template>
-
-      <template v-slot:body>
-        <img class="correct" src="images/icons/correct.png" />
-      </template>
-      <template v-slot:footer>
-        <div>
-          <button
-            @click="ContinueSMS"
-            class="loginbtn"
-          >
-            Continue
+        <div class="modal-buttons Modal-btn">
+          <button class="mb-3">Submit</button>
+          <button class="second-btn mb-3">
+            Close
           </button>
         </div>
       </template>
-    </modal>
+    </modal>  
+    <!-- end security verification modal -->    
   </default-layout>
 </template>
 

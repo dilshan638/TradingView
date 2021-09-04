@@ -123,7 +123,7 @@ import { reactive, computed } from "vue";
 export default {
   name: "Setting",
   components: {
-    DefaultLayout,
+    DefaultLayout
   },
   setup() {
     const state = reactive({
@@ -202,6 +202,8 @@ export default {
 
     
   },
+  mounted(){
+  }
 
   
 };
