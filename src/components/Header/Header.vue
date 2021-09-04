@@ -70,8 +70,8 @@ export default {
        localStorage.removeItem("selectedCoinWithdraw");
        localStorage.removeItem("totalBalances");
        localStorage.removeItem("emailmask");
-
-          this.$router.push("/signin");
+        this.$router.push("/signin");
+        this.$toast.show("Successfully Logged out. Thank you!", {type: "success", position: "top"});
     },
     checklogin() {
       if(localStorage.getItem("X-LDX-Inspira-Access-Token")!=null){

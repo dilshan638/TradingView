@@ -287,13 +287,11 @@ export default {
             }
         },   
         async login() {
+            this.$toast.show("Please wait. checking your login credentials", {type: "info", position: "top"});
                try {
                 await Auth.signIn(this.state.email, this.state.password.password)
                 .then(data=>{
                     console.log(data);
-                   
-                   
-                   
                    // console.log(Cookies.set('accessToken', data.signInUserSession))
                    this.accToken=data.signInUserSession.accessToken.jwtToken
                     this.data.firstName=data.attributes.name
@@ -302,18 +300,14 @@ export default {
                     localStorage.setItem('emailmask', data.signInUserSession.accessToken.payload.username)                 
                     localStorage.setItem('X-LDX-Inspira-Access-Token',data.signInUserSession.accessToken.jwtToken)
                     // this.$store.commit("setAuthentication",true);
-
                     console.log(data)
-                  
-                 
-
                 })
                     console.log('Yes')
                     this.encryptData()
                    // window.location.href = `http://localhost:8081/kyc?data=${this.encData}`
                   //  window.location.href = `http://localhost:8080/#/dashboard`
-                  
                     this.$router.push("/dashboard");
+                    this.$toast.show("Successfully logged in", {type: "success", position: "top"});
                 
                     
              } catch (error) {
