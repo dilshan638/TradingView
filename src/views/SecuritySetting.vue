@@ -216,6 +216,24 @@
         </div>
       </template>
     </modal>
+    <!-- start security verification modal -->
+      <modal ref="secruritymodal" class="modal2-modal border50 no-modal-body-b">
+      <template v-slot:header>
+        <h2 class="Security-Verification">Security Verification</h2>
+      </template>
+      <template v-slot:body>
+        <security-verification />
+      </template>
+      <template v-slot:footer>
+        <div class="modal-buttons Modal-btn">
+          <button class="mb-3">Submit</button>
+          <button class="second-btn mb-3">
+            Close
+          </button>
+        </div>
+      </template>
+    </modal>  
+    <!-- end security verification modal -->    
   </default-layout>
 </template>
 
