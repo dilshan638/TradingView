@@ -42,5 +42,5 @@ name:'sidebar'
 </script>
 
 <style lang="scss" scoped>
-  @import "Sidebar.scss"
+    @import "../../assets/scss/Sidebar/Sidebar";
 </style>

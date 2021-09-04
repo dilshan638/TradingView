@@ -89,5 +89,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "Header.scss";
+    @import "../../assets/scss/Header/Header";
 </style>

@@ -48,24 +48,29 @@
                 <!-- Tab panes -->
                 <div class="tab-content modal-tab">
 
-                <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">                                            
+                <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">                                                               
+                    <h5 style="color:black">Enter your Email Address</h5>
+                    <div class="form-group pos-rel">    
+                        <input type="email" class="form-control" placeholder="Email Address" style="color:#000" v-model="state.forgotpasswordemail" />
+                        <span class="error-msg" v-if="v$.forgotpasswordemail.$error">{{ v$.forgotpasswordemail.$errors[0].$message }} </span>  
+                    </div>
 
-                    
-                        <h5 style="color:black">Enter your Email Address</h5>
-                        <div class="form-group pos-rel">    
-                            <input type="email" class="form-control" placeholder="Email Address" style="color:#000" v-model="state.forgotpasswordemail" />
-                            <span class="error-msg" v-if="v$.forgotpasswordemail.$error">{{ v$.forgotpasswordemail.$errors[0].$message }} </span>  
-                        </div>
-
-                        <div class="modal-buttons">
-                            <button class="mb-3" @click="forgotpassword">Next</button>
-                            <button  class="second-btn mb-3" @click="$refs.forgotpasswordmodal.closeModal()">Cancel</button>
-                        </div>  
-
+                    <div class="modal-buttons">
+                        <button class="mb-3" @click="forgotpassword">Next</button>
+                        <button  class="second-btn mb-3" @click="$refs.forgotpasswordmodal.closeModal()">Cancel</button>
+                    </div>  
                 </div>
-
                 <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                    Coming soon
+                    <h5 style="color:black">Enter your Mobile NUmber</h5>
+                    <div class="form-group pos-rel">    
+                        <input type="email" class="form-control" placeholder="Email Address" style="color:#000" />
+                        <!-- <span class="error-msg" v-if="v$.forgotpasswordemail.$error">{{ v$.forgotpasswordemail.$errors[0].$message }} </span>   -->
+                    </div>
+
+                    <div class="modal-buttons">
+                        <button class="mb-3" @click="forgotpassword">Next</button>
+                        <button  class="second-btn mb-3" @click="$refs.forgotpasswordmodal.closeModal()">Cancel</button>
+                    </div>  
                 </div>
                 
                 </div>
