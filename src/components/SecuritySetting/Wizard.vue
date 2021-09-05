@@ -110,10 +110,12 @@
                   class="form-control"
                   placeholder="Mobile verification code"
                 />
+                <button @click="sendMobileCode">Send</button>
+                
               </div>
               <div class="col-md-5">
                 <p class="subline right">
-                  Didn't received? <a href="#">Resend</a>
+                  Didn't received? <a class="link" @click="sendMobileCode">Resend</a>
                 </p>
               </div>
             </div>
@@ -123,7 +125,7 @@
               <div class="col-md-12">
                 <p class="subline">
                   Please enter the 6 Digit code that we have sent a to
-                  ab**@**.com
+                  ab**@**.com 
                 </p>
               </div>
             </div>
@@ -134,10 +136,11 @@
                   class="form-control"
                   placeholder="Email verification code"
                 />
+                  <button @click="sendEmailVerificationCode">Send</button>
               </div>
               <div class="col-md-5">
                 <p class="subline right">
-                  Didn't received? <a href="#">Resend</a>
+                  Didn't received? <a class="link" @click="sendEmailVerificationCode">Resend</a>
                 </p>
               </div>
             </div>
@@ -157,8 +160,20 @@
                   class="form-control"
                   placeholder="Google Authentication Code"
                   v-model="googleAuthenticationCode"
+                  @input="submitGACode"
                 
                 />
+
+                  <!-- Hide Show -->
+
+              <div v-if="GASuccess">
+                <h2>Done</h2>
+              </div>
+
+                <div v-if="GAWrong">
+                <h2>Wrong</h2>
+              </div>
+            <!-- Hide Show -->
               </div>
               <div class="col-md-5"></div>
             </div>
@@ -195,8 +210,10 @@ export default {
       size: 120,
       qrdata:"",
       token:"",
-      googleAuthenticationCode:""
+      googleAuthenticationCode:"",
       //  showContentFive: false,
+      GAWrong:false,
+      GASuccess:false
     };
   },
 
@@ -231,26 +248,8 @@ export default {
   //@input="submit"
      // }
        this.$router.push('/successfully')
-         console.log(this.token[1])
-        console.log(this.googleAuthenticationCode)
-
+       
       
-
-       let hed = {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
-          "Content-Type": "application/json",
-        },
-      };
-
-        let response = await this.axios.post(
-        "https://dapi.exus.live/api/twofa/ga/status",
-       {secret:this.token[1], token:this.googleAuthenticationCode, status: "disable",stage: 1},
-        hed
-      );
-
-      console.log(response)
-
        
      
     },
@@ -278,6 +277,62 @@ export default {
           console.log(error.response.headers);
         });
     },
+      async sendMobileCode() {
+      
+      var data = {
+        mobile:"+94716096232",
+      };
+
+      let hed = {  headers: { Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token"  )}`,  "Content-Type": "application/json",  }, };
+      let response = await this.axios.post( "https://dapi.exus.live/api/twofa/sms/code",  data,  hed);
+      console.log(response);
+    },
+
+    async sendEmailVerificationCode() {
+      
+
+      const headers = { "Content-Type": "application/json", Authorization: `Bearer ${localStorage.getItem( "X-LDX-Inspira-Access-Token" )}`, };
+
+      axios.get("https://dapi.exus.live/api/twofa/email/code", {headers: headers,})
+        .then((responsive) => {
+          console.log(responsive);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+
+    async submitGACode(){
+
+        this.GAWrong=true
+      if(this.googleAuthenticationCode.length == 6){
+        let hed = {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
+          "Content-Type": "application/json",
+        },
+      };
+
+        let response = await this.axios.post(
+        "https://dapi.exus.live/api/twofa/ga/status",
+       {secret:this.token[1], token:this.googleAuthenticationCode, status: "disable",stage: 1},
+        hed
+      )  .then((res) => {
+          console.log(res);
+         console.log(response)
+         this.GASuccess=true
+           this.GAWrong=false
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+     
+
+      }
+       
+    },
+   
 
 
     async postGoogleAuthenticator() {
