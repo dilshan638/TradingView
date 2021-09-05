@@ -94,7 +94,7 @@
 
         <b>ab**@**.com</b>
         <span class="resend-area"
-          >Didn't received? <a class="link" @click="resend">Resend</a></span
+          >Didn't received? <a class="link" @click="resendEmailCodeEmail">Resend</a></span
         >
 
         <div class="form-group mb-4">
@@ -180,7 +180,7 @@
     </modal>
     <!-- End SMS Verification modal -->
 
-    <!-- Google Auth verification modal -->
+    <!-- SMS (2nd Step) verification modal -->
     <modal ref="secruritymodal2" class="modal2-modal border50 no-modal-body-b">
       <template v-slot:header>
         <h2 class="Security-Verification">Security Verification</h2>
@@ -195,9 +195,13 @@
               type="text"
               class="form-control"
               placeholder="Mobile verification code"
+              v-model="state.mobileCodeMob"
+              @input="mobileCodeSubmitMob"
             />
+
             <div class="input-group-append">
               <button
+              v-if="btnShowMobileMob"
                 class="btn btn-outline-secondary"
                 style="margin-top: 0rem; margin-left: 0rem"
                 type="button"
@@ -205,6 +209,20 @@
               >
                 Send
               </button>
+
+
+               <!-- Hide Show -->
+
+              <div v-if="mobileSuccessMob && !mobileWrongMob">
+                <h2>Done</h2>
+              </div>
+
+                <div v-if="mobileWrongMob">
+                <h2>Wrong</h2>
+              </div>
+            <!-- Hide Show -->
+
+
             </div>
           </div>
           <p class="sub-text text-right">
@@ -221,10 +239,11 @@
               class="form-control"
               placeholder="Email verification code"
               v-model="state.emailCodeMob"
-              @input="Test"
+              @input="emailCodeSubmitMob"
             />
-            <div class="input-group-append">
+            <div class="input-group-append" >
               <button
+                v-if="btnShowEmailMob"
                 class="btn btn-outline-secondary"
                 style="margin-top: 0rem; margin-left: 0rem"
                 type="button"
@@ -232,6 +251,18 @@
               >
                 Send
               </button>
+
+                <!-- Hide Show -->
+
+              <div v-if="emailSuccessMob && !emailWrongMob">
+                <h2>Done</h2>
+              </div>
+
+                <div v-if="emailWrongMob">
+                <h2>Wrong</h2>
+              </div>
+            <!-- Hide Show -->
+
             </div>
           </div>
           <p class="sub-text text-right">
@@ -247,7 +278,7 @@
         </div>
       </template>
     </modal>
-    <!-- End Google Auth verification modal -->
+    <!-- End Sms (2nd step) verification modal -->
 
 
 <!--SUCCESS Email modal -->
@@ -333,6 +364,7 @@ export default {
       mobilecode: "",
       emailCode: "",
       emailCodeMob: "",
+      mobileCodeMob:""
     });
 
     const rules = computed(() => {
@@ -372,6 +404,13 @@ export default {
 
       mobileSuccess: false,
       emailSuccess: false,
+      emailSuccessMob:false,
+      mobileSuccessMob:false,
+      emailWrongMob:false,
+      mobileWrongMob:false,
+
+      btnShowEmailMob:true,
+      btnShowMobileMob:true
     };
   },
   methods: {
@@ -396,7 +435,7 @@ export default {
         });
     },
 
-    async resend() {
+    async reseresendEmailCodeEmailnd() {
        const headers = { "Content-Type": "application/json", Authorization: `Bearer ${localStorage.getItem( "X-LDX-Inspira-Access-Token" )}`, };
     
       axios.get("https://dapi.exus.live/api/twofa/email/code", { headers: headers, })
@@ -451,36 +490,77 @@ export default {
          });
 
       this.$refs.successfullyModal.openModal();
+     
+    },
+
+    async emailCodeSubmitMob(){
+
+        this.btnShowEmailMob=false
+        this.emailWrongMob=true
+       if (this.state.emailCodeMob.length == 6) {
+       var data = {
+        token: this.state.emailCodeMob,
+        status: "enable",
+        stage: 1,
+      };
+     let hed = {  headers: { Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token"  )}`,  "Content-Type": "application/json",  }, };
+    
+      let response = await this.axios
+        .post("https://dapi.exus.live/api/twofa/email/status", data, hed)
+        .then((res) => {
+            this.emailWrongMob=false
+          this.emailSuccessMob = true;
+          console.log(res);
+          console.log(response);
+         
+        })
+        .catch(function (error) {
+          console.log(error);
+         });
+      }
+       
     },
 
     async Continue() {
       this.$refs.successfullyModal.closeModal();
     },
 
-    async ContinueSMS() {
-      var data = {
-        mobile: this.state.emailCode,
-        code: "795078",
+    async mobileCodeSubmitMob() {
+
+      this.btnShowMobileMob=false
+      this.mobileWrongMob=true
+
+      if(this.state.mobileCodeMob.length == 6){
+       var data = {
+        mobile: this.state.mobileno,
+        code: this.state.mobileCodeMob,
         status: "enable",
         stage: 1,
       };
 
        let hed = {  headers: { Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token"  )}`,  "Content-Type": "application/json",  }, };
    
-      let response = await this.axios.post("https://dapi.exus.live/api/twofa/email/status",
-        data,
-        hed
-      );
-      console.log(response);
-
-      this.$refs.successfullyModalSMS.closeModal();
-    },
-
-    async Test() {
-      if (this.state.emailCodeMob.length == 6) {
-        alert("length 6");
+      let response = await this.axios.post("https://dapi.exus.live/api/twofa/email/status",data, hed )
+       .then((res) => {
+          console.log(res);
+          console.log(response);
+          this.mobileSuccessMob = true;
+           this.mobileWrongMob=false
+        })
+        .catch(function (error) {
+         console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+         });
+      
       }
+     
+
+      //this.$refs.successfullyModalSMS.closeModal();
+    
     },
+
+   
   },
   mounted() {
    
