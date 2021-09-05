@@ -213,7 +213,7 @@
 
                <!-- Hide Show -->
 
-              <div v-if="mobileSuccessMob">
+              <div v-if="mobileSuccessMob && !mobileWrongMob">
                 <h2>Done</h2>
               </div>
 
@@ -254,7 +254,7 @@
 
                 <!-- Hide Show -->
 
-              <div v-if="emailSuccessMob">
+              <div v-if="emailSuccessMob && !emailWrongMob">
                 <h2>Done</h2>
               </div>
 
@@ -508,10 +508,11 @@ export default {
       let response = await this.axios
         .post("https://dapi.exus.live/api/twofa/email/status", data, hed)
         .then((res) => {
+            this.emailWrongMob=false
+          this.emailSuccessMob = true;
           console.log(res);
           console.log(response);
-          this.emailSuccessMob = true;
-           this.emailWrongMob=false
+         
         })
         .catch(function (error) {
           console.log(error);

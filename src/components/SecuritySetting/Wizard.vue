@@ -1,33 +1,46 @@
 <template>
   <div>
     <div class="step-bar">
-<ul>
-            <li v-bind:class="[showContentOne ? 'active' : 'passed']">
-                <div class="dot"></div>
-                <div class="line"></div>
-                Download App
-            </li>
-            <li v-bind:class="[showContentTwo && !showContentOne && !showContentThree || showContentThree && !showContentFour ||showContentFour? 'active' : '']">
-                <div class="dot"></div>
-                <div class="line"></div>
-                Scan QR Code
-            </li>
-            <li v-bind:class="[showContentThree && !showContentFour ||showContentFour ? 'active' : '']">
-                <div class="dot"></div>
-                <div class="line"></div>
-                Backup Key
-            </li>
-            <li v-bind:class="[showContentFour ? 'active' : '']">
-                <div class="dot"></div>
-                <div class="line"></div>
-                Enabled Google authenticator
-            </li>
-            <li>
-                <div class="dot"></div>
-                Complete
-            </li>
-        </ul>
-    
+      <ul>
+        <li v-bind:class="[showContentOne ? 'active' : 'passed']">
+          <div class="dot"></div>
+          <div class="line"></div>
+          Download App
+        </li>
+        <li
+          v-bind:class="[
+            (showContentTwo && !showContentOne && !showContentThree) ||
+            (showContentThree && !showContentFour) ||
+            showContentFour
+              ? 'active'
+              : '',
+          ]"
+        >
+          <div class="dot"></div>
+          <div class="line"></div>
+          Scan QR Code
+        </li>
+        <li
+          v-bind:class="[
+            (showContentThree && !showContentFour) || showContentFour
+              ? 'active'
+              : '',
+          ]"
+        >
+          <div class="dot"></div>
+          <div class="line"></div>
+          Backup Key
+        </li>
+        <li v-bind:class="[showContentFour ? 'active' : '']">
+          <div class="dot"></div>
+          <div class="line"></div>
+          Enabled Google authenticator
+        </li>
+        <li>
+          <div class="dot"></div>
+          Complete
+        </li>
+      </ul>
     </div>
     <div v-if="showContentOne" class="wizard-box">
       <div class="wizard-inner">
@@ -51,10 +64,8 @@
       <div class="wizard-inner">
         <p class="mb-5">Scan this QR code using Google Authenticator app</p>
         <div class="qr">
-           <img :src="qrdata"/>
-          <b>{{token[1]}}</b>
-         
-         
+          <img :src="qrdata" />
+          <b>{{ token[1] }}</b>
         </div>
         <p class="sub">
           If you are unable to scan the QR code, please enter this code manually
@@ -74,9 +85,7 @@
           Google Authenticator in case of phone loss.
         </p>
         <div class="qr">
-          <b class="btn-type">{{token[1]}}</b>
-
-         
+          <b class="btn-type">{{ token[1] }}</b>
         </div>
         <p class="sub">
           Resetting your Google Authentication requires opening a<br />
@@ -111,11 +120,11 @@
                   placeholder="Mobile verification code"
                 />
                 <button @click="sendMobileCode">Send</button>
-                
               </div>
               <div class="col-md-5">
                 <p class="subline right">
-                  Didn't received? <a class="link" @click="sendMobileCode">Resend</a>
+                  Didn't received?
+                  <a class="link" @click="sendMobileCode">Resend</a>
                 </p>
               </div>
             </div>
@@ -125,7 +134,7 @@
               <div class="col-md-12">
                 <p class="subline">
                   Please enter the 6 Digit code that we have sent a to
-                  ab**@**.com 
+                  ab**@**.com
                 </p>
               </div>
             </div>
@@ -135,12 +144,26 @@
                   type="text"
                   class="form-control"
                   placeholder="Email verification code"
+                  v-model="emailCode"
+                  @input="emailCodeSubmit"
                 />
-                  <button @click="sendEmailVerificationCode">Send</button>
+                <!-- Hide Show -->
+
+                <div v-if="Emailuccess && !EmailWrong">
+                  <h2>Done</h2>
+                </div>
+
+                <div v-if="EmailWrong">
+                  <h2>Wrong</h2>
+                </div>
+                <!-- Hide Show -->
+
+                <button @click="sendEmailVerificationCode">Send</button>
               </div>
               <div class="col-md-5">
                 <p class="subline right">
-                  Didn't received? <a class="link" @click="sendEmailVerificationCode">Resend</a>
+                  Didn't received?
+                  <a class="link" @click="sendEmailVerificationCode">Resend</a>
                 </p>
               </div>
             </div>
@@ -161,19 +184,18 @@
                   placeholder="Google Authentication Code"
                   v-model="googleAuthenticationCode"
                   @input="submitGACode"
-                
                 />
 
-                  <!-- Hide Show -->
+                <!-- Hide Show -->
 
-              <div v-if="GASuccess">
-                <h2>Done</h2>
-              </div>
+                <div v-if="GASuccess && !GAWrong">
+                  <h2>Done</h2>
+                </div>
 
                 <div v-if="GAWrong">
-                <h2>Wrong</h2>
-              </div>
-            <!-- Hide Show -->
+                  <h2>Wrong</h2>
+                </div>
+                <!-- Hide Show -->
               </div>
               <div class="col-md-5"></div>
             </div>
@@ -186,41 +208,61 @@
       </div>
     </div>
 
-   
+    <modal ref="successfullyModal">
+      <template v-slot:header>
+        <h2 style="color: black">
+          Google Authenticator <br />  
+          Successfully Enabled
+        </h2>
+      </template>
+
+      <template v-slot:body>
+        <img class="correct" src="images/icons/correct.png" />
+      </template>
+      <template v-slot:footer>
+        <div>
+          <button @click="$refs.successfullyModal.closeModal()" class="loginbtn">
+            Continue
+          </button>
+        </div>
+      </template>
+    </modal>
   </div>
+
+  
 </template>
 
 <script>
-
-import axios from 'axios';
+import axios from "axios";
+import Modal from "../../components/Modal/Modal.vue";
 
 export default {
   name: "wizard",
-  components: {
-   
-   
-  },
+  components: {Modal},
   data() {
     return {
+      emailCode: "",
       showContentOne: true,
       showContentThree: false,
       showContentFour: false,
       showPassword: false,
       value: "",
       size: 120,
-      qrdata:"",
-      token:"",
-      googleAuthenticationCode:"",
+      qrdata: "",
+      token: "",
+      googleAuthenticationCode: "",
       //  showContentFive: false,
-      GAWrong:false,
-      GASuccess:false
+      GAWrong: false,
+      GASuccess: false,
+      Emailuccess: false,
+      EmailWrong: false,
     };
   },
 
   methods: {
     nextOneToTwo() {
       this.showContentOne = false;
-      this.showContentTwo = true;  
+      this.showContentTwo = true;
     },
     previousTwoToOne() {
       this.showContentOne = true;
@@ -241,35 +283,34 @@ export default {
       this.showContentThree = true;
       this.showContentFour = false;
     },
-   async submit() {
+    async submit() {
       // alert('Success')
 
       //if(this.googleAuthenticationCode.length=6){
-  //@input="submit"
-     // }
-       this.$router.push('/successfully')
-       
-      
-       
-     
+      //@input="submit"
+      // }
+      this.$refs.successfullyModal.openModal();
     },
-     async getCryptoAll() {
+    async getCryptoAll() {
       const headers = {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
+        Authorization: `Bearer ${localStorage.getItem(
+          "X-LDX-Inspira-Access-Token"
+        )}`,
       };
       axios
         .get("https://dapi.exus.live/api/twofa/generate/ga/qr", {
           headers: headers,
         })
         .then((response) => {
-         console.log(response)
-         this.value=response.data.secretdata
-         this.qrdata=response.data.qrdata
-         console.log( this.value)
-         this.token=response.data.secretdata.split("otpauth://totp/Inspira?secret=")
-         console.log(this.token)
-
+          console.log(response);
+          this.value = response.data.secretdata;
+          this.qrdata = response.data.qrdata;
+          console.log(this.value);
+          this.token = response.data.secretdata.split(
+            "otpauth://totp/Inspira?secret="
+          );
+          console.log(this.token);
         })
         .catch(function (error) {
           console.log(error.response.data);
@@ -277,23 +318,39 @@ export default {
           console.log(error.response.headers);
         });
     },
-      async sendMobileCode() {
-      
+    async sendMobileCode() {
       var data = {
-        mobile:"+94716096232",
+        mobile: "+94716096232",
       };
 
-      let hed = {  headers: { Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token"  )}`,  "Content-Type": "application/json",  }, };
-      let response = await this.axios.post( "https://dapi.exus.live/api/twofa/sms/code",  data,  hed);
+      let hed = {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem(
+            "X-LDX-Inspira-Access-Token"
+          )}`,
+          "Content-Type": "application/json",
+        },
+      };
+      let response = await this.axios.post(
+        "https://dapi.exus.live/api/twofa/sms/code",
+        data,
+        hed
+      );
       console.log(response);
     },
 
     async sendEmailVerificationCode() {
-      
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem(
+          "X-LDX-Inspira-Access-Token"
+        )}`,
+      };
 
-      const headers = { "Content-Type": "application/json", Authorization: `Bearer ${localStorage.getItem( "X-LDX-Inspira-Access-Token" )}`, };
-
-      axios.get("https://dapi.exus.live/api/twofa/email/code", {headers: headers,})
+      axios
+        .get("https://dapi.exus.live/api/twofa/email/code", {
+          headers: headers,
+        })
         .then((responsive) => {
           console.log(responsive);
         })
@@ -302,64 +359,89 @@ export default {
         });
     },
 
-    async submitGACode(){
-
-        this.GAWrong=true
-      if(this.googleAuthenticationCode.length == 6){
+    async submitGACode() {
+      this.GAWrong = true;
+      if (this.googleAuthenticationCode.length == 6) {
         let hed = {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
-          "Content-Type": "application/json",
-        },
-      };
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem(
+              "X-LDX-Inspira-Access-Token"
+            )}`,
+            "Content-Type": "application/json",
+          },
+        };
 
-        let response = await this.axios.post(
-        "https://dapi.exus.live/api/twofa/ga/status",
-       {secret:this.token[1], token:this.googleAuthenticationCode, status: "disable",stage: 1},
-        hed
-      )  .then((res) => {
-          console.log(res);
-         console.log(response)
-         this.GASuccess=true
-           this.GAWrong=false
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-
-     
-
+        let response = await this.axios
+          .post(
+            "https://dapi.exus.live/api/twofa/ga/status",
+            {
+              secret: this.token[1],
+              token: this.googleAuthenticationCode,
+              status: "disable",
+              stage: 1,
+            },
+            hed
+          )
+          .then((res) => {
+            this.GASuccess = true;
+            this.GAWrong = false;
+            console.log(res);
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
       }
-       
     },
-   
 
+    async emailCodeSubmit() {
+      this.EmailWrong = true;
+      if (this.emailCode.length == 6) {
+        var data = {
+          token: this.emailCode,
+          status: "enable",
+          stage: 1,
+        };
+        let hed = {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem(
+              "X-LDX-Inspira-Access-Token"
+            )}`,
+            "Content-Type": "application/json",
+          },
+        };
+
+        let response = await this.axios
+          .post("https://dapi.exus.live/api/twofa/email/status", data, hed)
+          .then((res) => {
+            this.Emailuccess = true;
+            this.EmailWrong = false;
+            console.log(res);
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      }
+    },
 
     async postGoogleAuthenticator() {
-       console.log(this.token)
-        console.log(this.googleAuthenticationCode)
+      console.log(this.token);
+      console.log(this.googleAuthenticationCode);
 
-
-     // var data = {
-    //  secret:"JFXHG4DJOJQTCMRTGNSGS3TFONUEA4DFOJZXS43UMFXGGZJOMNXW2",
-    //	token:"700703",
-    //  status: "disable",
-    //  stage: 1
-    //  };
-
-     
-
-    
+      // var data = {
+      //  secret:"JFXHG4DJOJQTCMRTGNSGS3TFONUEA4DFOJZXS43UMFXGGZJOMNXW2",
+      //	token:"700703",
+      //  status: "disable",
+      //  stage: 1
+      //  };
     },
-
-
-
   },
 
   mounted() {
-    this.getCryptoAll()
-    this.postGoogleAuthenticator()
- },
+    this.getCryptoAll();
+    this.postGoogleAuthenticator();
+  },
 };
 </script>
 
