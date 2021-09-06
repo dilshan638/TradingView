@@ -103,7 +103,7 @@
           Finish security verification and enable Google Authenticator
         </p>
         <div class="form-wizard">
-          <div class="form-wizard-row">
+          <div class="form-wizard-row" v-if="fa_mobile_status == 'true'">
             <div class="row">
               <div class="col-md-12">
                 <p class="subline">
@@ -119,10 +119,29 @@
                     type="text"
                     class="form-control"
                     placeholder="Mobile verification code"
+                    v-model="mobileCodeMob"
+                    @input="mobileCodeSubmitMob"
                   />
+
+                  <!-- Hide Show -->
+
+                  <div v-if="mobileSuccessMob && !mobileWrongMob">
+                    <h2>Done</h2>
+                  </div>
+
+                  <div v-if="mobileWrongMob">
+                    <h2>Wrong</h2>
+                  </div>
+                  <!-- Hide Show -->
                   <div class="input-group-append">
-                    <button class="btn" @click="sendMobileCode">Send</button>
-                  </div>                  
+                    <button
+                      v-if="btnShowMobileMob"
+                      class="btn"
+                      @click="sendMobileCode"
+                    >
+                      Send
+                    </button>
+                  </div>
                 </div>
               </div>
               <div class="col-md-5">
@@ -133,7 +152,7 @@
               </div>
             </div>
           </div>
-          <div class="form-wizard-row">
+          <div class="form-wizard-row" v-if="fa_email_status == 'true'">
             <div class="row">
               <div class="col-md-12">
                 <p class="subline">
@@ -152,15 +171,30 @@
                     v-model="emailCode"
                     @input="emailCodeSubmit"
                   />
-                  <div class="input-group-append" v-if="!Emailuccess && EmailWrong">
-                    <button class="btn" @click="sendEmailVerificationCode">Send</button>
-                  </div>  
-                  <img v-if="Emailuccess && !EmailWrong" src="images/icons/correct.png" class="pos-img error-imgs" />    
-                  <img v-if="EmailWrong" src="images/icons/ic_fail@3x.webp" class="pos-img" />              
+                  <div class="input-group-append">
+                    <button
+                      class="btn"
+                      v-if="btnShowEmailMob"
+                      @click="sendEmailVerificationCode"
+                    >
+                      Send
+                    </button>
+                  </div>
+
+                  <img
+                    v-if="Emailuccess && !EmailWrong"
+                    src="images/icons/correct.png"
+                    class="pos-img error-imgs"
+                  />
+                  <img
+                    v-if="EmailWrong"
+                    src="images/icons/ic_fail@3x.webp"
+                    class="pos-img"
+                  />
                 </div>
               </div>
               <div class="col-md-5">
-                <p class="subline right" v-if="!EmailWrong">
+                <p class="subline right">
                   Didn't received?
                   <a class="link" @click="sendEmailVerificationCode">Resend</a>
                 </p>
@@ -184,9 +218,17 @@
                     placeholder="Google Authentication Code"
                     v-model="googleAuthenticationCode"
                     @input="submitGACode"
-                  /> 
-                  <img v-if="GASuccess && !GAWrong" src="images/icons/correct.png" class="pos-img error-imgs" />    
-                  <img v-if="GAWrong" src="images/icons/ic_fail@3x.webp" class="pos-img" />                                                     
+                  />
+                  <img
+                    v-if="GASuccess && !GAWrong"
+                    src="images/icons/correct.png"
+                    class="pos-img error-imgs"
+                  />
+                  <img
+                    v-if="GAWrong"
+                    src="images/icons/ic_fail@3x.webp"
+                    class="pos-img"
+                  />
                 </div>
               </div>
               <div class="col-md-5"></div>
@@ -203,7 +245,7 @@
     <modal ref="successfullyModal">
       <template v-slot:header>
         <h2 style="color: black">
-          Google Authenticator <br />  
+          Google Authenticator <br />
           Successfully Enabled
         </h2>
       </template>
@@ -213,15 +255,11 @@
       </template>
       <template v-slot:footer>
         <div>
-          <button @click="successGAModal" class="loginbtn"> 
-            Continue
-          </button>
+          <button @click="successGAModal" class="loginbtn">Continue</button>
         </div>
       </template>
     </modal>
   </div>
-
-  
 </template>
 
 <script>
@@ -230,7 +268,7 @@ import Modal from "../../components/Modal/Modal.vue";
 
 export default {
   name: "wizard",
-  components: {Modal},
+  components: { Modal },
   data() {
     return {
       emailCode: "",
@@ -249,13 +287,21 @@ export default {
       Emailuccess: false,
       EmailWrong: false,
 
-      gaStatus:"",
-      fa_ga_status:""
+      gaStatus: "",
+      fa_ga_status: "",
+      fa_email_status: "",
+      fa_mobile_status: "",
+      phone_number: "",
+      mobileCodeMob: "",
+      btnShowEmailMob: true,
+      btnShowMobileMob: true,
+      mobileWrongMob: false,
+      mobileSuccessMob: false,
+      GAOneTimeStatusSend: "",
     };
   },
 
   methods: {
-
     async status() {
       const headers = {
         "Content-Type": "application/json",
@@ -269,7 +315,11 @@ export default {
           headers: headers,
         })
         .then((responsive) => {
-         this.fa_ga_status = responsive.data.result.UserAttributes[15].Value;
+          this.fa_ga_status = responsive.data.result.UserAttributes[16].Value;
+          this.fa_email_status = responsive.data.result.UserAttributes[5].Value;
+          this.phone_number = responsive.data.result.UserAttributes[14].Value;
+          this.fa_mobile_status =
+            responsive.data.result.UserAttributes[7].Value;
         })
         .catch(function (error) {
           console.log(error);
@@ -299,13 +349,9 @@ export default {
       this.showContentFour = false;
     },
     async submit() {
-      // alert('Success')
-
-      //if(this.googleAuthenticationCode.length=6){
-      //@input="submit"
-      // }
       this.$refs.successfullyModal.openModal();
     },
+
     async getCryptoAll() {
       const headers = {
         "Content-Type": "application/json",
@@ -335,7 +381,7 @@ export default {
     },
     async sendMobileCode() {
       var data = {
-        mobile: "+94716096232",
+        mobile: this.phone_number,
       };
 
       let hed = {
@@ -386,10 +432,10 @@ export default {
           },
         };
 
-        if(this.fa_ga_status=='true'){
-          this.gaStatus="disable"
-        }else{
-           this.gaStatus="enable"
+        if (this.fa_ga_status == "true") {
+          this.gaStatus = "disable";
+        } else {
+          this.gaStatus = "enable";
         }
 
         let response = await this.axios
@@ -412,13 +458,12 @@ export default {
           .catch(function (error) {
             console.log(error);
           });
-
-         
       }
     },
 
     async emailCodeSubmit() {
       this.EmailWrong = true;
+      this.btnShowEmailMob = false;
       if (this.emailCode.length == 6) {
         var data = {
           token: this.emailCode,
@@ -448,22 +493,79 @@ export default {
       }
     },
 
+    async mobileCodeSubmitMob() {
+      this.btnShowMobileMob = false;
+      this.mobileWrongMob = true;
+
+      if (this.mobileCodeMob.length == 6) {
+        var data = {
+          mobile: this.phone_number,
+          code: this.mobileCodeMob,
+          status: "",
+          stage: 1,
+        };
+
+        let hed = {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem(
+              "X-LDX-Inspira-Access-Token"
+            )}`,
+            "Content-Type": "application/json",
+          },
+        };
+
+        let response = await this.axios
+          .post("https://dapi.exus.live/api/twofa/sms/status", data, hed)
+          .then((res) => {
+            console.log(res);
+            console.log(response);
+            this.mobileSuccessMob = true;
+            this.mobileWrongMob = false;
+          })
+          .catch(function (error) {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+          });
+      }
+    },
+
     async postGoogleAuthenticator() {
       console.log(this.token);
       console.log(this.googleAuthenticationCode);
-
-      // var data = {
-      //  secret:"JFXHG4DJOJQTCMRTGNSGS3TFONUEA4DFOJZXS43UMFXGGZJOMNXW2",
-      //	token:"700703",
-      //  status: "disable",
-      //  stage: 1
-      //  };
     },
 
-    async successGAModal(){
-      this.$refs.successfullyModal.closeModal() 
-       this.$router.go()
-    }
+    async successGAModal() {
+      if (this.fa_ga_status == "true") {
+        this.GAOneTimeStatusSend = "disable";
+      } else {
+        this.GAOneTimeStatusSend = "enable";
+      }
+      var data = {
+        status: this.GAOneTimeStatusSend,
+      };
+
+      let hed = {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem(
+            "X-LDX-Inspira-Access-Token"
+          )}`,
+          "Content-Type": "application/json",
+        },
+      };
+      let response = await this.axios
+        .post("https://dapi.exus.live/api/twofa/status", data, hed)
+        .then((res) => {
+          console.log(res);
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+      this.$refs.successfullyModal.closeModal();
+      this.$router.go();
+    },
   },
 
   mounted() {

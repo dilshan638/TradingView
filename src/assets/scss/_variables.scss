@@ -33,8 +33,9 @@ body{
     .pos-img{
         width: 18px;
         position: absolute;
-        right: 15px;
+        right: 111px;
         top: 18px;
+        z-index: 99999999;
     }
     .error-imgs{
         right: 115px !important;

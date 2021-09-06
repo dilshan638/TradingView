@@ -115,8 +115,8 @@
 
       <template v-slot:body>
         <p style="color: #000 !important">
-          Enter the 6 Digit code sent to <br/>
-your registered email on INSPIRA
+          Enter the 6 Digit code sent to <br />
+          your registered email on INSPIRA
         </p>
         <b class="email-size">ab**@**.com</b>
         <div class="form-group mb-0">
@@ -127,13 +127,21 @@ your registered email on INSPIRA
               placeholder="Email verification code"
               @input="emailCodeSubmit"
             />
-            <img class="pos-img" v-if="emaileSuccessemail && !emailWrongEmail" src="images/icons/correct.png" />
-            <img class="pos-img" v-if="emailWrongEmail" src="images/icons/ic_fail@3x.webp" />
+            <img
+              class="pos-img"
+              v-if="emaileSuccessemail && !emailWrongEmail"
+              src="images/icons/correct.png"
+            />
+            <img
+              class="pos-img"
+              v-if="emailWrongEmail"
+              src="images/icons/ic_fail@3x.webp"
+            />
           </div>
           <span class="resend-area text-right resend-link"
-          >Didn't received?
-          <a class="link" @click="sendEmailVerificationCode">Resend</a></span
-        > 
+            >Didn't received?
+            <a class="link" @click="sendEmailVerificationCode">Resend</a></span
+          >
         </div>
       </template>
 
@@ -180,9 +188,7 @@ your registered email on INSPIRA
             </div>
 
             <div class="modal-buttons">
-              <button class="mb-3" @click="openMobileAndEmailModal">
-                Next
-              </button>
+              <button class="mb-3" @click="sendMobileCode">Next</button>
               <button
                 class="second-btn mb-3"
                 @click="$refs.securitytwo.closeModal()"
@@ -230,7 +236,7 @@ your registered email on INSPIRA
                 class="btn btn-outline-secondary"
                 style="margin-top: 0rem; margin-left: 0rem"
                 type="button"
-                @click="sendMobileCode"
+                @click="sendMobileCodeMobile"
               >
                 Send
               </button>
@@ -248,10 +254,14 @@ your registered email on INSPIRA
             </div>
           </div>
           <p class="sub-text text-right">
-            Didn't received? <a class="link" @click="sendMobileCode">Resend</a>
+            Didn't received?
+            <a class="link" @click="sendMobileCodeMobile">Resend</a>
           </p>
         </div>
-        <div v-if="fa_email_status=='true'" class="form-group pos-rel sec-row">
+        <div
+          v-if="fa_email_status == 'true'"
+          class="form-group pos-rel sec-row"
+        >
           <p class="sub-text">
             Please enter the 6 Digit code that we have sent a to ab**@**.com
           </p>
@@ -294,8 +304,15 @@ your registered email on INSPIRA
       </template>
       <template v-slot:footer>
         <div class="modal-buttons Modal-btn">
-          <button class="mb-3" @click="$refs.securityfour.openModal()">Submit</button>
-          <button class="second-btn mb-3"   @click="$refs.secruritymodal2.closeModal()">Close</button>
+          <button class="mb-3" @click="$refs.securityfour.openModal()">
+            Submit
+          </button>
+          <button
+            class="second-btn mb-3"
+            @click="$refs.secruritymodal2.closeModal()"
+          >
+            Close
+          </button>
         </div>
       </template>
     </modal>
@@ -333,9 +350,7 @@ your registered email on INSPIRA
       </template>
       <template v-slot:footer>
         <div>
-          <button @click="mobileSucceccModal" class="loginbtn">
-            Close 
-          </button>
+          <button @click="mobileSucceccModal" class="loginbtn">Continue</button>
         </div>
       </template>
     </modal>
@@ -404,7 +419,7 @@ export default {
       fa_mobile_status: "",
 
       emailStatus: "",
-      mobileStatus:"",
+      mobileStatus: "",
 
       options: {
         placeholder: "Phone Number",
@@ -430,8 +445,10 @@ export default {
       btnShowEmailMob: true,
       btnShowMobileMob: true,
 
-      emaileSuccessemail:false,
-      emailWrongEmail:false
+      emaileSuccessemail: false,
+      emailWrongEmail: false,
+      emailOneTimeStatusSend: "",
+      mobileOneTimeStatusSend: "",
     };
   },
   methods: {
@@ -450,12 +467,15 @@ export default {
         .then((responsive) => {
           console.log(responsive.data.result.UserAttributes);
           this.fa_email_status = responsive.data.result.UserAttributes[5].Value;
-          this.fa_ga_status = responsive.data.result.UserAttributes[15].Value;
+          this.fa_ga_status = responsive.data.result.UserAttributes[16].Value;
+          this.fa_mobile_status =
+            responsive.data.result.UserAttributes[7].Value;
         })
         .catch(function (error) {
           console.log(error);
         });
     },
+
     countryChanged(phoneObject) {
       this.state.mobileno = phoneObject.number;
     },
@@ -485,19 +505,6 @@ export default {
         });
     },
 
-    // async reseresendEmailCodeEmailnd() {
-    //  const headers = { "Content-Type": "application/json", Authorization: `Bearer ${localStorage.getItem( "X-LDX-Inspira-Access-Token" )}`, };
-
-    // axios.get("https://dapi.exus.live/api/twofa/email/code", { headers: headers, })
-    //   .then((responsive) => {
-    //     console.log(responsive);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-
-    //   });
-    //  },
-
     async SecurityFour() {
       this.$refs.securityfour.openModal();
     },
@@ -509,7 +516,7 @@ export default {
       this.$refs.secruritymodal2.openModal();
     },
 
-    async sendMobileCode() {
+    async sendMobileCodeMobile() {
       console.log(this.state.mobileno);
       var data = {
         mobile: this.state.mobileno,
@@ -530,52 +537,54 @@ export default {
       );
       console.log(response);
     },
+    async sendMobileCode() {
+      this.$refs.securitytwo.closeModal();
+      this.$refs.secruritymodal2.openModal();
+    },
 
     async emailCodeSubmit() {
+      this.emailWrongEmail = true;
 
-      this.emailWrongEmail= true
-      
-      if(this.state.emailCode.length==6){
-          if (this.fa_email_status == "true") {
-        this.emailStatus = "disable";
-      } else {
-        this.emailStatus = "enable";
-      }
-      var data = {
-        token: this.state.emailCode,
-        status: this.emailStatus,
-        stage: 1,
-      };
-      console.log(this.emailStatus);
+      if (this.state.emailCode.length == 6) {
+        if (this.fa_email_status == "true") {
+          this.emailStatus = "disable";
+        } else {
+          this.emailStatus = "enable";
+        }
+        var data = {
+          token: this.state.emailCode,
+          status: this.emailStatus,
+          stage: 1,
+        };
+        console.log(this.emailStatus);
 
-      let hed = {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem(
-            "X-LDX-Inspira-Access-Token"
-          )}`,
-          "Content-Type": "application/json",
-        },
-      };
+        let hed = {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem(
+              "X-LDX-Inspira-Access-Token"
+            )}`,
+            "Content-Type": "application/json",
+          },
+        };
 
-      let response = await this.axios
-        .post("https://dapi.exus.live/api/twofa/email/status", data, hed)
-        .then((res) => {
-          console.log(res);
-          console.log(response);
-          this.emailWrongEmail=false
-          this.emaileSuccessemail = true;
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-     
+        let response = await this.axios
+          .post("https://dapi.exus.live/api/twofa/email/status", data, hed)
+          .then((res) => {
+            console.log(res);
+            console.log(response);
+            this.emailWrongEmail = false;
+            this.emaileSuccessemail = true;
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
       }
     },
 
-   async emailSubmitButton(){
-     this.$refs.securitythree.closeModal();
+    async emailSubmitButton() {
+      this.$refs.securitythree.closeModal();
       this.$refs.successfullyModal.openModal();
-   },
+    },
     async emailCodeSubmitMob() {
       this.btnShowEmailMob = false;
       this.emailWrongMob = true;
@@ -609,13 +618,65 @@ export default {
     },
 
     async Continue() {
+      if (this.fa_email_status == "true") {
+        this.emailOneTimeStatusSend = "disable";
+      } else {
+        this.emailOneTimeStatusSend = "enable";
+      }
+      var data = {
+        status: this.emailOneTimeStatusSend,
+      };
+
+      let hed = {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem(
+            "X-LDX-Inspira-Access-Token"
+          )}`,
+          "Content-Type": "application/json",
+        },
+      };
+      let response = await this.axios
+        .post("https://dapi.exus.live/api/twofa/status", data, hed)
+        .then((res) => {
+          console.log(res);
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
       this.$refs.successfullyModal.closeModal();
-      this.$router.go()	
+      this.$router.go();
     },
 
-    async mobileSucceccModal(){
-      this.$refs.securityfour.closeModal()
-       this.$router.go()
+    async mobileSucceccModal() {
+      if (this.fa_mobile_status == "true") {
+        this.mobileOneTimeStatusSend = "disable";
+      } else {
+        this.mobileOneTimeStatusSend = "enable";
+      }
+      var data = {
+        status: this.mobileOneTimeStatusSend,
+      };
+
+      let hed = {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem(
+            "X-LDX-Inspira-Access-Token"
+          )}`,
+          "Content-Type": "application/json",
+        },
+      };
+      let response = await this.axios
+        .post("https://dapi.exus.live/api/twofa/status", data, hed)
+        .then((res) => {
+          console.log(res);
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      this.$refs.securityfour.closeModal();
+      this.$router.go();
     },
 
     async mobileCodeSubmitMob() {
@@ -623,14 +684,12 @@ export default {
       this.mobileWrongMob = true;
 
       if (this.state.mobileCodeMob.length == 6) {
-
-         if (this.fa_mobile_status == "true"){
-              this.mobileStatus = "disable";
-
-         }else{
-            this.mobileStatus = "enable";
-         }
-      var data = {
+        if (this.fa_mobile_status == "true") {
+          this.mobileStatus = "disable";
+        } else {
+          this.mobileStatus = "enable";
+        }
+        var data = {
           mobile: this.state.mobileno,
           code: this.state.mobileCodeMob,
           status: this.mobileStatus,
@@ -660,8 +719,6 @@ export default {
             console.log(error.response.headers);
           });
       }
-
-      //this.$refs.successfullyModalSMS.closeModal();
     },
   },
   mounted() {
