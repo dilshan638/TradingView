@@ -160,7 +160,7 @@
                 </div>
               </div>
               <div class="col-md-5">
-                <p class="subline right" v-if="EmailWrong">
+                <p class="subline right" v-if="!EmailWrong">
                   Didn't received?
                   <a class="link" @click="sendEmailVerificationCode">Resend</a>
                 </p>
@@ -177,24 +177,17 @@
             </div>
             <div class="row">
               <div class="col-md-7">
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Google Authentication Code"
-                  v-model="googleAuthenticationCode"
-                  @input="submitGACode"
-                />
-
-                <!-- Hide Show -->
-
-                <div v-if="GASuccess && !GAWrong">
-                  <h2>Done</h2>
+                <div class="input-group single-row">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Google Authentication Code"
+                    v-model="googleAuthenticationCode"
+                    @input="submitGACode"
+                  /> 
+                  <img v-if="GASuccess && !GAWrong" src="images/icons/correct.png" class="pos-img error-imgs" />    
+                  <img v-if="GAWrong" src="images/icons/ic_fail@3x.webp" class="pos-img" />                                                     
                 </div>
-
-                <div v-if="GAWrong">
-                  <h2>Wrong</h2>
-                </div>
-                <!-- Hide Show -->
               </div>
               <div class="col-md-5"></div>
             </div>
@@ -254,7 +247,7 @@ export default {
       GAWrong: false,
       GASuccess: false,
       Emailuccess: false,
-      EmailWrong: true,
+      EmailWrong: false,
 
       gaStatus:"",
       fa_ga_status:""
