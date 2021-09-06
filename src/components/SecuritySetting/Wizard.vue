@@ -121,6 +121,7 @@
                     placeholder="Mobile verification code"
                     v-model="mobileCodeMob"
                     @input="mobileCodeSubmitMob"
+                     :disabled="mobileSuccessMob == true"
                   />
 
                   <!-- Hide Show -->
@@ -170,6 +171,7 @@
                     placeholder="Email verification code"
                     v-model="emailCode"
                     @input="emailCodeSubmit"
+                     :disabled="Emailuccess == true"
                   />
                   <div class="input-group-append">
                     <button
@@ -218,6 +220,7 @@
                     placeholder="Google Authentication Code"
                     v-model="googleAuthenticationCode"
                     @input="submitGACode"
+                     :disabled="GASuccess == true"
                   />
                   <img
                     v-if="GASuccess && !GAWrong"

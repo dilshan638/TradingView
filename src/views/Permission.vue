@@ -1,6 +1,6 @@
 <template>
   <permission-layout>
-      <permission-modal />
+      <permission-modal /> 
   </permission-layout>
 </template>
 
