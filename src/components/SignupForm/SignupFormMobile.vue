@@ -94,6 +94,6 @@ export default {
 }
 </script>
 
-<style>
-        @import "signup.scss";
+<style lang="scss">
+        @import "../../assets/scss/Signup/Signup";
 </style>

@@ -26,7 +26,7 @@
                     </div>
 
                     <button class="centered login-btn" @click="SubmitForm">Login</button>
-                    <span class="forgot-link" @click="$refs.forgotpasswordmodal.openModal()">Forgot Password</span>
+                    <span class="forgot-link" @click="gotoforgotpassword">Forgot Password</span>
                     <span class="reg">to LDX eFolio?  <router-link to="/signup">Register here</router-link></span>
                 </div>
             </div>
@@ -245,7 +245,8 @@ export default {
             contains_number: false,
             contains_uppercase: false,
             contains_special_character: false,
-            valid_password: false,         
+            valid_password: false,  
+            submitdisabled: true,   
 
             
              data: {
@@ -259,12 +260,10 @@ export default {
         }
     },
     methods: { 
-
         removepophover() {
             this.showPasswordSuggestion = false;
             this.showPasswordLength = false
         },
-
         checkPassword() {
             this.password_length = this.state.newPassword.length;
             //eslint-disable-next-line
@@ -287,7 +286,7 @@ export default {
             }
         },   
         async login() {
-            this.$toast.show("Please wait. checking your login credentials", {type: "info", position: "top"});
+            this.submitdisabled = false;
                try {
                 await Auth.signIn(this.state.email, this.state.password.password)
                 .then(data=>{
@@ -310,18 +309,17 @@ export default {
                     this.$toast.show("Successfully logged in", {type: "success", position: "top"});
                 
                     
-             } catch (error) {
-                    this.$toast.show(error.message, {type: "error", position: "top"});
-                    console.log(error.message)
-                    console.log('No')
-                    this.role=false
-                }
+             } 
+             catch (error) {
+                this.$toast.show(error.message, {type: "error", position: "top"});
+                console.log(error.message)
+                console.log('No')
+                this.role=false
+            }
         },
-
-         encryptData() {
+        encryptData() {
            this.encData = CryptoJS.AES.encrypt( JSON.stringify(this.data), this.secret).toString();       
         },
-
         SubmitForm() {
             this.v$.email.$touch()
             this.v$.password.password.$touch()
@@ -331,10 +329,15 @@ export default {
             } else {
                 console.log('Form failed validation')
             }
-        },
-            
-         async forgotpassword(){
+        },     
+        async gotoforgotpassword() {
+            this.$refs.forgotpasswordmodal.openModal()
 
+            // this.$refs.otpcodemodal.closeModal()
+        },
+        async forgotpassword(){
+            this.$refs.forgotpasswordmodal.closeModal();  
+            this.$toast.show("Chekcing your Email address to send verification code", {type: "info", position: "top"});
              this.v$.forgotpasswordemail.$touch()
               if(!this.v$.forgotpasswordemail.$error){
                   var username = this.state.forgotpasswordemail
@@ -344,14 +347,9 @@ export default {
                     console.log(data.CodeDeliveryDetails.Destination)
                     console.log("Success");
                     this.state.forgotpasswordemail = ""
+                    this.$toast.show("Succesfully sent the email verification code. check your Email", {type: "success", position: "top"});
                 })
-             
-            
-            this.$refs.forgotpasswordmodal.closeModal();
-            this.$refs.otpcodemodal.openModal()
-            
-            
-                
+            this.$refs.otpcodemodal.openModal()  
             }catch(error){
                  console.log('Sending  Failed Code')
             }
@@ -359,8 +357,7 @@ export default {
                  console.log('Sending  Failed Code') 
              }
            
-        },
-        
+        },    
         async otpcheck(){
 
                this.v$.forgotpasswordemail.$touch()
@@ -391,7 +388,6 @@ export default {
                console.log('Reset validation Failed ')
            }
         },
-
         async resend(){
             var username = this.state.forgotpasswordemail
             
@@ -407,7 +403,7 @@ export default {
         async showModal() {
             alert("rrr");
         }, 
-        async   passwordGenereate() { //
+        async passwordGenereate() { //
             var passwordgene = generator.generate({
                 length: 12,
                 numbers: true,
@@ -418,7 +414,7 @@ export default {
              console.log(passwordgene);
              this.passwordsuggestionvalue = passwordgene
         },
-        async   usePassword() { //
+        async usePassword() { //
     //  this.state.new_password = this.passwordsuggestionvalue
         this.state.newPassword=this.passwordsuggestionvalue
         console.log( this.state.newPassword)
@@ -427,17 +423,12 @@ export default {
         },
         closepasswordbox() {
             this.showPasswordSuggestion = false;
-        } ,
-
-    
-
-
+        }
     },
     mounted() {
      this.encryptData()
      this.passwordGenereate();
    //  this.getAttributes()
-     
     }
 }
 </script>

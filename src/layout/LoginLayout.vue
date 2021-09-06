@@ -2,7 +2,6 @@
     <PageContent class="login-layout">
         <slot />
     </PageContent>
-    <Footer />
 </template>
 
 <script>

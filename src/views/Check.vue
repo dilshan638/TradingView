@@ -21,6 +21,6 @@ export default {
     }
 }
 </script>
-<style>
-    @import "../components/SignupForm/signup.scss";
+<style lang="scss" scoped>
+  @import "../assets/scss/Signup/Signup";
 </style>
