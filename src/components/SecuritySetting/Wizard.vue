@@ -114,12 +114,16 @@
             </div>
             <div class="row">
               <div class="col-md-7">
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Mobile verification code"
-                />
-                <button @click="sendMobileCode">Send</button>
+                <div class="input-group single-row mb-2">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Mobile verification code"
+                  />
+                  <div class="input-group-append">
+                    <button class="btn" @click="sendMobileCode">Send</button>
+                  </div>                  
+                </div>
               </div>
               <div class="col-md-5">
                 <p class="subline right">
@@ -140,28 +144,23 @@
             </div>
             <div class="row">
               <div class="col-md-7">
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Email verification code"
-                  v-model="emailCode"
-                  @input="emailCodeSubmit"
-                />
-                <!-- Hide Show -->
-
-                <div v-if="Emailuccess && !EmailWrong">
-                  <h2>Done</h2>
+                <div class="input-group single-row">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Email verification code"
+                    v-model="emailCode"
+                    @input="emailCodeSubmit"
+                  />
+                  <div class="input-group-append" v-if="!Emailuccess && EmailWrong">
+                    <button class="btn" @click="sendEmailVerificationCode">Send</button>
+                  </div>  
+                  <img v-if="Emailuccess && !EmailWrong" src="images/icons/correct.png" class="pos-img error-imgs" />    
+                  <img v-if="EmailWrong" src="images/icons/ic_fail@3x.webp" class="pos-img" />              
                 </div>
-
-                <div v-if="EmailWrong">
-                  <h2>Wrong</h2>
-                </div>
-                <!-- Hide Show -->
-
-                <button @click="sendEmailVerificationCode">Send</button>
               </div>
               <div class="col-md-5">
-                <p class="subline right">
+                <p class="subline right" v-if="EmailWrong">
                   Didn't received?
                   <a class="link" @click="sendEmailVerificationCode">Resend</a>
                 </p>
@@ -255,7 +254,7 @@ export default {
       GAWrong: false,
       GASuccess: false,
       Emailuccess: false,
-      EmailWrong: false,
+      EmailWrong: true,
 
       gaStatus:"",
       fa_ga_status:""

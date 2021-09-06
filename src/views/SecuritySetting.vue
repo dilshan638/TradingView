@@ -125,7 +125,10 @@ your registered email on INSPIRA
               v-model="state.emailCode"
               class="form-control"
               placeholder="Email verification code"
+              @input="emailCodeSubmit"
             />
+            <img class="pos-img" v-if="emaileSuccessemail && !emailWrongEmail" src="images/icons/correct.png" />
+            <img class="pos-img" v-if="emailWrongEmail" src="images/icons/ic_fail@3x.webp" />
           </div>
           <span class="resend-area text-right resend-link"
           >Didn't received?
@@ -136,7 +139,7 @@ your registered email on INSPIRA
 
       <template v-slot:footer>
         <div class="modal-buttons">
-          <button class="mb-3" @click="emailCodeSubmit">Next</button>
+          <button class="mb-3" @click="emailSubmitButton">Next</button>
           <button
             class="second-btn mb-3"
             @click="$refs.securitythree.closeModal()"
@@ -150,7 +153,7 @@ your registered email on INSPIRA
 
     <!--SMS Verification modal -->
 
-    <modal ref="securitytwo" class="forgot-modal">
+    <modal ref="securitytwo" class="forgot-modal border50">
       <template v-slot:header>
         <h2 style="color: black">SMS Verification</h2>
       </template>
@@ -426,6 +429,9 @@ export default {
 
       btnShowEmailMob: true,
       btnShowMobileMob: true,
+
+      emaileSuccessemail:false,
+      emailWrongEmail:false
     };
   },
   methods: {
@@ -526,7 +532,11 @@ export default {
     },
 
     async emailCodeSubmit() {
-      if (this.fa_email_status == "true") {
+
+      this.emailWrongEmail= true
+      
+      if(this.state.emailCode.length==6){
+          if (this.fa_email_status == "true") {
         this.emailStatus = "disable";
       } else {
         this.emailStatus = "enable";
@@ -552,15 +562,20 @@ export default {
         .then((res) => {
           console.log(res);
           console.log(response);
-          this.emailSuccess = true;
+          this.emailWrongEmail=false
+          this.emaileSuccessemail = true;
         })
         .catch(function (error) {
           console.log(error);
         });
-      this.$refs.securitythree.closeModal();
-      this.$refs.successfullyModal.openModal();
+     
+      }
     },
 
+   async emailSubmitButton(){
+     this.$refs.securitythree.closeModal();
+      this.$refs.successfullyModal.openModal();
+   },
     async emailCodeSubmitMob() {
       this.btnShowEmailMob = false;
       this.emailWrongMob = true;
