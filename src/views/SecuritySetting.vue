@@ -466,10 +466,20 @@ export default {
         })
         .then((responsive) => {
           console.log(responsive.data.result.UserAttributes);
-          this.fa_email_status = responsive.data.result.UserAttributes[5].Value;
-          this.fa_ga_status = responsive.data.result.UserAttributes[16].Value;
-          this.fa_mobile_status =
-            responsive.data.result.UserAttributes[7].Value;
+         for(let i = 0; i < responsive.data.result.UserAttributes.length; i++){
+
+           if(responsive.data.result.UserAttributes[i].Name=="custom:2fa_ga_status"){
+              this.fa_ga_status = responsive.data.result.UserAttributes[i].Value;
+           }
+
+           if(responsive.data.result.UserAttributes[i].Name=="custom:2fa_email_status"){
+              this.fa_email_status = responsive.data.result.UserAttributes[i].Value;
+           }
+
+              if(responsive.data.result.UserAttributes[i].Name=="custom:2fa_mobile_status"){
+              this.fa_mobile_status = responsive.data.result.UserAttributes[i].Value;
+           }
+          }
         })
         .catch(function (error) {
           console.log(error);

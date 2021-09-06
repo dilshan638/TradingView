@@ -315,11 +315,32 @@ export default {
           headers: headers,
         })
         .then((responsive) => {
-          this.fa_ga_status = responsive.data.result.UserAttributes[16].Value;
-          this.fa_email_status = responsive.data.result.UserAttributes[5].Value;
-          this.phone_number = responsive.data.result.UserAttributes[14].Value;
-          this.fa_mobile_status =
-            responsive.data.result.UserAttributes[7].Value;
+            console.log(responsive)
+         for(let i = 0; i < responsive.data.result.UserAttributes.length; i++){
+
+           if(responsive.data.result.UserAttributes[i].Name=="custom:2fa_ga_status"){
+              this.fa_ga_status = responsive.data.result.UserAttributes[i].Value;
+           }
+
+           if(responsive.data.result.UserAttributes[i].Name=="custom:2fa_email_status"){
+              this.fa_email_status = responsive.data.result.UserAttributes[i].Value;
+           }
+
+              if(responsive.data.result.UserAttributes[i].Name=="phone_number"){
+              this.phone_number = responsive.data.result.UserAttributes[i].Value;
+
+              console.log(this.phone_number)
+           }
+              if(responsive.data.result.UserAttributes[i].Name=="custom:2fa_mobile_status"){
+              this.fa_mobile_status = responsive.data.result.UserAttributes[i].Value;
+           }
+          }
+      //    this.fa_ga_status = responsive.data.result.UserAttributes[16].Value;
+       //   this.fa_email_status = responsive.data.result.UserAttributes[5].Value;
+        //  this.phone_number = responsive.data.result.UserAttributes[14].Value;
+       //   this.fa_mobile_status =responsive.data.result.UserAttributes[7].Value;
+
+         
         })
         .catch(function (error) {
           console.log(error);
