@@ -2,7 +2,6 @@ import { createRouter, createWebHashHistory } from "vue-router";
 
 import SignUp from '../views/SignUp.vue';
 import SignIn from '../views/Signin.vue';
-import Check from '../views/Check.vue';
 import Dashboard from '../views/Dashboard';
 import Wallet from '../views/Wallet';
 import SecurityPage from '../views/Security';
@@ -12,6 +11,7 @@ import Trade from '../views/Trade.vue';
 import Market from '../views/Market.vue';
 import Security from '../components/Security/Security.vue';
 import Home from '../views/Home.vue';
+import Permission from '../views/Permission.vue';
 
 
 import Setting from '../components/Setting/Setting.vue';
@@ -52,10 +52,6 @@ const routes=[
         path:'/signin',
         component:SignIn,
         props: (route) => ({ name: route.query.name })
-    },
-    {
-        path:'/check',
-        component:Check
     },
     {
         path:'/dashboard',
@@ -120,7 +116,12 @@ const routes=[
         path:'/history',
         component:History,
         beforeEnter : guardmyrouter
-    }    
+    },
+    {
+        path:'/permission-checking',
+        component:Permission,
+        beforeEnter : guardmyrouter
+    }      
 ];
 
 const router = createRouter({

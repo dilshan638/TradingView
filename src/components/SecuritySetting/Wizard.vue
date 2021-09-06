@@ -241,7 +241,6 @@
         <button @click="submit">Next</button>
       </div>
     </div>
-
     <modal ref="successfullyModal">
       <template v-slot:header>
         <h2 style="color: black">
