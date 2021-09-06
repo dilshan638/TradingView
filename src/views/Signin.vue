@@ -68,6 +68,6 @@ export default {
 }
 </script>
 
-<style>
-    @import "../components/SignIn/signin.scss";
+<style lang="scss">
+    @import "../assets/scss/Signin/Signin";
 </style>

@@ -78,6 +78,6 @@ export default {
 }
 </script>
 
-<style>
-        @import "signin.scss";
+<style lang="scss" scoped>
+        @import "../../assets/scss/Signin/Signin";
 </style>

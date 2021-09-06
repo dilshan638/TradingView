@@ -108,24 +108,18 @@
     </div>
 
     <!--Email Verification modal -->
-    <modal ref="securitythree">
+    <modal ref="securitythree" class="sec-ver-modal border50">
       <template v-slot:header>
         <h2 style="color: black">Security Verification</h2>
       </template>
 
       <template v-slot:body>
         <p style="color: #000 !important">
-          We have sent a 6 Digit code to <br />
-          following Mobile No
+          Enter the 6 Digit code sent to <br/>
+your registered email on INSPIRA
         </p>
-
-        <b>ab**@**.com</b>
-        <span class="resend-area"
-          >Didn't received?
-          <a class="link" @click="sendEmailVerificationCode">Resend</a></span
-        >
-
-        <div class="form-group mb-4">
+        <b class="email-size">ab**@**.com</b>
+        <div class="form-group mb-0">
           <div class="eye-area">
             <input
               v-model="state.emailCode"
@@ -133,16 +127,16 @@
               placeholder="Email verification code  "
             />
           </div>
-        </div>
-
-        <div class="form-group">
-          <div class="eye-area"></div>
+          <span class="resend-area text-right resend-link"
+          >Didn't received?
+          <a class="link" @click="sendEmailVerificationCode">Resend</a></span
+        > 
         </div>
       </template>
 
       <template v-slot:footer>
         <div class="modal-buttons">
-          <button class="mb-3" @click="emailCodeSubmit">Send Now</button>
+          <button class="mb-3" @click="emailCodeSubmit">Next</button>
           <button
             class="second-btn mb-3"
             @click="$refs.securitythree.closeModal()"

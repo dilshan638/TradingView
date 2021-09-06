@@ -290,6 +290,7 @@ export default {
                try {
                 await Auth.signIn(this.state.email, this.state.password.password)
                 .then(data=>{
+                   // console.log(data.CodeDeliveryDetails.Destination)
                     console.log(data);
                    // console.log(Cookies.set('accessToken', data.signInUserSession))
                    this.accToken=data.signInUserSession.accessToken.jwtToken
@@ -432,8 +433,6 @@ export default {
     }
 }
 </script>
-<style lang="scss">
-        @import "signin";
-
-        
+<style lang="scss" scoped>
+        @import "../../assets/scss/Signin/Signin";
 </style>
