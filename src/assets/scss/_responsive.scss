@@ -128,3 +128,23 @@
     }
 
 }
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1023px) {
+
+    .form-layout{
+        width: auto !important;
+        max-width: 50%;
+    }
+
+    .main-layout.login-layout{
+
+        .content{
+            background-color: #fff !important;
+        }
+        
+    }
+    .form-layout.signup-area{
+        max-width: 80% !important;
+    }
+}

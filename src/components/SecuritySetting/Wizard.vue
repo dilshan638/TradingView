@@ -185,8 +185,12 @@
                     v-model="googleAuthenticationCode"
                     @input="submitGACode"
                   /> 
-                  <img v-if="GASuccess && !GAWrong" src="images/icons/correct.png" class="pos-img error-imgs" />    
-                  <img v-if="GAWrong" src="images/icons/ic_fail@3x.webp" class="pos-img" />                                                     
+                  <div v-if="GASuccess && !GAWrong">
+                    <img src="images/icons/correct.png" class="pos-img" />    
+                  </div>
+                  <div v-if="GAWrong">
+                    <img src="images/icons/ic_fail@3x.webp" class="pos-img" />   
+                  </div>                                                  
                 </div>
               </div>
               <div class="col-md-5"></div>

@@ -10,7 +10,6 @@
         <div class="modal__body">
           <slot name="body"/>
         </div>
-
         <div class="modal__footer">
           <slot name="footer"/>
         </div>
@@ -23,12 +22,12 @@ export default {
   name: "Modal",
   data() {
     return {
-      show: false,
-      formreset: false
+      show: false
     };
   },
   methods: {
     closeModal() {
+      this.show = false;
       document.querySelector("body").classList.remove("open-modal");
     },
     openModal() {

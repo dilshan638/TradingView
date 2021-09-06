@@ -1,12 +1,12 @@
 <template>
     <div class="form-layout">
         <div class="row">
-            <div class="col-md-6 mobile-hide no-padding">
+            <div class="col-lg-6 mobile-hide no-padding">
                 <div class="left-logo">
                     <img src="images/logo/logo.png" />
                 </div>
             </div>
-            <div class="col-md-6 no-padding">
+            <div class="col-lg-6 no-padding">
                 <div class="right-form">
                     <h2>LDCX Exchange</h2>
                     <p>Lorem ipsum dolor sit amet ipsum<br/>
@@ -16,7 +16,6 @@
                         <input placeholder="Email" v-model="state.email" class="form-control" />
                         <span class="error-msg" v-if="v$.email.$error">{{ v$.email.$errors[0].$message }} </span>
                     </div>
-
                     <div class="eye-area mb-4">
                         <input v-bind:type="[showPassword ? 'text' : 'password']" placeholder="Password" v-model="state.password.password" class="form-control" />
                             <div class="eye-box">
@@ -24,7 +23,6 @@
                             </div>
                         <span class="error-msg" v-if="v$.password.password.$error">{{ v$.password.$errors[0].$message }} </span>                        
                     </div>
-
                     <button class="centered login-btn" @click="SubmitForm">Login</button>
                     <span class="forgot-link" @click="gotoforgotpassword">Forgot Password</span>
                     <span class="reg">to LDX eFolio?  <router-link to="/signup">Register here</router-link></span>
@@ -36,47 +34,16 @@
                 <h2 style="color:black">Forgot Password</h2>
             </template>
             <template v-slot:body>
-                <!-- Nav tabs -->
-                <ul class="nav nav-tabs modal-nav" id="myTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Email</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Mobile</button>
-                </li>
-                </ul>
-                <!-- Tab panes -->
-                <div class="tab-content modal-tab">
-
-                <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">                                                               
                     <h5 style="color:black">Enter your Email Address</h5>
                     <div class="form-group pos-rel">    
                         <input type="email" class="form-control" placeholder="Email Address" style="color:#000" v-model="state.forgotpasswordemail" />
                         <span class="error-msg" v-if="v$.forgotpasswordemail.$error">{{ v$.forgotpasswordemail.$errors[0].$message }} </span>  
                     </div>
-
                     <div class="modal-buttons">
                         <button class="mb-3" @click="forgotpassword">Next</button>
                         <button  class="second-btn mb-3" @click="$refs.forgotpasswordmodal.closeModal()">Cancel</button>
                     </div>  
-                </div>
-                <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                    <h5 style="color:black">Enter your Mobile NUmber</h5>
-                    <div class="form-group pos-rel">    
-                        <input type="email" class="form-control" placeholder="Email Address" style="color:#000" />
-                        <!-- <span class="error-msg" v-if="v$.forgotpasswordemail.$error">{{ v$.forgotpasswordemail.$errors[0].$message }} </span>   -->
-                    </div>
-
-                    <div class="modal-buttons">
-                        <button class="mb-3" @click="forgotpassword">Next</button>
-                        <button  class="second-btn mb-3" @click="$refs.forgotpasswordmodal.closeModal()">Cancel</button>
-                    </div>  
-                </div>
-                
-                </div>
-
             </template>
-
         </modal>
         <modal ref="otpcodemodal" class="border50">
             <template v-slot:header>
@@ -91,7 +58,6 @@
                     </div>
                     <span class="error-msg" v-if="v$.verificationCode.$error">{{ v$.verificationCode.$errors[0].$message }} </span> 
                 </div>                    
-
                 <div class="form-group mb-4 pos-rel">
                     <div class="input_container" v-if="showPasswordLength">
                         <!-- <password-generator /> -->
@@ -246,9 +212,8 @@ export default {
             contains_uppercase: false,
             contains_special_character: false,
             valid_password: false,  
-            submitdisabled: true,   
-
-            
+            submitdisabled: true,
+ 
              data: {
                 firstName: "",
                 lastName: "",
@@ -332,25 +297,24 @@ export default {
             }
         },     
         async gotoforgotpassword() {
-            this.$refs.forgotpasswordmodal.openModal()
-
-            // this.$refs.otpcodemodal.closeModal()
+            this.state.forgotpasswordemail = "";
+            this.$refs.forgotpasswordmodal.openModal();
         },
         async forgotpassword(){
-            this.$refs.forgotpasswordmodal.closeModal();  
-            this.$toast.show("Chekcing your Email address to send verification code", {type: "info", position: "top"});
+            // this.$toast.show("Chekcing your Email address to send verification code", {type: "info", position: "top"});
              this.v$.forgotpasswordemail.$touch()
               if(!this.v$.forgotpasswordemail.$error){
-                  var username = this.state.forgotpasswordemail
+                var username = this.state.forgotpasswordemail
+                this.$refs.forgotpasswordmodal.closeModal();  
+                this.$refs.otpcodemodal.openModal();
             try{
                 await Auth.forgotPassword(username)
                 .then(data => {
                     console.log(data.CodeDeliveryDetails.Destination)
                     console.log("Success");
-                    this.state.forgotpasswordemail = ""
-                    this.$toast.show("Succesfully sent the email verification code. check your Email", {type: "success", position: "top"});
+                   // this.state.forgotpasswordemail = ""
+                    //this.$toast.show("Succesfully sent the email verification code. check your Email", {type: "success", position: "top"});
                 })
-            this.$refs.otpcodemodal.openModal()  
             }catch(error){
                  console.log('Sending  Failed Code')
             }
@@ -360,27 +324,22 @@ export default {
            
         },    
         async otpcheck(){
-
                this.v$.forgotpasswordemail.$touch()
                this.v$.verificationCode.$touch()
                this.v$.newPassword.$touch()
                this.v$.confirmPassword.$touch()
-           
-           
            if(!this.v$.$error && this.state.confirmPassword===this.state.newPassword){
+                this.$refs.otpcodemodal.closeModal();
+                this.$refs.successmodal.openModal();
                try{
                 var username = this.state.forgotpasswordemail
                 var code = this.state.verificationCode
                 var new_password = this.state.newPassword
-
                 await Auth.forgotPasswordSubmit(username, code, new_password)
                .then(data => {
                  console.log(data)
                  console.log("Success");
              })
-
-              this.$refs.otpcodemodal.closeModal();
-             this.$refs.successmodal.openModal()
     
             }catch(error){
                  console.log(error);

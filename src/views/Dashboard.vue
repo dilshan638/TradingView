@@ -1,16 +1,16 @@
 <template>
   <default-layout>
     <div class="row">
-      <div class="col-md-12 no-padding">
+      <div class="col-xl-12 no-padding">
           <TopInfo />
       </div>
     </div>
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-xl-8">
           <WalletBalance />
           <Login-history />
       </div>
-      <div class="col-md-4 no-padding-left">
+      <div class="col-xl-4 no-padding-left">
           <Announcements />
       </div>
     </div>
