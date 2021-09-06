@@ -221,7 +221,7 @@
       </template>
       <template v-slot:footer>
         <div>
-          <button @click="$refs.successfullyModal.closeModal()" class="loginbtn">
+          <button @click="successGAModal" class="loginbtn"> 
             Continue
           </button>
         </div>
@@ -256,10 +256,33 @@ export default {
       GASuccess: false,
       Emailuccess: false,
       EmailWrong: false,
+
+      gaStatus:"",
+      fa_ga_status:""
     };
   },
 
   methods: {
+
+    async status() {
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem(
+          "X-LDX-Inspira-Access-Token"
+        )}`,
+      };
+
+      axios
+        .get("https://dapi.exus.live/api/mobile/v1/user/cognito/info", {
+          headers: headers,
+        })
+        .then((responsive) => {
+         this.fa_ga_status = responsive.data.result.UserAttributes[15].Value;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
     nextOneToTwo() {
       this.showContentOne = false;
       this.showContentTwo = true;
@@ -371,13 +394,19 @@ export default {
           },
         };
 
+        if(this.fa_ga_status=='true'){
+          this.gaStatus="disable"
+        }else{
+           this.gaStatus="enable"
+        }
+
         let response = await this.axios
           .post(
             "https://dapi.exus.live/api/twofa/ga/status",
             {
               secret: this.token[1],
               token: this.googleAuthenticationCode,
-              status: "disable",
+              status: this.gaStatus,
               stage: 1,
             },
             hed
@@ -391,6 +420,8 @@ export default {
           .catch(function (error) {
             console.log(error);
           });
+
+         
       }
     },
 
@@ -399,7 +430,7 @@ export default {
       if (this.emailCode.length == 6) {
         var data = {
           token: this.emailCode,
-          status: "enable",
+          status: "",
           stage: 1,
         };
         let hed = {
@@ -436,9 +467,15 @@ export default {
       //  stage: 1
       //  };
     },
+
+    async successGAModal(){
+      this.$refs.successfullyModal.closeModal() 
+       this.$router.go()
+    }
   },
 
   mounted() {
+    this.status();
     this.getCryptoAll();
     this.postGoogleAuthenticator();
   },
