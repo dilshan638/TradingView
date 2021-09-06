@@ -124,7 +124,7 @@ your registered email on INSPIRA
             <input
               v-model="state.emailCode"
               class="form-control"
-              placeholder="Email verification code  "
+              placeholder="Email verification code"
             />
           </div>
           <span class="resend-area text-right resend-link"
