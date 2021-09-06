@@ -16,7 +16,6 @@ import Home from '../views/Home.vue';
 
 import Setting from '../components/Setting/Setting.vue';
 import CryptoOne from '../components/Wallet/CryptoOne.vue';
-import WizardSuccessfullyPage from '../components/SecuritySetting/WizardSuccessfullyPage.vue';
 
 import History from '../views/History.vue';
 
@@ -111,11 +110,7 @@ const routes=[
         component:Setting,
         beforeEnter : guardmyrouter
     },
-     {
-        path:'/successfully',
-        component:WizardSuccessfullyPage,
-        beforeEnter : guardmyrouter
-    },
+    
     {
         path:'/wallet/cryptoone',
         component:CryptoOne,
