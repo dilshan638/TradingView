@@ -65,8 +65,17 @@ export default {
       localStorage.removeItem("minimum_deposite");
       localStorage.removeItem("avarege_arrival_time");
       localStorage.removeItem("expected_arrival");
-      localStorage.removeItem("expected_unlock");
+      localStorage.removeItem("expected_unlock"); 
       
+      localStorage.removeItem("inspira_id");
+       localStorage.removeItem("fa_email_status");
+       localStorage.removeItem("fa_mobile_status");
+       localStorage.removeItem("phone_number");
+
+        localStorage.removeItem("fa_ga_status");
+         localStorage.removeItem("stSMS");
+          localStorage.removeItem("stEMAIL");
+
        localStorage.removeItem("selectedCoinWithdraw");
        localStorage.removeItem("totalBalances");
        localStorage.removeItem("emailmask");

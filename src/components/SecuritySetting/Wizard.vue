@@ -157,7 +157,7 @@
               <div class="col-md-12">
                 <p class="subline">
                   Please enter the 6 Digit code that we have sent a to
-                  ab**@**.com
+                  ab*@*.com
                 </p>
               </div>
             </div>
@@ -371,6 +371,7 @@ export default {
       this.showContentFour = false;
     },
     async submit() {
+
       this.$refs.successfullyModal.openModal();
     },
 

@@ -269,7 +269,7 @@
           class="form-group pos-rel sec-row"
         >
           <p class="sub-text">
-            Please enter the 6 Digit code that we have sent a to ab**@**.com
+            Please enter the 6 Digit code that we have sent a to ab*@*.com
           </p>
           <div class="input-group mb-2">
             <input
@@ -764,6 +764,7 @@ export default {
   },
   mounted() {
     this.status();
+    
   },
   watch: {
 
