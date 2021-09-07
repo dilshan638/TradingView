@@ -8,10 +8,10 @@
             </router-link>
       </div>
       <div class="col-10 col-md-7">
-        <nav class="navbar navbar-expand-lg">
+        <nav class="navbar navbar-expand-lg mobile-hide">
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
-            <i class="ri-menu-5-fill"></i>
+            <i class="ri-more-fill"></i>
           </button>          
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
@@ -70,7 +70,7 @@ export default {
        localStorage.removeItem("selectedCoinWithdraw");
        localStorage.removeItem("totalBalances");
        localStorage.removeItem("emailmask");
-       localStorage.removeItem("inspiraId");
+       localStorage.removeItem("inspira_id");
         this.$router.push("/signin");
         this.$toast.show("Successfully Logged out. Thank you!", {type: "success", position: "top"});
     },

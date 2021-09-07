@@ -7,7 +7,7 @@
           class="form-control"
           placeholder="Enter mobile verfication code"
         />
-        <p class="subline right">
+        <p class="subline right text-right mt-2">
           Didn't received?
           <a class="link" @click="sendEmailVerificationCode">Resend</a>
         </p>
@@ -23,7 +23,7 @@
         />
         <img src="images/icons/correct.png" class="pos-img" />
         <img src="images/icons/ic_fail@3x.webp" class="pos-img" />
-        <p class="subline right">
+        <p class="subline right text-right mt-2">
           Didn't received?
           <a class="link" @click="sendEmailVerificationCode">Resend</a>
         </p>
@@ -39,8 +39,8 @@
         <img src="images/icons/correct.png" class="pos-img" />
         <img src="images/icons/ic_fail@3x.webp" class="pos-img" />
       </div>
-      <div>
-        <button class="loginbtn">Submit</button>
+      <div class="text-center">
+        <button class="loginbtn mt-3 mb-0">Submit</button>
       </div>
   </div>
 </template>

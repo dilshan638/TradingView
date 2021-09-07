@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card wallet-balance-card">
     <div class="card-header">
       <div class="row">
         <div class="col-md-3">
@@ -95,13 +95,15 @@ export default {
         },
         responsive: [
           {
-            breakpoint: 480,
+            breakpoint: 768,
             options: {
               chart: {
-                width: 80,
+                width: 290,
               },
               legend: {
-                position: "bottom",
+              // position: "bottom",
+                floating: false,
+                //verticalAlign: 'bottom',
               },
             },
           },

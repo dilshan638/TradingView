@@ -1,5 +1,5 @@
 <template>
-  <div class="card only-card-header">
+  <div class="card only-card-header wallet-balance-card wallet-card">
     <div class="card-header">
       <div class="row">
         <div class="col-md-4">
@@ -35,7 +35,7 @@
               </div>
             </div>
 
-            <div class="col-md-1">
+            <div class="col-md-1 mobile-hide">
               <div class="block">
                 <br />
                 <h4>|</h4>

@@ -50,7 +50,7 @@
                 <h2 style="color:black">Security Verification</h2>
             </template>
             <template v-slot:body>
-                <p class="modal-text-p">Enter the 6 digit code received by v2**@**.com</p>
+                <p class="modal-text-p">Enter the 6 digit code received by v2*@*.com</p>
                 <div class="input-group mb-4">
                     <input type="text" class="form-control" placeholder="Email Verification code" v-model="state.verificationCode" />
                     <div class="input-group-append">
@@ -197,7 +197,7 @@ export default {
     data() {
         return { 
             inspira_2fa_status:"",
-
+            inspira_id:"",
             isHidden: false,
             showPassword: false,
             showPasswordotp: false,
@@ -229,34 +229,8 @@ export default {
     },
     methods: { 
 
-          async status() {
-          const headers = {
-        "Content-Type": "application/json",
-         Authorization: `Bearer ${localStorage.getItem(
-          "X-LDX-Inspira-Access-Token"
-        )}`,
-      };
-
-      axios
-        .get("https://dapi.exus.live/api/mobile/v1/user/cognito/info", {
-          headers: headers,
-        })
-        .then((responsive) => {
-            console.log(responsive)
-         for(let i = 0; i < responsive.data.result.UserAttributes.length; i++){
-
-           if(responsive.data.result.UserAttributes[i].Name=="custom:inspira_2fa_status"){
-              this.inspira_2fa_status = responsive.data.result.UserAttributes[i].Value;
-           }
-
-          }
-         // console.log(this.inspira_2fa_status)
-     
-         
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+        async status() {
+        
     },
         removepophover() {
             this.showPasswordSuggestion = false;
@@ -288,14 +262,14 @@ export default {
                try {
                 await Auth.signIn(this.state.email, this.state.password.password)
                 .then(data=>{
-                    console.log(data);
                     this.accToken=data.signInUserSession.accessToken.jwtToken
                     this.data.firstName=data.attributes.name
                     this.data.lastName=data.attributes.middle_name
                     this.data.email=this.state.email
                     localStorage.setItem('emailmask', data.signInUserSession.accessToken.payload.username)                 
                     localStorage.setItem('X-LDX-Inspira-Access-Token',data.signInUserSession.accessToken.jwtToken)
-                    localStorage.setItem("inspiraId",data.attributes.inspira_2fa_status)
+                   
+                    this.status()
                   
                 })
                     console.log('Yes')
@@ -304,13 +278,35 @@ export default {
                   //  window.location.href = `http://localhost:8080/#/dashboard`
 
                    // this.$router.push("/dashboard");
+                   
+              const headers = { "Content-Type": "application/json", Authorization: this.accToken, };
+           
+             axios .get("https://dapi.exus.live/api/mobile/v1/user/cognito/info", { headers: headers, })
+                 .then((responsive) => {
+                 console.log(responsive)
+                for(let i = 0; i < responsive.data.result.UserAttributes.length; i++){
 
-                   if(this.inspira_2fa_status=='true'){
-                        this.$router.push("/permission-checking");
-                   }else{
-                       this.$router.push("/dashboard");
-                   }
-                    this.$toast.show("Successfully logged in", {type: "success", position: "top"});
+                    if(responsive.data.result.UserAttributes[i].Name=="custom:inspira_2fa_status"){
+                        this.inspira_2fa_status = responsive.data.result.UserAttributes[i].Value;
+                    }
+
+                    if(responsive.data.result.UserAttributes[i].Name=="custom:inspira_id"){
+                        this.inspira_id=responsive.data.result.UserAttributes[i].Value
+                      localStorage.setItem('inspira_id',this.inspira_id )
+                      console.log(localStorage.getItem('inspira_id' ))
+                       
+                    }
+
+                 }
+                if(this.inspira_2fa_status=='true'){
+                       this.$router.push("/permission-checking");
+                  }else{
+                      this.$router.push("/dashboard");
+                  }
+       
+              })
+                
+                   this.$toast.show("Successfully logged in", {type: "success", position: "top"});
                 
                     
              } 
@@ -427,7 +423,7 @@ export default {
      this.encryptData()
      this.passwordGenereate();
    //  this.getAttributes()
-   this.status()
+ 
     }
 }
 </script>

@@ -32,8 +32,7 @@ export default {
             this.emailmask = localStorage.getItem("emailmask")
         },
         async getInspiraId() {
-            this.inspiraId = localStorage.getItem("inspiraId")
-            console.log(this.inspiraId)
+            this.inspiraId = localStorage.getItem("inspira_id")
         }
     },
     created() {

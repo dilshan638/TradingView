@@ -19,6 +19,8 @@
 </template>
 <script>
 export default {
+  watch: {
+  },
   name: "Modal",
   data() {
     return {

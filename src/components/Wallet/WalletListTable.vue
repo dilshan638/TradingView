@@ -16,6 +16,7 @@
       <div class="card-body">
         <div class="row">
           <div class="col-md-12">
+            <div class="table-responsive">
             <table class="table table-hover wallet-table">
               <thead>
                 <tr>
@@ -60,6 +61,7 @@
                 </tr>
               </tbody>
             </table>
+            </div>
           </div>
         </div>
       </div>
