@@ -28,14 +28,26 @@ body{
 
 }
 
+.pos-rel{
+
+    .vue-tel-input{
+        border: solid 1px #c7c7c7 !important;
+
+        .vti__input {
+            background-color: transparent !important;
+        }        
+    }
+
+}
+
 .single-row{
 
     .pos-img{
         width: 18px;
         position: absolute;
-        right: 111px;
+        right: 15px;
         top: 18px;
-        z-index: 99999999;
+        z-index: 9999999999;
     }
     .error-imgs{
         right: 115px !important;
@@ -692,4 +704,23 @@ body{
     margin-top: 15px;
     font-weight: 300;
     margin-bottom: 0;
+}
+
+.time-socket{
+    float: left;
+    width: 100%;
+    text-align: right;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #000;
+    padding-top: 11px;
+}
+
+.pos-rel{
+
+    .time-socket{
+        font-weight: 400 !important;
+        padding-top: 3px !important;
+    }
+
 }

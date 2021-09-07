@@ -118,7 +118,8 @@
           Enter the 6 Digit code sent to <br />
           your registered email on INSPIRA
         </p>
-        <b class="email-size">ab**@**.com</b>
+        
+        <b class="email-size">ab*@*.com</b>
         <div class="form-group mb-0">
           <div class="eye-area">
             <input
@@ -140,8 +141,10 @@
               src="images/icons/ic_fail@3x.webp"
             />
           </div>
-          <span class="resend-area text-right resend-link"
-            >Didn't received?
+
+          <div class="time-socket" v-if="timerCount > 0">Resend OTP in 0:0:{{ timerCount }}</div>
+          
+          <span class="resend-area text-right resend-link" v-if="timerCount == 0">Didn't received?
             <a class="link" @click="sendEmailVerificationCode">Resend</a></span
           >
         </div>
@@ -243,20 +246,20 @@
               >
                 Send
               </button>
-
-              <!-- Hide Show -->
-
-              <div v-if="mobileSuccessMob && !mobileWrongMob">
-                <h2>Done</h2>
-              </div>
-
-              <div v-if="mobileWrongMob">
-                <h2>Wrong</h2>
-              </div>
-              <!-- Hide Show -->
+                  <img
+                    v-if="mobileSuccessMob && !mobileWrongMob"
+                    src="images/icons/correct.png"
+                    class="pos-img error-imgs"
+                  />
+                  <img
+                    v-if="mobileWrongMob"
+                    src="images/icons/ic_fail@3x.webp"
+                    class="pos-img"
+                  />
             </div>
           </div>
-          <p class="sub-text text-right">
+          <!-- <div class="time-socket" v-if="timerCount > 0">Resend OTP in 0:0:{{ timerCount }}</div> -->
+          <p  class="sub-text text-right" v-if="!mobileSuccessMob">
             Didn't received?
             <a class="link" @click="sendMobileCodeMobile">Resend</a>
           </p>
@@ -266,7 +269,7 @@
           class="form-group pos-rel sec-row"
         >
           <p class="sub-text">
-            Please enter the 6 Digit code that we have sent a to ab**@**.com
+            Please enter the 6 Digit code that we have sent a to ab*@*.com
           </p>
           <div class="input-group mb-2">
             <input
@@ -287,20 +290,20 @@
               >
                 Send
               </button>
-
-              <!-- Hide Show -->
-
-              <div v-if="emailSuccessMob && !emailWrongMob">
-                <h2>Done</h2>
-              </div>
-
-              <div v-if="emailWrongMob">
-                <h2>Wrong</h2>
-              </div>
-              <!-- Hide Show -->
+                  <img
+                    v-if="emailSuccessMob && !emailWrongMob"
+                    src="images/icons/correct.png"
+                    class="pos-img error-imgs"
+                  />
+                  <img
+                    v-if="emailWrongMob"
+                    src="images/icons/ic_fail@3x.webp"
+                    class="pos-img"
+                  />
             </div>
           </div>
-          <p class="sub-text text-right">
+          <!-- <div class="time-socket" v-if="timerCount > 0">Resend OTP in 0:0:{{ timerCount }}</div> -->
+          <p class="sub-text text-right" v-if="!emailSuccessMob">
             Didn't received?
             <a class="link" @click="sendEmailVerificationCode">Resend</a>
           </p>
@@ -308,13 +311,11 @@
       </template>
       <template v-slot:footer>
         <div class="modal-buttons Modal-btn">
-          <button class="mb-3" @click="$refs.securityfour.openModal()">
+          <button class="mb-3" @click="showsuccessmodal">
             Submit
           </button>
           <button
-            class="second-btn mb-3"
-            @click="$refs.secruritymodal2.closeModal()"
-          >
+            class="second-btn mb-3" @click="$refs.secruritymodal2.closeModal()">
             Close
           </button>
         </div>
@@ -386,7 +387,7 @@ export default {
   components: {
     DefaultLayout,
     Modal,
-    Wizard,
+    Wizard
   },
   setup() {
     const state = reactive({
@@ -416,6 +417,8 @@ export default {
   },
   data() {
     return {
+
+      timerCount: 60,
       showPassword: false,
 
       fa_email_status: "",
@@ -539,7 +542,6 @@ export default {
           console.log(error);
         });
     },
-
     async SecurityFour() {
       this.$refs.securityfour.openModal();
     },
@@ -755,10 +757,29 @@ export default {
           });
       }
     },
+    async showsuccessmodal() {
+      this.$refs.securityfour.openModal()
+      this.$refs.secruritymodal2.closeModal()
+    }
   },
   mounted() {
     this.status();
   },
+  watch: {
+
+    timerCount: {
+        handler(value) {
+
+            if (value > 0) {
+                setTimeout(() => {
+                    this.timerCount--;
+                }, 1000);
+            }
+
+        },
+        immediate: true // This ensures the watcher is triggered upon creation
+    }
+  }
 };
 </script>
 
