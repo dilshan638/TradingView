@@ -50,7 +50,7 @@
                 <h2 style="color:black">Security Verification</h2>
             </template>
             <template v-slot:body>
-                <p class="modal-text-p">Enter the 6 digit code received by v2*@*.com</p>
+                <p class="modal-text-p">Enter the 6 digit code received by v2**@**.com</p>
                 <div class="input-group mb-4">
                     <input type="text" class="form-control" placeholder="Email Verification code" v-model="state.verificationCode" />
                     <div class="input-group-append">
@@ -229,9 +229,7 @@ export default {
     },
     methods: { 
 
-        async status() {
-        
-    },
+      
         removepophover() {
             this.showPasswordSuggestion = false;
             this.showPasswordLength = false
@@ -262,6 +260,7 @@ export default {
                try {
                 await Auth.signIn(this.state.email, this.state.password.password)
                 .then(data=>{
+                    console.log(data);
                     this.accToken=data.signInUserSession.accessToken.jwtToken
                     this.data.firstName=data.attributes.name
                     this.data.lastName=data.attributes.middle_name
@@ -269,7 +268,7 @@ export default {
                     localStorage.setItem('emailmask', data.signInUserSession.accessToken.payload.username)                 
                     localStorage.setItem('X-LDX-Inspira-Access-Token',data.signInUserSession.accessToken.jwtToken)
                    
-                    this.status()
+                   
                   
                 })
                     console.log('Yes')
@@ -289,17 +288,6 @@ export default {
                     if(responsive.data.result.UserAttributes[i].Name=="custom:inspira_2fa_status"){
                         this.inspira_2fa_status = responsive.data.result.UserAttributes[i].Value;
                     }
-<<<<<<< HEAD
-
-                    if(responsive.data.result.UserAttributes[i].Name=="custom:inspira_id"){
-                        this.inspira_id=responsive.data.result.UserAttributes[i].Value
-                      localStorage.setItem('inspira_id',this.inspira_id )
-                      console.log(localStorage.getItem('inspira_id' ))
-                       
-                    }
-
-                 }
-=======
 
                     if(responsive.data.result.UserAttributes[i].Name=="custom:inspira_id"){
                         this.inspira_id=responsive.data.result.UserAttributes[i].Value
@@ -311,9 +299,9 @@ export default {
                           localStorage.setItem('fa_email_status',this.fa_email_status )
            }
                         if(responsive.data.result.UserAttributes[i].Name=="custom:2fa_mobile_status"){
-                         // this.fa_mobile_status = responsive.data.result.UserAttributes[i].Value;
-                         this.fa_mobile_status = 'true'
-                                localStorage.setItem('fa_mobile_status',this.fa_mobile_status )
+                          this.fa_mobile_status = responsive.data.result.UserAttributes[i].Value;
+                        // this.fa_mobile_status = 'true'
+                            localStorage.setItem('fa_mobile_status',this.fa_mobile_status )
                         }
                          if(responsive.data.result.UserAttributes[i].Name=="custom:2fa_ga_status"){
                               this.fa_ga_status = responsive.data.result.UserAttributes[i].Value;
@@ -332,7 +320,6 @@ export default {
                  }
 
 
->>>>>>> 567446d181f41a30a3ebbce79d0cdf7573b1d009
                 if(this.inspira_2fa_status=='true'){
                        this.$router.push("/permission-checking");
                   }else{
