@@ -143,6 +143,7 @@ import { reactive, computed } from 'vue'
 import Modal from "../Modal/Modal.vue";
 var generator = require('generate-password');
 import CryptoJS from "crypto-js";
+import axios from 'axios'
 
 export default {
     name:'signin',
@@ -195,6 +196,8 @@ export default {
     }, 
     data() {
         return { 
+            inspira_2fa_status:"",
+
             isHidden: false,
             showPassword: false,
             showPasswordotp: false,
@@ -225,6 +228,36 @@ export default {
         }
     },
     methods: { 
+
+          async status() {
+          const headers = {
+        "Content-Type": "application/json",
+         Authorization: `Bearer ${localStorage.getItem(
+          "X-LDX-Inspira-Access-Token"
+        )}`,
+      };
+
+      axios
+        .get("https://dapi.exus.live/api/mobile/v1/user/cognito/info", {
+          headers: headers,
+        })
+        .then((responsive) => {
+            console.log(responsive)
+         for(let i = 0; i < responsive.data.result.UserAttributes.length; i++){
+
+           if(responsive.data.result.UserAttributes[i].Name=="custom:inspira_2fa_status"){
+              this.inspira_2fa_status = responsive.data.result.UserAttributes[i].Value;
+           }
+
+          }
+         // console.log(this.inspira_2fa_status)
+     
+         
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
         removepophover() {
             this.showPasswordSuggestion = false;
             this.showPasswordLength = false
@@ -255,23 +288,26 @@ export default {
                try {
                 await Auth.signIn(this.state.email, this.state.password.password)
                 .then(data=>{
-                   // console.log(data.CodeDeliveryDetails.Destination)
-                    console.log(data);
-                   // console.log(Cookies.set('accessToken', data.signInUserSession))
-                   this.accToken=data.signInUserSession.accessToken.jwtToken
+                    this.accToken=data.signInUserSession.accessToken.jwtToken
                     this.data.firstName=data.attributes.name
                     this.data.lastName=data.attributes.middle_name
                     this.data.email=this.state.email
                     localStorage.setItem('emailmask', data.signInUserSession.accessToken.payload.username)                 
                     localStorage.setItem('X-LDX-Inspira-Access-Token',data.signInUserSession.accessToken.jwtToken)
-                    // this.$store.commit("setAuthentication",true);
-                    console.log(data)
+                  
                 })
                     console.log('Yes')
                     this.encryptData()
                    // window.location.href = `http://localhost:8081/kyc?data=${this.encData}`
                   //  window.location.href = `http://localhost:8080/#/dashboard`
-                    this.$router.push("/dashboard");
+
+                   // this.$router.push("/dashboard");
+
+                   if(this.inspira_2fa_status=='true'){
+                        this.$router.push("/permission-checking");
+                   }else{
+                       this.$router.push("/dashboard");
+                   }
                     this.$toast.show("Successfully logged in", {type: "success", position: "top"});
                 
                     
@@ -389,6 +425,7 @@ export default {
      this.encryptData()
      this.passwordGenereate();
    //  this.getAttributes()
+   this.status()
     }
 }
 </script>

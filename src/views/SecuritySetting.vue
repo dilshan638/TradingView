@@ -42,7 +42,7 @@
                 <button
                   v-if="fa_email_status == 'true'"
                   class="btn"
-                  @click="sendEmailVerificationCode"
+                  @click="sendEmailCodeBTN"
                 >
                   On
                 </button>
@@ -50,7 +50,7 @@
                 <button
                   v-else
                   class="btn btn-outline"
-                  @click="sendEmailVerificationCode"
+                  @click="sendEmailCodeBTN"
                 >
                   Disabled
                 </button>
@@ -127,6 +127,8 @@
               class="form-control"
               placeholder="Email verification code"
               @input="emailCodeSubmit"
+
+              :disabled="emaileSuccessemail == true"
             />
             <img
               class="pos-img"
@@ -231,6 +233,7 @@
               placeholder="Mobile verification code"
               v-model="state.mobileCodeMob"
               @input="mobileCodeSubmitMob"
+               :disabled="mobileSuccessMob == true"
             />
 
             <div class="input-group-append">
@@ -275,6 +278,7 @@
               placeholder="Email verification code"
               v-model="state.emailCodeMob"
               @input="emailCodeSubmitMob"
+                :disabled="emailSuccessMob == true"
             />
             <div class="input-group-append">
               <button
@@ -498,8 +502,29 @@ export default {
       this.$refs.securitytwo.openModal();
     },
 
-    async sendEmailVerificationCode() {
+   async sendEmailCodeBTN(){
       this.$refs.securitythree.openModal();
+
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem(
+          "X-LDX-Inspira-Access-Token"
+        )}`,
+      };
+
+      axios
+        .get("https://dapi.exus.live/api/twofa/email/code", {
+          headers: headers,
+        })
+        .then((responsive) => {
+          console.log(responsive);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+   },
+    async sendEmailVerificationCode() {
+     
 
       const headers = {
         "Content-Type": "application/json",

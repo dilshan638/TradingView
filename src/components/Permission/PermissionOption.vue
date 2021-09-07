@@ -1,23 +1,55 @@
 <template>
-  <noBackdropModal ref="permissionmodal" class="permission-modal border50 no-footer">
-    <template v-slot:header>
-      <h2 style="color: black">Security Verification</h2>
-    </template>
-    <template v-slot:body>
-        <PermissionOption />   
-    </template>
-    <template v-slot:footer>
-    </template>
-  </noBackdropModal>
+  <div>
+      <div class="form-group single-row pos-rel security-row">
+        <p>Please enter the 6 Digit code that we have sent a to +9477***121</p>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter mobile verfication code"
+        />
+        <p class="subline right">
+          Didn't received?
+          <a class="link" @click="sendEmailVerificationCode">Resend</a>
+        </p>
+        <img src="images/icons/correct.png" class="pos-img" />
+        <img src="images/icons/ic_fail@3x.webp" class="pos-img" />
+      </div>
+      <div v-if="fa_email_status=='true'" class="form-group single-row pos-rel security-row">
+        <p>Please enter the 6 Digit code that we have sent a to ab**@**.com</p>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter Email verfication code"
+        />
+        <img src="images/icons/correct.png" class="pos-img" />
+        <img src="images/icons/ic_fail@3x.webp" class="pos-img" />
+        <p class="subline right">
+          Didn't received?
+          <a class="link" @click="sendEmailVerificationCode">Resend</a>
+        </p>
+      </div>
+      <div v-if="fa_ga_status=='true'" class="form-group single-row pos-rel security-row">
+        <p >Please enter the 6 Digit code from Google Authenticator.</p>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter Google Authenticator code"
+          v-model="googleAuthenticationCode"
+        />
+        <img src="images/icons/correct.png" class="pos-img" />
+        <img src="images/icons/ic_fail@3x.webp" class="pos-img" />
+      </div>
+      <div>
+        <button class="loginbtn">Submit</button>
+      </div>
+  </div>
 </template>
 <script>
-import noBackdropModal from "../../components/Modal/noBackdropModal.vue";
-import PermissionOption from "../Permission/PermissionOption.vue";
+
 import axios from 'axios'
 export default {
   components: {
-    noBackdropModal,
-    PermissionOption
+ 
   },
   data(){
       return{
@@ -104,7 +136,9 @@ export default {
           console.log(error.response.headers);
         });
     },
-   
+    async submit() {
+      this.$router.push("/dashboard");
+    },
 
      async submitGACode() {
       this.GAWrong = true;
@@ -151,7 +185,7 @@ export default {
     
     this.status()
     this.tokenGA()
-    this.$refs.permissionmodal.openModal();
+   
     
   },
 };
