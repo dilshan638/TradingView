@@ -229,9 +229,7 @@ export default {
     },
     methods: { 
 
-        async status() {
-        
-    },
+      
         removepophover() {
             this.showPasswordSuggestion = false;
             this.showPasswordLength = false
@@ -270,7 +268,7 @@ export default {
                     localStorage.setItem('emailmask', data.signInUserSession.accessToken.payload.username)                 
                     localStorage.setItem('X-LDX-Inspira-Access-Token',data.signInUserSession.accessToken.jwtToken)
                    
-                    this.status()
+                   
                   
                 })
                     console.log('Yes')
@@ -301,9 +299,9 @@ export default {
                           localStorage.setItem('fa_email_status',this.fa_email_status )
            }
                         if(responsive.data.result.UserAttributes[i].Name=="custom:2fa_mobile_status"){
-                         // this.fa_mobile_status = responsive.data.result.UserAttributes[i].Value;
-                         this.fa_mobile_status = 'true'
-                                localStorage.setItem('fa_mobile_status',this.fa_mobile_status )
+                          this.fa_mobile_status = responsive.data.result.UserAttributes[i].Value;
+                        // this.fa_mobile_status = 'true'
+                            localStorage.setItem('fa_mobile_status',this.fa_mobile_status )
                         }
                          if(responsive.data.result.UserAttributes[i].Name=="custom:2fa_ga_status"){
                               this.fa_ga_status = responsive.data.result.UserAttributes[i].Value;
