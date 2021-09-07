@@ -6,7 +6,6 @@
        </PageContent>
   </div>
 </template>
-
 <script>
 import Header from '../components/Header/Header.vue'
 import PageContent from '../components/PageContent/PageContent.vue'
@@ -19,6 +18,5 @@ export default {
     }
 }
 </script>
-
 <style scoped>
 </style>

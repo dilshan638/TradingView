@@ -9,6 +9,7 @@
       <div class="col-xl-8">
           <WalletBalance />
           <Login-history />
+          <Timer />
       </div>
       <div class="col-xl-4 no-padding-left">
           <Announcements />
@@ -23,6 +24,7 @@ import WalletBalance from '../components/Dashboard/WalletBalance.vue'
 import Announcements from '../components/Dashboard/Announcements.vue'
 import LoginHistory from '../components/Dashboard/LoginHistory.vue'
 import TopInfo from '../components/Dashboard/TopInfo.vue'
+import Timer from '../components/Timer/Timer.vue'
 
 export default {
     name:'dashboard',
@@ -31,7 +33,8 @@ export default {
       WalletBalance,
       Announcements,
       LoginHistory,
-      TopInfo
+      TopInfo,
+      Timer
     },
     data() {
       return {

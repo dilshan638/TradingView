@@ -341,5 +341,5 @@ export default {
 }
 </script>
 <style lang="scss">
-        @import "signup";
+        @import "../../assets/scss/Signup/Signup";
 </style>

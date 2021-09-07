@@ -3,12 +3,9 @@
       <permission-modal />
   </permission-layout>
 </template>
-
 <script>
-
 import PermissionLayout from '../layout/PermissionLayout.vue';
 import PermissionModal from '../components/Permission/PermissionModal.vue';
-
 export default {
     components: {
         PermissionLayout,
@@ -16,7 +13,5 @@ export default {
     }
 }
 </script>
-
 <style>
-
 </style>

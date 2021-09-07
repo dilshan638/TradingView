@@ -118,6 +118,7 @@
           Enter the 6 Digit code sent to <br />
           your registered email on INSPIRA
         </p>
+        
         <b class="email-size">ab**@**.com</b>
         <div class="form-group mb-0">
           <div class="eye-area">
@@ -138,8 +139,10 @@
               src="images/icons/ic_fail@3x.webp"
             />
           </div>
-          <span class="resend-area text-right resend-link"
-            >Didn't received?
+
+          <div class="time-socket" v-if="timerCount > 0">Resend OTP in 0:0:{{ timerCount }}</div>
+          
+          <span class="resend-area text-right resend-link" v-if="timerCount == 0">Didn't received?
             <a class="link" @click="sendEmailVerificationCode">Resend</a></span
           >
         </div>
@@ -382,7 +385,7 @@ export default {
   components: {
     DefaultLayout,
     Modal,
-    Wizard,
+    Wizard
   },
   setup() {
     const state = reactive({
@@ -412,6 +415,8 @@ export default {
   },
   data() {
     return {
+
+      timerCount: 60,
       showPassword: false,
 
       fa_email_status: "",
@@ -514,7 +519,6 @@ export default {
           console.log(error);
         });
     },
-
     async SecurityFour() {
       this.$refs.securityfour.openModal();
     },
@@ -734,6 +738,21 @@ export default {
   mounted() {
     this.status();
   },
+  watch: {
+
+    timerCount: {
+        handler(value) {
+
+            if (value > 0) {
+                setTimeout(() => {
+                    this.timerCount--;
+                }, 1000);
+            }
+
+        },
+        immediate: true // This ensures the watcher is triggered upon creation
+    }
+  }
 };
 </script>
 
