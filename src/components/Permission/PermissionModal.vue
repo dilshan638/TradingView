@@ -13,7 +13,7 @@
 <script>
 import noBackdropModal from "../../components/Modal/noBackdropModal.vue";
 import PermissionOption from "../Permission/PermissionOption.vue";
-import axios from 'axios'
+
 export default {
   components: {
     noBackdropModal,
@@ -21,125 +21,12 @@ export default {
   },
   data(){
       return{
-          googleAuthenticationCode:"",
-          token:"",
-          fa_ga_status:"",
-          fa_email_status:"",
-          phone_number:"",
-          fa_mobile_status:"",
-          GAWrong:false,
-           GASuccess:false,
-
-          
-
 
       }
   },
 
   methods: {
-    async status() {
-      const headers = {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem(
-          "X-LDX-Inspira-Access-Token"
-        )}`,
-      };
-
-      axios
-        .get("https://dapi.exus.live/api/mobile/v1/user/cognito/info", {
-          headers: headers,
-        })
-        .then((responsive) => {
-          console.log(responsive);
-            for(let i = 0; i < responsive.data.result.UserAttributes.length; i++){
-
-           if(responsive.data.result.UserAttributes[i].Name=="custom:2fa_ga_status"){
-              this.fa_ga_status = responsive.data.result.UserAttributes[i].Value;
-              console.log(this.fa_ga_status)
-           }
-
-           if(responsive.data.result.UserAttributes[i].Name=="custom:2fa_email_status"){
-              this.fa_email_status = responsive.data.result.UserAttributes[i].Value;
-           }
-
-              if(responsive.data.result.UserAttributes[i].Name=="phone_number"){
-              this.phone_number = responsive.data.result.UserAttributes[i].Value;
-
-              console.log(this.phone_number)
-           }
-              if(responsive.data.result.UserAttributes[i].Name=="custom:2fa_mobile_status"){
-              this.fa_mobile_status = responsive.data.result.UserAttributes[i].Value;
-           }
-          }
-          
-         
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-        
-    },
-
-      async tokenGA() {
-      const headers = {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem(
-          "X-LDX-Inspira-Access-Token"
-        )}`,
-      };
-      axios
-        .get("https://dapi.exus.live/api/twofa/generate/ga/qr", {
-          headers: headers,
-        })
-        .then((response) => {
-          console.log(response);
-          this.token = response.data.secretdata.split(
-            "otpauth://totp/Inspira?secret="
-          );
-          console.log(this.token[1]);
-        })
-        .catch(function (error) {
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
-        });
-    },
-   
-
-     async submitGACode() {
-      this.GAWrong = true;
-      if (this.googleAuthenticationCode.length == 6) {
-        let hed = {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem(
-              "X-LDX-Inspira-Access-Token"
-            )}`,
-            "Content-Type": "application/json",
-          },
-        };
-
-        let response = await this.axios
-          .post(
-            "https://dapi.exus.live/api/twofa/ga/status",
-            {
-              secret: this.token[1],
-              token: this.googleAuthenticationCode,
-              status: "",
-              stage: 2,
-            },
-            hed
-          )
-          .then((res) => {
-            this.GASuccess = true;
-            this.GAWrong = false;
-            console.log(res);
-            console.log(response);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-      }
-    },
+  
 
   },
 
@@ -149,8 +36,7 @@ export default {
    
   mounted() {
     
-    this.status()
-    this.tokenGA()
+  
     this.$refs.permissionmodal.openModal();
     
   },
