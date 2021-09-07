@@ -114,7 +114,7 @@
             </div>
             <div class="row">
               <div class="col-md-7">
-                <div class="input-group single-row mb-2">
+                <div class="input-group single-row mb-2 pos-rel">
                   <input
                     type="text"
                     class="form-control"
@@ -123,17 +123,16 @@
                     @input="mobileCodeSubmitMob"
                      :disabled="mobileSuccessMob == true"
                   />
-
-                  <!-- Hide Show -->
-
-                  <div v-if="mobileSuccessMob && !mobileWrongMob">
-                    <h2>Done</h2>
-                  </div>
-
-                  <div v-if="mobileWrongMob">
-                    <h2>Wrong</h2>
-                  </div>
-                  <!-- Hide Show -->
+                  <img
+                    v-if="mobileSuccessMob && !mobileWrongMob"
+                    src="images/icons/correct.png"
+                    class="pos-img error-imgs"
+                  />
+                  <img
+                    v-if="mobileWrongMob"
+                    src="images/icons/ic_fail@3x.webp"
+                    class="pos-img"
+                  />                  
                   <div class="input-group-append">
                     <button
                       v-if="btnShowMobileMob"
@@ -145,7 +144,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-5">
+              <div class="col-md-5" v-if="!mobileSuccessMob">
                 <p class="subline right">
                   Didn't received?
                   <a class="link" @click="sendMobileCode">Resend</a>

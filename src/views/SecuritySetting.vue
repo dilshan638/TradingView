@@ -246,20 +246,20 @@
               >
                 Send
               </button>
-
-              <!-- Hide Show -->
-
-              <div v-if="mobileSuccessMob && !mobileWrongMob">
-                <h2>Done</h2>
-              </div>
-
-              <div v-if="mobileWrongMob">
-                <h2>Wrong</h2>
-              </div>
-              <!-- Hide Show -->
+                  <img
+                    v-if="mobileSuccessMob && !mobileWrongMob"
+                    src="images/icons/correct.png"
+                    class="pos-img error-imgs"
+                  />
+                  <img
+                    v-if="mobileWrongMob"
+                    src="images/icons/ic_fail@3x.webp"
+                    class="pos-img"
+                  />
             </div>
           </div>
-          <p class="sub-text text-right">
+          <!-- <div class="time-socket" v-if="timerCount > 0">Resend OTP in 0:0:{{ timerCount }}</div> -->
+          <p  class="sub-text text-right" v-if="!mobileSuccessMob">
             Didn't received?
             <a class="link" @click="sendMobileCodeMobile">Resend</a>
           </p>
@@ -290,20 +290,20 @@
               >
                 Send
               </button>
-
-              <!-- Hide Show -->
-
-              <div v-if="emailSuccessMob && !emailWrongMob">
-                <h2>Done</h2>
-              </div>
-
-              <div v-if="emailWrongMob">
-                <h2>Wrong</h2>
-              </div>
-              <!-- Hide Show -->
+                  <img
+                    v-if="emailSuccessMob && !emailWrongMob"
+                    src="images/icons/correct.png"
+                    class="pos-img error-imgs"
+                  />
+                  <img
+                    v-if="emailWrongMob"
+                    src="images/icons/ic_fail@3x.webp"
+                    class="pos-img"
+                  />
             </div>
           </div>
-          <p class="sub-text text-right">
+          <!-- <div class="time-socket" v-if="timerCount > 0">Resend OTP in 0:0:{{ timerCount }}</div> -->
+          <p class="sub-text text-right" v-if="!emailSuccessMob">
             Didn't received?
             <a class="link" @click="sendEmailVerificationCode">Resend</a>
           </p>
@@ -311,13 +311,11 @@
       </template>
       <template v-slot:footer>
         <div class="modal-buttons Modal-btn">
-          <button class="mb-3" @click="$refs.securityfour.openModal()">
+          <button class="mb-3" @click="showsuccessmodal">
             Submit
           </button>
           <button
-            class="second-btn mb-3"
-            @click="$refs.secruritymodal2.closeModal()"
-          >
+            class="second-btn mb-3" @click="$refs.secruritymodal2.closeModal()">
             Close
           </button>
         </div>
@@ -759,6 +757,10 @@ export default {
           });
       }
     },
+    async showsuccessmodal() {
+      this.$refs.securityfour.openModal()
+      this.$refs.secruritymodal2.closeModal()
+    }
   },
   mounted() {
     this.status();

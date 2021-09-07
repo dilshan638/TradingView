@@ -28,6 +28,18 @@ body{
 
 }
 
+.pos-rel{
+
+    .vue-tel-input{
+        border: solid 1px #c7c7c7 !important;
+
+        .vti__input {
+            background-color: transparent !important;
+        }        
+    }
+
+}
+
 .single-row{
 
     .pos-img{
@@ -702,4 +714,13 @@ body{
     font-weight: 500;
     color: #000;
     padding-top: 11px;
+}
+
+.pos-rel{
+
+    .time-socket{
+        font-weight: 400 !important;
+        padding-top: 3px !important;
+    }
+
 }

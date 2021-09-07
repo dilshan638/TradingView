@@ -288,12 +288,14 @@ export default {
                try {
                 await Auth.signIn(this.state.email, this.state.password.password)
                 .then(data=>{
+                    console.log(data);
                     this.accToken=data.signInUserSession.accessToken.jwtToken
                     this.data.firstName=data.attributes.name
                     this.data.lastName=data.attributes.middle_name
                     this.data.email=this.state.email
                     localStorage.setItem('emailmask', data.signInUserSession.accessToken.payload.username)                 
                     localStorage.setItem('X-LDX-Inspira-Access-Token',data.signInUserSession.accessToken.jwtToken)
+                    localStorage.setItem("inspiraId",data.attributes.inspira_2fa_status)
                   
                 })
                     console.log('Yes')

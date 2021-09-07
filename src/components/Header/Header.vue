@@ -70,6 +70,7 @@ export default {
        localStorage.removeItem("selectedCoinWithdraw");
        localStorage.removeItem("totalBalances");
        localStorage.removeItem("emailmask");
+       localStorage.removeItem("inspiraId");
         this.$router.push("/signin");
         this.$toast.show("Successfully Logged out. Thank you!", {type: "success", position: "top"});
     },
