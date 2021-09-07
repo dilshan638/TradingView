@@ -371,6 +371,7 @@ export default {
       this.showContentFour = false;
     },
     async submit() {
+
       this.$refs.successfullyModal.openModal();
     },
 

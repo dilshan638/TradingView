@@ -197,7 +197,7 @@ export default {
     data() {
         return { 
             inspira_2fa_status:"",
-
+            inspira_id:"",
             isHidden: false,
             showPassword: false,
             showPasswordotp: false,
@@ -290,7 +290,37 @@ export default {
                         this.inspira_2fa_status = responsive.data.result.UserAttributes[i].Value;
                     }
 
+                    if(responsive.data.result.UserAttributes[i].Name=="custom:inspira_id"){
+                        this.inspira_id=responsive.data.result.UserAttributes[i].Value
+                      localStorage.setItem('inspira_id',this.inspira_id )
+                       
+                    }
+                      if(responsive.data.result.UserAttributes[i].Name=="custom:2fa_email_status"){
+                          this.fa_email_status = responsive.data.result.UserAttributes[i].Value;
+                          localStorage.setItem('fa_email_status',this.fa_email_status )
+           }
+                        if(responsive.data.result.UserAttributes[i].Name=="custom:2fa_mobile_status"){
+                         // this.fa_mobile_status = responsive.data.result.UserAttributes[i].Value;
+                         this.fa_mobile_status = 'true'
+                                localStorage.setItem('fa_mobile_status',this.fa_mobile_status )
+                        }
+                         if(responsive.data.result.UserAttributes[i].Name=="custom:2fa_ga_status"){
+                              this.fa_ga_status = responsive.data.result.UserAttributes[i].Value;
+                               localStorage.setItem('fa_ga_status',this.fa_ga_status )
+
+             
+                             }
+
                  }
+
+                 if( this.fa_mobile_status=='true'){
+                     localStorage.setItem('stSMS',"SMSonly")
+                 }
+                  if( (this.fa_mobile_status=='false' || this.fa_mobile_status=='false') &&  this.fa_email_status=='true'){
+                     localStorage.setItem('stEMAIL',"EMAILonly")
+                 }
+
+
                 if(this.inspira_2fa_status=='true'){
                        this.$router.push("/permission-checking");
                   }else{

@@ -542,9 +542,9 @@ export default {
           console.log(error);
         });
     },
-    async SecurityFour() {
-      this.$refs.securityfour.openModal();
-    },
+   // async SecurityFour() {
+   //   this.$refs.securityfour.openModal();
+  //  },
     async GAuthOne() {
       this.$refs.securityGauthone.openModal();
     },
@@ -758,12 +758,14 @@ export default {
       }
     },
     async showsuccessmodal() {
+       this.$refs.secruritymodal2.closeModal()
       this.$refs.securityfour.openModal()
-      this.$refs.secruritymodal2.closeModal()
-    }
+    
+    },
   },
   mounted() {
     this.status();
+    
   },
   watch: {
 
