@@ -262,6 +262,7 @@ export default {
                try {
                 await Auth.signIn(this.state.email, this.state.password.password)
                 .then(data=>{
+                    console.log(data);
                     this.accToken=data.signInUserSession.accessToken.jwtToken
                     this.data.firstName=data.attributes.name
                     this.data.lastName=data.attributes.middle_name
