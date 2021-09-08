@@ -133,4 +133,25 @@
     margin-top: 0.9rem;
 }
 
+.wallet-card{
+
+
+.wallet-block{
+    padding-bottom: 15px;
+    float: left;
+    width: auto;
+    padding-right: 30px;
+    border-right: solid 4px #fff;
+    margin-right: 25px;
+    width: auto !important;
+
+    &:last-child{
+        margin-right: 0 !important;
+        padding-right: 0 !important;
+        border-right: none !important;
+    }
+}
+    
+}
+
 

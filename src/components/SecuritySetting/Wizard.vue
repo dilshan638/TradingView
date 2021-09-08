@@ -108,7 +108,7 @@
               <div class="col-md-12">
                 <p class="subline">
                   Please enter the 6 Digit code that we have sent a to
-                  +9477***121
+                  {{ userphonenumber }}
                 </p>
               </div>
             </div>
@@ -157,7 +157,7 @@
               <div class="col-md-12">
                 <p class="subline">
                   Please enter the 6 Digit code that we have sent a to
-                  ab*@*.com
+                  {{ emailmask }}
                 </p>
               </div>
             </div>
@@ -287,6 +287,8 @@ export default {
       GASuccess: false,
       Emailuccess: false,
       EmailWrong: false,
+      userphonenumber: "",
+      emailmask: "",
 
       gaStatus: "",
       fa_ga_status: "",
@@ -362,7 +364,6 @@ export default {
       this.showContentOne = false;
       this.showContentThree = false;
     },
-
     nextThreeToFour() {
       this.showContentFour = true;
     },
@@ -373,7 +374,6 @@ export default {
     async submit() {
       this.$refs.successfullyModal.openModal();
     },
-
     async getCryptoAll() {
       const headers = {
         "Content-Type": "application/json",
@@ -421,7 +421,6 @@ export default {
       );
       console.log(response);
     },
-
     async sendEmailVerificationCode() {
       const headers = {
         "Content-Type": "application/json",
@@ -441,7 +440,6 @@ export default {
           console.log(error);
         });
     },
-
     async submitGACode() {
       this.GAWrong = true;
       if (this.googleAuthenticationCode.length == 6) {
@@ -482,7 +480,6 @@ export default {
           });
       }
     },
-
     async emailCodeSubmit() {
       this.EmailWrong = true;
       this.btnShowEmailMob = false;
@@ -514,7 +511,6 @@ export default {
           });
       }
     },
-
     async mobileCodeSubmitMob() {
       this.btnShowMobileMob = false;
       this.mobileWrongMob = true;
@@ -551,12 +547,10 @@ export default {
           });
       }
     },
-
     async postGoogleAuthenticator() {
       console.log(this.token);
       console.log(this.googleAuthenticationCode);
     },
-
     async successGAModal() {
       if (this.fa_ga_status == "true") {
         this.GAOneTimeStatusSend = "disable";
@@ -588,12 +582,24 @@ export default {
       this.$refs.successfullyModal.closeModal();
       this.$router.go();
     },
+    async convertedemailmask() {
+        this.emailmask = localStorage.getItem("emailmask");
+        let hide = this.emailmask.split("@")[0].length - 4;//<-- number of characters to hide
+        var r = new RegExp(".{"+hide+"}@", "g")
+        this.emailmask = this.emailmask.replace(r, "***@" );
+    },
+    async convertedUserMobile() {
+      var userphonenumber = localStorage.getItem("phone_number");
+      this.userphonenumber = userphonenumber.slice(0, 2) + userphonenumber.slice(2).replace(/.(?=...)/g, '*');
+    },    
   },
 
   mounted() {
     this.status();
     this.getCryptoAll();
     this.postGoogleAuthenticator();
+    this.convertedemailmask();
+    this.convertedUserMobile();
   },
 };
 </script>

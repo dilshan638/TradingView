@@ -119,7 +119,7 @@
           your registered email on INSPIRA
         </p>
         
-        <b class="email-size">ab**@**.com</b>
+        <b class="email-size">{{ emailmask }}</b>
         <div class="form-group mb-0">
           <div class="eye-area">
             <input
@@ -224,7 +224,7 @@
       <template v-slot:body>
         <div class="form-group pos-rel sec-row mb-3 mt-3">
           <p class="sub-text">
-            Please enter the 6 Digit code that we have sent a to +9477***121
+            Please enter the 6 Digit code that we have sent a to {{usermobilenumber}}
           </p>
           <div class="input-group mb-2">
             <input
@@ -269,7 +269,7 @@
           class="form-group pos-rel sec-row"
         >
           <p class="sub-text">
-            Please enter the 6 Digit code that we have sent a to ab*@*.com
+            Please enter the 6 Digit code that we have sent a to {{ emailmask }}
           </p>
           <div class="input-group mb-2">
             <input
@@ -324,7 +324,7 @@
     <!-- End Sms (2nd step) verification modal -->
 
     <!--SUCCESS Email modal -->
-    <modal ref="successfullyModal">
+    <modal ref="successfullyModal" class="border50">
       <template v-slot:header>
         <h2 style="color: black">
           Google Authenticator <br />
@@ -345,11 +345,10 @@
     <!--End SUCCESS Email modal -->
 
     <!--SUCCESS Sms modal -->
-    <modal ref="securityfour">
+    <modal ref="securityfour" class="s-modal">
       <template v-slot:header>
         <h2 style="color: black">SMS Verification Success</h2>
       </template>
-
       <template v-slot:body>
         <img class="correct" src="images/icons/correct.png" />
       </template>
@@ -364,11 +363,9 @@
 
     <modal ref="securityGauthone" class="wizard-modal">
       <template v-slot:header> </template>
-
       <template v-slot:body>
         <wizard />
       </template>
-
       <template v-slot:footer> </template>
     </modal>
   </default-layout>
@@ -424,9 +421,11 @@ export default {
       fa_email_status: "",
       fa_ga_status: "",
       fa_mobile_status: "",
+      emailmask: "",
 
       emailStatus: "",
       mobileStatus: "",
+      usermobilenumber:"",
 
       options: {
         placeholder: "Phone Number",
@@ -441,7 +440,7 @@ export default {
         showFlags: true,
         autofocus: true,
       },
-
+      replaced: "",
       mobileSuccess: false,
       emailSuccess: false,
       emailSuccessMob: false,
@@ -491,6 +490,19 @@ export default {
         .catch(function (error) {
           console.log(error);
         });
+    },
+    async getUseremail() {
+        this.emailmask = localStorage.getItem("emailmask");
+        let hide = this.emailmask.split("@")[0].length - 4;//<-- number of characters to hide
+        var r = new RegExp(".{"+hide+"}@", "g")
+        this.emailmask = this.emailmask.replace(r, "***@" );
+    },
+    async getUserMobile() {
+      var string = this.state.mobileno
+      localStorage.setItem("usermobileinput", string);
+      localStorage.getItem("usermobileinput");
+      var mobiledata = localStorage.getItem("usermobileinput");
+      this.usermobilenumber = mobiledata.slice(0, 2) + mobiledata.slice(2).replace(/.(?=...)/g, '*');
     },
 
     countryChanged(phoneObject) {
@@ -577,6 +589,7 @@ export default {
     async sendMobileCode() {
       this.$refs.securitytwo.closeModal();
       this.$refs.secruritymodal2.openModal();
+      this.getUserMobile();
     },
 
     async emailCodeSubmit() {
@@ -764,6 +777,7 @@ export default {
   },
   mounted() {
     this.status();
+    this.getUseremail();
     
   },
   watch: {
