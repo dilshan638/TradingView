@@ -240,10 +240,10 @@
       </div>
       <div class="btn-bottom">
         <button class="prev" @click="previousFourToThree">Previous</button>
-        <button @click="submit">Next</button>
+        <button v-if="GASuccess" @click="submit">Next</button>
       </div>
     </div>
-    <modal ref="successfullyModal">
+    <modal ref="successfullyModal" class="ss-modal">
       <template v-slot:header>
         <h2 style="color: black">
           Google Authenticator <br />
@@ -299,6 +299,7 @@ export default {
       mobileWrongMob: false,
       mobileSuccessMob: false,
       GAOneTimeStatusSend: "",
+      closeWizardModal:""
     };
   },
 
@@ -371,8 +372,9 @@ export default {
       this.showContentFour = false;
     },
     async submit() {
-
-      this.$refs.successfullyModal.openModal();
+     
+     this.$refs.successfullyModal.openModal();
+      
     },
 
     async getCryptoAll() {
@@ -421,9 +423,11 @@ export default {
         hed
       );
       console.log(response);
+       this.$toast.show("Successfully  Send Mobile Verification Code", {type: "success", position: "top"});
     },
 
     async sendEmailVerificationCode() {
+       this.$toast.show("Successfully  Send Email Verification Code", {type: "success", position: "top"});
       const headers = {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem(
@@ -468,6 +472,7 @@ export default {
               secret: this.token[1],
               token: this.googleAuthenticationCode,
               status: this.gaStatus,
+              "stage_code":localStorage.getItem('clearStatusCode'),
               stage: 1,
             },
             hed
@@ -566,6 +571,7 @@ export default {
       }
       var data = {
         status: this.GAOneTimeStatusSend,
+          "stage_code":localStorage.getItem('clearStatusCode')
       };
 
       let hed = {
@@ -589,12 +595,15 @@ export default {
       this.$refs.successfullyModal.closeModal();
       this.$router.go();
     },
+
+   
   },
 
   mounted() {
     this.status();
     this.getCryptoAll();
     this.postGoogleAuthenticator();
+    
   },
 };
 </script>

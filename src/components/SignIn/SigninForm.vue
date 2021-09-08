@@ -287,6 +287,7 @@ export default {
 
                     if(responsive.data.result.UserAttributes[i].Name=="custom:inspira_2fa_status"){
                         this.inspira_2fa_status = responsive.data.result.UserAttributes[i].Value;
+                         localStorage.setItem('inspira_2fa_status',this.inspira_2fa_status )
                     }
 
                     if(responsive.data.result.UserAttributes[i].Name=="custom:inspira_id"){
@@ -300,7 +301,7 @@ export default {
            }
                         if(responsive.data.result.UserAttributes[i].Name=="custom:2fa_mobile_status"){
                           this.fa_mobile_status = responsive.data.result.UserAttributes[i].Value;
-                        // this.fa_mobile_status = 'true'
+                       // this.fa_mobile_status = 'false'
                             localStorage.setItem('fa_mobile_status',this.fa_mobile_status )
                         }
                          if(responsive.data.result.UserAttributes[i].Name=="custom:2fa_ga_status"){
@@ -315,11 +316,11 @@ export default {
                  if( this.fa_mobile_status=='true'){
                      localStorage.setItem('stSMS',"SMSonly")
                  }
-                  if( (this.fa_mobile_status=='false' || this.fa_mobile_status=='false') &&  this.fa_email_status=='true'){
+                  if( (this.fa_mobile_status=='false' || this.fa_mobile_status==''|| this.fa_mobile_status==null ) &&  this.fa_email_status=='true'){
                      localStorage.setItem('stEMAIL',"EMAILonly")
                  }
 
-
+                   
                 if(this.inspira_2fa_status=='true'){
                        this.$router.push("/permission-checking");
                   }else{
