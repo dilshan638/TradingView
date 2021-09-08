@@ -177,6 +177,26 @@ body{
         top: 15px;
         right: 25px;
         cursor: pointer;
+        z-index: 9;
+    }
+}
+
+.test1{
+
+    margin-bottom: 45px !important;
+
+    .error-imgs{
+        right: 15px !important;
+    }
+
+    img{
+        top: 47px !important;
+    }
+    
+    p{
+        color: #000 !important;
+        font-weight: 300 !important;
+        width: 100%;
     }
 }
 

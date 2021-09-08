@@ -2,7 +2,7 @@
   <div>
     <div
       v-if="fa_mobile_status == 'true'"
-      class="form-group single-row pos-rel security-row"
+      class="form-group single-row pos-rel security-row" style="margin-bottom:45px"
     >
       <p>Please enter the 6 Digit code that we have sent a to +9477***121</p>
       <input
@@ -13,11 +13,11 @@
         @input="mobileCodeSubmit"
         :disabled="mobileSuccessMob == true"
       />
-      <p class="subline right">
+      <p class="subline right text-right" v-if="!mobileSuccessMob && timerCount == 0" style="padding-top: 5px;">
         Didn't received?
         <a class="link" @click="sendMobileCode">Resend</a>
       </p>
-      <h2 v-if="stSMS == 'SMSonly'">Send Mobile Verification Code</h2>
+      <div class="time-socket text-right" v-if="timerCount > 0">Resend OTP in 0:0:{{ timerCount }}</div>      
 
       <img
         v-if="mobileSuccessMob && !mobileWrongMob"
@@ -62,7 +62,7 @@
       v-if="fa_ga_status == 'true'"
       class="form-group single-row pos-rel security-row"
     >
-      <p>Please enter the 6 Digit code from Google Authenticator.</p>
+      <p class="mt-3">Please enter the 6 Digit code from Google Authenticator.</p>
       <input
         type="text"
         class="form-control"
@@ -79,13 +79,15 @@
       <img v-if="GAWrong" src="images/icons/ic_fail@3x.webp" class="pos-img" />
     </div>
 
-    <div class="input-group mb-2">
+    <div class="input-group mb-2 single-row pos-rel test1">
+      <p>Please enter the 6 Digit code that we have sent a to ab*@*.com</p>
       <input
         type="text"
         class="form-control"
         placeholder="Mobile verification code"
       />
-
+        <img src="images/icons/correct.png" class="pos-img error-imgs" />
+        <img src="images/icons/ic_fail@3x.webp" class="pos-img" />      
       <div class="input-group-append">
         <button
           class="btn btn-outline-secondary"
@@ -94,8 +96,6 @@
         >
           Send
         </button>
-        <img src="images/icons/correct.png" class="pos-img error-imgs" />
-        <img src="images/icons/ic_fail@3x.webp" class="pos-img" />
       </div>
     </div>
 
@@ -127,6 +127,7 @@ export default {
       stEmail: false,
       stSMS: "",
       stEMAIL: "",
+      timerCount: 60,
     };
   },
 
@@ -344,6 +345,7 @@ export default {
             console.log(response);
             this.mobileSuccessMob = true;
             this.mobileWrongMob = false;
+            this.$toast.show("Succfully sent the mobile verification code. check your OTP on mobile.", {type: "success", position: "top"});
           })
           .catch(function (error) {
             console.log(error.response.data);
@@ -416,6 +418,20 @@ export default {
     this.statusCheckEmail();
     this.statusCheckMobile();
   },
+    watch: {
+        timerCount: {
+            handler(value) {
+
+                if (value > 0) {
+                    setTimeout(() => {
+                        this.timerCount--;
+                    }, 1000);
+                }
+
+            },
+            immediate: true // This ensures the watcher is triggered upon creation
+        }        
+    }  
 };
 </script>
 
