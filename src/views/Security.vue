@@ -8,10 +8,10 @@
           </div>
           <div class="card-body">
             <div class="row">
-              <div class="col-md-4">
+              <div class="col-xl-4">
                 <select-coin @AddList="getPassingAddress" />
               </div>
-              <div class="col-md-8">
+              <div class="col-xl-8">
                 <div class="barcode-area">
                   <div class="barcode-img">
                     <qrcode-vue

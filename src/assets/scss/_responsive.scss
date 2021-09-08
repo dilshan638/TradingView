@@ -135,6 +135,51 @@
     .sidebar{
         width: 80% !important;
     }
+    .wallet-card .wallet-block h4 {
+        border-right: none !important;
+        padding-right: 0 !important;
+        margin-right: 0 !important;
+        border-right: none !important;
+    }
+    .container-area .wallet-card .wallet-block{
+        width: 100% !important;
+        padding-bottom: 0 !important;
+    }
+    .wallet-table h4{
+        padding-left: 0 !important;
+        width: auto !important;
+        float: left !important;
+        display: inline-grid !important;
+    }
+
+    .wallet-list-table table tr td a {
+        margin-top: 10px !important;
+        float: left !important;
+        margin-bottom: 2px !important;
+    }
+
+    .inner-guard{
+        min-height: auto !important;
+        border-right: none !important;
+        padding-right: 15px !important;
+        padding-top: 15px !important;
+        padding-bottom: 15px !important;
+    }
+    .barcode-detail {
+        width: 100% !important;
+    }
+    .barcode-detail ul {
+        padding-left: 15px !important;
+    }
+    .barcode-detail ul li b i{
+        position: relative;
+        display: inline-block;
+        top: 3px;
+        right: 0;
+    }
+    .barcode-area {
+        padding-top: 15px !important;
+    }
 
 }
 
@@ -160,6 +205,26 @@
     .form-layout.signup-area{
         max-width: 80% !important;
     }
+}
+
+@media only screen and (min-device-width : 769px) and (max-device-width : 1024px) {
+    .main-area .main-layout {
+        margin-left: 20% !important;
+        width: 80% !important;
+    }
+    .sidebar {
+        width: 20% !important;
+    }
+    .inner-guard {
+        min-height: auto !important;
+        padding-right: 0 !important;
+        padding-bottom: 0 !important;
+        padding-top: 0px !important;
+    }
+    .barcode-detail {
+        width: 70% !important;
+    }
+
 }
 
 @media only screen and (max-width: 1023px) {
@@ -258,4 +323,10 @@
     }
 
 
+}
+
+@media only screen and (min-device-width : 1152px) and (max-device-width : 1440px) {
+    .barcode-detail{
+        width: 70% !important;
+    }
 }
