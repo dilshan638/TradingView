@@ -9,7 +9,7 @@
                 <h2>Security</h2>
               </div>
               <div class="col-md-8">
-                <div class="btn-status">
+                <div class="btn-status" v-if="fa_email_status == 'true' ||fa_mobile_status == 'true'||fa_ga_status == 'true'">
                   <i class="ri-checkbox-circle-fill"></i> 2FA Enabled
                 </div>
                 <div class="btn-status">
@@ -44,7 +44,7 @@
                   class="btn"
                   @click="sendEmailCodeBTN"
                 >
-                  On
+                  Active
                 </button>
 
                 <button
@@ -72,7 +72,7 @@
                   class="btn"
                   @click="SecurityTwo"
                 >
-                  ON
+                  Active
                 </button>
                 <button v-else class="btn btn-outline" @click="SecurityTwo">
                   Disabled
@@ -95,7 +95,7 @@
                   class="btn"
                   @click="GAuthOne"
                 >
-                  ON
+                  Active
                 </button>
                 <button v-else class="btn btn-outline" @click="GAuthOne">
                   Disabled
@@ -152,7 +152,7 @@
 
       <template v-slot:footer>
         <div class="modal-buttons">
-          <button class="mb-3" @click="emailSubmitButton">Next</button>
+          <button class="mb-3"  v-if="emaileSuccessemail"  @click="emailSubmitButton">Next</button>
           <button
             class="second-btn mb-3"
             @click="$refs.securitythree.closeModal()"
@@ -311,7 +311,7 @@
       </template>
       <template v-slot:footer>
         <div class="modal-buttons Modal-btn">
-          <button class="mb-3" @click="showsuccessmodal">
+          <button class="mb-3"  v-if="mobileSuccessMob" @click="showsuccessmodal">
             Submit
           </button>
           <button
@@ -509,10 +509,12 @@ export default {
       this.state.mobileno = phoneObject.number;
     },
     async SecurityTwo() {
+       this.clearStatus()
       this.$refs.securitytwo.openModal();
     },
 
    async sendEmailCodeBTN(){
+      this.clearStatus()
       this.$refs.securitythree.openModal();
 
       const headers = {
@@ -535,7 +537,7 @@ export default {
    },
     async sendEmailVerificationCode() {
      
-
+    this.$toast.show("Successfully  Send Email Verification Code", {type: "success", position: "top"});
       const headers = {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem(
@@ -549,6 +551,7 @@ export default {
         })
         .then((responsive) => {
           console.log(responsive);
+          
         })
         .catch(function (error) {
           console.log(error);
@@ -558,7 +561,9 @@ export default {
       this.$refs.securityfour.openModal();
     },
     async GAuthOne() {
+       this.clearStatus()
       this.$refs.securityGauthone.openModal();
+      
     },
 
     async openMobileAndEmailModal() {
@@ -566,7 +571,7 @@ export default {
     },
 
     async sendMobileCodeMobile() {
-      console.log(this.state.mobileno);
+      
       var data = {
         mobile: this.state.mobileno,
       };
@@ -584,15 +589,16 @@ export default {
         data,
         hed
       );
+       this.$toast.show("Successfully  Send Mobile Verification Code", {type: "success", position: "top"});
       console.log(response);
+     
     },
     async sendMobileCode() {
       this.$refs.securitytwo.closeModal();
-      this.$refs.secruritymodal2.openModal();
-      this.getUserMobile();
+     this.$refs.secruritymodal2.openModal();
     },
 
-    async emailCodeSubmit() {
+    async emailCodeSubmit() { 
       this.emailWrongEmail = true;
 
       if (this.state.emailCode.length == 6) {
@@ -604,8 +610,10 @@ export default {
         var data = {
           token: this.state.emailCode,
           status: this.emailStatus,
-          stage: 1,
-        };
+           "stage_code":localStorage.getItem('clearStatusCode'),
+           stage: 1,
+          
+          };
         console.log(this.emailStatus);
 
         let hed = {
@@ -675,6 +683,7 @@ export default {
       }
       var data = {
         status: this.emailOneTimeStatusSend,
+        "stage_code":localStorage.getItem('clearStatusCode'),
       };
 
       let hed = {
@@ -706,6 +715,7 @@ export default {
       }
       var data = {
         status: this.mobileOneTimeStatusSend,
+         "stage_code":localStorage.getItem('clearStatusCode')
       };
 
       let hed = {
@@ -743,6 +753,7 @@ export default {
           mobile: this.state.mobileno,
           code: this.state.mobileCodeMob,
           status: this.mobileStatus,
+          "stage_code":localStorage.getItem('clearStatusCode'),
           stage: 1,
         };
 
@@ -775,11 +786,38 @@ export default {
       this.$refs.securityfour.openModal()
      
      
+    },
+
+    async clearStatus(){
+      const headers = {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem(
+            "X-LDX-Inspira-Access-Token"
+          )}`,
+        };
+
+        axios
+          .get("https://dapi.exus.live/api/twofa/clear", {
+            headers: headers,
+          })
+          .then((res) => {
+             localStorage.setItem('clearStatusCode',res.data.code)
+             console.log(localStorage.getItem('clearStatusCode'))
+            
+
+          })
+          .catch(function (error) {
+            console.log(error.response.data);
+          });
+    
     }
   },
+
+
   mounted() {
     this.status();
-    this.getUseremail();
+   this.getUseremail();
+   
     
   },
   watch: {

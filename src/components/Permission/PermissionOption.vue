@@ -2,7 +2,7 @@
   <div>
     <div
       v-if="fa_mobile_status == 'true'"
-      class="form-group single-row pos-rel security-row" style="margin-bottom:45px"
+      class="form-group single-row pos-rel security-row"
     >
       <p>Please enter the 6 Digit code that we have sent a to +9477***121</p>
       <input
@@ -13,11 +13,13 @@
         @input="mobileCodeSubmit"
         :disabled="mobileSuccessMob == true"
       />
-      <p class="subline right text-right" v-if="!mobileSuccessMob && timerCount == 0" style="padding-top: 5px;">
+      <p class="subline right">
         Didn't received?
         <a class="link" @click="sendMobileCode">Resend</a>
       </p>
-      <div class="time-socket text-right" v-if="timerCount > 0">Resend OTP in 0:0:{{ timerCount }}</div>      
+      <h5 v-if="stSMS == 'SMSonly' && mobileLabal" class="lbl">
+        Send Successfully Mobile Verification Code
+      </h5>
 
       <img
         v-if="mobileSuccessMob && !mobileWrongMob"
@@ -34,7 +36,7 @@
       v-if="fa_email_status == 'true'"
       class="form-group single-row pos-rel security-row"
     >
-      <p>Please enter the 6 Digit code that we have sent a to ab*@*.com</p>
+      <p>Please enter the 6 Digit code that we have sent a to ab**@**.com</p>
       <input
         v-model="emailCode"
         class="form-control"
@@ -56,13 +58,16 @@
         Didn't received?
         <a class="link" @click="sendEmailCode">Resend</a>
       </p>
-      <h2 v-if="stEMAIL == 'EMAILonly'">Send Email Verification Code</h2>
+      <h5 v-if="stEMAIL == 'EMAILonly' && emailLabal" class="lbl">
+        Send Successfully Email Verification Code
+      </h5>
     </div>
+
     <div
       v-if="fa_ga_status == 'true'"
       class="form-group single-row pos-rel security-row"
     >
-      <p class="mt-3">Please enter the 6 Digit code from Google Authenticator.</p>
+      <p>Please enter the 6 Digit code from Google Authenticator.</p>
       <input
         type="text"
         class="form-control"
@@ -79,29 +84,100 @@
       <img v-if="GAWrong" src="images/icons/ic_fail@3x.webp" class="pos-img" />
     </div>
 
-    <div class="input-group mb-2 single-row pos-rel test1">
-      <p>Please enter the 6 Digit code that we have sent a to ab*@*.com</p>
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Mobile verification code"
-      />
-        <img src="images/icons/correct.png" class="pos-img error-imgs" />
-        <img src="images/icons/ic_fail@3x.webp" class="pos-img" />      
-      <div class="input-group-append">
-        <button
-          class="btn btn-outline-secondary"
-          style="margin-top: 0rem; margin-left: 0rem"
-          type="button"
-        >
-          Send
-        </button>
-      </div>
-    </div>
+    <button
+      v-show="
+        fa_mobile_status == 'true' &&
+        (fa_email_status == null || fa_email_status == 'false') &&
+        (fa_ga_status == null || fa_ga_status == 'false')
+      "
+      :disabled="mobileSuccessMob == false"
+      @click="submit"
+      class="loginbtn btn"
+    >
+      Submit
+    </button>
 
-    <div>
-      <button @click="submit" class="loginbtn btn">Submit</button>
-    </div>
+    <button
+      v-show="
+        (fa_mobile_status == null || fa_mobile_status == 'false') &&
+       fa_email_status=='true' &&
+        (fa_ga_status == null || fa_ga_status == 'false')
+      "
+      :disabled="emaileSuccessemail == false"
+      @click="submit"
+      class="loginbtn btn"
+    >
+      Submit
+    </button>
+
+    <button
+      v-show="
+        (fa_mobile_status == null || fa_mobile_status == 'false') &&
+        (fa_email_status == null || fa_email_status == 'false') &&
+        fa_ga_status == 'true'
+      "
+      :disabled="GASuccess == false"
+      @click="submit"
+      class="loginbtn btn"
+    >
+      Submit
+    </button>
+
+    <button
+      v-show="
+        fa_mobile_status == 'true' &&
+        fa_email_status == 'true' &&
+        (fa_ga_status == null || fa_ga_status == 'false')
+      "
+      :disabled="mobileSuccessMob == false || emaileSuccessemail == false"
+      @click="submit"
+      class="loginbtn btn"
+    >
+      Submit
+    </button>
+
+    <button
+      v-show="
+        fa_mobile_status == 'true' &&
+        (fa_email_status == null || fa_email_status == 'false') &&
+        fa_ga_status == 'true'
+      "
+      :disabled="mobileSuccessMob == false || GASuccess == false"
+      @click="submit"
+      class="loginbtn btn"
+    >
+      Submit
+    </button>
+
+    <button
+      v-show="
+        (fa_mobile_status == null || fa_mobile_status == 'false') &&
+        fa_email_status == 'true' &&
+        fa_ga_status == 'true'
+      "
+      :disabled="emaileSuccessemail == false || GASuccess == false"
+      @click="submit"
+      class="loginbtn btn"
+    >
+      Submit
+    </button>
+
+    <button
+      v-show="
+        fa_mobile_status == 'true' &&
+        fa_email_status == 'true' &&
+        fa_ga_status == 'true'
+      "
+      :disabled="
+        emaileSuccessemail == false ||
+        GASuccess == false ||
+        fa_mobile_status == false
+      "
+      @click="submit"
+      class="loginbtn btn"
+    >
+      Submit
+    </button>
   </div>
 </template>
 <script>
@@ -112,29 +188,36 @@ export default {
     return {
       googleAuthenticationCode: "",
       token: "",
-      fa_ga_status: "",
-      fa_email_status: "",
-      phone_number: "",
+
       fa_mobile_status: "",
+      fa_email_status: "",
+      fa_ga_status: "",
+
+      phone_number: "",
       GAWrong: false,
+
       GASuccess: false,
+      emaileSuccessemail: false,
+      mobileSuccessMob: false,
+
       emailWrongEmail: false,
       emailCode: "",
-      emaileSuccessemail: false,
       mobileCodeMob: "",
-      mobileSuccessMob: false,
       mobileWrongMob: false,
       stEmail: false,
       stSMS: "",
       stEMAIL: "",
-      timerCount: 60,
+      emailLabal: true,
+      mobileLabal: true,
+      statusCode: "",
     };
   },
 
   methods: {
+    async Test() {},
     async status() {
-      this.fa_mobile_status = localStorage.getItem("fa_mobile_status");
-      this.fa_email_status = localStorage.getItem("fa_email_status");
+      //this.fa_mobile_status = localStorage.getItem("fa_mobile_status");
+      // this.fa_email_status = localStorage.getItem("fa_email_status");
       const headers = {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem(
@@ -153,17 +236,6 @@ export default {
             i < responsive.data.result.UserAttributes.length;
             i++
           ) {
-            //   if(responsive.data.result.UserAttributes[i].Name=="custom:2fa_ga_status"){
-            // this.fa_ga_status = responsive.data.result.UserAttributes[i].Value;
-            //    console.log(this.fa_ga_status)
-
-            //  }
-
-            //   if(responsive.data.result.UserAttributes[i].Name=="custom:2fa_email_status"){
-            //    this.fa_email_status = responsive.data.result.UserAttributes[i].Value;
-            //   localStorage.setItem('fa_email_status',this.fa_email_status )
-            //   }
-
             if (
               responsive.data.result.UserAttributes[i].Name == "phone_number"
             ) {
@@ -171,10 +243,6 @@ export default {
                 responsive.data.result.UserAttributes[i].Value;
               localStorage.setItem("phone_number", this.phone_number);
             }
-            // if(responsive.data.result.UserAttributes[i].Name=="custom:2fa_mobile_status"){
-            //   this.fa_mobile_status = responsive.data.result.UserAttributes[i].Value;
-            //  localStorage.setItem('fa_mobile_status',this.fa_mobile_status )
-            //}
           }
         })
         .catch(function (error) {
@@ -207,7 +275,25 @@ export default {
         });
     },
     async submit() {
-      this.$router.push("/dashboard");
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem(
+          "X-LDX-Inspira-Access-Token"
+        )}`,
+      };
+
+      axios
+        .get(`https://dapi.exus.live/api/twofa/check/2/${this.statusCode}`, {
+          headers: headers,
+        })
+        .then((responsive) => {
+          console.log(responsive);
+          this.$router.push("/dashboard");
+        })
+        .catch(function (error) {
+          console.log(error.response.data);
+        });
+      //
     },
 
     async submitGACode() {
@@ -258,6 +344,10 @@ export default {
           headers: headers,
         })
         .then((responsive) => {
+          this.$toast.show("Successfully Resend Email Verification Code", {
+            type: "success",
+            position: "top",
+          });
           console.log(responsive);
         })
         .catch(function (error) {
@@ -267,6 +357,7 @@ export default {
 
     async emailCodeSubmit() {
       this.emailWrongEmail = true;
+      this.emailLabal = false;
 
       if (this.emailCode.length == 6) {
         var data = {
@@ -320,6 +411,7 @@ export default {
     },
     async mobileCodeSubmit() {
       this.mobileWrongMob = true;
+      this.mobileLabal = false;
 
       if (this.mobileCodeMob.length == 6) {
         var data = {
@@ -345,7 +437,6 @@ export default {
             console.log(response);
             this.mobileSuccessMob = true;
             this.mobileWrongMob = false;
-            this.$toast.show("Succfully sent the mobile verification code. check your OTP on mobile.", {type: "success", position: "top"});
           })
           .catch(function (error) {
             console.log(error.response.data);
@@ -379,6 +470,7 @@ export default {
     },
 
     async statusCheckEmail() {
+      console.log(localStorage.getItem("fa_mobile_status"));
       if (localStorage.getItem("stEMAIL") == "EMAILonly") {
         const headers = {
           "Content-Type": "application/json",
@@ -403,35 +495,44 @@ export default {
     async labalStatus() {
       this.stSMS = localStorage.getItem("stSMS");
       this.stEMAIL = localStorage.getItem("stEMAIL");
+      this.fa_mobile_status = localStorage.getItem("fa_mobile_status");
+      this.fa_email_status = localStorage.getItem("fa_email_status");
       this.fa_ga_status = localStorage.getItem("fa_ga_status");
+    },
+
+    async clearStatus() {
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem(
+          "X-LDX-Inspira-Access-Token"
+        )}`,
+      };
+
+      axios
+        .get("https://dapi.exus.live/api/twofa/clear", {
+          headers: headers,
+        })
+        .then((res) => {
+          console.log(res);
+          this.statusCode = res.data.code;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     },
   },
 
   mounted() {
+    this.labalStatus();
+    this.clearStatus();
     this.status();
     this.tokenGA();
-
-    this.labalStatus();
   },
 
   created() {
     this.statusCheckEmail();
     this.statusCheckMobile();
   },
-    watch: {
-        timerCount: {
-            handler(value) {
-
-                if (value > 0) {
-                    setTimeout(() => {
-                        this.timerCount--;
-                    }, 1000);
-                }
-
-            },
-            immediate: true // This ensures the watcher is triggered upon creation
-        }        
-    }  
 };
 </script>
 
@@ -440,5 +541,10 @@ export default {
 .btn {
   margin-top: 10px;
   margin-left: 130px;
+}
+
+.lbl {
+  margin-left: 50px;
+  color: green;
 }
 </style>

@@ -240,7 +240,7 @@
       </div>
       <div class="btn-bottom">
         <button class="prev" @click="previousFourToThree">Previous</button>
-        <button @click="submit">Next</button>
+        <button v-if="GASuccess" @click="submit">Next</button>
       </div>
     </div>
     <modal ref="successfullyModal" class="ss-modal">
@@ -301,6 +301,7 @@ export default {
       mobileWrongMob: false,
       mobileSuccessMob: false,
       GAOneTimeStatusSend: "",
+      closeWizardModal:""
     };
   },
 
@@ -372,7 +373,9 @@ export default {
       this.showContentFour = false;
     },
     async submit() {
-      this.$refs.successfullyModal.openModal();
+     
+     this.$refs.successfullyModal.openModal();
+      
     },
     async getCryptoAll() {
       const headers = {
@@ -420,8 +423,10 @@ export default {
         hed
       );
       console.log(response);
+       this.$toast.show("Successfully  Send Mobile Verification Code", {type: "success", position: "top"});
     },
     async sendEmailVerificationCode() {
+       this.$toast.show("Successfully  Send Email Verification Code", {type: "success", position: "top"});
       const headers = {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem(
@@ -465,6 +470,7 @@ export default {
               secret: this.token[1],
               token: this.googleAuthenticationCode,
               status: this.gaStatus,
+              "stage_code":localStorage.getItem('clearStatusCode'),
               stage: 1,
             },
             hed
@@ -559,6 +565,7 @@ export default {
       }
       var data = {
         status: this.GAOneTimeStatusSend,
+          "stage_code":localStorage.getItem('clearStatusCode')
       };
 
       let hed = {
@@ -592,6 +599,8 @@ export default {
       var userphonenumber = localStorage.getItem("phone_number");
       this.userphonenumber = userphonenumber.slice(0, 2) + userphonenumber.slice(2).replace(/.(?=...)/g, '*');
     },    
+
+   
   },
 
   mounted() {
@@ -600,6 +609,7 @@ export default {
     this.postGoogleAuthenticator();
     this.convertedemailmask();
     this.convertedUserMobile();
+    
   },
 };
 </script>

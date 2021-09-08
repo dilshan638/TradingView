@@ -18,7 +18,7 @@
               <li class="nav-item">
                 <a class="nav-link" href="#">Buy LDXI</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" v-if="!inspira_2fa_status">
                 <router-link class="nav-link" to="/market">Markets</router-link>
               </li>
               <li class="nav-item">
@@ -47,7 +47,9 @@ export default {
   name: "header",
   data() {
     return {
-      alareadylogin: false
+      alareadylogin: false,
+     
+      inspira_2fa_status:""
     };
   },
 
@@ -66,6 +68,7 @@ export default {
       localStorage.removeItem("avarege_arrival_time");
       localStorage.removeItem("expected_arrival");
       localStorage.removeItem("expected_unlock"); 
+      localStorage.removeItem("inspira_2fa_status"); 
       
       localStorage.removeItem("inspira_id");
        localStorage.removeItem("fa_email_status");
@@ -74,8 +77,9 @@ export default {
 
         localStorage.removeItem("fa_ga_status");
          localStorage.removeItem("stSMS");
-          localStorage.removeItem("stEMAIL");
+          localStorage.removeItem("stEMAIL"); 
 
+       localStorage.removeItem("clearStatusCode");
        localStorage.removeItem("selectedCoinWithdraw");
        localStorage.removeItem("totalBalances");
        localStorage.removeItem("emailmask");
@@ -84,6 +88,7 @@ export default {
         this.$toast.show("Successfully Logged out. Thank you!", {type: "success", position: "top"});
     },
     checklogin() {
+      this.inspira_2fa_status= localStorage.getItem('inspira_2fa_status' )
       if(localStorage.getItem("X-LDX-Inspira-Access-Token")!=null){
           this.alareadylogin = true;
       }
