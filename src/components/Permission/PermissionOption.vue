@@ -13,10 +13,11 @@
         @input="mobileCodeSubmit"
         :disabled="mobileSuccessMob == true"
       />
-      <p class="subline right">
+     <p class="subline right text-right" v-if="!mobileSuccessMob && timerCount == 0" style="padding-top: 5px;">
         Didn't received?
         <a class="link" @click="sendMobileCode">Resend</a>
       </p>
+      <div class="time-socket text-right" v-if="timerCount > 0">Resend OTP in 0:0:{{ timerCount }}</div>
       <h5 v-if="stSMS == 'SMSonly' && mobileLabal" class="lbl">
         Send Successfully Mobile Verification Code
       </h5>
@@ -54,7 +55,7 @@
         src="images/icons/ic_fail@3x.webp"
         class="pos-img"
       />
-      <p class="subline right" v-if="!emaileSuccessemail">
+      <p class="subline right text-right" v-if="!emaileSuccessemail">
         Didn't received?
         <a class="link" @click="sendEmailCode">Resend</a>
       </p>
@@ -210,11 +211,12 @@ export default {
       emailLabal: true,
       mobileLabal: true,
       statusCode: "",
+      timerCount: 60,
     };
   },
 
   methods: {
-    async Test() {},
+  
     async status() {
       //this.fa_mobile_status = localStorage.getItem("fa_mobile_status");
       // this.fa_email_status = localStorage.getItem("fa_email_status");
@@ -529,10 +531,26 @@ export default {
     this.tokenGA();
   },
 
+
   created() {
     this.statusCheckEmail();
     this.statusCheckMobile();
   },
+
+  watch: {
+        timerCount: {
+            handler(value) {
+
+                if (value > 0) {
+                    setTimeout(() => {
+                        this.timerCount--;
+                    }, 1000);
+                }
+
+            },
+            immediate: true // This ensures the watcher is triggered upon creation
+        }        
+    }
 };
 </script>
 
@@ -540,11 +558,12 @@ export default {
 @import "../../assets/scss/Permission/Permission";
 .btn {
   margin-top: 10px;
-  margin-left: 130px;
+  margin-left: 140px;
 }
 
 .lbl {
   margin-left: 50px;
   color: green;
 }
+
 </style>

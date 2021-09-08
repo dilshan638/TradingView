@@ -18,7 +18,7 @@
               <li class="nav-item">
                 <a class="nav-link" href="#">Buy LDXI</a>
               </li>
-              <li class="nav-item" v-if="!inspira_2fa_status">
+              <li class="nav-item">
                 <router-link class="nav-link" to="/market">Markets</router-link>
               </li>
               <li class="nav-item">

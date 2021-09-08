@@ -259,7 +259,8 @@
             </div>
           </div>
           <!-- <div class="time-socket" v-if="timerCount > 0">Resend OTP in 0:0:{{ timerCount }}</div> -->
-          <p  class="sub-text text-right" v-if="!mobileSuccessMob">
+          <div class="time-socket" v-if="timerCount > 0">Resend OTP in 0:0:{{ timerCount }}</div>
+          <p  class="sub-text text-right" v-if="!mobileSuccessMob && timerCount==0" >
             Didn't received?
             <a class="link" @click="sendMobileCodeMobile">Resend</a>
           </p>
@@ -503,6 +504,7 @@ export default {
       localStorage.getItem("usermobileinput");
       var mobiledata = localStorage.getItem("usermobileinput");
       this.usermobilenumber = mobiledata.slice(0, 2) + mobiledata.slice(2).replace(/.(?=...)/g, '*');
+     
     },
 
     countryChanged(phoneObject) {
@@ -594,6 +596,7 @@ export default {
      
     },
     async sendMobileCode() {
+      this.getUserMobile()
       this.$refs.securitytwo.closeModal();
      this.$refs.secruritymodal2.openModal();
     },
@@ -817,6 +820,7 @@ export default {
   mounted() {
     this.status();
    this.getUseremail();
+  
    
     
   },
