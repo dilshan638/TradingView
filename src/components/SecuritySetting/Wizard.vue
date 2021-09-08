@@ -243,7 +243,7 @@
         <button @click="submit">Next</button>
       </div>
     </div>
-    <modal ref="successfullyModal">
+    <modal ref="successfullyModal" class="ss-modal">
       <template v-slot:header>
         <h2 style="color: black">
           Google Authenticator <br />
@@ -371,7 +371,6 @@ export default {
       this.showContentFour = false;
     },
     async submit() {
-
       this.$refs.successfullyModal.openModal();
     },
 

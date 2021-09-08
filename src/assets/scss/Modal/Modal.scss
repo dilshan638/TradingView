@@ -265,3 +265,9 @@
 .permission-modal{
     z-index: 1 !important;
 }
+
+.ss-modal {
+    .modal__dialog{
+        width: 450px;
+    }
+}
