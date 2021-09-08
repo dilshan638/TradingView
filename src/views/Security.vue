@@ -8,10 +8,10 @@
           </div>
           <div class="card-body">
             <div class="row">
-              <div class="col-md-4">
+              <div class="col-xl-4">
                 <select-coin @AddList="getPassingAddress" />
               </div>
-              <div class="col-md-8">
+              <div class="col-xl-8">
                 <div class="barcode-area">
                   <div class="barcode-img">
                     <qrcode-vue
@@ -29,7 +29,7 @@
                 <div class="barcode-detail">
                   <ul class="row">
                     <li class="col-md-12">
-                      <b>Address</b>
+                      <b>Address <i class="ri-file-copy-line"></i></b>
                       <p>{{ addressList }}</p>
                     </li>
 

@@ -30,7 +30,7 @@
 .modal__dialog {
     background-color: #fff;
     position: relative;
-    width: 550px;
+    width: 580px;
     margin: 50px auto;
     display: flex;
     flex-direction: column;
@@ -264,4 +264,10 @@
 
 .permission-modal{
     z-index: 1 !important;
+}
+
+.ss-modal {
+    .modal__dialog{
+        width: 450px;
+    }
 }

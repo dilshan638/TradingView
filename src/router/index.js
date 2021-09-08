@@ -12,6 +12,7 @@ import Market from '../views/Market.vue';
 import Security from '../components/Security/Security.vue';
 import Home from '../views/Home.vue';
 import Permission from '../views/Permission.vue';
+import test from '../views/test.vue';
 
 
 import Setting from '../components/Setting/Setting.vue';
@@ -121,7 +122,12 @@ const routes=[
         path:'/permission-checking',
         component:Permission,
         beforeEnter : guardmyrouter
-    }      
+    },
+    {
+        path:'/test',
+        component:test,
+        beforeEnter : guardmyrouter
+    }    
 ];
 
 const router = createRouter({

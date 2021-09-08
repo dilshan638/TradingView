@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="card table-card">
+    <div class="card table-card wallet-list-table">
       <div class="card-header">
         <div class="row">
           <div class="col-md-9">
@@ -41,13 +41,11 @@
                     {{ crypto.amount }}
                   </td>
                   <td class="action-td">
-                      <router-link to="/securitypage">
-                       <a  @click="selectedCoin(crypto.symbol)" >Deposit</a>
+                      <router-link to="/securitypage" @click="selectedCoin(crypto.symbol)">
+                       Deposit
                       </router-link>
-                   
-                  
-                      <router-link to="/wallet/cryptoone" >
-                       <a @click="selectedCoinWithdraw(crypto.symbol)" style="margin-left:15px">Withdraw</a>
+                      <router-link to="/wallet/cryptoone" @click="selectedCoinWithdraw(crypto.symbol)">
+                       Withdraw
                       </router-link>
                     <a
                       v-if="crypto.address == ''"

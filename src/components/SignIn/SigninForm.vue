@@ -50,7 +50,7 @@
                 <h2 style="color:black">Security Verification</h2>
             </template>
             <template v-slot:body>
-                <p class="modal-text-p">Enter the 6 digit code received by v2**@**.com</p>
+                <p class="modal-text-p" style="padding-bottom: 55px !important;">Enter the 6 digit code received by {{ emailnewmask }}</p>
                 <div class="input-group mb-4">
                     <input type="text" class="form-control" placeholder="Email Verification code" v-model="state.verificationCode" />
                     <div class="input-group-append">
@@ -208,6 +208,7 @@ export default {
             showPasswordSuggestion: false,
             passwordsuggestionvalue: '',
             newpasswordone: '',
+            emailnewmask: '',
 
             password_length: 0,
             contains_eight_characters: false,
@@ -367,6 +368,7 @@ export default {
                 await Auth.forgotPassword(username)
                 .then(data => {
                     console.log(data.CodeDeliveryDetails.Destination)
+                    this.emailnewmask = data.CodeDeliveryDetails.Destination
                     console.log("Success");
                    // this.state.forgotpasswordemail = ""
                     //this.$toast.show("Succesfully sent the email verification code. check your Email", {type: "success", position: "top"});
@@ -444,8 +446,7 @@ export default {
     mounted() {
      this.encryptData()
      this.passwordGenereate();
-   //  this.getAttributes()
- 
+   //  this.getAttributes();
     }
 }
 </script>

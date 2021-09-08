@@ -28,25 +28,15 @@
         </div>
         <div class="col-md-8">
           <div class="row">
-            <div class="col-md-3">
-              <div class="block">
+            <div class="col-md-12">
+              <div class="block wallet-block">
                 <p>Total Balance</p>
                 <h4>{{ this.totalBalance }} <span>BTC</span></h4>
               </div>
-            </div>
-
-            <div class="col-md-1 mobile-hide">
-              <div class="block">
-                <br />
-                <h4>|</h4>
-              </div>
-            </div>
-
-            <div class="col-md-8">
-              <div class="block">
-                <p>Market Value</p>
+              <div class="block wallet-block">
+                 <p><!--Market Value--></p> 
                 <h4>${{ this.marketvalue }}</h4>
-              </div>
+              </div>              
             </div>
           </div>
         </div>
@@ -169,5 +159,6 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+  @import "../../assets/scss/wallet/wallet";
 </style>
