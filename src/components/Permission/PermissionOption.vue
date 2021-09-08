@@ -37,7 +37,7 @@
       v-if="fa_email_status == 'true'"
       class="form-group single-row pos-rel security-row"
     >
-      <p>Please enter the 6 Digit code that we have sent a to ab**@**.com</p>
+      <p>Please enter the 6 Digit code that we have sent a to ab*@*.com</p>
       <input
         v-model="emailCode"
         class="form-control"
