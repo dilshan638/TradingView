@@ -134,24 +134,95 @@
 }
 
 .wallet-card{
+    .wallet-block{
+        
+        padding-bottom: 15px;
+        float: left;
+        width: auto;
+        width: auto !important;
+
+        p{
+            min-height: 31px;
+        }
+
+        h4{
+            border-right: solid 4px #fff;
+            padding-right: 30px;
+            margin-right: 25px;
+        }
+
+        &:last-child{
 
 
-.wallet-block{
-    padding-bottom: 15px;
-    float: left;
-    width: auto;
-    padding-right: 30px;
-    border-right: solid 4px #fff;
-    margin-right: 25px;
-    width: auto !important;
-
-    &:last-child{
-        margin-right: 0 !important;
-        padding-right: 0 !important;
-        border-right: none !important;
+            h4{
+                border-right: none !important;
+                margin-right: 0 !important;
+                padding-right: 0 !important;
+            }
+        }
     }
 }
-    
+
+.wallet-list-table{
+
+    .search-form{
+        margin-bottom: 15px;
+    }
+
+    .card-header{
+        border-bottom: solid #393e77 2px;
+
+        h2{
+            padding-top: 15px;
+        }
+    }
+
+    .card-body{
+        padding: 0;
+    }
+
+    table {
+
+        tr{
+
+            td{
+
+                padding: 20px 30px;
+
+                a{
+                    border-radius: 19px;
+                    border: solid 1px #fff;
+                    color: #fff;
+                    padding: 7px 20px;
+                    /* border-radius: 20px; */
+                    margin-left: 0;
+                    margin-right: 20px;
+                    text-decoration: none;
+                    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+
+                    &:hover, &:focus{
+                        background-color: #0177fb;
+                        border: solid 1px #0177fb;
+                        color: #fff;
+                    }
+                }
+            }
+
+            th{
+                padding: 20px 30px;
+            }
+
+            &:last-child{
+
+                td{
+                    border-bottom: none !important;
+                }
+            }
+
+        }
+
+    }
+
 }
 
 

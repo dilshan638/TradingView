@@ -29,7 +29,7 @@
                 <div class="barcode-detail">
                   <ul class="row">
                     <li class="col-md-12">
-                      <b>Address</b>
+                      <b>Address <i class="ri-file-copy-line"></i></b>
                       <p>{{ addressList }}</p>
                     </li>
 
