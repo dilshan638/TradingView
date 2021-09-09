@@ -12,6 +12,9 @@
                 <div class="btn-status" v-if="fa_email_status == 'true' ||fa_mobile_status == 'true'||fa_ga_status == 'true'">
                   <i class="ri-checkbox-circle-fill"></i> 2FA Enabled
                 </div>
+                  <div class="btn-status" v-else>
+                  <i ></i> 2FA Disable
+                </div>
                 <div class="btn-status">
                   <i class="ri-checkbox-circle-fill"></i> Account Verified
                 </div>
@@ -44,7 +47,7 @@
                   class="btn"
                   @click="sendEmailCodeBTN"
                 >
-                  Active
+                  Remove
                 </button>
 
                 <button
@@ -52,7 +55,7 @@
                   class="btn btn-outline"
                   @click="sendEmailCodeBTN"
                 >
-                  Disabled
+                  Active
                 </button>
               </div>
             </div>
@@ -72,10 +75,10 @@
                   class="btn"
                   @click="SecurityTwo"
                 >
-                  Active
+                  Remove
                 </button>
                 <button v-else class="btn btn-outline" @click="SecurityTwo">
-                  Disabled
+                  Active
                 </button>
               </div>
             </div>
@@ -95,10 +98,10 @@
                   class="btn"
                   @click="GAuthOne"
                 >
-                  Active
+                  Remove
                 </button>
-                <button v-else class="btn btn-outline" @click="GAuthOne">
-                  Disabled
+                <button v-else class="btn btn-outline" @click="GaRemoveModal">
+                  Active
                 </button>
               </div>
             </div>
@@ -369,7 +372,110 @@
       </template>
       <template v-slot:footer> </template>
     </modal>
+
+
+     <!-- GA remove Modal -->
+      <modal ref="GaRemoveModal" class=" modal2-modal border50 no-modal-body-b">
+      <template v-slot:header>
+        <h2 style="color: black">
+          Google Authenticator <br />
+          Successfully Enabled
+        </h2>
+      </template>
+
+      <template v-slot:body>
+
+         <div class="form-group pos-rel sec-row mb-3 mt-3">
+      <p class="sub-text">
+        Please enter the 6 Digit code that we have sent a to
+        {{ usermobilenumber }}
+      </p>
+      <div class="input-group mb-2">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Mobile verification code"
+        />
+
+        <div class="input-group-append">
+          <button
+            v-if="btnShowMobileMob"
+            class="btn btn-outline-secondary"
+            style="margin-top: 0rem; margin-left: 0rem"
+            type="button"
+          >
+            Send
+          </button>
+          <img src="images/icons/correct.png" class="pos-img error-imgs" />
+          <img src="images/icons/ic_fail@3x.webp" class="pos-img" />
+        </div>
+      </div>
+      <!-- <div class="time-socket" v-if="timerCount > 0">Resend OTP in 0:0:{{ timerCount }}</div> -->
+      <div class="time-socket" v-if="timerCount > 0">
+        Resend OTP in 0:0:{{ timerCount }}
+      </div>
+      <p
+        class="sub-text text-right"
+        v-if="!mobileSuccessMob && timerCount == 0"
+      >
+        Didn't received?
+        <a class="link">Resend</a>
+      </p>
+    </div>
+    <div class="form-group pos-rel sec-row">
+      <p class="sub-text">
+        Please enter the 6 Digit code that we have sent a to {{ emailmask }}
+      </p>
+      <div class="input-group mb-2">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Email verification code"
+        />
+        <div class="input-group-append">
+          <button
+            v-if="btnShowEmailMob"
+            class="btn btn-outline-secondary"
+            style="margin-top: 0rem; margin-left: 0rem"
+          >
+            Send
+          </button>
+          <img src="images/icons/correct.png" class="pos-img error-imgs" />
+          <img src="images/icons/ic_fail@3x.webp" class="pos-img" />
+        </div>
+      </div>
+
+   <!-- <div class="time-socket" v-if="timerCount > 0">Resend OTP in 0:0:{{ timerCount }}</div> -->
+      <p class="sub-text text-right">
+        Didn't received?
+        <a class="link">Resend</a>
+      </p>
+    </div>
+
+
+<div class="input-group mb-2">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Mobile verification code"
+        />
+
+        <div class="input-group-append">
+          <img src="images/icons/correct.png" class="pos-img error-imgs" />
+          <img src="images/icons/ic_fail@3x.webp" class="pos-img" />
+        </div>
+      </div>
+      </template>
+      <template v-slot:footer>
+        <div >
+          <button  class="loginbtn btnGA">Continue</button>
+        </div>
+      </template>
+    </modal>
+     <!-- GA remove Modal -->
   </default-layout>
+
+  
 </template>
 
 <script>
@@ -813,6 +919,10 @@ export default {
             console.log(error.response.data);
           });
     
+    },
+
+    async GaRemoveModal(){
+         this.$refs.GaRemoveModal.openModal()
     }
   },
 
@@ -844,4 +954,8 @@ export default {
 
 <style lang="scss" scoped>
 @import "../assets/scss/SecuritySetting/SecuritySetting";
+
+.btnGA{
+  margin-top: 30px;
+}
 </style>

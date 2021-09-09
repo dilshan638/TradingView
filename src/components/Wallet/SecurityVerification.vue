@@ -1,5 +1,6 @@
 <template>
-    <div class="row">
+   <div>
+        <div class="row">
         <div class="col-md-12">
             <div class="card Security-model">
             <div class="card-body Security-model mb-0">
@@ -40,7 +41,7 @@
         <p class="sub-text text-right">Didn't received? <a href="#">Resend</a></p>
     </div>
     <div class="form-group pos-rel sec-row">
-        <p class="sub-text">PPlease enter the  6 Digit code that we have sent a to  ab**@**.com</p>
+        <p class="sub-text">Please enter the  6 Digit code that we have sent a to  ab**@**.com</p>
         <div class="input-group mb-2">
             <input type="text" class="form-control" placeholder="Email verification code">
             <div class="input-group-append">
@@ -57,6 +58,7 @@
         </div>
         </div>
     </div>
+   </div>
 </template>
 
 <script>
