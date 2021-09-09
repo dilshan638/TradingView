@@ -33,6 +33,7 @@
         class="pos-img"
       />
     </div>
+
     <div
       v-if="fa_email_status == 'true'"
       class="form-group single-row pos-rel security-row"
@@ -84,7 +85,31 @@
       />
       <img v-if="GAWrong" src="images/icons/ic_fail@3x.webp" class="pos-img" />
     </div>
-
+              <p class="subline mt-3" style="color:#000;">
+                  Please enter the 6 Digit code that we have sent a to ******8.com
+                </p>
+    <div class="input-group single-row mb-2 pos-rel">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Email verification code"
+      />
+      <img
+        src="images/icons/correct.png"
+        class="pos-img error-imgs"
+      />
+      <img
+        src="images/icons/ic_fail@3x.webp"
+        class="pos-img"
+      />                  
+      <div class="input-group-append">
+        <button
+          class="btn reset1"
+        >
+          Send
+        </button>
+      </div>
+    </div>
     <button
       v-show="
         fa_mobile_status == 'true' &&
