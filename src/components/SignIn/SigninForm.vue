@@ -9,21 +9,24 @@
             <div class="col-lg-6 no-padding">
                 <div class="right-form">
                     <h2>LDCX Exchange</h2>
-                    <p>Lorem ipsum dolor sit amet ipsum<br/>
-                    consetetur sadipscing </p>
+                    <!-- <p>Lorem ipsum dolor sit amet ipsum<br/>
+                    consetetur sadipscing </p> -->
 
                     <div class="eye-area mb-4">
                         <input placeholder="Email" v-model="state.email" class="form-control" />
                         <span class="error-msg" v-if="v$.email.$error">{{ v$.email.$errors[0].$message }} </span>
                     </div>
-                    <div class="eye-area mb-4">
+                    <div class="eye-area mb-5">
                         <input v-bind:type="[showPassword ? 'text' : 'password']" placeholder="Password" v-model="state.password.password" class="form-control" />
                             <div class="eye-box">
                                 <i @click="showPassword = !showPassword" :class="[showPassword ? 'ri-eye-off-line' : 'ri-eye-line']" aria-hidden="true"></i>
                             </div>
                         <span class="error-msg" v-if="v$.password.password.$error">{{ v$.password.$errors[0].$message }} </span>                        
                     </div>
-                    <button class="centered login-btn" @click="SubmitForm">Login</button>
+                    <button class="centered login-btn" @click="SubmitForm" :disabled="startspinner == true">                       
+                        <div class="spinner-border spinner-border-sm" v-if="startspinner" role="status"></div>
+                            Login
+                        </button>
                     <span class="forgot-link" @click="gotoforgotpassword">Forgot Password</span>
                     <span class="reg">to LDX eFolio?  <router-link to="/signup">Register here</router-link></span>
                 </div>
@@ -209,6 +212,7 @@ export default {
             passwordsuggestionvalue: '',
             newpasswordone: '',
             emailnewmask: '',
+            startspinner: false,
 
             password_length: 0,
             contains_eight_characters: false,
@@ -255,9 +259,13 @@ export default {
             } else {
                 this.valid_password = false;
             }
-        },   
+        },  
+        async stopspinner() {
+            this.startspinner = false
+        },     
         async login() {
-            this.submitdisabled = false;
+            this.startspinner = true;
+            setTimeout(() => this.startspinner = false, 4000);
                try {
                 await Auth.signIn(this.state.email, this.state.password.password)
                 .then(data=>{
