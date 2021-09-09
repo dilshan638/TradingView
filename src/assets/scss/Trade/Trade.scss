@@ -54,7 +54,7 @@
 
                 td{
                     border: none;
-                    font-size: 0.625rem;
+                    font-size: 0.6rem;
                     vertical-align: middle;
                     padding: 0.5rem 1rem 0.1rem 1rem;
                     color: #fff;
@@ -229,7 +229,7 @@
                 font-weight: 500;
                 padding-left: 0;
                 padding-right: 0;
-                margin-right: 30px;
+                margin-right: 20px;
             }
 
             .active{
@@ -377,4 +377,44 @@
 
 .trades-card{
     background-color: transparent !important;
+}
+
+.table-card {
+
+    .card-header {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .table-tab{
+
+        ul{
+    
+            li{
+    
+                a.nav-link{
+                    font-size: 0.875rem !important;
+                }
+    
+            }
+    
+        }
+    
+    }
+
+}
+
+.card-body.bottom-table{
+
+    tr{
+        th{
+            font-size: 0.65rem !important;
+            font-weight: 500 !important;
+        }
+    }
+
+}
+
+.card table tr th {
+    font-size: 0.68rem !important;
 }
