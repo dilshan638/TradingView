@@ -399,9 +399,7 @@ export default {
           this.value = response.data.secretdata;
           this.qrdata = response.data.qrdata;
           console.log(this.value);
-          this.token = response.data.secretdata.split(
-            "otpauth://totp/Inspira?secret="
-          );
+          this.token = response.data.secretdata.split("otpauth://totp/Inspira?secret=");
           console.log(this.token);
         })
         .catch(function (error) {
@@ -463,19 +461,13 @@ export default {
           },
         };
 
-        if (this.fa_ga_status == "true") {
-          this.gaStatus = "disable";
-        } else {
-          this.gaStatus = "enable";
-        }
-
         let response = await this.axios
           .post(
             "https://dapi.exus.live/api/twofa/ga/status",
             {
               secret: this.token[1],
               token: this.googleAuthenticationCode,
-              status: this.gaStatus,
+              status:"enable",
               "stage_code":localStorage.getItem('clearStatusCode'),
               stage: 1,
             },
@@ -564,13 +556,9 @@ export default {
       console.log(this.googleAuthenticationCode);
     },
     async successGAModal() {
-      if (this.fa_ga_status == "true") {
-        this.GAOneTimeStatusSend = "disable";
-      } else {
-        this.GAOneTimeStatusSend = "enable";
-      }
+     
       var data = {
-        status: this.GAOneTimeStatusSend,
+        status: "enable",
           "stage_code":localStorage.getItem('clearStatusCode')
       };
 

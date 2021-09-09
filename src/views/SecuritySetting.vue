@@ -96,11 +96,11 @@
                 <button
                   v-if="fa_ga_status == 'true'"
                   class="btn"
-                  @click="GAuthOne"
+                  @click="GaRemoveModal"
                 >
                   Remove
                 </button>
-                <button v-else class="btn btn-outline" @click="GaRemoveModal">
+                <button v-else class="btn btn-outline" @click="GAuthOne">
                   Active
                 </button>
               </div>
@@ -294,16 +294,8 @@
               >
                 Send
               </button>
-                  <img
-                    v-if="emailSuccessMob && !emailWrongMob"
-                    src="images/icons/correct.png"
-                    class="pos-img error-imgs"
-                  />
-                  <img
-                    v-if="emailWrongMob"
-                    src="images/icons/ic_fail@3x.webp"
-                    class="pos-img"
-                  />
+                  <img  v-if="emailSuccessMob && !emailWrongMob"  src="images/icons/correct.png" class="pos-img error-imgs"/>
+                  <img v-if="emailWrongMob" src="images/icons/ic_fail@3x.webp" class="pos-img"/>
             </div>
           </div>
           <!-- <div class="time-socket" v-if="timerCount > 0">Resend OTP in 0:0:{{ timerCount }}</div> -->
@@ -385,29 +377,35 @@
 
       <template v-slot:body>
 
-         <div class="form-group pos-rel sec-row mb-3 mt-3">
-      <p class="sub-text">
+         <div class="form-group pos-rel sec-row mb-3 mt-3" v-if="fa_mobile_status == 'true'">
+         <p class="sub-text">
         Please enter the 6 Digit code that we have sent a to
         {{ usermobilenumber }}
       </p>
       <div class="input-group mb-2">
         <input
+       
           type="text"
           class="form-control"
           placeholder="Mobile verification code"
+          v-model="mobileCodeMobGARemove"
+         @input="mobileCodeSubmitGARemove"
+          :disabled="mobileSuccessGARemove == true"
         />
 
         <div class="input-group-append">
           <button
-            v-if="btnShowMobileMob"
-            class="btn btn-outline-secondary"
+           v-if="btnShowMobileGARemove"
+           class="btn btn-outline-secondary"
             style="margin-top: 0rem; margin-left: 0rem"
             type="button"
+            @click="sendMobileCodeGARemove"
+            
           >
             Send
           </button>
-          <img src="images/icons/correct.png" class="pos-img error-imgs" />
-          <img src="images/icons/ic_fail@3x.webp" class="pos-img" />
+          <img  v-if="mobileSuccessGARemove && !mobileWrongGARemove" src="images/icons/correct.png" class="pos-img error-imgs" />
+          <img v-if="mobileWrongGARemove" src="images/icons/ic_fail@3x.webp" class="pos-img" />
         </div>
       </div>
       <!-- <div class="time-socket" v-if="timerCount > 0">Resend OTP in 0:0:{{ timerCount }}</div> -->
@@ -416,13 +414,15 @@
       </div>
       <p
         class="sub-text text-right"
-        v-if="!mobileSuccessMob && timerCount == 0"
+        v-if="!mobileSuccessGARemove && timerCount == 0" 
+        
       >
         Didn't received?
-        <a class="link">Resend</a>
+        <a class="link" @click="sendMobileCodeGARemove">Resend</a>
       </p>
-    </div>
-    <div class="form-group pos-rel sec-row">
+        </div>
+
+         <div class="form-group pos-rel sec-row"  v-if="fa_email_status == 'true'">
       <p class="sub-text">
         Please enter the 6 Digit code that we have sent a to {{ emailmask }}
       </p>
@@ -431,48 +431,80 @@
           type="text"
           class="form-control"
           placeholder="Email verification code"
+           @input="emailCodeSubmitGARemove"
+           :disabled="EmailuccessGARemove == true"
+           v-model="emailCodeGARemove"
+
         />
         <div class="input-group-append">
           <button
-            v-if="btnShowEmailMob"
+             v-if="btnShowEmailMobGARemove"
             class="btn btn-outline-secondary"
             style="margin-top: 0rem; margin-left: 0rem"
+            @click="sendEmailVerificationCode"
           >
             Send
           </button>
-          <img src="images/icons/correct.png" class="pos-img error-imgs" />
-          <img src="images/icons/ic_fail@3x.webp" class="pos-img" />
+          <img  v-if="EmailuccessGARemove && !EmailWrongGARemove" src="images/icons/correct.png" class="pos-img error-imgs" />
+          <img   v-if="EmailWrongGARemove" src="images/icons/ic_fail@3x.webp" class="pos-img" />
         </div>
       </div>
 
    <!-- <div class="time-socket" v-if="timerCount > 0">Resend OTP in 0:0:{{ timerCount }}</div> -->
       <p class="sub-text text-right">
         Didn't received?
-        <a class="link">Resend</a>
+        <a class="link" @click="sendEmailVerificationCode">Resend</a>
       </p>
-    </div>
+        </div>
 
 
-<div class="input-group mb-2">
+        <div class="input-group mb-2">
         <input
           type="text"
           class="form-control"
-          placeholder="Mobile verification code"
+          placeholder="Google Authentication Code"
+           v-model="gaCodeGARemove"
+           @input="submitGACodeGARemove"
+           :disabled="GASuccess== true"
         />
 
         <div class="input-group-append">
-          <img src="images/icons/correct.png" class="pos-img error-imgs" />
-          <img src="images/icons/ic_fail@3x.webp" class="pos-img" />
+          <img  v-if="GASuccess && !GAWrong" src="images/icons/correct.png" class="pos-img error-imgs" />
+          <img   v-if="GAWrong" src="images/icons/ic_fail@3x.webp" class="pos-img" />
         </div>
-      </div>
+        </div>
+
+
+
       </template>
       <template v-slot:footer>
         <div >
-          <button  class="loginbtn btnGA">Continue</button>
+          <button v-if="GASuccess" @click="continueGARemove" class="loginbtn btnGA">Continue</button>
         </div>
       </template>
     </modal>
      <!-- GA remove Modal -->
+
+     <!-- GA Success Modal -->
+
+      <modal ref="successfullyModalGARemove" class="ss-modal">
+      <template v-slot:header>
+        <h2 style="color: black">
+          Google Authenticator <br />
+          Successfully Disable
+        </h2>
+      </template>
+
+      <template v-slot:body>
+        <img class="correct" src="images/icons/correct.png" />
+      </template>
+      <template v-slot:footer>
+        <div>
+          <button @click="successGAModalGAModal" class="loginbtn">Continue</button>
+        </div>
+      </template>
+    </modal>
+     <!-- GA Success Modal -->
   </default-layout>
 
   
@@ -534,6 +566,8 @@ export default {
       mobileStatus: "",
       usermobilenumber:"",
 
+      mobileCodeMobGARemove:"",
+
       options: {
         placeholder: "Phone Number",
         autoFormat: true,
@@ -562,6 +596,22 @@ export default {
       emailWrongEmail: false,
       emailOneTimeStatusSend: "",
       mobileOneTimeStatusSend: "",
+      phone_number:"",
+
+      mobileSuccessGARemove:false,
+      mobileWrongGARemove:false,
+      btnShowMobileGARemove:true,
+
+      btnShowEmailMobGARemove:true,
+      EmailWrongGARemove:false,
+      EmailuccessGARemove:false,
+      emailCodeGARemove:"",
+
+      gaCodeGARemove:"",
+      GAWrong:false,
+      GASuccess:false,
+      token:"",
+
     };
   },
   methods: {
@@ -592,7 +642,14 @@ export default {
               if(responsive.data.result.UserAttributes[i].Name=="custom:2fa_mobile_status"){
               this.fa_mobile_status = responsive.data.result.UserAttributes[i].Value;
            }
-          }
+
+           if(responsive.data.result.UserAttributes[i].Name=="phone_number"){
+              this.phone_number = responsive.data.result.UserAttributes[i].Value;
+
+              console.log(this.phone_number)
+           }
+         
+         }
         })
         .catch(function (error) {
           console.log(error);
@@ -923,6 +980,178 @@ export default {
 
     async GaRemoveModal(){
          this.$refs.GaRemoveModal.openModal()
+    },
+
+     async sendMobileCodeGARemove() {
+      var data = {
+        mobile: this.phone_number,
+      };
+
+      let hed = {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem(
+            "X-LDX-Inspira-Access-Token"
+          )}`,
+          "Content-Type": "application/json",
+        },
+      };
+      let response = await this.axios.post(
+        "https://dapi.exus.live/api/twofa/sms/code",
+        data,
+        hed
+      );
+      console.log(response);
+       this.$toast.show("Successfully  Send Mobile Verification Code", {type: "success", position: "top"});
+    },
+
+      async mobileCodeSubmitGARemove() {
+     this.btnShowMobileGARemove = false;
+      this.mobileWrongGARemove = true;
+
+      if (this.mobileCodeMobGARemove.length == 6) {
+        var data = {
+          mobile: this.phone_number,
+          code: this.mobileCodeMobGARemove,
+          status: "",
+          stage: 1,
+        };
+
+        let hed = {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem(
+              "X-LDX-Inspira-Access-Token"
+            )}`,
+            "Content-Type": "application/json",
+          },
+        };
+
+        let response = await this.axios
+          .post("https://dapi.exus.live/api/twofa/sms/status", data, hed)
+          .then((res) => {
+            console.log(res);
+            console.log(response);
+            this.mobileSuccessGARemove= true;
+            this.mobileWrongGARemove = false;
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      }
+    },
+     async emailCodeSubmitGARemove() {
+      this.EmailWrongGARemove = true;
+      this.btnShowEmailMobGARemove = false;
+      if (this.emailCodeGARemove.length == 6) {
+        var data = {
+          token: this.emailCodeGARemove,
+          status: "",
+          stage: 1,
+        };
+        let hed = {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem(
+              "X-LDX-Inspira-Access-Token"
+            )}`,
+            "Content-Type": "application/json",
+          },
+        };
+
+        let response = await this.axios
+          .post("https://dapi.exus.live/api/twofa/email/status", data, hed)
+          .then((res) => {
+            this.EmailuccessGARemove = true;
+            this.EmailWrongGARemove = false;
+            console.log(res);
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      }
+    },
+
+    async getQRToken(){
+       const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem(
+          "X-LDX-Inspira-Access-Token"
+        )}`,
+      };
+      axios
+        .get("https://dapi.exus.live/api/twofa/generate/ga/qr", {
+          headers: headers,
+        })
+        .then((response) => {
+          console.log(response);
+
+          this.token = response.data.secretdata.split("otpauth://totp/Inspira?secret=");
+          console.log(this.token)
+         
+        })
+        .catch(function (error) {
+          console.log(error);
+          
+        });
+    },
+     async submitGACodeGARemove() {
+      this.GAWrong = true;
+      if (this.gaCodeGARemove.length == 6) {
+        let hed = {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem(
+              "X-LDX-Inspira-Access-Token"
+            )}`,
+            "Content-Type": "application/json",
+          },
+        };
+
+        let response = await this.axios
+          .post(
+            "https://dapi.exus.live/api/twofa/ga/status",
+            {
+              secret: this.token[1],
+              token: this.gaCodeGARemove,
+              status: "disable",
+              "stage_code":localStorage.getItem('clearStatusCode'),
+              stage: 1,
+            },
+            hed
+          )
+          .then((res) => {
+            this.GASuccess = true;
+            this.GAWrong = false;
+            console.log(res);
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      }
+    },
+    async continueGARemove(){
+      this.$refs.GaRemoveModal.closeModal();
+     this.$refs.successfullyModalGARemove.openModal();
+    },
+
+    async successGAModalGAModal(){
+      var data = {
+        status: "disable",
+          "stage_code":localStorage.getItem('clearStatusCode')
+      };
+
+      let hed = { headers: { Authorization: `Bearer ${localStorage.getItem(  "X-LDX-Inspira-Access-Token")}`, "Content-Type": "application/json",  }, };
+      let response = await this.axios
+        .post("https://dapi.exus.live/api/twofa/status", data, hed)
+        .then((res) => {
+          console.log(res);
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+      this.$refs.successfullyModalGARemove.closeModal();
+      this.$router.go();
     }
   },
 
@@ -930,6 +1159,7 @@ export default {
   mounted() {
     this.status();
    this.getUseremail();
+   this.getQRToken()
   
    
     
