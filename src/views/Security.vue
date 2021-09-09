@@ -125,7 +125,7 @@ export default {
         this.expected_arrival= localStorage.getItem("expected_arrival");
          this.expected_unlock= localStorage.getItem("expected_unlock");
 
-         console.log(this.minimum_deposite)
+        
 
       
       

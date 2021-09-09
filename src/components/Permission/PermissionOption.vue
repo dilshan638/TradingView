@@ -317,6 +317,7 @@ export default {
         .then((responsive) => {
           console.log(responsive);
           this.$router.push("/dashboard");
+           localStorage.setItem('permissionSuccess','permissionSuccess' )
         })
         .catch(function (error) {
           console.log(error.response.data);
@@ -544,7 +545,7 @@ export default {
         this.emailmask = localStorage.getItem("emailmask");
         let hide = this.emailmask.split("@")[0].length - 4;//<-- number of characters to hide
         var r = new RegExp(".{"+hide+"}@", "g")
-        this.emailmask = this.emailmask.replace(r, "***@" );
+        this.emailmask = this.emailmask.replace(r, "*@" );
     },
     async getUserMobile() {
       this.usermobilenumber = localStorage.getItem("usermobile").slice(0, 2) + localStorage.getItem("usermobile").slice(2).replace(/.(?=...)/g, '*');
@@ -558,12 +559,13 @@ export default {
     this.tokenGA();
     this.getUseremail();
     this.getUserMobile();
+    this.statusCheckMobile();
   },
 
 
   created() {
     this.statusCheckEmail();
-    this.statusCheckMobile();
+    
   },
 
   watch: {
