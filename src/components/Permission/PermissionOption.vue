@@ -4,7 +4,7 @@
       v-if="fa_mobile_status == 'true'"
       class="form-group single-row pos-rel security-row"
     >
-      <p>Please enter the 6 Digit code that we have sent a to +9477***121</p>
+      <p>Please enter the 6 Digit code that we have sent a to {{ usermobilenumber }}</p>
       <input
         type="text"
         class="form-control"
@@ -37,7 +37,7 @@
       v-if="fa_email_status == 'true'"
       class="form-group single-row pos-rel security-row"
     >
-      <p>Please enter the 6 Digit code that we have sent a to ab*@*.com</p>
+      <p>Please enter the 6 Digit code that we have sent a to {{ emailmask }}</p>
       <input
         v-model="emailCode"
         class="form-control"
@@ -200,6 +200,8 @@ export default {
       GASuccess: false,
       emaileSuccessemail: false,
       mobileSuccessMob: false,
+      emailmask:"",
+      usermobilenumber: "",
 
       emailWrongEmail: false,
       emailCode: "",
@@ -251,7 +253,6 @@ export default {
           console.log(error);
         });
     },
-
     async tokenGA() {
       const headers = {
         "Content-Type": "application/json",
@@ -297,7 +298,6 @@ export default {
         });
       //
     },
-
     async submitGACode() {
       this.GAWrong = true;
       if (this.googleAuthenticationCode.length == 6) {
@@ -332,7 +332,6 @@ export default {
           });
       }
     },
-
     async sendEmailCode() {
       const headers = {
         "Content-Type": "application/json",
@@ -356,7 +355,6 @@ export default {
           console.log(error);
         });
     },
-
     async emailCodeSubmit() {
       this.emailWrongEmail = true;
       this.emailLabal = false;
@@ -390,7 +388,6 @@ export default {
           });
       }
     },
-
     async sendMobileCode() {
       var data = {
         mobile: this.phone_number,
@@ -447,7 +444,6 @@ export default {
           });
       }
     },
-
     async statusCheckMobile() {
       if (localStorage.getItem("stSMS") == "SMSonly") {
         var data = {
@@ -470,7 +466,6 @@ export default {
         console.log(response);
       }
     },
-
     async statusCheckEmail() {
       console.log(localStorage.getItem("fa_mobile_status"));
       if (localStorage.getItem("stEMAIL") == "EMAILonly") {
@@ -493,7 +488,6 @@ export default {
           });
       }
     },
-
     async labalStatus() {
       this.stSMS = localStorage.getItem("stSMS");
       this.stEMAIL = localStorage.getItem("stEMAIL");
@@ -501,7 +495,6 @@ export default {
       this.fa_email_status = localStorage.getItem("fa_email_status");
       this.fa_ga_status = localStorage.getItem("fa_ga_status");
     },
-
     async clearStatus() {
       const headers = {
         "Content-Type": "application/json",
@@ -522,6 +515,15 @@ export default {
           console.log(error);
         });
     },
+    async getUseremail() {
+        this.emailmask = localStorage.getItem("emailmask");
+        let hide = this.emailmask.split("@")[0].length - 4;//<-- number of characters to hide
+        var r = new RegExp(".{"+hide+"}@", "g")
+        this.emailmask = this.emailmask.replace(r, "***@" );
+    },
+    async getUserMobile() {
+      this.usermobilenumber = localStorage.getItem("usermobile").slice(0, 2) + localStorage.getItem("usermobile").slice(2).replace(/.(?=...)/g, '*');
+    },    
   },
 
   mounted() {
@@ -529,6 +531,8 @@ export default {
     this.clearStatus();
     this.status();
     this.tokenGA();
+    this.getUseremail();
+    this.getUserMobile();
   },
 
 
@@ -562,8 +566,14 @@ export default {
 }
 
 .lbl {
-  margin-left: 50px;
-  color: green;
+    background-color: #c8ffd7;
+    padding: 15px;
+    border-radius: 6px;
+    text-align: center;
+    margin-top: 8px;
+    font-weight: 400;
+    font-size: 0.875rem;
+    color: #00771a;
 }
 
 </style>

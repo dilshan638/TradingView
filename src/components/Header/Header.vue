@@ -74,6 +74,7 @@ export default {
        localStorage.removeItem("fa_email_status");
        localStorage.removeItem("fa_mobile_status");
        localStorage.removeItem("phone_number");
+       localStorage.removeItem("usermobile");
 
         localStorage.removeItem("fa_ga_status");
          localStorage.removeItem("stSMS");

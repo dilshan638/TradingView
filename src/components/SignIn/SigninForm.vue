@@ -266,12 +266,12 @@ export default {
                     this.data.firstName=data.attributes.name
                     this.data.lastName=data.attributes.middle_name
                     this.data.email=this.state.email
-                    localStorage.setItem('emailmask', data.signInUserSession.accessToken.payload.username)                 
+                    localStorage.setItem('emailmask', data.signInUserSession.accessToken.payload.username)
+                    localStorage.setItem('usermobile', data.signInUserSession.idToken.payload.phone_number)
                     localStorage.setItem('X-LDX-Inspira-Access-Token',data.signInUserSession.accessToken.jwtToken)
-                   
-                   
-                  
+                    console.log(data.signInUserSession.idToken.payload.phone_number)
                 })
+                this.loginbtn = false;
                     console.log('Yes')
                     this.encryptData()
                    // window.location.href = `http://localhost:8081/kyc?data=${this.encData}`
@@ -329,10 +329,7 @@ export default {
                   }
        
               })
-                
-                   this.$toast.show("Successfully logged in", {type: "success", position: "top"});
-                
-                    
+                   this.$toast.show("Successfully logged in", {type: "success", position: "top"});    
              } 
              catch (error) {
                 this.$toast.show(error.message, {type: "error", position: "top"});
@@ -349,6 +346,7 @@ export default {
             this.v$.password.password.$touch()
             if (!this.v$.email.$touch.error && !this.v$.password.password.$touch.error) { // if ANY fail validation
                 this.login();
+                this.loginbtn = false;
                 console.log('Form successfully submitted.')
             } else {
                 console.log('Form failed validation')
@@ -375,12 +373,11 @@ export default {
                     //this.$toast.show("Succesfully sent the email verification code. check your Email", {type: "success", position: "top"});
                 })
             }catch(error){
-                 console.log('Sending  Failed Code')
+                console.log('Sending  Failed Code')
             }
-             }else{
-                 console.log('Sending  Failed Code') 
-             }
-           
+            }else{
+                console.log('Sending  Failed Code') 
+            }
         },    
         async otpcheck(){
                this.v$.forgotpasswordemail.$touch()
