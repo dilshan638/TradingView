@@ -61,36 +61,7 @@ export default {
 
   methods: {
     logout() {
-      
-      localStorage.removeItem("X-LDX-Inspira-Access-Token");
-      localStorage.removeItem("createdAddress");
-      localStorage.removeItem("createdAddressSelectList");
-      localStorage.removeItem("arraySymbol");
-      localStorage.removeItem("bindArray");
-      localStorage.removeItem("AddressListArray");
-      localStorage.removeItem("selectedCoin");
-
-      localStorage.removeItem("minimum_deposite");
-      localStorage.removeItem("avarege_arrival_time");
-      localStorage.removeItem("expected_arrival");
-      localStorage.removeItem("expected_unlock"); 
-      localStorage.removeItem("inspira_2fa_status"); 
-      
-      localStorage.removeItem("inspira_id");
-       localStorage.removeItem("fa_email_status");
-       localStorage.removeItem("fa_mobile_status");
-       localStorage.removeItem("phone_number");
-       localStorage.removeItem("usermobile");
-
-        localStorage.removeItem("fa_ga_status");
-         localStorage.removeItem("stSMS");
-          localStorage.removeItem("stEMAIL"); 
-
-       localStorage.removeItem("clearStatusCode");
-       localStorage.removeItem("selectedCoinWithdraw");
-       localStorage.removeItem("totalBalances");
-       localStorage.removeItem("emailmask");
-       localStorage.removeItem("inspira_id");
+        window.localStorage.clear(); 
         this.$router.push("/signin");
         this.$toast.show("Successfully Logged out. Thank you!", {type: "success", position: "top"});
     },
