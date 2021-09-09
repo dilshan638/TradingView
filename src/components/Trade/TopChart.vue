@@ -135,14 +135,13 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <trade-chart />
+               
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import TradeChart from './test.vue'
 const dataMapper = (data) =>
   [
     { name: "ETH", prop: "coinsPerHour" },
@@ -156,7 +155,6 @@ const dataMapper = (data) =>
 export default {
   name: "App",
   components: {
-    TradeChart,
   },
   data: () => ({
     dailyStats: [],

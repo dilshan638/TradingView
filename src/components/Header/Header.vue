@@ -15,6 +15,12 @@
           </button>          
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
+              <li class="nav-item desktop-hide" v-if="alareadylogin">
+                <router-link class="nav-link" to="/signin" @click="logout">Logout</router-link>
+              </li> 
+              <li class="nav-item desktop-hide" v-else>
+                <router-link class="nav-link" to="/signin">Login</router-link>
+              </li>               
               <li class="nav-item">
                 <a class="nav-link" href="#">Buy LDXI</a>
               </li>

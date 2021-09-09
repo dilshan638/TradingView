@@ -11,6 +11,19 @@
 }
 
 @media only screen and (max-width: 768px) { 
+    
+
+    .landing-area {
+
+        .navbar.navbar-expand-lg.mobile-hide{
+            display: block !important;
+
+            button{
+                background-color: $dark-main-color !important;
+            }
+        }
+
+    }
     // body{
     //     background-color: #182769 !important;
     // }
@@ -326,7 +339,13 @@
     .top-menu-bar{
         display: none;
     }
+}
 
+@media only screen and (min-width: 1024px) {
+
+    .desktop-hide{
+        display: none !important;
+    }
 
 }
 
