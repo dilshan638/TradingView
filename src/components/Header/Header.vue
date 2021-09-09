@@ -85,6 +85,8 @@ export default {
         localStorage.removeItem("fa_ga_status");
          localStorage.removeItem("stSMS");
           localStorage.removeItem("stEMAIL"); 
+            localStorage.removeItem("permissionSuccess"); 
+
 
        localStorage.removeItem("clearStatusCode");
        localStorage.removeItem("selectedCoinWithdraw");
