@@ -31,11 +31,11 @@
             <div class="col-md-12">
               <div class="block wallet-block">
                 <p>Total Balance</p>
-                <h4>{{ this.totalBalance }} <span>BTC</span></h4>
+                <h4>{{ totalBalance }} <span>BTC</span></h4>
               </div>
               <div class="block wallet-block">
                  <p><!--Market Value--></p> 
-                <h4>${{ this.marketvalue }}</h4>
+                <h4>${{ marketvalue }}</h4>
               </div>              
             </div>
           </div>
