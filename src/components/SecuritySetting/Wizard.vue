@@ -97,6 +97,8 @@
         <button @click="nextThreeToFour">Next</button>
       </div>
     </div>
+
+
     <div v-if="showContentFour" class="wizard-box">
       <div class="wizard-inner">
         <p class="mb-5">
@@ -243,6 +245,8 @@
         <button v-if="GASuccess" @click="submit">Next</button>
       </div>
     </div>
+
+    
     <modal ref="successfullyModal" class="ss-modal">
       <template v-slot:header>
         <h2 style="color: black">
@@ -260,6 +264,8 @@
         </div>
       </template>
     </modal>
+   
+  
   </div>
 </template>
 
