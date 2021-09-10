@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="card table-card">
-          <div class="card-header">
+          <div class="card-header add-border">
             <div class="row">
               <div class="col-md-4">
                 <h2>Security</h2>
@@ -21,27 +21,17 @@
               </div>
             </div>
           </div>
-          <div class="card-body">
+          <div class="card-body sec-option">
             <div class="row">
               <div class="col-md-12">
-                <p class="mb-4">
-                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                  diam nonumy eirmod tempor
-                </p>
                 <p>Security Options</p>
               </div>
             </div>
             <div class="row sec-row">
-              <div class="col-md-4">
+              <div class="col-md-2">
                 <h5>Email Verification</h5>
-                <span
-                  >Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                  diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                  aliquyam erat, sed diam</span
-                >
               </div>
-              <div class="col-md-1"></div>
-              <div class="col-md-7">
+              <div class="col-md-2">
                 <button
                   v-if="fa_email_status == 'true'"
                   class="btn"
@@ -56,20 +46,14 @@
                   @click="sendEmailCodeBTN"
                 >
                   Active
-                </button>
+                </button>                
               </div>
             </div>
             <div class="row sec-row">
-              <div class="col-md-4">
+              <div class="col-md-2">
                 <h5>SMS Verification</h5>
-                <span
-                  >Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                  diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                  aliquyam erat, sed diam</span
-                >
               </div>
-              <div class="col-md-1"></div>
-              <div class="col-md-7">
+              <div class="col-md-2">
                 <button
                   v-if="fa_mobile_status == 'true'"
                   class="btn"
@@ -83,16 +67,10 @@
               </div>
             </div>
             <div class="row sec-row">
-              <div class="col-md-4">
+              <div class="col-md-2">
                 <h5>Google Authenticator</h5>
-                <span
-                  >Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                  diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                  aliquyam erat, sed diam</span
-                >
               </div>
-              <div class="col-md-1"></div>
-              <div class="col-md-7">
+              <div class="col-md-2">
                 <button
                   v-if="fa_ga_status == 'true'"
                   class="btn"

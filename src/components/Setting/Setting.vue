@@ -19,17 +19,13 @@
           <div class="card-body">
             <div class="row">
               <div class="col-md-12">
-                <p class="paragraph mb-3">
-                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                  diam nonumy eirmod tempor
-                </p>
               </div>
               <div class="row">
                 <div class="col-md-4">
                   <div class="eye-area mb-4">
                     <input
-                      v-bind:type="[showNewPassword ? 'text' : 'password']"
-                      placeholder="New Password"
+                      v-bind:type="[showOldPassword ? 'text' : 'password']"
+                      placeholder="Old Password"
                       class="form-control"
                       v-model="state.oldPassword"
                     />
@@ -39,9 +35,9 @@
 
                     <div class="eye-box">
                       <i
-                        @click="showNewPassword = !showNewPassword"
+                        @click="showOldPassword = !showOldPassword"
                         :class="[
-                          showNewPassword ? 'ri-eye-off-line' : 'ri-eye-line',
+                          showOldPassword ? 'ri-eye-off-line' : 'ri-eye-line',
                         ]"
                         aria-hidden="true"
                       ></i>
@@ -53,8 +49,8 @@
                 <div class="col-md-4">
                   <div class="eye-area mb-4">
                     <input
-                      v-bind:type="[showOldPassword ? 'text' : 'password']"
-                      placeholder="Old Password"
+                      v-bind:type="[showNewPassword ? 'text' : 'password']"
+                      placeholder="New Password"
                       class="form-control"
                       v-model="state.newPassword"
                     />
@@ -63,9 +59,9 @@
                     </span>
                     <div class="eye-box">
                       <i
-                        @click="showOldPassword = !showOldPassword"
+                        @click="showNewPassword = !showNewPassword"
                         :class="[
-                          showOldPassword ? 'ri-eye-off-line' : 'ri-eye-line',
+                          showNewPassword ? 'ri-eye-off-line' : 'ri-eye-line',
                         ]"
                         aria-hidden="true"
                       ></i>
