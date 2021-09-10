@@ -7,6 +7,7 @@
 @import "responsive";
 @import "table";
 @import "toast";
+@import "form";
 
 
 body{
@@ -632,12 +633,12 @@ body{
 .input_container{
     position: absolute;
     width: 75%;
-    right: 0px;
+    right: 0;
     background-color: #fff !important;
     border: solid 1px #e4e4e4;
-    z-index: 9;
+    z-index: 10;
     top: -164px;
-    border-radius: 16px;
+    border-radius: 16px !important;
     padding: 15px;
     box-shadow: 2px 11px 20px 5px rgb(0 0 0 / 13%);
 
@@ -666,13 +667,13 @@ body{
 .password-suggestion-box{
     position: absolute;
     width: 75%;
-    right: 0px;
+    right: 0;
     background-color: #fff !important;
     border: solid 1px #e4e4e4;
-    z-index: 9;
-    top: -115px;
-    border-radius: 16px;
-    padding: 15px;
+    z-index: 10;
+    top: -168px;
+    border-radius: 16px !important;
+    padding: 25px;
     box-shadow: 2px 11px 20px 5px rgb(0 0 0 / 13%);
 
     .password-view{

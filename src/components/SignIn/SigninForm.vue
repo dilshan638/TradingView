@@ -63,14 +63,12 @@
                 </div>                    
                 <div class="form-group mb-4 pos-rel">
                     <div class="input_container" v-if="showPasswordLength">
-                        <!-- <password-generator /> -->
                         <ul>
                             <li v-bind:class="{ is_valid: contains_eight_characters }">8 Characters</li>
                             <li v-bind:class="{ is_valid: contains_number }">Contains Number</li>
                             <li v-bind:class="{ is_valid: contains_uppercase }">Contains Uppercase</li>
                             <li v-bind:class="{ is_valid: contains_special_character }">Contains Special Character</li>
                         </ul>
-
                     </div> 
                     <div class="password-suggestion-box" v-if="showPasswordSuggestion">
                         <h3>Auto generated Password</h3>
@@ -91,11 +89,11 @@
                             <div class="eye-box eye-custom">
                                 <i @click="showPasswordotp = !showPasswordotp" :class="[showPasswordotp ? 'ri-eye-off-line' : 'ri-eye-line']" aria-hidden="true"></i>  
                             </div>                              
-                        <div class="input-group-append">
-                        <button class="btn btn-outline-secondary input-group-btn sub-action" @click="showPasswordSuggestion = true" type="button">
-                            <i class="ri-lock-password-line"></i>
-                        </button>
-                    </div>
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary input-group-btn sub-action" @click="showPasswordSuggestion = true" type="button">
+                                    <i class="ri-lock-password-line"></i>
+                                </button>
+                            </div>
                     <span class="error-msg" v-if="v$.newPassword.$error">{{ v$.newPassword.$errors[0].$message }} </span> 
                     </div>                        
                 </div>
@@ -233,9 +231,7 @@ export default {
               encData:""   
         }
     },
-    methods: { 
-
-      
+    methods: {   
         removepophover() {
             this.showPasswordSuggestion = false;
             this.showPasswordLength = false
@@ -244,7 +240,7 @@ export default {
             this.password_length = this.state.newPassword.length;
             //eslint-disable-next-line
             const format = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
-            if (this.password_length > 8) {
+            if (this.password_length >= 8) {
                 this.contains_eight_characters = true;
             } else {
                 this.contains_eight_characters = false;
