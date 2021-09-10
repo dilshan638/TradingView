@@ -170,7 +170,7 @@
         <h2 class="Security-Verification">Withdrawal Details</h2>
       </template>
       <template v-slot:body>
-        <withdrow-detail />
+        <!-- <withdrow-detail /> -->
       </template>
       <template v-slot:footer>
         <div class="modal-buttons Modal-btn">
@@ -189,7 +189,7 @@ import DefaultLayout from "../../layout/DefaultLayout.vue";
 import SecurityVerification from "./SecurityVerification.vue";
 import WithdrawalSubmitted from "./WithdrawalSubmitted.vue";
 import Modal from "../Modal/Modal.vue";
-import WithdrowDetail from "./WithdrowDetail.vue";
+// import WithdrowDetail from "./WithdrowDetail.vue";
 import axios from "axios";
 export default {
   name: "CryptoOne",
@@ -198,7 +198,7 @@ export default {
     Modal,
     SecurityVerification,
     WithdrawalSubmitted,
-    WithdrowDetail,
+    // WithdrowDetail,
   },
   data() {
     return {

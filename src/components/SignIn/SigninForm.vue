@@ -265,7 +265,6 @@ export default {
         },     
         async login() {
             this.startspinner = true;
-            setTimeout(() => this.startspinner = false, 4000);
                try {
                 await Auth.signIn(this.state.email, this.state.password.password)
                 .then(data=>{
@@ -345,6 +344,7 @@ export default {
                 console.log('No')
                 this.role=false
             }
+            setTimeout(() => this.startspinner = false, 100);
         },
         encryptData() {
            this.encData = CryptoJS.AES.encrypt( JSON.stringify(this.data), this.secret).toString();       

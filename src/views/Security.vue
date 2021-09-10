@@ -29,8 +29,9 @@
                 <div class="barcode-detail">
                   <ul class="row">
                     <li class="col-md-12">
-                      <b>Address <i class="ri-file-copy-line"></i></b>
+                      <b>Address <i class="ri-file-copy-line" @click.stop.prevent="copyTestingCode"></i></b>
                       <p>{{ addressList }}</p>
+                      <input type="hidden" id="testing-code" :value="addressList">
                     </li>
 
                     <li class="col-md-6">
@@ -130,7 +131,20 @@ export default {
       
       
 
-    }
+    },
+    copyTestingCode () {
+      let testingCodeToCopy = document.querySelector('#testing-code')
+      testingCodeToCopy.setAttribute('type', 'text')
+      testingCodeToCopy.select()
+      try {
+        document.execCommand('copy');
+        this.$toast.show("Address Copied to clipboard ", {type: "success", position: "top"});
+      } catch (err) {
+        this.$toast.show("Address not correct to copy to clipboard", {type: "error", position: "top"});
+      }
+      testingCodeToCopy.setAttribute('type', 'hidden')
+      window.getSelection().removeAllRanges()
+    }    
   },
 
   mounted() {
