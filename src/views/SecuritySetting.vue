@@ -347,7 +347,7 @@
       <modal ref="GaRemoveModal" class=" modal2-modal border50 no-modal-body-b">
       <template v-slot:header>
         <h2 style="color: black">
-         Successfully Updated
+        Security Verification
         </h2>
       </template>
 
@@ -398,7 +398,7 @@
       </p>
         </div>
 
-         <div class="form-group pos-rel sec-row"  v-if="fa_email_status == 'true'">
+         <div class="form-group pos-rel sec-row txtEmail"  v-if="fa_email_status == 'true'">
       <p class="sub-text">
         Please enter the 6 Digit code that we have sent a to {{ emailmask }}
       </p>
@@ -1163,5 +1163,8 @@ export default {
 
 .btnGA{
   margin-top: 30px;
+}
+.txtEmail{
+  margin-top: -15px;
 }
 </style>
