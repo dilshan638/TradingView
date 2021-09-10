@@ -2,7 +2,7 @@
   <div class="card only-card-header wallet-balance-card wallet-card">
     <div class="card-header">
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6 col-lg-4">
           <h2>
             Wallet Balances
             <span class="eye-point"
@@ -26,7 +26,7 @@
             </button></router-link
           >
         </div>
-        <div class="col-md-8">
+        <div class="col-md-6 col-lg-8">
           <div class="row">
             <div class="col-md-12">
               <div class="block wallet-block">

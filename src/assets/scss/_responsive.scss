@@ -242,6 +242,10 @@
 
 @media only screen and (max-width: 1023px) {
 
+    .menu-col{
+        display: none;
+    }
+
     .text-right.social-logo{
         text-align: center !important;
     }

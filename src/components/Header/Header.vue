@@ -6,6 +6,9 @@
             <router-link class="navbar-brand" to="/">
               <img src="images/logo/logo.png" />
             </router-link>
+            <div class="menu-col">
+              <i class="ri-menu-fold-line" @click="menuslide"></i>
+            </div>
       </div>
       <div class="col-10 col-md-7">
         <nav class="navbar navbar-expand-lg mobile-hide">
@@ -55,46 +58,23 @@ export default {
     return {
       alareadylogin: false,
      
-      inspira_2fa_status:""
+      inspira_2fa_status:"",
+      showmenu: false
     };
   },
 
   methods: {
     logout() {
-      
-      localStorage.removeItem("X-LDX-Inspira-Access-Token");
-      localStorage.removeItem("createdAddress");
-      localStorage.removeItem("createdAddressSelectList");
-      localStorage.removeItem("arraySymbol");
-      localStorage.removeItem("bindArray");
-      localStorage.removeItem("AddressListArray");
-      localStorage.removeItem("selectedCoin");
-
-      localStorage.removeItem("minimum_deposite");
-      localStorage.removeItem("avarege_arrival_time");
-      localStorage.removeItem("expected_arrival");
-      localStorage.removeItem("expected_unlock"); 
-      localStorage.removeItem("inspira_2fa_status"); 
-      
-      localStorage.removeItem("inspira_id");
-       localStorage.removeItem("fa_email_status");
-       localStorage.removeItem("fa_mobile_status");
-       localStorage.removeItem("phone_number");
-       localStorage.removeItem("usermobile");
-
-        localStorage.removeItem("fa_ga_status");
-         localStorage.removeItem("stSMS");
-          localStorage.removeItem("stEMAIL"); 
-            localStorage.removeItem("permissionSuccess"); 
-
-
-       localStorage.removeItem("clearStatusCode");
-       localStorage.removeItem("selectedCoinWithdraw");
-       localStorage.removeItem("totalBalances");
-       localStorage.removeItem("emailmask");
-       localStorage.removeItem("inspira_id");
+        window.localStorage.clear();
         this.$router.push("/signin");
         this.$toast.show("Successfully Logged out. Thank you!", {type: "success", position: "top"});
+    },
+    menuslide() {
+      localStorage.setItem("menuitem", "showmenu");
+      if(localStorage.getItem("menuitem")!=null) {
+        this.showmenu = true;
+      }
+      localStorage.removeItem("menuitem");
     },
     checklogin() {
       this.inspira_2fa_status= localStorage.getItem('inspira_2fa_status' )
