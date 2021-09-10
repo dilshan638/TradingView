@@ -301,8 +301,7 @@
     <modal ref="successfullyModal" class="border50">
       <template v-slot:header>
         <h2 style="color: black">
-          Google Authenticator <br />
-          Successfully Enabled
+          Successfully Updated
         </h2>
       </template>
 
@@ -321,7 +320,7 @@
     <!--SUCCESS Sms modal -->
     <modal ref="securityfour" class="s-modal">
       <template v-slot:header>
-        <h2 style="color: black">SMS Verification Success</h2>
+        <h2 style="color: black">Successfully Updated</h2>
       </template>
       <template v-slot:body>
         <img class="correct" src="images/icons/correct.png" />
@@ -348,8 +347,7 @@
       <modal ref="GaRemoveModal" class=" modal2-modal border50 no-modal-body-b">
       <template v-slot:header>
         <h2 style="color: black">
-          Google Authenticator <br />
-          Successfully Enabled
+         Successfully Updated
         </h2>
       </template>
 
