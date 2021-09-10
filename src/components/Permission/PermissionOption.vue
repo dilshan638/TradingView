@@ -35,7 +35,7 @@
     </div>
 
     <div
-      v-if="fa_email_status == 'true'"
+      v-if="fa_email_status == 'true' && fa_mobile_status == 'false'"
       class="form-group single-row pos-rel security-row"
     >
       <p>Please enter the 6 Digit code that we have sent a to {{ emailmask }}</p>
@@ -65,6 +65,53 @@
       </h5>
     </div>
 
+
+
+   <!-- Email 2nd Time     -->
+         <div v-if="fa_email_status == 'true' && fa_mobile_status == 'true'" >
+            <p class="subline mt-3" style="color:#000;">
+                  Please enter the 6 Digit code that we have sent a to d*****8.com
+                </p>
+         <div class="input-group single-row mb-2 pos-rel">
+     <input
+        v-model="emailCode"
+        class="form-control"
+        placeholder="Email verification code"
+        @input="emailCodeSubmit"
+        :disabled="emaileSuccessemail == true"
+      />
+      <img
+       v-if="emaileSuccessemail && !emailWrongEmail"
+        src="images/icons/correct.png"
+        class="pos-img error-imgs"
+      />
+      <img
+         v-if="emailWrongEmail"
+        src="images/icons/ic_fail@3x.webp"
+        class="pos-img"
+      />  
+                   
+      <div class="input-group-append">
+        <button
+        @click="sendEmailCodeBtn"
+          class="btn reset1"
+          v-if="btnEmail"
+        >
+          Send
+        </button>
+      </div>
+       
+        </div>
+    <p class="subline right text-right" >
+        Didn't received?
+        <a class="link" @click="sendEmailCode">Resend</a>
+      </p>  
+         </div>
+
+ <!-- Email 2nd Time     -->
+
+
+
     <div
       v-if="fa_ga_status == 'true'"
       class="form-group single-row pos-rel security-row"
@@ -85,32 +132,8 @@
       />
       <img v-if="GAWrong" src="images/icons/ic_fail@3x.webp" class="pos-img" />
     </div>
-              <p class="subline mt-3" style="color:#000;">
-                  Please enter the 6 Digit code that we have sent a to ******8.com
-                </p>
-    <div class="input-group single-row mb-2 pos-rel">
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Email verification code"
-      />
-      <img
-        src="images/icons/correct.png"
-        class="pos-img error-imgs"
-      />
-      <img
-        src="images/icons/ic_fail@3x.webp"
-        class="pos-img"
-      />                  
-      <div class="input-group-append">
-        <button
-          class="btn reset1"
-        >
-          Send
-        </button>
-      </div>
-    </div>
-    <button
+             
+  <button
       v-show="
         fa_mobile_status == 'true' &&
         (fa_email_status == null || fa_email_status == 'false') &&
@@ -239,6 +262,8 @@ export default {
       mobileLabal: true,
       statusCode: "",
       timerCount: 60,
+
+      btnEmail:true
     };
   },
 
@@ -359,6 +384,7 @@ export default {
       }
     },
     async sendEmailCode() {
+     
       const headers = {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem(
@@ -381,9 +407,35 @@ export default {
           console.log(error);
         });
     },
+
+     async sendEmailCodeBtn() {
+     
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem(
+          "X-LDX-Inspira-Access-Token"
+        )}`,
+      };
+
+      axios
+        .get("https://dapi.exus.live/api/twofa/email/code", {
+          headers: headers,
+        })
+        .then((responsive) => {
+          this.$toast.show("Successfully Send Email Verification Code", {
+            type: "success",
+            position: "top",
+          });
+          console.log(responsive);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
     async emailCodeSubmit() {
       this.emailWrongEmail = true;
       this.emailLabal = false;
+       this.btnEmail=false
 
       if (this.emailCode.length == 6) {
         var data = {
@@ -470,28 +522,28 @@ export default {
           });
       }
     },
-    async statusCheckMobile() {
-      if (localStorage.getItem("stSMS") == "SMSonly") {
-        var data = {
-          mobile: localStorage.getItem("phone_number"),
-        };
-
-        let hed = {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem(
-              "X-LDX-Inspira-Access-Token"
-            )}`,
-            "Content-Type": "application/json",
-          },
-        };
-        let response = await this.axios.post(
-          "https://dapi.exus.live/api/twofa/sms/code",
-          data,
-          hed
-        );
-        console.log(response);
-      }
-    },
+    // async statusCheckMobile() {
+    //   if (localStorage.getItem("stSMS") == "SMSonly") {
+    //     var data = {
+    //       mobile: localStorage.getItem("phone_number"),
+    //     };
+        
+    //     let hed = {
+    //       headers: {
+    //         Authorization: `Bearer ${localStorage.getItem(
+    //           "X-LDX-Inspira-Access-Token"
+    //         )}`,
+    //         "Content-Type": "application/json",
+    //       },
+    //     };
+    //     let response = await this.axios.post(
+    //       "https://dapi.exus.live/api/twofa/sms/code",
+    //       data,
+    //       hed
+    //     );
+    //     console.log(response);
+    //   }
+    // },
     async statusCheckEmail() {
       console.log(localStorage.getItem("fa_mobile_status"));
       if (localStorage.getItem("stEMAIL") == "EMAILonly") {
@@ -559,12 +611,16 @@ export default {
     this.tokenGA();
     this.getUseremail();
     this.getUserMobile();
-    this.statusCheckMobile();
+
+   
+   
   },
 
 
   created() {
     this.statusCheckEmail();
+  //  this.statusCheckMobile();
+    
     
   },
 

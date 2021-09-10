@@ -221,6 +221,7 @@ export default {
             contains_special_character: false,
             valid_password: false,  
             submitdisabled: true,
+            phone_number:"",
  
              data: {
                 firstName: "",
@@ -306,7 +307,7 @@ export default {
                       if(responsive.data.result.UserAttributes[i].Name=="custom:2fa_email_status"){
                           this.fa_email_status = responsive.data.result.UserAttributes[i].Value;
                           localStorage.setItem('fa_email_status',this.fa_email_status )
-           }
+                         }
                         if(responsive.data.result.UserAttributes[i].Name=="custom:2fa_mobile_status"){
                           this.fa_mobile_status = responsive.data.result.UserAttributes[i].Value;
                        // this.fa_mobile_status = 'false'
@@ -315,14 +316,26 @@ export default {
                          if(responsive.data.result.UserAttributes[i].Name=="custom:2fa_ga_status"){
                               this.fa_ga_status = responsive.data.result.UserAttributes[i].Value;
                                localStorage.setItem('fa_ga_status',this.fa_ga_status )
-
-             
+                          }
+                          if(responsive.data.result.UserAttributes[i].Name=="phone_number"){
+                             this.phone_number = responsive.data.result.UserAttributes[i].Value;
                              }
+                              }
 
-                 }
 
                  if( this.fa_mobile_status=='true'){
+
+                     var data = {mobile: this.phone_number};
+                     let hed = {  headers: {  Authorization: this.accToken,"Content-Type": "application/json",  }, };
+                     axios.post(  "https://dapi.exus.live/api/twofa/sms/code",data, hed )
+                     .then((res) => {
+                           console.log(res);
+                         })
+                        .catch(function (error) {
+                        console.log(error.response.data);
+                         });
                      localStorage.setItem('stSMS',"SMSonly")
+
                  }
                   if( (this.fa_mobile_status=='false' || this.fa_mobile_status==''|| this.fa_mobile_status==null ) &&  this.fa_email_status=='true'){
                      localStorage.setItem('stEMAIL',"EMAILonly")
