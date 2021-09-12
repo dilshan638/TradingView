@@ -4,10 +4,12 @@
     <div class="row">
       <div class="col-2">
             <router-link class="navbar-brand" to="/">
-              <img src="images/logo/logo.png" />
+              <img v-if="showmenu" src="images/logo/logo.png" />
+              <img v-else src="images/logo/sm-logo.png" />
             </router-link>
             <div class="menu-col">
-              <i class="ri-menu-fold-line" @click="menuslide"></i>
+              <i class="ri-menu-fold-line" v-if="showmenu" @click="menuhide"></i>
+              <i class="ri-menu-unfold-line" v-else @click="menushow"></i>
             </div>
       </div>
       <div class="col-10 col-md-7">
@@ -59,7 +61,7 @@ export default {
       alareadylogin: false,
      
       inspira_2fa_status:"",
-      showmenu: false
+      showmenu: true
     };
   },
 
@@ -69,12 +71,13 @@ export default {
         this.$router.push("/signin");
         this.$toast.show("Successfully Logged out. Thank you!", {type: "success", position: "top"});
     },
-    menuslide() {
-      localStorage.setItem("menuitem", "showmenu");
-      if(localStorage.getItem("menuitem")!=null) {
-        this.showmenu = true;
-      }
-      localStorage.removeItem("menuitem");
+    menuhide() {
+      this.showmenu  = false;
+      document.querySelector("body").classList.add("hidesidemenu");
+    },
+    menushow() {
+      this.showmenu = true;
+      document.querySelector("body").classList.remove("hidesidemenu");
     },
     checklogin() {
       this.inspira_2fa_status= localStorage.getItem('inspira_2fa_status' )

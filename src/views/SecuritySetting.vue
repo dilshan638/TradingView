@@ -16,7 +16,7 @@
                   <i ></i> 2FA Disable
                 </div>
                 <div class="btn-status">
-                  <i class="ri-checkbox-circle-fill"></i> Account Verified
+                  <i class="ri-checkbox-circle-fill"></i>Account Verified
                 </div>
               </div>
             </div>

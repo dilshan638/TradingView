@@ -19,9 +19,11 @@
 }
 
 .navbar-brand img{
-  width: 130px;
-  padding-left: 15px;
+  padding-left: 3px;
   margin-top: 8px;
+  max-height: 42px;
+  max-width: 130px;
+  width: auto;
 }
 
 .top-menu-bar{

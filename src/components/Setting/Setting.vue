@@ -21,7 +21,7 @@
               <div class="col-md-12">
               </div>
               <div class="row">
-                <div class="col-md-4">
+                <div class="col-lg-5">
                   <div class="eye-area mb-4">
                     <input
                       v-bind:type="[showOldPassword ? 'text' : 'password']"
@@ -46,7 +46,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-4">
+                <div class="col-lg-5">
                   <div class="input-group eye-area mb-4">
                     <div class="input_container" v-if="showPasswordLength">
                         <ul>
@@ -95,7 +95,7 @@
                 </div>                
               </div>
               <div class="row">
-                <div class="col-md-4">
+                <div class="col-lg-5">
                   <div class="eye-area mb-4">
                     <input
                       v-bind:type="[showComfirmPassword ? 'text' : 'password']"
@@ -121,7 +121,7 @@
                 </div>
               </div>  
               <div class="row">
-                  <div class="col-md-4">
+                  <div class="col-lg-5">
                     <button class="btn pull-right" @click="changePassword">
                       Change Password
                     </button>                     

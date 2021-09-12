@@ -763,3 +763,22 @@ body{
     border-bottom: solid #393e77 2px !important;
     padding-bottom: 25px !important;
 }
+
+.landing-area.homepage, .trade-area {
+    .menu-col{
+        display: none;
+    }
+}
+
+body.hidesidemenu{
+
+    .main-area{
+
+        .main-layout{
+            margin-left: 4%;
+            width: 96%;
+        }
+
+    }
+
+}
