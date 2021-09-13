@@ -220,12 +220,13 @@
       :disabled="
         emaileSuccessemail == false ||
         GASuccess == false ||
-        fa_mobile_status == false
+        mobileSuccessMob == false 
+       
       "
       @click="submit"
       class="loginbtn btn"
     >
-      Submit
+      Submit 
     </button>
   </div>
 </template>
@@ -293,9 +294,8 @@ export default {
             if (
               responsive.data.result.UserAttributes[i].Name == "phone_number"
             ) {
-              this.phone_number =
-                responsive.data.result.UserAttributes[i].Value;
-              localStorage.setItem("phone_number", this.phone_number);
+              this.phone_number = responsive.data.result.UserAttributes[i].Value;
+              
             }
           }
         })
@@ -350,6 +350,7 @@ export default {
       //
     },
     async submitGACode() {
+      console.log( this.statusCode)
       this.GAWrong = true;
       if (this.googleAuthenticationCode.length == 6) {
         let hed = {
@@ -367,7 +368,8 @@ export default {
             {
               secret: this.token[1],
               token: this.googleAuthenticationCode,
-              status: "",
+              status: "login",
+              stage_code:this.statusCode,
               stage: 2,
             },
             hed
@@ -440,7 +442,8 @@ export default {
       if (this.emailCode.length == 6) {
         var data = {
           token: this.emailCode,
-          status: "",
+          status: "login",
+           stage_code:this.statusCode,
           stage: 2,
         };
 
@@ -494,7 +497,8 @@ export default {
         var data = {
           mobile: this.phone_number,
           code: this.mobileCodeMob,
-          status: "",
+          status: "login",
+          stage_code:this.statusCode,
           stage: 2,
         };
 
@@ -572,6 +576,7 @@ export default {
       this.fa_mobile_status = localStorage.getItem("fa_mobile_status");
       this.fa_email_status = localStorage.getItem("fa_email_status");
       this.fa_ga_status = localStorage.getItem("fa_ga_status");
+      
     },
     async clearStatus() {
       const headers = {

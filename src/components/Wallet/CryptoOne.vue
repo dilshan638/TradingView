@@ -18,7 +18,7 @@
                     <p class="labels">Select Coin</p>
                     <select
                       placeholder="BTC-BITCOIN"
-                      v-model="selectCoin"
+                      v-model="state.selectCoin"
                       class="form-control"
                       @change="onChange($event)"
                     >
@@ -31,9 +31,14 @@
                         {{ coins.symbol }}
                       </option>
                     </select>
+                      <span class="error-msg" v-if="v$.selectCoin.$error">{{ v$.selectCoin.$errors[0].$message }} </span>
+                 
                   </div>
+                    
                 </div>
+              
               </div>
+                
               <div class="row">
                 <div class="col-md-12">
                   <div class="form-group pos-rel mb-4">
@@ -42,7 +47,10 @@
                       type="text"
                       placeholder="Address"
                       class="form-control"
+                      v-model="state.withdrawAddress"
                     />
+                     <span class="error-msg" v-if="v$.withdrawAddress.$error">{{ v$.withdrawAddress.$errors[0].$message }} </span>
+                 
                   </div>
                 </div>
               </div>
@@ -50,9 +58,11 @@
                 <div class="col-md-12">
                   <div class="form-group pos-rel mb-4">
                     <p class="labels">Network</p>
-                    <select placeholder="BTC-BITCOIN" class="form-control">
+                    <select placeholder="BTC-BITCOIN" class="form-control" v-model="state.network">
                       <option value="BTC-BITCOIN">BTC-BITCOIN</option>
                     </select>
+                     <span class="error-msg" v-if="v$.network.$error">{{ v$.network.$errors[0].$message }} </span>
+                 
                   </div>
                 </div>
               </div>
@@ -64,7 +74,11 @@
                       type="text"
                       placeholder="Amount"
                       class="form-control"
+                      v-model="state.withdrawAmount"
+                      @input="withdrawValidation"
                     />
+                    <span class="error-msg" v-if="v$.withdrawAmount.$error">{{ v$.withdrawAmount.$errors[0].$message }} </span>
+                 
                     <p class="bottom-grey">0.34423442 BTC available</p>
                   </div>
                 </div>
@@ -115,14 +129,14 @@
                     v-if="!shownetwork"
                     @click="actionwithorw"
                   >
-                    Withdraw
+                    Withdraw 
                   </button>
                   <button
                     class="btn"
                     v-else
                     @click="actionwithorwsecuritymodal"
                   >
-                    Withdraw
+                    Withdraw 
                   </button>
                 </div>
               </div>
@@ -136,14 +150,118 @@
         <h2 class="Security-Verification">Security Verification</h2>
       </template>
       <template v-slot:body>
-        <security-verification />
+        <security-verification
+          :selectCoin="state.selectCoin"
+          :withdrawAddress="state.withdrawAddress"
+          :network="state.network" 
+          :withdrawAmount="state.withdrawAmount"
+          :free="free"
+          :balanceSymbol="balanceSymbol"
+          />
       </template>
       <template v-slot:footer>
         <div class="modal-buttons Modal-btn">
-          <button class="mb-3" @click="withrowsuccessmodal">Submit</button>
+        
+                    <button
+      v-show="
+        fa_mobile_status == 'true' &&
+        (fa_email_status == null || fa_email_status == 'false') &&
+        (fa_ga_status == null || fa_ga_status == 'false')
+      "
+      :disabled="mobileSuccessMob == false"
+      @click="submit"
+     class="mb-3"
+    >
+      Submit 
+    </button>
+
+    <button
+      v-show="
+        (fa_mobile_status == null || fa_mobile_status == 'false') &&
+       fa_email_status=='true' &&
+        (fa_ga_status == null || fa_ga_status == 'false')
+      "
+      :disabled="emaileSuccessemail == false"
+      @click="submit"
+     class="mb-3"
+    >
+      Submit 
+    </button>
+
+    <button
+      v-show="
+        (fa_mobile_status == null || fa_mobile_status == 'false') &&
+        (fa_email_status == null || fa_email_status == 'false') &&
+        fa_ga_status == 'true'
+      "
+      :disabled="GASuccess == false"
+      @click="submit"
+      class="mb-3"
+    >
+      Submit 
+    </button>
+
+    <button
+      v-show="
+        fa_mobile_status == 'true' &&
+        fa_email_status == 'true' &&
+        (fa_ga_status == null || fa_ga_status == 'false')
+      "
+      :disabled="mobileSuccessMob == false || emaileSuccessemail == false"
+      @click="submit"
+     class="mb-3"
+    >
+      Submit 
+    </button>
+
+    <button
+      v-show="
+        fa_mobile_status == 'true' &&
+        (fa_email_status == null || fa_email_status == 'false') &&
+        fa_ga_status == 'true'
+      "
+      :disabled="mobileSuccessMob == false || GASuccess == false"
+      @click="submit"
+     class="mb-3"
+    >
+      Submit 
+    </button>
+
+    <button
+      v-show="
+        (fa_mobile_status == null || fa_mobile_status == 'false') &&
+        fa_email_status == 'true' &&
+        fa_ga_status == 'true'
+      "
+      :disabled="emaileSuccessemail == false || GASuccess == false"
+      @click="submit"
+     class="mb-3"
+    >
+      Submit 
+    </button>
+
+    <button
+      v-show="
+        fa_mobile_status == 'true' &&
+        fa_email_status == 'true' &&
+        fa_ga_status == 'true'
+      "
+      :disabled="
+        emaileSuccessemail == false ||
+        GASuccess == false ||
+        mobileSuccessMob == false
+      "
+      @click="submit"
+      class="mb-3"
+    >
+      Submit  
+    </button>
+
           <button class="second-btn mb-3" @click="cyptothreeclose">
             Cancel
           </button>
+           <button   @click="submitTest">Submit Test</button>
+
         </div>
       </template>
     </modal>
@@ -152,7 +270,14 @@
         <img src="images/icons/correct.png" class="middle-img" />
       </template>
       <template v-slot:body>
-        <withdrawal-submitted />
+        <withdrawal-submitted 
+          :selectCoin="state.selectCoin"
+          :withdrawAddress="state.withdrawAddress"
+          :network="state.network" 
+          :withdrawAmount="state.withdrawAmount"
+          :free="free"
+          :balanceSymbol="balanceSymbol"
+          />
       </template>
       <template v-slot:footer>
         <div class="modal-buttons Modal-btn">
@@ -190,6 +315,9 @@ import SecurityVerification from "./SecurityVerification.vue";
 import WithdrawalSubmitted from "./WithdrawalSubmitted.vue";
 import Modal from "../Modal/Modal.vue";
 // import WithdrowDetail from "./WithdrowDetail.vue";
+import useValidate from '@vuelidate/core'
+import { required , numeric} from '@vuelidate/validators'
+import { reactive, computed } from 'vue'
 import axios from "axios";
 export default {
   name: "CryptoOne",
@@ -200,11 +328,33 @@ export default {
     WithdrawalSubmitted,
     // WithdrowDetail,
   },
+    setup() {
+        const state = reactive({
+          selectCoin:"",
+          withdrawAddress:"",
+          network:"",
+          withdrawAmount:0,
+          
+           
+        })
+
+        const rules = computed(() => {
+            return {
+                selectCoin: { required  },
+                withdrawAddress: { required  },
+                 network: { required  },
+                 withdrawAmount:{required,numeric}
+           }    
+        }) 
+        
+        const v$ = useValidate(rules, state)
+        return { state, v$ }
+    }, 
   data() {
     return {
       shownetwork: false,
       coin: [],
-      selectCoin: "",
+     
       selectedsingkeCoin: "",
       cryptoAll: [],
       fee: "",
@@ -215,7 +365,13 @@ export default {
       coinBalances:[],
       balance:"",
       balanceSymbol:"",
-      symbolEvent:""
+      symbolEvent:"",
+       fa_mobile_status: "",
+      fa_email_status: "",
+      fa_ga_status: "",
+      GASuccess: false,
+      emaileSuccessemail: false,
+      mobileSuccessMob: false,
     };
   },
   methods: {
@@ -223,7 +379,16 @@ export default {
       this.shownetwork = true;
     },
     actionwithorwsecuritymodal() {
-      this.$refs.CryptoThreeModal.openModal();
+
+            this.v$.selectCoin.$touch()
+            this.v$.withdrawAddress.$touch()
+            this.v$.network.$touch()
+            this.v$.withdrawAmount.$touch()
+
+            if(!this.v$.selectCoin.$error &&  !this.v$.withdrawAddress.$error && !this.v$.network.$error && !this.v$.withdrawAmount.$error){
+                this.$refs.CryptoThreeModal.openModal();
+            }
+   
     },
     withrowsuccessmodal() {
       this.$refs.CryptoThreeModal.closeModal();
@@ -231,7 +396,7 @@ export default {
     },
     OpenWithdrowDetailModal() {
       this.$refs.successwithdrowmodal.closeModal();
-      this.$refs.WithdrowDetailModal.openModal();
+      //this.$refs.WithdrowDetailModal.openModal();
     },
     Closesuccesswithdrowmodal() {
       this.$refs.successwithdrowmodal.closeModal();
@@ -245,8 +410,8 @@ export default {
       );
 
       if (this.selectedsingkeCoin != null) {
-        this.selectCoin = this.selectedsingkeCoin;
-        console.log(this.selectCoin);
+        this.state.selectCoin = this.selectedsingkeCoin;
+        
       }
 
       const headers = {
@@ -263,7 +428,7 @@ export default {
           console.log(this.cryptoAll);
 
           for (let i = 0; i < this.cryptoAll.length; i++) {
-            if (this.cryptoAll[i]["symbol"] == this.selectCoin) {
+            if (this.cryptoAll[i]["symbol"] == this.state.selectCoin) {
               this.free = this.cryptoAll[i].withrow_settings.fee;
               this.max = this.cryptoAll[i].withrow_settings.max;
               this.min = this.cryptoAll[i].withrow_settings.min;
@@ -272,7 +437,7 @@ export default {
           }
 
           for (let t = 0; t < this.coinBalances.length; t++) {
-          if(this.coinBalances[t]["symbol"]==this.selectCoin){
+          if(this.coinBalances[t]["symbol"]==this.state.selectCoin){
             this.balance=this.coinBalances[t]["balance"]
             this.balanceSymbol=this.coinBalances[t]["symbol"]
           }
@@ -301,8 +466,7 @@ export default {
           this.cryptoAll = response.data[0];
           console.log(this.cryptoAll);
 
-          console.log(this.selectCoin);
-
+          
           for (let i = 0; i < this.cryptoAll.length; i++) {
             if (this.cryptoAll[i]["symbol"] == event.target.value) {
               this.free = this.cryptoAll[i].withrow_settings.fee;
@@ -329,12 +493,67 @@ export default {
         });
     },
 
+    async withdrawValidation(){
+       this.v$.withdrawAmount.$touch()
+
+            if(!this.v$.withdrawAmount.$error){
+                console.log("Numbers Only")
+            }
+    },
+
+     async labalStatus() {
+      
+      this.fa_mobile_status = localStorage.getItem("fa_mobile_status");
+      this.fa_email_status = localStorage.getItem("fa_email_status");
+      this.fa_ga_status = localStorage.getItem("fa_ga_status");
+     
+
+      
+      
+    },
+async submitTest(){
+
+        console.log(this.free)
+          var data = {
+                "currency":this.state.selectCoin,
+                "fee_per":this.free,
+                "fees_amt":this.free*this.state.withdrawAmount,
+                "payment_method":`${this.state.selectCoin} Payment`,
+                "withdraw_amount":this.state.withdrawAmount,
+                "wallet_address":this.state.withdrawAddress
+                      };
+
+
+        let hed = {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem(
+              "X-LDX-Inspira-Access-Token"
+            )}`,
+            "Content-Type": "application/json",
+          },
+        };
+
+          let response = await this.axios
+          .post("https://dapi.exus.live/api/mobile/v1/wallet/withdrow/crypto", data, hed)
+          .then((res) => {
+          
+            console.log(res);
+            console.log(response);
+            this.$refs.CryptoThreeModal.closeModal();
+            this.$refs.successwithdrowmodal.openModal();
+          
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+}
    
   },
 
   mounted() {
     this.coinBalances=JSON.parse(localStorage.getItem("totalBalances"));
     this.getCoins();
+    this.labalStatus()
    
   },
 };
