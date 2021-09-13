@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 
 import SignUp from '../views/SignUp.vue';
 import SignIn from '../views/Signin.vue';
@@ -127,7 +127,7 @@ const router = createRouter({
     // mode:'history',
     linkActiveClass: "active",
     linkExactActiveClass: "exact-active",
-    history: createWebHashHistory(),
+    history: createWebHistory(),
     routes
 });
 

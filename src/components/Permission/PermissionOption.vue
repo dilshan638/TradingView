@@ -56,7 +56,7 @@
         src="images/icons/ic_fail@3x.webp"
         class="pos-img"
       />
-      <p class="subline right text-right" v-if="!emaileSuccessemail">
+      <p class="subline right text-right inner-resend" v-if="!emaileSuccessemail">
         Didn't received?
         <a class="link" @click="sendEmailCode">Resend</a>
       </p>
@@ -654,14 +654,14 @@ export default {
 }
 
 .lbl {
-    background-color: #c8ffd7;
-    padding: 15px;
+    padding: 10px;
     border-radius: 6px;
     text-align: center;
-    margin-top: 8px;
+    margin-top: 0px;
     font-weight: 400;
-    font-size: 0.875rem;
-    color: #00771a;
+    font-size: 0.8rem;
+    color: #00b528;
+    margin-bottom: 0px;
 }
 
 </style>

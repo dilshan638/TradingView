@@ -765,7 +765,7 @@ body{
     padding-bottom: 25px !important;
 }
 
-.landing-area.homepage, .trade-area {
+.landing-area, .trade-area {
     .menu-col{
         display: none;
     }
@@ -786,4 +786,13 @@ body.hidesidemenu{
 
 body.open-modal{
     overflow-y: hidden;
+}
+
+.tab-body{
+    padding-top: 7px;
+
+    .nav-pills{
+        border-bottom: solid #393e77 2px !important;
+        margin-bottom: 30px !important;
+    }
 }

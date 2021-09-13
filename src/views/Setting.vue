@@ -10,7 +10,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-body no-padding-all table-tab">
+                <div class="card-body table-tab tab-body">
                     <div class="row">
                         <div class="col-md-12">
                             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
@@ -23,7 +23,7 @@
                             </ul>
                             <div class="tab-content" id="pills-tabContent">
                                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">     
-                                    1
+                                    <basic-info />
                                 </div>
                                 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                                     <change-password />
@@ -41,13 +41,15 @@
 <script>
 import DefaultLayout from '../layout/DefaultLayout.vue'
 import ChangePassword from '../components/Setting/ChangePassword.vue'
+import BasicInfo from '../components/Setting/BasicInfo.vue'
 
 
 export default {
     name:'order',
     components: { 
         DefaultLayout,
-        ChangePassword
+        ChangePassword,
+        BasicInfo
     },
     data() {
       return {

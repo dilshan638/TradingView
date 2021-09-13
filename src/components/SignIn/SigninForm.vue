@@ -450,11 +450,18 @@ export default {
         },
         closepasswordbox() {
             this.showPasswordSuggestion = false;
+        },
+        alreadyLogin() {
+            if(localStorage.getItem("X-LDX-Inspira-Access-Token")!=null) {
+                this.$router.go(-1)
+                this.$toast.show("Please logout the application before login", {type: "error", position: "top", duration: "7000"});    
+            }
         }
     },
     mounted() {
      this.encryptData()
      this.passwordGenereate();
+     this.alreadyLogin();
    //  this.getAttributes();
     }
 }
