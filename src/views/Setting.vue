@@ -3,6 +3,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card table-card new-table">
+                <div class="card-header">
                     <div class="row">
                         <div class="col-md-12">
                             <h2>Settings</h2>
