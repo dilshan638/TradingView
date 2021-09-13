@@ -157,6 +157,9 @@
           :withdrawAmount="state.withdrawAmount"
           :free="free"
           :balanceSymbol="balanceSymbol"
+           @ga="getGASuccess"
+           @mb="getMBSuccess"
+           @eml="getEmailSuccess"
           />
       </template>
       <template v-slot:footer>
@@ -172,7 +175,7 @@
       @click="submit"
      class="mb-3"
     >
-      Submit 
+      Submit 1
     </button>
 
     <button
@@ -185,7 +188,7 @@
       @click="submit"
      class="mb-3"
     >
-      Submit 
+      Submit 2
     </button>
 
     <button
@@ -198,7 +201,7 @@
       @click="submit"
       class="mb-3"
     >
-      Submit 
+      Submit 3
     </button>
 
     <button
@@ -211,7 +214,7 @@
       @click="submit"
      class="mb-3"
     >
-      Submit 
+      Submit 4
     </button>
 
     <button
@@ -224,7 +227,7 @@
       @click="submit"
      class="mb-3"
     >
-      Submit 
+      Submit 5
     </button>
 
     <button
@@ -234,10 +237,10 @@
         fa_ga_status == 'true'
       "
       :disabled="emaileSuccessemail == false || GASuccess == false"
-      @click="submit"
-     class="mb-3"
+      @click="submitTestNew"
+     class="loginbtn btn "
     >
-      Submit 
+      Submit 6
     </button>
 
     <button
@@ -247,21 +250,21 @@
         fa_ga_status == 'true'
       "
       :disabled="
-        emaileSuccessemail == false ||
+       emaileSuccessemail == false ||
         GASuccess == false ||
         mobileSuccessMob == false
       "
       @click="submit"
       class="mb-3"
     >
-      Submit  
+      Submit  7
     </button>
 
           <button class="second-btn mb-3" @click="cyptothreeclose">
             Cancel
           </button>
            <button   @click="submitTest">Submit Test</button>
-
+         
         </div>
       </template>
     </modal>
@@ -333,7 +336,7 @@ export default {
           selectCoin:"",
           withdrawAddress:"",
           network:"",
-          withdrawAmount:0,
+          withdrawAmount:null,
           
            
         })
@@ -375,6 +378,8 @@ export default {
     };
   },
   methods: {
+
+   
     actionwithorw() {
       this.shownetwork = true;
     },
@@ -445,9 +450,8 @@ export default {
         }
         })
         .catch(function (error) {
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
+          console.log(error);
+          
         });
     },
 
@@ -511,7 +515,7 @@ export default {
       
       
     },
-async submitTest(){
+async submit(){
 
         console.log(this.free)
           var data = {
@@ -546,16 +550,40 @@ async submitTest(){
           .catch(function (error) {
             console.log(error);
           });
-}
+},
+
+
+
+
    
+  },
+  watch:{
+   // this.getGASuccess()
+  //   this.getMBSuccess()
+   //  this.getEmailSuccess()
+   getGASuccess: function (ga) {
+      this.GASuccess = ga
+
+
+    },
+     getMBSuccess: function (mb) {
+      this.mobileSuccessMob = mb
+    },
+     getEmailSuccess: function (eml) {
+      this.emaileSuccessemail = eml
+    },
+    
   },
 
   mounted() {
     this.coinBalances=JSON.parse(localStorage.getItem("totalBalances"));
     this.getCoins();
     this.labalStatus()
+     
    
   },
+
+
 };
 </script>
 

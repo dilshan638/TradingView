@@ -1091,7 +1091,7 @@ export default {
       }
     },
     async continueGARemove(){
-      this.getUserMobileGA()
+     // this.getUserMobileGA()
       this.$refs.GaRemoveModal.closeModal();
      this.$refs.successfullyModalGARemove.openModal();
     },
