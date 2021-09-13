@@ -14,7 +14,7 @@ import Home from '../views/Home.vue';
 import Permission from '../views/Permission.vue';
 
 
-import Setting from '../components/Setting/Setting.vue';
+import Setting from '../views/Setting.vue';
 import CryptoOne from '../components/Wallet/CryptoOne.vue';
 
 import History from '../views/History.vue';
@@ -101,7 +101,6 @@ const routes=[
         component:Market
     },
     {
-   
         path:'/setting',
         component:Setting,
         beforeEnter : guardmyrouter
