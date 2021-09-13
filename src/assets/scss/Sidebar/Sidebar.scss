@@ -9,7 +9,7 @@
 
     ul{
         border: none !important;
-        margin-top: 30px;
+        margin-top: 12px;
 
         .nav-link{
             border: none;
@@ -89,4 +89,49 @@
         left: 0;
         background-color: rgba(6,13,46,0.7);
         z-index: 1;
+    }
+
+    body.hidesidemenu{
+
+        .sidebar{
+
+            width: auto;
+
+            ul{
+
+                li{
+
+                    a{
+
+                        i{
+                            margin-right: 5px;
+                        }
+
+                        span{
+                            display: none;
+                        }
+
+                    }
+                }
+
+            }
+
+            &:hover{
+
+                ul{
+                    li{
+                        a{
+                            span{
+                                display: inline-block;
+                            }
+                        }
+                    }
+                }
+
+                width: 15% !important;
+                z-index: 1 !important;
+            }            
+
+        }
+
     }

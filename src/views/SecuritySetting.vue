@@ -11,7 +11,7 @@
               <div class="col-md-8">
                 
                 <div class="btn-status">
-                  <i class="ri-checkbox-circle-fill"></i> Account Verified
+                  <i class="ri-checkbox-circle-fill"></i>Account Verified
                 </div>
               </div>
             </div>
@@ -392,7 +392,7 @@
       </p>
         </div>
 
-         <div class="form-group pos-rel sec-row txtEmail"  v-if="fa_email_status == 'true'">
+    <div class="form-group pos-rel sec-row txtEmail"  v-if="fa_email_status == 'true'">
       <p class="sub-text">
         Please enter the 6 Digit code that we have sent a to {{ emailmask }}
       </p>
@@ -426,9 +426,7 @@
         <a class="link" @click="sendEmailVerificationCode">Resend</a>
       </p>
         </div>
-
-
-        <div class="input-group mb-2">
+        <div class="input-group mb-2 mt-3">
         <input
           type="text"
           class="form-control"
@@ -437,15 +435,11 @@
            @input="submitGACodeGARemove"
            :disabled="GASuccess== true"
         />
-
         <div class="input-group-append">
           <img  v-if="GASuccess && !GAWrong" src="images/icons/correct.png" class="pos-img error-imgs" />
           <img   v-if="GAWrong" src="images/icons/ic_fail@3x.webp" class="pos-img" />
         </div>
         </div>
-
-
-
       </template>
       <template v-slot:footer>
         <div >
@@ -454,9 +448,6 @@
       </template>
     </modal>
      <!-- GA remove Modal -->
-
-     <!-- GA Success Modal -->
-
       <modal ref="successfullyModalGARemove" class="ss-modal">
       <template v-slot:header>
         <h2 style="color: black">
@@ -476,8 +467,6 @@
     </modal>
      <!-- GA Success Modal -->
   </default-layout>
-
-  
 </template>
 
 <script>

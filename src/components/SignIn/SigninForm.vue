@@ -9,9 +9,6 @@
             <div class="col-lg-6 no-padding">
                 <div class="right-form">
                     <h2>LDCX Exchange</h2>
-                    <!-- <p>Lorem ipsum dolor sit amet ipsum<br/>
-                    consetetur sadipscing </p> -->
-
                     <div class="eye-area mb-4">
                         <input placeholder="Email" v-model="state.email" class="form-control" />
                         <span class="error-msg" v-if="v$.email.$error">{{ v$.email.$errors[0].$message }} </span>
@@ -28,7 +25,6 @@
                             Login
                         </button>
                     <span class="forgot-link" @click="gotoforgotpassword">Forgot Password</span>
-                    <span class="reg">to LDX eFolio?  <router-link to="/signup">Register here</router-link></span>
                 </div>
             </div>
         </div>
@@ -321,7 +317,6 @@ export default {
 
 
                  if( this.fa_mobile_status=='true'){
-
                      var data = {mobile: this.phone_number};
                      let hed = {  headers: {  Authorization: this.accToken,"Content-Type": "application/json",  }, };
                      axios.post(  "https://dapi.exus.live/api/twofa/sms/code",data, hed )
@@ -332,13 +327,11 @@ export default {
                         console.log(error.response.data);
                          });
                      localStorage.setItem('stSMS',"SMSonly")
-
                  }
                   if( (this.fa_mobile_status=='false' || this.fa_mobile_status==''|| this.fa_mobile_status==null ) &&  this.fa_email_status=='true'){
                      localStorage.setItem('stEMAIL',"EMAILonly")
                  }
 
-                   
                 if(this.inspira_2fa_status=='true'){
                        this.$router.push("/permission-checking");
                   }else{
