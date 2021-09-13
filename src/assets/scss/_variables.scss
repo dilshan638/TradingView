@@ -69,6 +69,7 @@ body{
     position: absolute;
     right: 15px;
     top: 18px;
+    z-index: 9;
 
 }
 
@@ -781,4 +782,8 @@ body.hidesidemenu{
 
     }
 
+}
+
+body.open-modal{
+    overflow-y: hidden;
 }

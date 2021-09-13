@@ -92,7 +92,7 @@
     <div class="row mt-3" v-if="fa_ga_status== 'true'">
         <div class="col-md-12 ">
         <p class="Paragraph-Line sub-text">Please enter the 6 Digit code from Google Authenticator</p>             
-        <div class="form-group Modal-Textfiel">
+        <div class="form-group Modal-Textfiel pos-rel">
              <input
                 type="text"
                 class="form-control"

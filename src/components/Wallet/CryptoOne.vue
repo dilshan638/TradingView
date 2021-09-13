@@ -14,7 +14,7 @@
             <div class="col-md-4">
               <div class="row">
                 <div class="col-md-12">
-                  <div class="form-group pos-rel mb-4">
+                  <div class="form-group pos-rel mb-4 multi-group">
                     <p class="labels">Select Coin</p>
                     <select
                       placeholder="BTC-BITCOIN"
@@ -41,7 +41,7 @@
                 
               <div class="row">
                 <div class="col-md-12">
-                  <div class="form-group pos-rel mb-4">
+                  <div class="form-group pos-rel multi-group mb-4">
                     <p class="labels">Withdraw to</p>
                     <input
                       type="text"
@@ -56,7 +56,7 @@
               </div>
               <div class="row" v-if="shownetwork">
                 <div class="col-md-12">
-                  <div class="form-group pos-rel mb-4">
+                  <div class="form-group pos-rel multi-group mb-4">
                     <p class="labels">Network</p>
                     <select placeholder="BTC-BITCOIN" class="form-control" v-model="state.network">
                       <option value="BTC-BITCOIN">BTC-BITCOIN</option>
@@ -68,7 +68,7 @@
               </div>
               <div class="row">
                 <div class="col-md-12">
-                  <div class="form-group pos-rel mb-4">
+                  <div class="form-group pos-rel multi-group mb-4">
                     <p class="labels">Withdraw Amount</p>
                     <input
                       type="text"
