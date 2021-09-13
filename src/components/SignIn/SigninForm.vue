@@ -311,6 +311,7 @@ export default {
                           }
                           if(responsive.data.result.UserAttributes[i].Name=="phone_number"){
                              this.phone_number = responsive.data.result.UserAttributes[i].Value;
+                             localStorage.setItem("phone_number", this.phone_number);
                              }
                               }
 

@@ -9,12 +9,7 @@
                 <h2>Security</h2>
               </div>
               <div class="col-md-8">
-                <div class="btn-status" v-if="fa_email_status == 'true' ||fa_mobile_status == 'true'||fa_ga_status == 'true'">
-                  <i class="ri-checkbox-circle-fill"></i> 2FA Enabled
-                </div>
-                  <div class="btn-status" v-else>
-                  <i ></i> 2FA Disable
-                </div>
+                
                 <div class="btn-status">
                   <i class="ri-checkbox-circle-fill"></i>Account Verified
                 </div>
@@ -32,18 +27,17 @@
                 <h5>Email Verification</h5>
               </div>
               <div class="col-md-2">
-                <button
+                <!-- <button
                   v-if="fa_email_status == 'true'"
                   class="btn"
                   @click="sendEmailCodeBTN"
                 >
                   Remove
-                </button>
+                </button> -->
 
                 <button
-                  v-else
-                  class="btn btn-outline"
-                  @click="sendEmailCodeBTN"
+                 class="btn btn-outline"
+                 
                 >
                   Active
                 </button>                
@@ -355,8 +349,8 @@
 
          <div class="form-group pos-rel sec-row mb-3 mt-3" v-if="fa_mobile_status == 'true'">
          <p class="sub-text">
-        Please enter the 6 Digit code that we have sent a to
-        {{ usermobilenumber }}
+        Please enter the 6 Digit code that we have sent a to {{usermobilenumber}}
+       
       </p>
       <div class="input-group mb-2">
         <input
@@ -530,6 +524,7 @@ export default {
       emailStatus: "",
       mobileStatus: "",
       usermobilenumber:"",
+     
 
       mobileCodeMobGARemove:"",
 
@@ -634,6 +629,8 @@ export default {
       this.usermobilenumber = mobiledata.slice(0, 2) + mobiledata.slice(2).replace(/.(?=...)/g, '*');
      
     },
+
+ 
 
     countryChanged(phoneObject) {
       this.state.mobileno = phoneObject.number;
@@ -741,7 +738,7 @@ export default {
         var data = {
           token: this.state.emailCode,
           status: this.emailStatus,
-           "stage_code":localStorage.getItem('clearStatusCode'),
+          "stage_code":localStorage.getItem('clearStatusCode'),
            stage: 1,
           
           };
@@ -814,7 +811,7 @@ export default {
       }
       var data = {
         status: this.emailOneTimeStatusSend,
-        "stage_code":localStorage.getItem('clearStatusCode'),
+        stage_code:localStorage.getItem('clearStatusCode'),
       };
 
       let hed = {
@@ -1094,6 +1091,7 @@ export default {
       }
     },
     async continueGARemove(){
+      this.getUserMobileGA()
       this.$refs.GaRemoveModal.closeModal();
      this.$refs.successfullyModalGARemove.openModal();
     },

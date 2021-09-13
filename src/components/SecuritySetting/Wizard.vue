@@ -468,7 +468,7 @@ export default {
               secret: this.token[1],
               token: this.googleAuthenticationCode,
               status:"enable",
-              "stage_code":localStorage.getItem('clearStatusCode'),
+              stage_code:localStorage.getItem('clearStatusCode'),
               stage: 1,
             },
             hed
