@@ -44,7 +44,7 @@
                       <router-link to="/securitypage" @click="selectedCoin(crypto.symbol)">
                        Deposit
                       </router-link>
-                      <router-link to="/wallet/cryptoone" @click="selectedCoinWithdraw(crypto.symbol)">
+                      <router-link to="/withdraw-crypto" @click="selectedCoinWithdraw(crypto.symbol)">
                        Withdraw
                       </router-link>
                     <a

@@ -242,7 +242,7 @@ methods:{
            
             this.emailWrongEmail = false;
             this.emaileSuccessemail = true;
-               this.$emit("memlb",   this.emaileSuccessemail = true);
+              
           })
           .catch(function (error) {
             console.log(error);
@@ -279,7 +279,7 @@ methods:{
             console.log(response);
             this.mobileSuccessMob = true;
             this.mobileWrongMob = false;
-             this.$emit("mb",   this.mobileSuccessMob = true);
+            
           })
           .catch(function (error) {
             console.log(error.response.data);
@@ -340,7 +340,7 @@ methods:{
             this.GAWrong = false;
             console.log(res);
             console.log(response);
-            this.$emit("ga",   this.GASuccess = true);
+           
 
          
           })

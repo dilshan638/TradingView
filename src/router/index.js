@@ -107,7 +107,7 @@ const routes=[
     },
     
     {
-        path:'/wallet/cryptoone',
+        path:'/withdraw-crypto',
         component:CryptoOne,
         beforeEnter : guardmyrouter
     },
