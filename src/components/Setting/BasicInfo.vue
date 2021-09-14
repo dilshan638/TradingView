@@ -1,6 +1,8 @@
 <template>
+  <div class="inner-block">
+    <h3>Your Profile</h3>
     <div class="row">
-      <div class="col-lg-6">
+      <div class="col-lg-12">
         <div class="form-group mb-4">
             <input class="form-control" placeholder="First Name" />
             <span class="error-msg" v-if="v$.oldPassword.$error"
@@ -25,24 +27,15 @@
               >{{ v$.oldPassword.$errors[0].$message }}
             </span>          
         </div>  
-         <div class="form-group mb-4">
+        <div class="form-group mb-4">
             <input class="form-control" placeholder="Address" />
             <span class="error-msg" v-if="v$.oldPassword.$error"
               >{{ v$.oldPassword.$errors[0].$message }}
             </span>          
         </div>                            
       </div>
-      <div class="col-lg-6">
-
-      </div>
     </div>
-    <div class="row">
-        <div class="col-lg-5">
-          <button class="btn pull-right">
-            Update Now
-          </button>                     
-        </div>
-    </div>
+  </div>
 </template>
 
 <script>

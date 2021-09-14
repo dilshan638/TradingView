@@ -39,6 +39,8 @@ function guardmyrouter(to, from, next) {
 
 }
 
+localStorage.setItem('permissionSuccess','permissionSuccess' )
+
 const routes=[
     {
         path:'/',
@@ -124,7 +126,7 @@ const routes=[
 ];
 
 const router = createRouter({
-    // mode:'history',
+    mode:'history',
     linkActiveClass: "active",
     linkExactActiveClass: "exact-active",
     history: createWebHistory(),

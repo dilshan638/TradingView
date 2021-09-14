@@ -1,6 +1,6 @@
 <template>
   <div class="main-area after-login">
-       <Header />
+       <Header :currentpage="page" />
        <sidebar />
        <PageContent>
            <slot />
@@ -19,6 +19,11 @@ export default {
         Header,
         sidebar,
         PageContent
+    },
+    data() {
+        return{
+            currentpage: ''
+        }
     }
 }
 </script>
