@@ -14,7 +14,7 @@
             </button>
             </router-link  >
 
-           <router-link to="/wallet/cryptoone">
+           <router-link to="/withdraw-crypto">
           <button type="button" class="btn btn-primary btn-sm btn-outline">
             Withrow
           </button>

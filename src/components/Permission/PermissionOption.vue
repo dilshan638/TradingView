@@ -350,7 +350,7 @@ export default {
       //
     },
     async submitGACode() {
-      console.log( this.statusCode)
+     
       this.GAWrong = true;
       if (this.googleAuthenticationCode.length == 6) {
         let hed = {
@@ -526,28 +526,7 @@ export default {
           });
       }
     },
-    // async statusCheckMobile() {
-    //   if (localStorage.getItem("stSMS") == "SMSonly") {
-    //     var data = {
-    //       mobile: localStorage.getItem("phone_number"),
-    //     };
-        
-    //     let hed = {
-    //       headers: {
-    //         Authorization: `Bearer ${localStorage.getItem(
-    //           "X-LDX-Inspira-Access-Token"
-    //         )}`,
-    //         "Content-Type": "application/json",
-    //       },
-    //     };
-    //     let response = await this.axios.post(
-    //       "https://dapi.exus.live/api/twofa/sms/code",
-    //       data,
-    //       hed
-    //     );
-    //     console.log(response);
-    //   }
-    // },
+    
     async statusCheckEmail() {
       console.log(localStorage.getItem("fa_mobile_status"));
       if (localStorage.getItem("stEMAIL") == "EMAILonly") {

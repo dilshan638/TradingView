@@ -2,7 +2,7 @@
     <div>
     <h2 class="Security-Verification text-center success-head-text">Withdrawal Request Submitted</h2>
     <p class="sm-texture p-child">The receiver will get</p>
-    <p class="sm-texture l-child">1001 BTC (Fee: 1 BTC)</p>
+    <p class="sm-texture l-child"> {{withdrawAmount-free}} {{balanceSymbol}} (Fee: {{free}}  {{balanceSymbol}})</p>
     <div class="row">
         <div class="col-md-12">
             <div class="card Security-model">

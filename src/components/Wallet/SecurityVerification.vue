@@ -242,6 +242,7 @@ methods:{
            
             this.emailWrongEmail = false;
             this.emaileSuccessemail = true;
+              
           })
           .catch(function (error) {
             console.log(error);
@@ -278,6 +279,7 @@ methods:{
             console.log(response);
             this.mobileSuccessMob = true;
             this.mobileWrongMob = false;
+            
           })
           .catch(function (error) {
             console.log(error.response.data);
@@ -338,6 +340,9 @@ methods:{
             this.GAWrong = false;
             console.log(res);
             console.log(response);
+           
+
+         
           })
           .catch(function (error) {
             console.log(error);
@@ -352,7 +357,8 @@ methods:{
 mounted(){
    this.status()
    this.tokenGA()
-}
+},
+
 }
 </script>
 
