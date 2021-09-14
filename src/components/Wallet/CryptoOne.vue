@@ -208,7 +208,7 @@
 
       <!-- Email -->
     <div class="form-group pos-rel sec-row">
-        <p class="sub-text">Please enter the  6 Digit code that we have sent a to  ab**@**.com</p>
+        <p class="sub-text">Please enter the  6 Digit code that we have sent a to  dil**@**.com</p>
         <div class="input-group mb-2">
             <input
             v-model="emailCode"
@@ -274,7 +274,7 @@
       "
       :disabled="mobileSuccessMob == false"
       @click="submit"
-     class="mb-3"
+    class="loginbtn btn btnWLT "
     >
       Submit 
     </button>
@@ -287,7 +287,7 @@
       "
       :disabled="emaileSuccessemail == false"
       @click="submit"
-     class="mb-3"
+    class="loginbtn btn btnWLT "
     >
       Submit 
     </button>
@@ -300,7 +300,7 @@
       "
       :disabled="GASuccess == false"
       @click="submit"
-      class="mb-3"
+     class="loginbtn btn btnWLT "
     >
       Submit 
     </button>
@@ -313,7 +313,7 @@
       "
       :disabled="mobileSuccessMob == false || emaileSuccessemail == false"
       @click="submit"
-     class="mb-3"
+    class="loginbtn btn btnWLT "
     >
       Submit 
     </button>
@@ -326,7 +326,7 @@
       "
       :disabled="mobileSuccessMob == false || GASuccess == false"
       @click="submit"
-     class="mb-3"
+   class="loginbtn btn btnWLT "
     >
       Submit 
     </button>
@@ -339,7 +339,7 @@
       "
       :disabled="emaileSuccessemail == false || GASuccess == false"
       @click="submit"
-     class="loginbtn btn "
+     class="loginbtn btn btnWLT "
     >
       Submit 
     </button>
@@ -356,7 +356,7 @@
         mobileSuccessMob == false
       "
       @click="submit"
-      class="mb-3"
+     class="loginbtn btn btnWLT "
     >
       Submit  
     </button>
@@ -493,7 +493,9 @@ export default {
   },
   methods: {
 
-   
+   cyptothreeclose(){
+     this.$refs.CryptoThreeModal.closeModal();
+   },
     actionwithorw() {
       this.shownetwork = true;
     },
@@ -877,4 +879,8 @@ async submit(){
 
 <style lang="scss" scoped>
 @import "Crypto.scss";
+.btnWLT{
+  margin-top: 27px;
+  margin-right: 15px;
+}
 </style>
