@@ -145,7 +145,7 @@ export default {
         })
         .then((response) => {
           this.cryptoAll = response.data[0];
-
+          
        
           axios
             .get("https://dapi.exus.live/api/mobile/v1/wallet/user/crypto", {
