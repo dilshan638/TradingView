@@ -31,15 +31,27 @@
 }
 
 .multi-group{
-
     .error-msg{
         top: 81px !important;
     }
-
 }
-
 .inner-resend{
     position: absolute;
     right: 23px;
     top: 44px;
+}
+
+.profile-mobile{
+
+    .vue-tel-input.form-control{
+        padding: 0;
+        background-color: transparent;
+
+        .vti__dropdown{
+            margin-right: 25px !important;
+            background-color: #ececec;
+            border-radius: 5px;            
+        }
+    }
+
 }

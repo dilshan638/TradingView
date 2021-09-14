@@ -1,38 +1,95 @@
 <template>
-  <div class="inner-block">
-    <h3>Your Profile</h3>
+  <div class="inner-block p-r-60">
     <div class="row">
       <div class="col-lg-12">
-        <div class="form-group mb-4">
-            <input class="form-control" placeholder="First Name" />
-            <span class="error-msg" v-if="v$.oldPassword.$error"
-              >{{ v$.oldPassword.$errors[0].$message }}
-            </span>          
-        </div>
-        <div class="form-group mb-4">
-            <input class="form-control" placeholder="Last Name" />
-            <span class="error-msg" v-if="v$.oldPassword.$error"
-              >{{ v$.oldPassword.$errors[0].$message }}
-            </span>          
-        </div>  
-        <div class="form-group mb-4">
-            <input class="form-control" placeholder="Email" />
-            <span class="error-msg" v-if="v$.oldPassword.$error"
-              >{{ v$.oldPassword.$errors[0].$message }}
-            </span>          
-        </div>   
-        <div class="form-group mb-4">
-            <input class="form-control" placeholder="Country" />
-            <span class="error-msg" v-if="v$.oldPassword.$error"
-              >{{ v$.oldPassword.$errors[0].$message }}
-            </span>          
-        </div>  
-        <div class="form-group mb-4">
-            <input class="form-control" placeholder="Address" />
-            <span class="error-msg" v-if="v$.oldPassword.$error"
-              >{{ v$.oldPassword.$errors[0].$message }}
-            </span>          
-        </div>                            
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="form-group">
+                <div class="profile-pic">
+                    <input type="file" id="picture" accept="image/png, image/gif, image/jpeg" />
+                    <label for="picture"></label>
+                </div>
+              </div>              
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group mb-4">
+                  <input class="form-control" placeholder="INspira ID" :value="this.custom_inspira_id" readonly />
+                  <span class="error-msg" v-if="v$.oldPassword.$error"
+                    >{{ v$.oldPassword.$errors[0].$message }}
+                  </span>          
+              </div>
+            </div>            
+            <div class="col-lg-6">
+              <div class="form-group mb-4">
+                  <input class="form-control" placeholder="Inspira associate" />
+                  <span class="error-msg" v-if="v$.oldPassword.$error"
+                    >{{ v$.oldPassword.$errors[0].$message }}
+                  </span>          
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="form-group mb-4">
+                  <input class="form-control" placeholder="First Name" :value="this.userawsname"  readonly />
+                  <span class="error-msg" v-if="v$.oldPassword.$error"
+                    >{{ v$.oldPassword.$errors[0].$message }}
+                  </span>          
+              </div>
+            </div>
+          </div>  
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="form-group mb-4">
+                  <input class="form-control" placeholder="Last Name" :value="this.middle_name" readonly />
+                  <span class="error-msg" v-if="v$.oldPassword.$error"
+                    >{{ v$.oldPassword.$errors[0].$message }}
+                  </span>          
+              </div>
+            </div>            
+          </div>     
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="form-group mb-4">
+                  <input class="form-control" placeholder="Email Address" :value="this.userEmailAddress" readonly />
+                  <span class="error-msg" v-if="v$.oldPassword.$error"
+                    >{{ v$.oldPassword.$errors[0].$message }}
+                  </span>          
+              </div>
+            </div>            
+          </div>
+          <div class="row profile-mobile">
+            <div class="col-lg-12">
+              <div class="form-group mb-4" style="position:relative">
+                <vue-tel-input
+                class="form-control"
+                :valid-characters-only="true"
+                aria-autocomplete="none"
+                v-model="this.userPhoneNumber"
+                v-on:validate="countryChanged"
+                :inputOptions="options"
+                :dropdownOptions="options2"
+              >
+                </vue-tel-input>
+                  <span class="error-msg" v-if="v$.oldPassword.$error"
+                    >{{ v$.oldPassword.$errors[0].$message }}
+                  </span> 
+                  <div class="changebutton">Change</div>         
+              </div>
+            </div>            
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="form-group mb-4">
+                  <input class="form-control" placeholder="Address" :value="this.userAddress" readonly />
+                  <span class="error-msg" v-if="v$.oldPassword.$error"
+                    >{{ v$.oldPassword.$errors[0].$message }}
+                  </span>          
+              </div>
+            </div>            
+          </div>
       </div>
     </div>
   </div>
@@ -40,10 +97,10 @@
 
 <script>
 import useValidate from "@vuelidate/core";
-var generator = require('generate-password');
-import { Auth } from "aws-amplify";
+// import { Auth } from "aws-amplify";
 import { required, sameAs ,minLength ,maxLength} from "@vuelidate/validators";
 import { reactive, computed } from "vue";
+import axios from "axios";
 export default {
   name: "Setting",
   components: {
@@ -82,6 +139,13 @@ export default {
 
   data() {
     return {
+      custom_inspira_id: "",
+      userawsname: "",
+      middle_name: "",
+      userEmailAddress: "",
+      userAddress: "",
+      userPhoneNumber: "1234",
+
       showOldPassword: false,
       showNewPassword: false,
       showComfirmPassword: false,
@@ -98,86 +162,66 @@ export default {
 
       showPasswordSuggestion: false,
 
-      connection: null
+      connection: null,
+
+      options: {
+        placeholder: "Phone Number",
+        autoFormat: true,
+        mode: "international",
+        maxlength: 12,
+        validCharactersOnly: true,
+      },
+      options2: {
+        showDialCodeInList: true,
+        showDialCodeInSelection: true,
+        showFlags: true,
+        autofocus: true,
+      },
     };
   },
 
   methods: {
-    changePassword() {
-      this.v$.$validate();
-
-      if (!this.v$.$error) {
-        console.log("Form successfully submitted.");
-        Auth.currentAuthenticatedUser()
-          .then((user) => {
-            return Auth.changePassword(
-              user,
-              this.state.oldPassword,
-              this.state.newPassword
-            );
-          })
-          .then((data) => {
-             this.$toast.show('Your password change successfully..!!', { 
-          type: "success",
-          position: "top-right",
-        });
-            
-            console.log(data)})
-          .catch((err) => {
-            console.log(err)
-            this.$toast.show('Does not match your old password, Please check..!!', {
-          type: "error",
-          position: "top-right",
-        });
-          });
-      } else {
-        console.log("Form Failed Validation");
-      }
+    countryChanged(phoneObject) {
+      this.state.mobileno = phoneObject.number;
     },
-    checkPassword() {
-        this.password_length = this.state.newPassword.length;
-        //eslint-disable-next-line
-        const format = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
-        if (this.password_length >= 8) {
-            this.contains_eight_characters = true;
-        } else {
-            this.contains_eight_characters = false;
-        }
-        this.contains_number = /\d/.test(this.state.newPassword);
-        this.contains_uppercase = /[A-Z]/.test(this.state.newPassword);
-        this.contains_special_character = format.test(this.state.newPassword);
-        if (this.contains_eight_characters === true &&
-                this.contains_special_character === true &&
-                this.contains_uppercase === true &&
-                this.contains_number === true) {
-                    this.valid_password = true;			
-        } else {
-            this.valid_password = false;
-        }
-    },
-    async passwordGenereate() { //
-        var passwordgene = generator.generate({
-            length: 12,
-            numbers: true,
-            uppercase: true,
-            lowercase: true,
-            symbols: true
-        });            
-          console.log(passwordgene);
-          this.passwordsuggestionvalue = passwordgene
-    },    
-    async usePassword() {
-      this.state.newPassword=this.passwordsuggestionvalue
-      console.log( this.state.newPassword)
-      this.showPasswordSuggestion = false
-      this.checkPassword();
-    },    
-    closepasswordbox() {
-        this.showPasswordSuggestion = false;
-    }    
+    async getUserData() {
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem(
+          "X-LDX-Inspira-Access-Token"
+        )}`,
+      };
+      axios.get("https://dapi.exus.live/api/mobile/v1/user/cognito/info", {headers: headers})
+        .then((Response) => {
+          console.log(Response);
+          for(let i=0; i < Response.data.result.UserAttributes.length; i++){
+              if(Response.data.result.UserAttributes[i].Name == "custom:inspira_id") {
+                  this.custom_inspira_id = Response.data.result.UserAttributes[i].Value;
+              }
+              if(Response.data.result.UserAttributes[i].Name == "name") {
+                  this.userawsname = Response.data.result.UserAttributes[i].Value;
+              }
+              if(Response.data.result.UserAttributes[i].Name == "middle_name") {
+                  this.middle_name = Response.data.result.UserAttributes[i].Value;
+              }
+              if(Response.data.result.UserAttributes[i].Name == "email") {
+                  this.userEmailAddress = Response.data.result.UserAttributes[i].Value;
+              }
+              if(Response.data.result.UserAttributes[i].Name == "custom:addressLine1") {
+                  this.userAddress = Response.data.result.UserAttributes[i].Value;
+              }  
+              if(Response.data.result.UserAttributes[i].Name == "phone_number") {
+                  this.userPhoneNumber = Response.data.result.UserAttributes[i].Value;
+              }                            
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+    }
   },
   mounted(){
-    this.passwordGenereate();
+    this.getUserData();
   }
 
   
@@ -185,5 +229,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "SettingTwo.scss";
+  @import '../../assets/scss/Setting/Setting';
 </style>

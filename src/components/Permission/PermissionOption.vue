@@ -21,7 +21,6 @@
       <h5 v-if="stSMS == 'SMSonly' && mobileLabal" class="lbl">
         Send Successfully Mobile Verification Code
       </h5>
-
       <img
         v-if="mobileSuccessMob && !mobileWrongMob"
         src="images/icons/correct.png"
