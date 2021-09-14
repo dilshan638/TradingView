@@ -18,9 +18,9 @@ import Setting from '../views/Setting.vue';
 import CryptoOne from '../components/Wallet/CryptoOne.vue';
 
 import History from '../views/History.vue';
-
+import WithdrawalDetails from '../views/WithdrawDetails.vue';
 //Import store
-// import store from "../store";
+// import store from "../store";Withdrawal Details
 
 function guardmyrouter(to, from, next) {
     var isauthoticated = false;
@@ -122,7 +122,12 @@ const routes=[
         path:'/permission-checking',
         component:Permission,
         beforeEnter : guardmyrouter
-    }   
+    },
+    {
+        path:'/withdrawal-details',
+        component:WithdrawalDetails,
+        beforeEnter : guardmyrouter
+    }     
 ];
 
 const router = createRouter({

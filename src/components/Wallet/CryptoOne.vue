@@ -79,7 +79,7 @@
                     />
                     <span class="error-msg" v-if="v$.withdrawAmount.$error">{{ v$.withdrawAmount.$errors[0].$message }} </span>
                  
-                    <p class="bottom-grey">0.34423442 BTC available</p>
+                    <p class="bottom-grey">{{balance}} {{balanceSymbol}} available</p>
                   </div>
                 </div>
               </div>
@@ -488,7 +488,8 @@ export default {
            googleAuthenticationCode:"",
            token:"",
            phone_number:"",
-           displayCard:""
+           displayCard:"",
+           free:""
     };
   },
   methods: {
@@ -507,7 +508,13 @@ export default {
             this.v$.withdrawAmount.$touch()
 
             if(!this.v$.selectCoin.$error &&  !this.v$.withdrawAddress.$error && !this.v$.network.$error && !this.v$.withdrawAmount.$error){
-                this.$refs.CryptoThreeModal.openModal();
+               
+               if(this.balance>this.state.withdrawAmount && this.state.withdrawAmount>this.free){
+                   this.$refs.CryptoThreeModal.openModal();
+               }else{
+                 this.$toast.show("Please Check Your Account Balance", {type: "info", position: "bottom"});
+               }
+              
             }
    
     },
@@ -546,7 +553,7 @@ export default {
         .then((response) => {
           this.cryptoAll = response.data[0];
 
-          console.log(this.cryptoAll);
+          console.log(this.coinBalances);
 
           for (let i = 0; i < this.cryptoAll.length; i++) {
             if (this.cryptoAll[i]["symbol"] == this.state.selectCoin) {
@@ -604,22 +611,28 @@ export default {
           }
 
         }
-
+     
         })
         .catch(function (error) {
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
+          console.log(error);
+         
         });
     },
 
     async withdrawValidation(){
-      this.displayCard="true"
+     // this.displayCard="true"
+
        this.v$.withdrawAmount.$touch()
 
-            if(!this.v$.withdrawAmount.$error){
-                console.log("Numbers Only")
-            }
+       if(this.state.withdrawAmount=='' ||this.state.withdrawAmount==null){
+          this.displayCard="false"
+       }else{
+          this.displayCard="true"
+       }
+
+           // if(!this.v$.withdrawAmount.$error){
+             //   console.log("Numbers Only")
+            //}
     },
 
      async labalStatus() {
