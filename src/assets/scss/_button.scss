@@ -63,3 +63,10 @@ button.dark,
     text-align: center;
     min-width: 65px;
 }
+
+.inactive-btn{
+    border: solid 2px #a2a4bf !important;
+    color: #a2a4bf !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
