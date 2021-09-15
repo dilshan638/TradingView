@@ -930,7 +930,7 @@ export default {
           })
           .then((res) => {
              localStorage.setItem('clearStatusCode',res.data.code)
-             console.log(localStorage.getItem('clearStatusCode'))
+           
             
 
           })
@@ -1146,7 +1146,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../assets/scss/SecuritySetting/SecuritySetting";
+@import "../assets/scss/SecuritySetting/SecuritySetting";  
 
 .btnGA{
   margin-top: 30px;

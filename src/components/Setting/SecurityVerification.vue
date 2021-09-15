@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="form-group pos-rel sec-row mb-3 mt-3">
-        <p class="sub-text">Please enter the  6 Digit code that we have sent a to  +9477***121</p>
+        <p class="sub-text">Please enter the  6 Digit code that we have sent a to  +9471***789</p>
         <div class="input-group mb-2">
             <input type="text" class="form-control" placeholder="Mobile verification code">
             <div class="input-group-append">
@@ -11,7 +11,7 @@
         <p class="sub-text text-right">Didn't received? <a href="#">Resend</a></p>
     </div>
     <div class="form-group pos-rel sec-row">
-        <p class="sub-text">PPlease enter the  6 Digit code that we have sent a to  ab**@**.com</p>
+        <p class="sub-text">Please enter the  6 Digit code that we have sent a to  ab**@**.com</p>
         <div class="input-group mb-2">
             <input type="text" class="form-control" placeholder="Email verification code">
             <div class="input-group-append">

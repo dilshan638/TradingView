@@ -17,7 +17,7 @@
           <div class="row">
             <div class="col-lg-6">
               <div class="form-group mb-4">
-                  <input class="form-control" placeholder="INspira ID" :value="this.custom_inspira_id" readonly />
+                  <input class="form-control" placeholder="INspira ID" :value="custom_inspira_id" readonly />
                   <span class="error-msg" v-if="v$.oldPassword.$error"
                     >{{ v$.oldPassword.$errors[0].$message }}
                   </span>          
@@ -35,7 +35,7 @@
           <div class="row">
             <div class="col-lg-12">
               <div class="form-group mb-4">
-                  <input class="form-control" placeholder="First Name" :value="this.userawsname"  readonly />
+                  <input class="form-control" placeholder="First Name" :value="userawsname"  readonly />
                   <span class="error-msg" v-if="v$.oldPassword.$error"
                     >{{ v$.oldPassword.$errors[0].$message }}
                   </span>          
@@ -45,7 +45,7 @@
           <div class="row">
             <div class="col-lg-12">
               <div class="form-group mb-4">
-                  <input class="form-control" placeholder="Last Name" :value="this.middle_name" readonly />
+                  <input class="form-control" placeholder="Last Name" :value="middle_name" readonly />
                   <span class="error-msg" v-if="v$.oldPassword.$error"
                     >{{ v$.oldPassword.$errors[0].$message }}
                   </span>          
@@ -55,7 +55,7 @@
           <div class="row">
             <div class="col-lg-12">
               <div class="form-group mb-4">
-                  <input class="form-control" placeholder="Email Address" :value="this.userEmailAddress" readonly />
+                  <input class="form-control" placeholder="Email Address" :value="userEmailAddress" readonly />
                   <span class="error-msg" v-if="v$.oldPassword.$error"
                     >{{ v$.oldPassword.$errors[0].$message }}
                   </span>          
@@ -69,10 +69,11 @@
                 class="form-control"
                 :valid-characters-only="true"
                 aria-autocomplete="none"
-                v-model="this.userPhoneNumber"
+                v-model="userPhoneNumber"
                 v-on:validate="countryChanged"
                 :inputOptions="options"
                 :dropdownOptions="options2"
+                :value="userPhoneNumber"
               >
                 </vue-tel-input>
                   <span class="error-msg" v-if="v$.oldPassword.$error"
@@ -85,7 +86,7 @@
           <div class="row">
             <div class="col-lg-12">
               <div class="form-group mb-4">
-                  <input class="form-control" placeholder="Address" :value="this.userAddress" readonly />
+                  <input class="form-control" placeholder="Address" :value="userAddress" readonly />
                   <span class="error-msg" v-if="v$.oldPassword.$error"
                     >{{ v$.oldPassword.$errors[0].$message }}
                   </span>          
@@ -146,7 +147,7 @@ export default {
       middle_name: "",
       userEmailAddress: "",
       userAddress: "",
-      userPhoneNumber: "1234",
+      userPhoneNumber: "",
 
       showOldPassword: false,
       showNewPassword: false,

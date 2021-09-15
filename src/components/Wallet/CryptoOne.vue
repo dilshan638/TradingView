@@ -489,7 +489,9 @@ export default {
            token:"",
            phone_number:"",
            displayCard:"",
-           free:""
+           free:"",
+           min:""
+         
     };
   },
   methods: {
