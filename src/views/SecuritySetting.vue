@@ -911,7 +911,7 @@ export default {
     },
     async showsuccessmodal() {
        this.$refs.secruritymodal2.closeModal()
-      this.$refs.securityfour.openModal()
+       this.$refs.securityfour.openModal()
      
      
     },

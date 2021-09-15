@@ -119,7 +119,9 @@
               type="text"
               class="form-control"
               placeholder="Mobile verification code"
-              v-model="mobileCodeMob"
+               v-model="mobileCodeMob"
+              @input="mobileCodeSubmitMob"
+               :disabled="mobileSuccessMob == true"
               
             />
 
@@ -164,15 +166,18 @@
               type="text"
               class="form-control"
               placeholder="Email verification code"
-              v-model="state.emailCodeMob"
+              v-model="emailCodeMob"
+              @input="emailCodeSubmitMob"
+                :disabled="emailSuccessMob == true"
               
             />
             <div class="input-group-append">
               <button
-                v-if="btnShowEmailMob"
+               v-if="btnShowEmailMob"
                 class="btn btn-outline-secondary"
                 style="margin-top: 0rem; margin-left: 0rem"
                 type="button"
+                 @click="sendEmailVerificationCode"
                 
               >
                 Send
@@ -184,13 +189,13 @@
           <!-- <div class="time-socket" v-if="timerCount > 0">Resend OTP in 0:0:{{ timerCount }}</div> -->
           <p class="sub-text text-right" v-if="!emailSuccessMob">
             Didn't received?
-            <a class="link" >Resend</a>
+            <a class="link" @click="sendEmailVerificationCode" >Resend</a>
           </p>
         </div>
       </template>
       <template v-slot:footer>
         <div class="modal-buttons Modal-btn">
-          <button class="mb-3"  v-if="mobileSuccessMob" @click="showsuccessmodal">
+          <button class="mb-3"   @click="submitSmsModal">
             Submit
           </button>
           <button
@@ -348,6 +353,24 @@
     </modal>
      <!-- GA Disable Success Modal -->
 
+
+ <!--SUCCESS Sms modal -->
+    <modal ref="smsSuccessModal" class="s-modal">
+      <template v-slot:header>
+        <h2 style="color: black">Successfully Updated</h2>
+      </template>
+      <template v-slot:body>
+        <img class="correct" src="images/icons/correct.png" />
+      </template>
+      <template v-slot:footer>
+        <div>
+          <button @click="mobileSucceccModalMob" class="loginbtn">Continue</button>
+        </div>
+      </template>
+    </modal>
+
+    <!-- End SUCCESS Sms modal -->
+
   
     
 </div> 
@@ -475,6 +498,9 @@ export default {
       btnShowEmailMob: true,
       btnShowMobileMob: true,
 
+      emailCodeMob:"",
+      mobileOneTimeStatusSend:"",
+      mobileStatus:"",
 
 
     };
@@ -795,6 +821,7 @@ export default {
     },
 
     async smsVerModalOne(){
+         this.clearStatus()
          this.$refs.smsModalOne.openModal();
     },
 
@@ -826,8 +853,177 @@ export default {
      
     },
 
+      async mobileCodeSubmitMob() {
+      this.btnShowMobileMob = false;
+      this.mobileWrongMob = true;
 
-  
+      if (this.mobileCodeMob.length == 6) {
+        if (this.fa_mobile_status == "true") {
+          this.mobileStatus = "disable";
+        } else {
+          this.mobileStatus = "enable";
+        }
+        var data = {
+          mobile: this.mobileno,
+          code: this.mobileCodeMob,
+          status: this.mobileStatus,
+          stage_code:this.stage_code,
+          stage: 1,
+        };
+
+        let hed = {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem(
+              "X-LDX-Inspira-Access-Token"
+            )}`,
+            "Content-Type": "application/json",
+          },
+        };
+
+        let response = await this.axios
+          .post("https://dapi.exus.live/api/twofa/sms/status", data, hed)
+          .then((res) => {
+            console.log(res);
+            console.log(response);
+            this.mobileSuccessMob = true;
+            this.mobileWrongMob = false;
+            console.log(this.stage_code)
+          })
+          .catch(function (error) {
+            console.log(error);
+            
+          });
+      }
+    },
+
+     async sendEmailVerificationCode() {
+     
+    
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem(
+          "X-LDX-Inspira-Access-Token"
+        )}`,
+      };
+
+      axios
+        .get("https://dapi.exus.live/api/twofa/email/code", {
+          headers: headers,
+        })
+        .then((responsive) => {
+          console.log(responsive);
+          this.$toast.show("Successfully  Send Email Verification Code", {type: "success", position: "top"});
+          
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+     async emailCodeSubmitMob() {
+      this.btnShowEmailMob = false;
+      this.emailWrongMob = true;
+      if (this.emailCodeMob.length == 6) {
+        var data = {
+          token: this.emailCodeMob,
+          status: "",
+          stage_code:this.stage_code,
+          stage: 1,
+        };
+        let hed = {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem(
+              "X-LDX-Inspira-Access-Token"
+            )}`,
+            "Content-Type": "application/json",
+          },
+        };
+
+        let response = await this.axios
+          .post("https://dapi.exus.live/api/twofa/email/status", data, hed)
+          .then((res) => {
+            this.emailWrongMob = false;
+            this.emailSuccessMob = true;
+            console.log(res);
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      }
+    },
+
+    async submitSmsModal(){
+
+       this.$refs.smsSeondModal.closeModal();
+       this.$refs.smsSuccessModal.openModal();
+
+      if (this.fa_mobile_status == "true") {
+          this.mobileStatus = "disable";
+        } else {
+          this.mobileStatus = "enable";
+        }
+      var data = {
+        
+         status: this.mobileStatus,
+         stage_code:this.stage_code,
+         option: "mobile"
+      };
+
+      let hed = {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem(
+            "X-LDX-Inspira-Access-Token"
+          )}`,
+          "Content-Type": "application/json",
+        },
+      };
+      let response = await this.axios.post(
+        "https://dapi.exus.live/api/twofa/option/status",
+        data,
+        hed
+      ).then((res) => {
+          console.log(res);
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+     
+    },
+
+    async mobileSucceccModalMob(){
+     
+       if (this.fa_mobile_status == "true") {
+        this.mobileOneTimeStatusSend = "disable";
+      } else {
+        this.mobileOneTimeStatusSend = "enable";
+      }
+      var data = {
+        status: this.mobileOneTimeStatusSend,
+        stage_code:this.stage_code,
+      };
+
+      let hed = {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem(
+            "X-LDX-Inspira-Access-Token"
+          )}`,
+          "Content-Type": "application/json",
+        },
+      };
+      let response = await this.axios
+        .post("https://dapi.exus.live/api/twofa/status", data, hed)
+        .then((res) => {
+          console.log(res);
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+       this.$refs.smsSuccessModal.closeModal();
+      this.$router.go();
+    }
+
 
   },
   mounted(){
