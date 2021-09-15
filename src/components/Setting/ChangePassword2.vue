@@ -136,7 +136,6 @@ export default {
   },
   mounted(){
     this.getUserData();
-    this.getUseremail();
   }
 
   
