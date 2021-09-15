@@ -4,48 +4,15 @@
       <div class="col-lg-12">
           <div class="row">
             <div class="col-lg-12">
-              <div class="card profile-card">
+              <div class="card profile-card" @click="changepasswordmodal">
                 <div class="card-body">
                   <div class="row">
-                    <div class="col-lg-5">
-                      <h3>SMS Verification</h3>
-                    </div>
-                    <div class="col-lg-7">
-                      <p>077******48</p>
-                      <button class="btn btn-outline" v-if="mobile_status == 'true'">Remove</button>
-                       <button class="btn btn-primary" v-if="mobile_status == 'true'">Change</button>
-                       <button class="btn btn-primary" v-else>Activate</button>
+                    <div class="col-lg-12">
+                      <h3>Reset your Password</h3>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="card profile-card">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-lg-5">
-                      <h3>Google Authenticator</h3>
-                    </div>
-                    <div class="col-lg-7">
-                      <button class="btn btn-outline" v-if="ga_status =='true'">Remove</button>
-                      <button class="btn btn-primary" v-if="ga_status =='true'">Change</button>
-                      <button class="btn btn-primary" v-else>Activate</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card profile-card mb-4">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-lg-5">
-                      <h3>Email Verification</h3>
-                    </div>
-                    <div class="col-lg-7">
-                      <p>{{ emailmask }}</p>
-                      <button class="btn btn-outline">Activated</button>
-                    </div>
-                  </div>
-                </div>
-              </div> 
             </div>
           </div>
       </div>
@@ -97,15 +64,6 @@ export default {
 
   data() {
     return {
-      custom_inspira_id: "",
-      userawsname: "",
-      middle_name: "",
-      userEmailAddress: "",
-      userAddress: "",
-      userPhoneNumber: "",
-      emailmask: "",
-      ga_status: "",
-      mobile_status: "",
 
       showOldPassword: false,
       showNewPassword: false,
@@ -171,15 +129,9 @@ export default {
           console.log(error);
         })
     },
-    async getUseremail() {
-        this.emailmask = localStorage.getItem("emailmask");
-        let hide = this.emailmask.split("@")[0].length - 4;//<-- number of characters to hide
-        var r = new RegExp(".{"+hide+"}@", "g")
-        this.emailmask = this.emailmask.replace(r, "*@" );
-    },
-    // async getUserMobile() {
-    //   this.usermobilenumber = localStorage.getItem("usermobile").slice(0, 2) + localStorage.getItem("usermobile").slice(2).replace(/.(?=...)/g, '*');
-    // },    
+    async changepasswordmodal() {
+
+    },    
 
   },
   mounted(){

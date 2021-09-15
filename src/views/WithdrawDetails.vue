@@ -3,7 +3,6 @@
         <withdraw/>
   </default-layout>
 </template>
-
 <script>
 import DefaultLayout from '../layout/DefaultLayout.vue'
 import Withdraw from '../components/Withdraw/Withdraw.vue'
@@ -12,13 +11,8 @@ export default {
     components: { 
         DefaultLayout,
         Withdraw
-       
-       
-    }, 
-
+    },
 }
 </script>
-
 <style>
-
 </style>

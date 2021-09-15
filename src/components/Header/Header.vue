@@ -43,7 +43,9 @@
         </nav>
       </div>
       <div class="col-md-3" style="text-align:right">
-        <router-link to="/dashboard"><button class="btn btn-outline-success my-2 my-sm-0 mobile-hide head-btn" v-if="alareadylogin">Back to Dashboard</button></router-link>
+        <router-link to="/dashboard"><button class="btn btn-outline-success my-2 my-sm-0 mobile-hide head-btn" v-if="alareadylogin">
+          Back to Dashboard
+          </button></router-link>
         <button class="btn btn-outline my-2 my-sm-0 mobile-hide head-btn" v-if="alareadylogin" @click="logout">Logout</button>
         <router-link v-else  to="/signin"> <button class="btn btn-outline-success my-2 my-sm-0 mobile-hide head-btn">Login</button></router-link>
       </div>

@@ -12,6 +12,8 @@
                         <div class="col-lg-6">
                             <h3 class="setting-title">Security Settings</h3>
                             <SecurityOptions />
+                            <h3 class="setting-title">Change Password</h3>
+                            <change-password />
                         </div>                        
                     </div>                    
                 </div>                    
@@ -25,6 +27,7 @@
 import DefaultLayout from '../layout/DefaultLayout.vue'
 import BasicInfo from '../components/Setting/BasicInfo.vue'
 import SecurityOptions from '../components/Setting/SecurityOptions.vue'
+import ChangePassword from '../components/Setting/ChangePassword2.vue'
 
 
 export default {
@@ -32,7 +35,8 @@ export default {
     components: { 
         DefaultLayout,
         BasicInfo,
-        SecurityOptions
+        SecurityOptions,
+        ChangePassword
     },
     data() {
       return {
