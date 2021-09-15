@@ -1,4 +1,5 @@
 <template>
+<div>
   <div class="inner-block no-border">
     <div class="row">
       <div class="col-lg-12">
@@ -12,9 +13,9 @@
                     </div>
                     <div class="col-lg-7">
                       <p>077******48</p>
-                      <button class="btn btn-outline" v-if="mobile_status == 'true'">Remove</button>
-                       <button class="btn btn-primary" v-if="mobile_status == 'true'">Change</button>
+                      <button class="btn btn-outline" v-if="fa_mobile_status == true">Remove</button>
                        <button class="btn btn-primary" v-else>Activate</button>
+                       
                     </div>
                   </div>
                 </div>
@@ -26,9 +27,8 @@
                       <h3>Google Authenticator</h3>
                     </div>
                     <div class="col-lg-7">
-                      <button class="btn btn-outline" v-if="ga_status =='true'">Remove</button>
-                      <button class="btn btn-primary" v-if="ga_status =='true'">Change</button>
-                      <button class="btn btn-primary" v-else>Activate</button>
+                      <button class="btn btn-outline" v-show="fa_ga_status =='true'">Remove</button>
+                     <button class="btn btn-primary" v-show="fa_ga_status =='false' || fa_ga_status ==null" @click="openWizard">Activate</button>
                     </div>
                   </div>
                 </div>
@@ -51,17 +51,32 @@
       </div>
     </div>
   </div>
+  <modal ref="gaEnableModal" class="wizard-modal">
+      <template v-slot:header> </template>
+      <template v-slot:body>
+        <wizard />
+      </template>
+      <template v-slot:footer> </template>
+    </modal>
+
+    
+</div> 
 </template>
 
 <script>
 import useValidate from "@vuelidate/core";
 // import { Auth } from "aws-amplify";
+import Wizard from "../SecuritySetting/Wizard.vue";
 import { required, sameAs ,minLength ,maxLength} from "@vuelidate/validators";
 import { reactive, computed } from "vue";
 import axios from "axios";
+import Modal from "../Modal/Modal.vue";
 export default {
   name: "Setting",
   components: {
+    Modal,
+    Wizard
+
   },
   setup() {
     const state = reactive({
@@ -138,6 +153,14 @@ export default {
         showFlags: true,
         autofocus: true,
       },
+
+      fa_ga_status:"",
+      fa_email_status:"",
+      fa_mobile_status:"",
+      phone_number:"",
+      stage_code:""
+
+
     };
   },
 
@@ -145,31 +168,47 @@ export default {
     countryChanged(phoneObject) {
       this.state.mobileno = phoneObject.number;
     },
-    async getUserData() {
+    async status() {
       const headers = {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem(
           "X-LDX-Inspira-Access-Token"
         )}`,
       };
-      axios.get("https://dapi.exus.live/api/mobile/v1/user/cognito/info", {headers: headers})
-        .then((Response) => {
-          console.log(Response);
-          for(let i=0; i < Response.data.result.UserAttributes.length; i++){ 
-              if(Response.data.result.UserAttributes[i].Name == "phone_number") {
-                  this.userPhoneNumber = Response.data.result.UserAttributes[i].Value;
-              }   
-              if(Response.data.result.UserAttributes[i].Name == "custom:2fa_ga_status") {
-                  this.ga_status = Response.data.result.UserAttributes[i].Value;
-              }
-              if(Response.data.result.UserAttributes[i].Name == "custom:2fa_mobile_status") {
-                  this.mobile_status = Response.data.result.UserAttributes[i].Value;
-              }              
-          }
+
+      axios
+        .get("https://dapi.exus.live/api/mobile/v1/user/cognito/info", {
+          headers: headers,
+        })
+        .then((responsive) => {
+          console.log(responsive.data.result.UserAttributes);
+         for(let i = 0; i < responsive.data.result.UserAttributes.length; i++){
+
+           if(responsive.data.result.UserAttributes[i].Name=="custom:2fa_ga_status"){
+              this.fa_ga_status = responsive.data.result.UserAttributes[i].Value;
+           }
+
+           if(responsive.data.result.UserAttributes[i].Name=="custom:2fa_email_status"){
+              this.fa_email_status = responsive.data.result.UserAttributes[i].Value;
+           }
+
+              if(responsive.data.result.UserAttributes[i].Name=="custom:2fa_mobile_status"){
+              this.fa_mobile_status = responsive.data.result.UserAttributes[i].Value;
+           }
+
+           if(responsive.data.result.UserAttributes[i].Name=="phone_number"){
+              this.phone_number = responsive.data.result.UserAttributes[i].Value;
+
+              console.log(this.phone_number)
+           }
+         
+         }
         })
         .catch(function (error) {
           console.log(error);
-        })
+        });
+       // gaEnableModal
+       
     },
     async getUseremail() {
         this.emailmask = localStorage.getItem("emailmask");
@@ -179,12 +218,37 @@ export default {
     },
     // async getUserMobile() {
     //   this.usermobilenumber = localStorage.getItem("usermobile").slice(0, 2) + localStorage.getItem("usermobile").slice(2).replace(/.(?=...)/g, '*');
-    // },    
+    // },  
+    
+    async openWizard(){
+       this.$refs.gaEnableModal.openModal();
+    },
+     async clearStatus(){
+      const headers = {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem(
+            "X-LDX-Inspira-Access-Token"
+          )}`,
+        };
+
+        axios
+          .get("https://dapi.exus.live/api/twofa/clear", {
+            headers: headers,
+          })
+          .then((res) => {
+            this.stage_code=res.data.code
+            console.log(this.stage_code)
+           })
+          .catch(function (error) {
+            console.log(error.response.data);
+          });
+    
+    },
 
   },
   mounted(){
-    this.getUserData();
     this.getUseremail();
+    this.status()
   }
 
   

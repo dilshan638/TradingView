@@ -307,7 +307,9 @@ export default {
       mobileWrongMob: false,
       mobileSuccessMob: false,
       GAOneTimeStatusSend: "",
-      closeWizardModal:""
+      closeWizardModal:"",
+      stage_code:"",
+    
     };
   },
 
@@ -345,20 +347,39 @@ export default {
               this.fa_mobile_status = responsive.data.result.UserAttributes[i].Value;
            }
           }
-      //    this.fa_ga_status = responsive.data.result.UserAttributes[16].Value;
-       //   this.fa_email_status = responsive.data.result.UserAttributes[5].Value;
-        //  this.phone_number = responsive.data.result.UserAttributes[14].Value;
-       //   this.fa_mobile_status =responsive.data.result.UserAttributes[7].Value;
-
+      
          
         })
         .catch(function (error) {
           console.log(error);
         });
+
+       
+    },
+      async clearStatus(){
+      const headers = {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem(
+            "X-LDX-Inspira-Access-Token"
+          )}`,
+        };
+
+        axios
+          .get("https://dapi.exus.live/api/twofa/clear", {
+            headers: headers,
+          })
+          .then((res) => {
+            this.stage_code=res.data.code
+            console.log(this.stage_code)
+           })
+          .catch(function (error) {
+            console.log(error.response.data);
+          });
+    
     },
     nextOneToTwo() {
       this.showContentOne = false;
-      this.showContentTwo = true;
+      this.showContentTwo = true; 
     },
     previousTwoToOne() {
       this.showContentOne = true;
@@ -379,7 +400,7 @@ export default {
       this.showContentFour = false;
     },
     async submit() {
-     
+     this.optionupdate()
      this.$refs.successfullyModal.openModal();
       
     },
@@ -403,9 +424,8 @@ export default {
           console.log(this.token);
         })
         .catch(function (error) {
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
+          console.log(error);
+         
         });
     },
     async sendMobileCode() {
@@ -468,7 +488,7 @@ export default {
               secret: this.token[1],
               token: this.googleAuthenticationCode,
               status:"enable",
-              stage_code:localStorage.getItem('clearStatusCode'),
+              stage_code: this.stage_code,
               stage: 1,
             },
             hed
@@ -491,6 +511,7 @@ export default {
         var data = {
           token: this.emailCode,
           status: "",
+          stage_code: this.stage_code,
           stage: 1,
         };
         let hed = {
@@ -524,6 +545,7 @@ export default {
           mobile: this.phone_number,
           code: this.mobileCodeMob,
           status: "",
+          stage_code: this.stage_code,
           stage: 1,
         };
 
@@ -559,7 +581,7 @@ export default {
      
       var data = {
         status: "enable",
-          "stage_code":localStorage.getItem('clearStatusCode')
+        stage_code: this.stage_code
       };
 
       let hed = {
@@ -593,7 +615,30 @@ export default {
       var userphonenumber = localStorage.getItem("phone_number");
       this.userphonenumber = userphonenumber.slice(0, 2) + userphonenumber.slice(2).replace(/.(?=...)/g, '*');
     },    
+ async optionupdate(){
+     var data = {
+         status: "enable",
+         stage_code:this.stage_code,
+         option: "ga"
+      };
 
+      let hed = {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem(
+            "X-LDX-Inspira-Access-Token"
+          )}`,
+          "Content-Type": "application/json",
+        },
+      };
+      let response = await this.axios.post(
+        "https://dapi.exus.live/api/twofa/option/status",
+        data,
+        hed
+      );
+      console.log(response);
+      
+    
+ }
    
   },
 
@@ -603,6 +648,7 @@ export default {
     this.postGoogleAuthenticator();
     this.convertedemailmask();
     this.convertedUserMobile();
+    this.clearStatus()
     
   },
 };
