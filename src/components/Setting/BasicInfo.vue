@@ -71,6 +71,7 @@
                 v-on:validate="countryChanged"
                 :inputOptions="options"
                 :dropdownOptions="options2"
+                :value="userPhoneNumber"
               >
                 </vue-tel-input>
                   <span class="error-msg" v-if="v$.oldPassword.$error"
@@ -144,7 +145,7 @@ export default {
       middle_name: "",
       userEmailAddress: "",
       userAddress: "",
-      userPhoneNumber: "1234",
+      userPhoneNumber: "",
 
       showOldPassword: false,
       showNewPassword: false,

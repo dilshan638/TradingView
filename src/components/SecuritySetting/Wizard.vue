@@ -196,7 +196,7 @@
                   />
                 </div>
               </div>
-              <div class="col-md-5">
+              <div class="col-md-5" v-if="!Emailuccess">
                 <p class="subline right">
                   Didn't received?
                   <a class="link" @click="sendEmailVerificationCode">Resend</a>
