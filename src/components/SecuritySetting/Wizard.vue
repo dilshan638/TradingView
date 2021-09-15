@@ -243,6 +243,17 @@
       <div class="btn-bottom">
         <button class="prev" @click="previousFourToThree">Previous</button>
         <button v-if="GASuccess" @click="submit">Next</button>
+         <button v-show="  fa_mobile_status == 'false'"
+                   :disabled="Emailuccess == false || GASuccess == false"
+                   @click="submit">
+               Continue
+          </button>
+
+           <button v-show="  fa_mobile_status == 'true'"
+                   :disabled="Emailuccess == false || GASuccess == false || mobileSuccessMob == false"
+                   @click="submit"  >
+               Continue
+          </button>
       </div>
     </div>
 
