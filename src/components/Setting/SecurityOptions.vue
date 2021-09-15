@@ -13,8 +13,8 @@
                     </div>
                     <div class="col-lg-7">
                       <p>077******48</p>
-                      <button class="btn btn-outline" v-if="fa_mobile_status == true">Remove</button>
-                       <button class="btn btn-primary" v-else>Activate</button>
+                      <button class="btn btn-outline" v-show="fa_mobile_status =='true'" @click="smsVerModalOne">Remove</button>
+                       <button class="btn btn-primary"  v-show="fa_mobile_status =='false' || fa_mobile_status ==null" @click="smsVerModalOne">Activate</button>
                        
                     </div>
                   </div>
@@ -51,6 +51,159 @@
       </div>
     </div>
   </div>
+
+
+   <!-- SMS Modal One -->
+        <modal ref="smsModalOne" class="forgot-modal border50">
+      <template v-slot:header>
+        <h2 style="color: black">SMS Verification</h2>
+      </template>
+      <template v-slot:body>
+        <div class="tab-content modal-tab">
+          <div
+            class="tab-pane active"
+            id="home"
+            role="tabpanel"
+            aria-labelledby="home-tab"
+          >
+            <h5 style="color: black">Enter your Mobile no</h5>
+            <div class="form-group pos-rel">
+              <vue-tel-input
+                class="form-control"
+                :valid-characters-only="true"
+                aria-autocomplete="none"
+                v-model="mobileno"
+                v-on:validate="countryChanged"
+                :inputOptions="options"
+                :dropdownOptions="options2"
+              >
+              </vue-tel-input>
+            </div>
+
+            <div class="modal-buttons">
+              <button class="mb-3" @click="smsModalOneNext" >Next</button>
+              <button
+                class="second-btn mb-3"
+                @click="$refs.smsModalOne.closeModal()"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="tab-pane"
+            id="profile"
+            role="tabpanel"
+            aria-labelledby="profile-tab"
+          >
+            Coming soon
+          </div>
+        </div>
+      </template>
+    </modal>
+    <!-- SMS Modal One -->
+
+     <!-- SMS (2nd Step) verification modal -->
+    <modal ref="smsSeondModal" class="modal2-modal border50 no-modal-body-b">
+      <template v-slot:header>
+        <h2 class="Security-Verification">Security Verification</h2>
+      </template>
+      <template v-slot:body>
+        <div class="form-group pos-rel sec-row mb-3 mt-3">
+          <p class="sub-text">
+            Please enter the 6 Digit code that we have sent a to +9471****89
+          </p>
+          <div class="input-group mb-2">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Mobile verification code"
+              v-model="mobileCodeMob"
+              
+            />
+
+            <div class="input-group-append">
+              <button
+                v-if="btnShowMobileMob"
+                class="btn btn-outline-secondary"
+                style="margin-top: 0rem; margin-left: 0rem"
+                type="button"
+                @click="sendMobileCodeMobile"
+              >
+                Send
+              </button>
+                  <img
+                    v-if="mobileSuccessMob && !mobileWrongMob"
+                    src="images/icons/correct.png"
+                    class="pos-img error-imgs"
+                  />
+                  <img
+                    v-if="mobileWrongMob"
+                    src="images/icons/ic_fail@3x.webp"
+                    class="pos-img"
+                  />
+            </div>
+          </div>
+          <!-- <div class="time-socket" v-if="timerCount > 0">Resend OTP in 0:0:{{ timerCount }}</div> -->
+          
+          <p  class="sub-text text-right" v-if="!mobileSuccessMob " >
+            Didn't received?
+            <a class="link" @click="sendMobileCodeMobile">Resend</a>
+          </p>
+        </div>
+        <div
+          v-if="fa_email_status == 'true'"
+          class="form-group pos-rel sec-row"
+        >
+          <p class="sub-text">
+            Please enter the 6 Digit code that we have sent a to dil*****@.com
+          </p>
+          <div class="input-group mb-2">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Email verification code"
+              v-model="state.emailCodeMob"
+              
+            />
+            <div class="input-group-append">
+              <button
+                v-if="btnShowEmailMob"
+                class="btn btn-outline-secondary"
+                style="margin-top: 0rem; margin-left: 0rem"
+                type="button"
+                
+              >
+                Send
+              </button>
+                  <img  v-if="emailSuccessMob && !emailWrongMob"  src="images/icons/correct.png" class="pos-img error-imgs"/>
+                  <img v-if="emailWrongMob" src="images/icons/ic_fail@3x.webp" class="pos-img"/>
+            </div>
+          </div>
+          <!-- <div class="time-socket" v-if="timerCount > 0">Resend OTP in 0:0:{{ timerCount }}</div> -->
+          <p class="sub-text text-right" v-if="!emailSuccessMob">
+            Didn't received?
+            <a class="link" >Resend</a>
+          </p>
+        </div>
+      </template>
+      <template v-slot:footer>
+        <div class="modal-buttons Modal-btn">
+          <button class="mb-3"  v-if="mobileSuccessMob" @click="showsuccessmodal">
+            Submit
+          </button>
+          <button
+            class="second-btn mb-3" @click="$refs.smsSeondModal.closeModal()">
+            Close
+          </button>
+        </div>
+      </template>
+    </modal>
+    <!-- End Sms (2nd step) verification modal -->
+
+
+    <!-- GA Enable Wizard -->
   <modal ref="gaEnableModal" class="wizard-modal">
       <template v-slot:header> </template>
       <template v-slot:body>
@@ -69,7 +222,7 @@
 
       <template v-slot:body>
 
-         <div class="form-group pos-rel sec-row mb-3 mt-3" v-if="fa_mobile_status == 'false'">
+         <div class="form-group pos-rel sec-row mb-3 mt-3" v-if="fa_mobile_status == 'true'">
          <p class="sub-text">
         Please enter the 6 Digit code that we have sent a to +947******89
        
@@ -195,6 +348,7 @@
     </modal>
      <!-- GA Disable Success Modal -->
 
+  
     
 </div> 
 </template>
@@ -310,6 +464,16 @@ export default {
       mobileSuccessGARemove:false,
       mobileWrongGARemove:false,
       btnShowMobileGARemove:true,
+      mobileno:"",
+
+
+      mobileCodeMob:"",
+      mobileSuccessMob: false,
+      emailWrongMob: false,
+      mobileWrongMob: false,
+
+      btnShowEmailMob: true,
+      btnShowMobileMob: true,
 
 
 
@@ -318,7 +482,7 @@ export default {
 
   methods: {
     countryChanged(phoneObject) {
-      this.state.mobileno = phoneObject.number;
+      this.mobileno = phoneObject.number;
     },
     async status() {
       const headers = {
@@ -629,6 +793,40 @@ export default {
           });
       }
     },
+
+    async smsVerModalOne(){
+         this.$refs.smsModalOne.openModal();
+    },
+
+    async smsModalOneNext(){
+      this.$refs.smsModalOne.closeModal();
+      this.$refs.smsSeondModal.openModal();
+    },
+     async sendMobileCodeMobile() {
+      
+      var data = {
+        mobile: this.mobileno,
+      };
+
+      let hed = {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem(
+            "X-LDX-Inspira-Access-Token"
+          )}`,
+          "Content-Type": "application/json",
+        },
+      };
+      let response = await this.axios.post(
+        "https://dapi.exus.live/api/twofa/sms/code",
+        data,
+        hed
+      );
+       this.$toast.show("Successfully  Send Mobile Verification Code", {type: "success", position: "top"});
+      console.log(response);
+     
+    },
+
+
   
 
   },
