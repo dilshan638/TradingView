@@ -70,3 +70,8 @@ button.dark,
     background-color: transparent !important;
     box-shadow: none !important;
 }
+button:disabled,
+button[disabled]{
+    pointer-events: none !important;
+    opacity: .65 !important;
+}

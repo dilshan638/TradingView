@@ -1058,6 +1058,8 @@ export default {
   @import '../../assets/scss/Setting/Setting';
 
   .gaRemoveContinueBtn{
-    margin-top: 40px;
+    float: left;
+    width: 100%;
+    margin-top: 70px;
   }
 </style>

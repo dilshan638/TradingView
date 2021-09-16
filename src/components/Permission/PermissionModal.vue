@@ -6,7 +6,7 @@
     <template v-slot:body>
         <PermissionOption />   
     </template>
-    <template v-slot:footer>
+    <template v-slot:footer class="mt-4">
     </template>
   </noBackdropModal>
 </template>
