@@ -592,12 +592,7 @@ export default {
         })
         .then((response) => {
           this.cryptoAll = response.data[0];
-<<<<<<< HEAD
-          console.log(response.data);
-
-=======
           // console.log(this.cryptoAll)
->>>>>>> 35320ed188c989f273c317cbc12e21159419bc75
           console.log(this.coinBalances);
 
           for (let i = 0; i < this.cryptoAll.length; i++) {
