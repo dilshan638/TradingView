@@ -195,10 +195,16 @@
       </template>
       <template v-slot:footer>
         <div class="modal-buttons Modal-btn">
-          <button class="mb-3"   @click="submitSmsModal">
-            Submit
-          </button>
-          <button
+        
+          <!-- Submit button -->
+           <button
+          :disabled="mobileSuccessMob == false || emailSuccessMob==false"
+           class="mb-3"   @click="submitSmsModal"
+           >
+      Submit 
+    </button>
+
+       <button
             class="second-btn mb-3" @click="$refs.smsSeondModal.closeModal()">
             Close
           </button>
@@ -323,7 +329,20 @@
       </template>
       <template v-slot:footer >
         <div class="gaRemoveContinueBtn">
-          <button  class="loginbtn btnGA" @click="GARemoveContinue">Continue</button>
+         
+
+           <button v-show="  fa_mobile_status == 'false'"
+                   :disabled="GASuccess == false || EmailuccessGARemove == false"
+                  class="loginbtn btnGA" @click="GARemoveContinue"  >
+               Continue
+          </button>
+
+           <button v-show="  fa_mobile_status == 'true'"
+                   :disabled="GASuccess == false || EmailuccessGARemove == false || mobileSuccessGARemove == false"
+                  class="loginbtn btnGA" @click="GARemoveContinue"  >
+               Continue
+          </button>
+
           <button
             class="second-btn mb-3" @click="$refs.disableGAModal.closeModal()">
             Close

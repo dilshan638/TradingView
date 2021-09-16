@@ -51,12 +51,12 @@
                     </select>
                       <span class="error-msg" v-if="v$.selectCoin.$error">{{ v$.selectCoin.$errors[0].$message }} </span>
                  
-                  </div>
+                  </div> 
                     
                 </div>
-              
+            
               </div>
-                
+
               <div class="row">
                 <div class="col-md-12">
                   <div class="form-group pos-rel multi-group mb-4">
@@ -66,6 +66,7 @@
                       placeholder="Address"
                       class="form-control"
                       v-model="state.withdrawAddress"
+                     
                     />
                      <span class="error-msg" v-if="v$.withdrawAddress.$error">{{ v$.withdrawAddress.$errors[0].$message }} </span>
                  
@@ -441,6 +442,8 @@ import useValidate from '@vuelidate/core'
 import { required , numeric} from '@vuelidate/validators'
 import { reactive, computed } from 'vue'
 import axios from "axios";
+import WAValidator from'wallet-address-validator';
+
 export default {
   name: "CryptoOne",
   components: {
@@ -534,10 +537,23 @@ export default {
             if(!this.v$.selectCoin.$error &&  !this.v$.withdrawAddress.$error && !this.v$.network.$error && !this.v$.withdrawAmount.$error){
                
                if(this.balance>this.state.withdrawAmount && this.state.withdrawAmount>this.free){
-                   this.$refs.CryptoThreeModal.openModal();
-               }else{
-                 this.$toast.show("Please Check Your Account Balance", {type: "info", position: "bottom"});
-               }
+                 
+
+                    var valid = WAValidator.validate(this.state.withdrawAddress);
+                    if(valid)
+                       {	  
+                          this.$refs.CryptoThreeModal.openModal();
+                      }
+                  else
+                    { 
+                       this.$toast.show("This is invalid address", {type: "error", position: "bottom"});
+                    }
+                    }
+                    
+                    else
+                    {
+                   this.$toast.show("Please Check Your Account Balance", {type: "info", position: "bottom"});
+                  }
               
             }
    
@@ -576,8 +592,12 @@ export default {
         })
         .then((response) => {
           this.cryptoAll = response.data[0];
+<<<<<<< HEAD
           console.log(response.data);
 
+=======
+          // console.log(this.cryptoAll)
+>>>>>>> 35320ed188c989f273c317cbc12e21159419bc75
           console.log(this.coinBalances);
 
           for (let i = 0; i < this.cryptoAll.length; i++) {
@@ -601,6 +621,7 @@ export default {
           console.log(error);
           
         });
+       
     },
 
     async onChange(event) {
@@ -897,6 +918,8 @@ async submit(){
           });
 },
 
+
+
    
   },
  
@@ -907,6 +930,8 @@ async submit(){
     this.getCoins();
     this.labalStatus();
      this.tokenGA()
+
+   
      
    
   },

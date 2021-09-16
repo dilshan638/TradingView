@@ -37,7 +37,7 @@
                     <li class="col-md-6">
                       <b>Minimum Deposit</b>
                       <p v-if="minimum_deposite!==null">--</p>
-                      <p v-else>{{minimum_deposite}} BTC</p>
+                      <p v-else >{{minimum_deposite}} BTC</p>
                     </li>
                     
                     <li class="col-md-6">
@@ -126,7 +126,6 @@ export default {
         this.expected_arrival= localStorage.getItem("expected_arrival");
          this.expected_unlock= localStorage.getItem("expected_unlock");
 
-        
 
       
       
