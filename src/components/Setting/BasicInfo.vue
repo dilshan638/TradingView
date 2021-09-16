@@ -106,7 +106,6 @@
       </template>
 
       <template v-slot:body>
-
          <div class="form-group pos-rel sec-row mb-3 mt-3" v-if="fa_mobile_status == 'true'">
          <p class="sub-text">
         Please enter the 6 Digit code that we have sent a to +947******89
@@ -226,10 +225,7 @@
                   class="loginbtn btnGA"    @click="next" >
                Next 
           </button>
-
-          <button @click="next">NEXT TEST</button>
-
-          <button
+       <button
             class="second-btn mb-3" @click="$refs.FAVerifyModal.closeModal()">
             Cancel
           </button>
@@ -246,9 +242,8 @@
       </template>
 
       <template v-slot:body>
-        <vue-tel-input
+             <vue-tel-input
                 class="form-control"
-                
                 :valid-characters-only="true" aria-autocomplete="none" v-model="phone" v-on:validate="countryChangedModal" :inputOptions="options"
               >
               </vue-tel-input>
@@ -687,15 +682,13 @@ export default {
         
        }else{
     
-    var data = { mobile: this.newmobileno   };
-    let hed = { headers: {
-                          Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token" )}`,
-                           "Content-Type": "application/json",
-                            },
-                };
+          var data = { mobile: this.newmobileno   };
+         let hed = { headers: { Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token" )}`, "Content-Type": "application/json",  }, };
 
                 
-      let response = await this.axios
+     
+        try{
+           let response = await this.axios
           .post(
             "https://dapi.exus.live/api/twofa/sms/common/code",
            data,
@@ -707,20 +700,28 @@ export default {
              this.$refs.oldPhoneModal.closeModal()
              this.$refs.otpmodal.openModal();
           })
-          .catch(function (error) {
+        }
+        catch (error) {
+                  this.$toast.show("This number is already exist, Please try an another number", {type: "error", position: "top"}); 
+        //       
+            }
+
+        //   .catch(function (error) {
            
-               //this.$toast.show("This number is already exist, Please try an another number", {type: "success", position: "top"});
+        //        //this.$toast.show("This number is already exist, Please try an another number", {type: "success", position: "top"});
                
-               this.$toast.show("This number is already exist, Please try an another number", {type: "error", position: "top"}); 
-               console.log(error);
-                 alert(error)
-         });
+        //        this.$toast.show("This number is already exist, Please try an another number", {type: "error", position: "top"}); 
+        //        console.log(error);
+        //          alert(error)
+        //  });
      
        }
      }, 
 
      async successModalOTP(){
+         this.$toast.show("Phone number changed..!!", {type: "success", position: "top"});
          this.$refs.otpmodal.closeModal()
+
      },
 
      async submitOTP(){
@@ -773,6 +774,6 @@ export default {
 <style lang="scss" scoped>
   @import '../../assets/scss/Setting/Setting';
   .btns{
-    margin-top: 32px;
+    margin-top: 42px;
   }
 </style>

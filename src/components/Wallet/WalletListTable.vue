@@ -299,6 +299,7 @@ export default {
       });
 
       this.$refs.createAddressModal.closeModal();
+      this.$router.go();
     },
 
     async selectedCoin(symbol){

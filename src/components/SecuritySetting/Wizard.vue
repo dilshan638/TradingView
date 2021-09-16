@@ -254,6 +254,7 @@
                    @click="submit"  >
                Continue
           </button>
+           <button class="second-btn mb-3" @click="closeWizardAll">Cancel</button>
       </div>
     </div>
 
@@ -388,6 +389,10 @@ export default {
           });
     
     },
+    closeWizardAll(){
+        this.$router.go();
+    },
+   
     nextOneToTwo() {
       this.showContentOne = false;
       this.showContentTwo = true; 
