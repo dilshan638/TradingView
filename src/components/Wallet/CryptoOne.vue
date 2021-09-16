@@ -24,7 +24,7 @@
                     >
                       <option disabled selected value>Select Coin</option>
                       <option
-                        v-for="coins in coin"
+                        v-for="coins in cryptoAll"
                         :key="coins.symbol"
                         :value="coins.symbol"
                       >
@@ -36,9 +36,9 @@
                   </div>
                     
                 </div>
-              
+            
               </div>
-                
+
               <div class="row">
                 <div class="col-md-12">
                   <div class="form-group pos-rel multi-group mb-4">
@@ -570,7 +570,7 @@ export default {
         })
         .then((response) => {
           this.cryptoAll = response.data[0];
-
+          // console.log(this.cryptoAll)
           console.log(this.coinBalances);
 
           for (let i = 0; i < this.cryptoAll.length; i++) {
@@ -594,6 +594,7 @@ export default {
           console.log(error);
           
         });
+       
     },
 
     async onChange(event) {

@@ -136,10 +136,6 @@ export default {
   },
   mounted(){
     this.getUserData();
-<<<<<<< HEAD
-=======
-    //this.getUseremail();
->>>>>>> 8b9d04247a48ffae15d8048ce21649d209c6b483
   }
 
   
