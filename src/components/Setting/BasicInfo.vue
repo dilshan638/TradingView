@@ -239,10 +239,10 @@
     </modal>
 
   <!-- Change Phone Number Modal 2 -->
-     <modal ref="oldPhoneModal" class="ss-modal">
+     <modal ref="oldPhoneModal" class="border50">
       <template v-slot:header>
         <h2 style="color: black">
-        Mobile Number Change
+           Change mobile number 
         </h2>
       </template>
 
@@ -266,10 +266,10 @@
     </modal>
 
     <!-- Enter MobileCode -->
-    <modal ref="otpmodal" class="ss-modal">
+    <modal ref="otpmodal" class="border50">
       <template v-slot:header>
         <h2 style="color: black">
-       Mobile number verification code
+       Mobile verification code
         </h2>
       </template>
 
@@ -292,7 +292,7 @@
       </template>
       <template v-slot:footer>
         <div>
-          <button  class="loginbtn" @click="successModalOTP">Continue</button>
+          <button  class="loginbtn"  :disabled="OTPSuccess == false " @click="successModalOTP">Continue</button>
           
         </div>
       </template>
@@ -694,6 +694,8 @@ export default {
                            "Content-Type": "application/json",
                             },
                 };
+
+                
       let response = await this.axios
           .post(
             "https://dapi.exus.live/api/twofa/sms/common/code",
@@ -707,9 +709,13 @@ export default {
              this.$refs.otpmodal.openModal();
           })
           .catch(function (error) {
-            console.log(error);
-               this.$toast.show(error, {type: "success", position: "top"});
-          });
+           
+               //this.$toast.show("This number is already exist, Please try an another number", {type: "success", position: "top"});
+               
+               this.$toast.show("This number is already exist, Please try an another number", {type: "error", position: "top"}); 
+               console.log(error);
+                 alert(error)
+         });
      
        }
      }, 
