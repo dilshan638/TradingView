@@ -24,7 +24,7 @@
                     >
                       <option disabled selected value>Select Coin</option>
                       <option
-                        v-for="coins in cryptoAll"
+                        v-for="coins in coin"
                         :key="coins.symbol"
                         :value="coins.symbol"
                       >
@@ -33,7 +33,7 @@
                     </select>
                       <span class="error-msg" v-if="v$.selectCoin.$error">{{ v$.selectCoin.$errors[0].$message }} </span>
                  
-                  </div>
+                  </div> 
                     
                 </div>
             
