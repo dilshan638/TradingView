@@ -12,7 +12,7 @@
               <i class="ri-menu-unfold-line" v-else @click="menushow"></i>
             </div>
       </div>
-      <div class="col-10 col-md-7">
+      <div class="col-10 col-md-6">
         <nav class="navbar navbar-expand-lg mobile-hide">
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -42,8 +42,8 @@
           </div>
         </nav>
       </div>
-      <div class="col-md-3" style="text-align:right">
-        <router-link to="/dashboard"><button class="btn btn-outline-success my-2 my-sm-0 mobile-hide head-btn" v-if="alareadylogin">
+      <div class="col-md-4" style="text-align:right">
+        <router-link to="/dashboard"><button class="btn btn-outline-success my-2 my-sm-0 mobile-hide head-btn" v-if="alareadylogin && $route.path != '/dashboard'">
           Back to Dashboard
           </button></router-link>
         <button class="btn btn-outline my-2 my-sm-0 mobile-hide head-btn" v-if="alareadylogin" @click="logout">Logout</button>

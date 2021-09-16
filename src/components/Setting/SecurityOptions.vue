@@ -41,7 +41,7 @@
                     </div>
                     <div class="col-lg-7">
                       <p>{{ emailmask }}</p>
-                      <button class="btn btn-outline">Activated</button>
+                      <button class="btn btn-outline disable-btn">Activated</button>
                     </div>
                   </div>
                 </div>

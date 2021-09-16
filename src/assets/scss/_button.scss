@@ -75,3 +75,11 @@ button[disabled]{
     pointer-events: none !important;
     opacity: .65 !important;
 }
+
+.disable-btn{
+    background-color: transparent !important;
+    color: #a2a4bf !important;
+    border-color: #a2a4bf !important;
+    cursor: default;
+    box-shadow: none !important;
+}
