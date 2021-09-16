@@ -8,6 +8,7 @@
 @import "table";
 @import "toast";
 @import "form";
+@import "transition";
 
 
 body{
@@ -799,4 +800,11 @@ body.open-modal{
 
 .no-border{
     border: none !important;
+}
+
+.reset-card{
+    cursor: pointer;
+    h3{
+        padding-top: 0 !important;
+    }
 }

@@ -8,7 +8,9 @@
           <span class="userid">User ID: {{ inspiraId }}</span>
       </div>
   </div>
-  
+  <!-- <div id="foo 1" data="foo-url" v-on:click="select($event)">test 1</div>
+   <div id="foo 2" v-on:click="select($event)">test 2</div>
+    <div id="foo 3" v-on:click="select($event)">test 3</div> -->
 </template>
 
 <script>

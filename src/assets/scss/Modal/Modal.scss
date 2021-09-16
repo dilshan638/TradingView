@@ -271,3 +271,11 @@
         width: 450px;
     }
 }
+
+.overflow-visible{
+
+    .modal__body{
+        overflow: initial;
+    }
+
+}

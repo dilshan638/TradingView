@@ -1,11 +1,11 @@
 <template>
   <transition name="fade">
     <div class="modal" v-if="show">
-      <div class="modal__backdrop" @click="closeModal()"/>
+      <div class="modal__backdrop"/>
       <div class="modal__dialog">
         <div class="modal__header">
           <slot name="header"/>  
-          <i class="ri-close-line" @click="closeModal()"></i>
+          <!-- <i class="ri-close-line" @click="closeModal()"></i> -->
         </div>
         <div class="modal__body">
           <slot name="body"/>

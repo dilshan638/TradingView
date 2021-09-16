@@ -7,8 +7,7 @@
             <div class="col-lg-12">
               <div class="form-group">
                 <div class="profile-pic">
-                    <input type="file" id="picture" accept="image/png, image/gif, image/jpeg" />
-                    <label for="picture">
+                    <label>
                         <i class="ri-user-fill"></i>
                     </label>
                 </div>

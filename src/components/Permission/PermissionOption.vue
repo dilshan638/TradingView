@@ -64,73 +64,68 @@
       </h5>
     </div>
 
-
-
-   <!-- Email 2nd Time     -->
-         <div v-if="fa_email_status == 'true' && fa_mobile_status == 'true'" >
-            <p class="subline mt-3" style="color:#000;">
-                  Please enter the 6 Digit code that we have sent a to d*****8.com
-                </p>
-         <div class="input-group single-row mb-2 pos-rel">
-     <input
-        v-model="emailCode"
-        class="form-control"
-        placeholder="Email verification code"
-        @input="emailCodeSubmit"
-        :disabled="emaileSuccessemail == true"
-      />
-      <img
-       v-if="emaileSuccessemail && !emailWrongEmail"
-        src="images/icons/correct.png"
-        class="pos-img error-imgs"
-      />
-      <img
-         v-if="emailWrongEmail"
-        src="images/icons/ic_fail@3x.webp"
-        class="pos-img"
-      />  
-                   
-      <div class="input-group-append">
-        <button
-        @click="sendEmailCodeBtn"
-          class="btn reset1"
-          v-if="btnEmail"
-        >
-          Send
-        </button>
-      </div>
-       
-        </div>
-    <p class="subline right text-right" >
-        Didn't received?
-        <a class="link" @click="sendEmailCode">Resend</a>
-      </p>  
-         </div>
-
- <!-- Email 2nd Time     -->
-
-
-
-    <div
-      v-if="fa_ga_status == 'true'"
-      class="form-group single-row pos-rel security-row"
+   <!-- Email 2nd Time  -->
+    <div v-if="fa_email_status == 'true' && fa_mobile_status == 'true'" >
+      <p class="subline mt-3" style="color:#000;">
+            Please enter the 6 Digit code that we have sent a to {{ emailmask }}
+          </p>
+    <div class="input-group single-row mb-2 pos-rel">
+    <input
+    v-model="emailCode"
+    class="form-control"
+    placeholder="Email verification code"
+    @input="emailCodeSubmit"
+    :disabled="emaileSuccessemail == true"
+    />
+    <img
+    v-if="emaileSuccessemail && !emailWrongEmail"
+    src="images/icons/correct.png"
+    class="pos-img error-imgs"
+    />
+    <img
+    v-if="emailWrongEmail"
+    src="images/icons/ic_fail@3x.webp"
+    class="pos-img"
+    />  
+              
+    <div class="input-group-append">
+    <button
+    @click="sendEmailCodeBtn"
+    class="btn reset1"
+    v-if="btnEmail"
     >
-      <p>Please enter the 6 Digit code from Google Authenticator.</p>
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Enter Google Authenticator code"
-        v-model="googleAuthenticationCode"
-        @input="submitGACode"
-        :disabled="GASuccess == true"
-      />
-      <img
-        v-if="GASuccess && !GAWrong"
-        src="images/icons/correct.png"
-        class="pos-img"
-      />
-      <img v-if="GAWrong" src="images/icons/ic_fail@3x.webp" class="pos-img" />
+    Send
+    </button>
     </div>
+
+    </div>
+    <p class="subline right text-right" >
+    Didn't received?
+    <a class="link" @click="sendEmailCode">Resend</a>
+    </p>  
+    </div>
+ <!-- Email 2nd Time  -->
+
+  <div
+    v-if="fa_ga_status == 'true'"
+    class="form-group single-row pos-rel security-row"
+  >
+    <p>Please enter the 6 Digit code from Google Authenticator.</p>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Enter Google Authenticator code"
+      v-model="googleAuthenticationCode"
+      @input="submitGACode"
+      :disabled="GASuccess == true"
+    />
+    <img
+      v-if="GASuccess && !GAWrong"
+      src="images/icons/correct.png"
+      class="pos-img"
+    />
+    <img v-if="GAWrong" src="images/icons/ic_fail@3x.webp" class="pos-img" />
+  </div>
              
   <button
       v-show="
