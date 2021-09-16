@@ -2,7 +2,7 @@
 <div class="header-area">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-2">
+      <div class="col-2 col-md-3 col-lg-2">
             <router-link class="navbar-brand" to="/">
               <img v-if="showmenu" src="images/logo/logo.png" />
               <img v-else src="images/logo/sm-logo.png" />
@@ -12,7 +12,7 @@
               <i class="ri-menu-unfold-line" v-else @click="menushow"></i>
             </div>
       </div>
-      <div class="col-10 col-md-6">
+      <div class="col-10 col-md-5 col-lg-6">
         <nav class="navbar navbar-expand-lg mobile-hide">
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

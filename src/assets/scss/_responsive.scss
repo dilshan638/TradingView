@@ -14,6 +14,10 @@
 }
 
 @media only screen and (max-width: 768px) { 
+
+    body .active.sidebar{
+        top: 85px !important;
+    }
     
 
     .landing-area {
@@ -253,7 +257,9 @@
             .nav-item{
 
                 a{
-                    font-size: 0.85rem;
+                    font-size: 0.7rem !important;
+                    padding-left: 9px;
+                    padding-right: 9px;
                 }
 
             }
@@ -359,15 +365,19 @@
 
 @media only screen and (min-width: 1024px) {
 
+    .desktop-hide{
+        display: none !important;
+    }
+
     .top-menu-bar{
         display: none;
     }
 }
 
-@media only screen and (min-width: 1024px) {
+@media only screen and (min-device-width : 1024px) and (max-device-width : 1152px) {
 
-    .desktop-hide{
-        display: none !important;
+    .head-btn {
+        font-size: 0.7rem !important;
     }
 
 }

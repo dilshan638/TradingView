@@ -12,7 +12,7 @@
                       <h3>SMS Verification</h3>
                     </div>
                     <div class="col-lg-7">
-                      <p>077******48</p>
+                      <p>{{ mobilemaskaws }}</p>
                       <button class="btn btn-outline" v-show="fa_mobile_status =='true'" @click="smsVerModalOne">Remove</button>
                        <button class="btn btn-primary"  v-show="fa_mobile_status =='false' || fa_mobile_status ==null" @click="smsVerModalOne">Activate</button>
                        
@@ -112,7 +112,7 @@
       <template v-slot:body>
         <div class="form-group pos-rel sec-row mb-3 mt-3">
           <p class="sub-text">
-            Please enter the 6 Digit code that we have sent a to +9471****89
+            Please enter the 6 Digit code that we have sent a to  {{mobileinputmask }}
           </p>
           <div class="input-group mb-2">
             <input
@@ -159,7 +159,7 @@
           class="form-group pos-rel sec-row"
         >
           <p class="sub-text">
-            Please enter the 6 Digit code that we have sent a to dil*****@.com
+            Please enter the 6 Digit code that we have sent a to {{ emailmask }}
           </p>
           <div class="input-group mb-2">
             <input
@@ -372,7 +372,6 @@
     </modal>
      <!-- GA Disable Success Modal -->
 
-
  <!--SUCCESS Sms modal -->
     <modal ref="smsSuccessModal" class="s-modal">
       <template v-slot:header>
@@ -387,11 +386,7 @@
         </div>
       </template>
     </modal>
-
-    <!-- End SUCCESS Sms modal -->
-
-  
-    
+    <!-- End SUCCESS Sms modal -->  
 </div> 
 </template>
 
@@ -453,6 +448,8 @@ export default {
       emailmask: "",
       ga_status: "",
       mobile_status: "",
+      mobileinputmask: "",
+      mobilemaskaws: "",
 
       showOldPassword: false,
       showNewPassword: false,
@@ -507,6 +504,7 @@ export default {
       mobileWrongGARemove:false,
       btnShowMobileGARemove:true,
       mobileno:"",
+      maskmobilenumber: "",
 
 
       mobileCodeMob:"",
@@ -528,6 +526,7 @@ export default {
   methods: {
     countryChanged(phoneObject) {
       this.mobileno = phoneObject.number;
+      localStorage.setItem("mobileinput", this.mobileno);
     },
     async status() {
       const headers = {
@@ -559,8 +558,8 @@ export default {
 
            if(responsive.data.result.UserAttributes[i].Name=="phone_number"){
               this.phone_number = responsive.data.result.UserAttributes[i].Value;
-
-              console.log(this.phone_number)
+              localStorage.setItem('mobilemask', this.phone_number)
+              //console.log(this.phone_number)
            }
          
          }
@@ -577,10 +576,14 @@ export default {
         var r = new RegExp(".{"+hide+"}@", "g")
         this.emailmask = this.emailmask.replace(r, "*@" );
     },
-    // async getUserMobile() {
-    //   this.usermobilenumber = localStorage.getItem("usermobile").slice(0, 2) + localStorage.getItem("usermobile").slice(2).replace(/.(?=...)/g, '*');
-    // },  
-    
+    async getUserMobile() {
+      this.mobileinputmask = localStorage.getItem("mobileinput");
+      this.mobileinputmask = this.mobileinputmask.slice(0, 2) + this.mobileinputmask.slice(2).replace(/.(?=...)/g, '*');
+      //alert(this.mobileno)
+    },  
+    async mobilenumbermask() {
+      this.mobilemaskaws = localStorage.getItem("mobilemask").slice(0, 2) + localStorage.getItem("mobilemask").slice(2).replace(/.(?=...)/g, '*');
+    },      
     async openWizard(){
        this.$refs.gaEnableModal.openModal();
     },
@@ -847,6 +850,7 @@ export default {
     async smsModalOneNext(){
       this.$refs.smsModalOne.closeModal();
       this.$refs.smsSeondModal.openModal();
+      this.getUserMobile();
     },
      async sendMobileCodeMobile() {
       
@@ -1048,6 +1052,7 @@ export default {
   mounted(){
     this.getUseremail();
     this.status()
+    this.mobilenumbermask();
   }
 
   
