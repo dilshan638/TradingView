@@ -235,7 +235,7 @@
 
          <div class="form-group pos-rel sec-row mb-3 mt-3" v-if="fa_mobile_status == 'true'">
          <p class="sub-text">
-        Please enter the 6 Digit code that we have sent a to +947******89
+        Please enter the 6 Digit code that we have sent a to {{ mobilemaskaws }}
        
       </p>
       <div class="input-group mb-2">
