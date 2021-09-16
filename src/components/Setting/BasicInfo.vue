@@ -745,6 +745,7 @@ export default {
            
             console.log(response);
             console.log(res)
+              this.$router.go();
           })
           .catch(function (error) {
             console.log(error);
