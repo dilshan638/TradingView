@@ -18,7 +18,7 @@
                             <div class="eye-box">
                                 <i @click="showPassword = !showPassword" :class="[showPassword ? 'ri-eye-off-line' : 'ri-eye-line']" aria-hidden="true"></i>
                             </div>
-                        <span class="error-msg" v-if="v$.password.password.$error">{{ v$.password.$errors[0].$message }} </span>                        
+                        <span class="error-msg" v-if="v$.password.password.$error">{{ v$.password.$errors[0].$message }} </span>
                     </div>
                     <button class="centered login-btn" @click="SubmitForm" :disabled="startspinner == true">                       
                         <div class="spinner-border spinner-border-sm" v-if="startspinner" role="status"></div>

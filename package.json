@@ -28,6 +28,7 @@
     "vue-clipboard3": "^1.0.1",
     "vue-cookies": "^1.7.4",
     "vue-loading-overlay": "^4.0.4",
+    "vue-multiselect": "^2.1.6",
     "vue-router": "^4.0.10",
     "vue-session": "^1.0.0",
     "vue-trading-view": "^1.0.1",

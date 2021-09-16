@@ -245,6 +245,22 @@
 
 @media only screen and (max-width: 1023px) {
 
+    .table-tab{
+
+        .nav-pills{
+
+
+            .nav-item{
+
+                a{
+                    font-size: 0.85rem;
+                }
+
+            }
+        }
+
+    }
+
     .menu-col{
         display: none;
     }

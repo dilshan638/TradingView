@@ -8,6 +8,9 @@
           <span class="userid">User ID: {{ inspiraId }}</span>
       </div>
   </div>
+  <div id="foo 1" data="foo-url" v-on:click="select($event)">test 1</div>
+   <div id="foo 2" v-on:click="select($event)">test 2</div>
+    <div id="foo 3" v-on:click="select($event)">test 3</div>
 </template>
 
 <script>
@@ -24,6 +27,11 @@ export default {
         }
     },
     methods: {
+        select: function(event) {
+           // var targetId = event.currentTarget.id;
+            var targeturl = event.currentTarget.data;
+            alert(targeturl); // returns 'foo'
+        },
         async  getimage() {
             this.images.url = "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50.jpg";
         },

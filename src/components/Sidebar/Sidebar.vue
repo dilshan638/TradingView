@@ -21,11 +21,11 @@
                         <i class="ri-key-2-line"></i> <span>Orders</span>
                     </router-link>
                 </li>
-                <li>
+                <!-- <li>
                     <router-link to="/securitysetting" class="nav-link text-white">
                         <i class="ri-shield-line"></i> <span>Security</span>
                     </router-link>
-                </li>
+                </li> -->
                 <li>
                 <router-link to="/setting" class="nav-link text-white">
                         <i class="ri-settings-2-line"></i> <span>Setting</span>

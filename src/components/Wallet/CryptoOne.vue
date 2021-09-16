@@ -16,6 +16,24 @@
                 <div class="col-md-12">
                   <div class="form-group pos-rel mb-4 multi-group">
                     <p class="labels">Select Coin</p>
+                    <!-- <div class="dropdown-area">
+                        <div class="dropdown-title" @click="dropdowntoggle">
+                          <img src="https://ldev.exus.live/public/frontend/images/currency/btc_icon.png" />
+                          Select Coin 
+                          <i class="ri-arrow-down-s-line" :class="[showdropdown ? 'ri-arrow-up-s-line' : 'ri-arrow-down-s-line']"></i>
+                          </div>
+                        <div class="dropdown-content" v-if="showdropdown">
+                            <ul>
+                              <li
+                                v-for="coins in coin"
+                                :key="coins.symbol"
+                                :value="coins.symbol"
+                                >
+                                 <h2>{{coins.symbol}}</h2>
+                                </li>
+                            </ul>
+                        </div>
+                    </div> -->
                     <select
                       placeholder="BTC-BITCOIN"
                       v-model="state.selectCoin"
@@ -456,6 +474,7 @@ export default {
     }, 
   data() {
     return {
+      showdropdown: false,
       shownetwork: false,
       coin: [],
      
@@ -498,6 +517,9 @@ export default {
 
    cyptothreeclose(){
      this.$refs.CryptoThreeModal.closeModal();
+   },
+   dropdowntoggle() {
+     this.showdropdown = !this.showdropdown
    },
     actionwithorw() {
       this.shownetwork = true;
@@ -554,6 +576,7 @@ export default {
         })
         .then((response) => {
           this.cryptoAll = response.data[0];
+          console.log(response.data);
 
           console.log(this.coinBalances);
 
