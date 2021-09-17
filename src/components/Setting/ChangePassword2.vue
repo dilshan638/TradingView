@@ -237,25 +237,24 @@ export default {
                       );
                           })
                 .then((data) => {
-                  this.$toast.show('Your password change successfully..!!', {  type: "success", position: "top-right",  });   
+                  this.$toast.show('Your password change successfully', {  type: "success", position: "top",  });   
                   console.log(data)
                   this.logout()
                   })
             .catch((err) => {
             console.log(err)
-            this.$toast.show('Does not match your old password, Please check..!!', {
+            this.$toast.show('Does not match your old password, Please check', {
             type: "error",
-             position: "top-right",
+             position: "top",
         });
           });
       } else {
         console.log("Form Failed Validation");
       }
           }else{
-            this.$toast.show('This is old password..!!', {
+            this.$toast.show('Please update a new password', {
             type: "error",
-             position: "top-right",
-        });
+             position: "top"});
           }
 
     },

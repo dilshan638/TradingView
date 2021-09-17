@@ -398,7 +398,7 @@ export default {
                this.v$.verificationCode.$touch()
                this.v$.newPassword.$touch()
                this.v$.confirmPassword.$touch()
-           if(!this.v$.$error && this.state.confirmPassword===this.state.newPassword){
+           if(this.state.verificationCode!=''&&this.state.newPassword !='' && this.state.confirmPassword!='' && this.state.confirmPassword===this.state.newPassword){
                 this.$refs.otpcodemodal.closeModal();
                 this.$refs.successmodal.openModal();
                try{
