@@ -361,8 +361,7 @@
     >
       Submit  
     </button>
-
-          <button class="second-btn mb-3" @click="cyptothreeclose">
+         <button class="second-btn mb-3" @click="cyptothreeclose">
             Cancel
           </button>
          

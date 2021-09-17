@@ -17,6 +17,8 @@ import Permission from '../views/Permission.vue';
 import Setting from '../views/Setting.vue';
 import CryptoOne from '../components/Wallet/CryptoOne.vue';
 
+import Websoket from '../views/WebSocket/Websoket.vue';
+
 import History from '../views/History.vue';
 import WithdrawalDetails from '../views/WithdrawDetails.vue';
 //Import store
@@ -126,7 +128,12 @@ const routes=[
     {
         path:'/withdrawal-details',
         component:WithdrawalDetails,
-        beforeEnter : guardmyrouter
+        beforeEnter : guardmyrouter 
+    } ,
+    {
+        path:'/web-socket',
+        component:Websoket,
+        beforeEnter : guardmyrouter 
     }     
 ];
 

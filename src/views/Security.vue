@@ -126,10 +126,7 @@ export default {
         this.expected_arrival= localStorage.getItem("expected_arrival");
          this.expected_unlock= localStorage.getItem("expected_unlock");
 
-
-      
-      
-
+     
     },
     copyTestingCode () {
       let testingCodeToCopy = document.querySelector('#testing-code')
