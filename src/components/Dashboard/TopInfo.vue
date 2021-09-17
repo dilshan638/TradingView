@@ -4,7 +4,7 @@
         <img :src="images.url" />
       </div>
       <div class="pro-detail">
-          <div class="info1"><strong>{{ emailmask }}</strong> <span class="badge bg-primary">Personal</span></div>
+          <div class="info1"><strong>{{ emailmask }}</strong> <span class="badge bg-primary">{{ usertype }}</span></div>
           <span class="userid">User ID: {{ inspiraId }}</span>
       </div>
   </div>
@@ -23,7 +23,9 @@ export default {
                 }            
             ],
             emailmask:"",
-            inspiraId:""
+            inspiraId:"",
+            usertype: "",
+            picture: ""
         }
     },
     methods: {
@@ -41,6 +43,9 @@ export default {
         },
         async getInspiraId() {
             this.inspiraId = localStorage.getItem("inspira_id")
+        },
+        async getUserType() {
+            this.usertype = localStorage.getItem("usertype");
         }
     },
     created() {
@@ -49,6 +54,7 @@ export default {
     mounted() {
         this.getUserData();
         this.getInspiraId();
+        this.getUserType();
     }
 }    
 </script>
