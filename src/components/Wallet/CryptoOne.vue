@@ -48,9 +48,12 @@
                       placeholder="Address"
                       class="form-control"
                       v-model="state.withdrawAddress"
+                      @blur="validateAddress"
                      
                     />
                      <span class="error-msg" v-if="v$.withdrawAddress.$error">{{ v$.withdrawAddress.$errors[0].$message }} </span>
+                  <span class="error-msg clr" v-show="addressValid=='true'">{{ successMsg  }} </span>
+                   <span class="error-msg" v-show="addressValid=='false'">{{ errorMsg }} </span>
                  
                   </div>
                 </div>
@@ -423,7 +426,8 @@ import useValidate from '@vuelidate/core'
 import { required , numeric} from '@vuelidate/validators'
 import { reactive, computed } from 'vue'
 import axios from "axios";
-import WAValidator from'wallet-address-validator';
+//import WAValidator from'wallet-address-validator';
+//const WAValidator = require('@swyftx/api-crypto-address-validator')
 
 export default {
   name: "CryptoOne",
@@ -492,7 +496,11 @@ export default {
            phone_number:"",
            displayCard:"",
            free:"",
-           min:""
+           min:"",
+
+           addressValid:"",
+           successMsg:"Valid address",
+           errorMsg:"Invalid address"  
          
     };
   },
@@ -504,27 +512,18 @@ export default {
     actionwithorw() {
       this.shownetwork = true;
     },
-    actionwithorwsecuritymodal() {
-           
+  async  actionwithorwsecuritymodal() {
+      // const WAValidator = require('@swyftx/api-crypto-address-validator')
             this.v$.selectCoin.$touch()
             this.v$.withdrawAddress.$touch()
             this.v$.network.$touch()
             this.v$.withdrawAmount.$touch()
-
-            if(!this.v$.selectCoin.$error &&  !this.v$.withdrawAddress.$error && !this.v$.network.$error && !this.v$.withdrawAmount.$error){
+           
+              if(!this.v$.selectCoin.$error &&  !this.v$.withdrawAddress.$error && !this.v$.network.$error && !this.v$.withdrawAmount.$error){
                
                if(this.balance>this.state.withdrawAmount && this.state.withdrawAmount>this.free){
                  
-
-                    var valid = WAValidator.validate(this.state.withdrawAddress,this.state.selectCoin);
-                    if(valid)
-                       {	  
-                          this.$refs.CryptoThreeModal.openModal();
-                      }
-                  else
-                    { 
-                       this.$toast.show("This is invalid address", {type: "error", position: "top"});
-                    }
+                       this.$refs.CryptoThreeModal.openModal();
                     }
                     
                     else
@@ -635,7 +634,9 @@ export default {
           console.log(error);
          
         });
-    },
+       this.validateAddress()
+  
+  },
 
     async withdrawValidation(){
      // this.displayCard="true"
@@ -890,9 +891,23 @@ async submit(){
           });
 },
 
-
-
-   
+async validateAddress(){
+          const WAValidator = require('@swyftx/api-crypto-address-validator')
+                 var valid = WAValidator.validate(this.state.withdrawAddress , this.state.selectCoin);
+           
+                  if(this.state.selectCoin!='TRC' && this.state.withdrawAddress !=''){
+                      if(valid) {	  
+                         
+                         this.addressValid='true'
+                      }
+                  else
+                    { 
+                      
+                       this.addressValid='false'
+                    }
+                  }
+                    }
+                      
   },
  
 
@@ -917,5 +932,8 @@ async submit(){
 .btnWLT{
   margin-top: 27px;
   margin-right: 15px;
+}
+.clr{
+  color: greenyellow;
 }
 </style>
