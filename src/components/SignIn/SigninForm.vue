@@ -320,6 +320,7 @@ export default {
                     if(responsive.data.result.UserAttributes[i].Name=="custom:picture"){
                         this.picture = responsive.data.result.UserAttributes[i].Value;
                         localStorage.setItem("picture", this.picture);
+                        console.log(localStorage.getItem("picture"))
                     }                     
                 }
                  if( this.fa_mobile_status=='true'){
