@@ -217,6 +217,7 @@ export default {
             valid_password: false,  
             submitdisabled: true,
             phone_number:"",
+            profilePic:"",
  
              data: {
                 firstName: "",
@@ -313,6 +314,11 @@ export default {
                           if(responsive.data.result.UserAttributes[i].Name=="phone_number"){
                              this.phone_number = responsive.data.result.UserAttributes[i].Value;
                              localStorage.setItem("phone_number", this.phone_number);
+                             }
+
+                              if(responsive.data.result.UserAttributes[i].Name=="picture"){
+                             this.profilePic = responsive.data.result.UserAttributes[i].Value;
+                             localStorage.setItem("picture", this.profilePic);
                              }
                               }
 

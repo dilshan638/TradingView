@@ -14,12 +14,14 @@
               <div class="col-xl-8">
                 <div class="barcode-area">
                   <div class="barcode-img">
-                    <qrcode-vue
-                      :value="value"
+                    
+                     <qrcode-vue
+                      :value="addressList"
                       :size="size"
                       level="H"
                       class="qr"
-                    />
+                    /> 
+
                   </div>
                   <p>
                     Scan the code on the withdrawal page of<br />
@@ -29,7 +31,7 @@
                 <div class="barcode-detail">
                   <ul class="row">
                     <li class="col-md-12">
-                      <b>Address <i class="ri-file-copy-line" @click.stop.prevent="copyTestingCode"></i></b>
+                      <b>Address  <i class="ri-file-copy-line" @click.stop.prevent="copyTestingCode"></i></b>
                       <p>{{ addressList }}</p>
                       <input type="hidden" id="testing-code" :value="addressList">
                     </li>
@@ -76,7 +78,7 @@ export default {
   components: {
     DefaultLayout,
     SelectCoin,
-    QrcodeVue,
+     QrcodeVue,
   },
   data() {
     return {
@@ -84,13 +86,14 @@ export default {
       createdAddress: "",
       generatedAddress: "",
       selectedListCoin: "",
-      value: "otpauth://totp/SupremeCrypX?secret=ZZZQPGOCPUYLJDMP",
-      size: 142,
+      //value: "otpauth://totp/SupremeCrypX?secret=ZZZQPGOCPUYLJDMP", 
+      size: 142, 
       addressList: "",
        minimum_deposite: "",
       avarege_arrival_time: "",
       expected_arrival: "",
       expected_unlock: "",
+      //qrdata:"",
     };
   },
 
@@ -140,12 +143,15 @@ export default {
       }
       testingCodeToCopy.setAttribute('type', 'hidden')
       window.getSelection().removeAllRanges()
-    }    
+    }  
+    
+     
   },
 
   mounted() {
     this.getAddress();
     this.depositDetails()
+    
   },
 };
 </script>
