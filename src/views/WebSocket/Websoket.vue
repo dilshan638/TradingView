@@ -22,7 +22,7 @@ data: function() {
 
   created: function() {
     console.log("Starting connection to WebSocket Server")
-    this.connection = new WebSocket("wss://echo.websocket.org")
+    this.connection = new WebSocket("wss://369d-2402-4000-2280-1278-3c84-ec0-704f-6b42.ngrok.io/ws")
 
     this.connection.onmessage = function(event) {
       console.log(event);
