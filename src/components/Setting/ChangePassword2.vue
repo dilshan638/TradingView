@@ -166,12 +166,8 @@ export default {
       return {
         oldPassword: {
           required,
-<<<<<<< HEAD
-          sameAs: !sameAs(state.newPassword),
-=======
           sameAs: !(sameAs(state.newPassword)),
           minLength: minLength(8),
->>>>>>> 8b3ecd9440a8190143189723a1879dfd57fa58b3
         },
 
         newPassword: {
