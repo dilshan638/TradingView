@@ -209,7 +209,7 @@ export default {
             emailnewmask: '',
             startspinner: false,
             usertype: "",
-            picture: "",
+            ProfilePic: "",
 
             password_length: 0,
             contains_eight_characters: false,
@@ -318,8 +318,8 @@ export default {
                         localStorage.setItem("usertype", this.usertype);
                     }
                     if(responsive.data.result.UserAttributes[i].Name=="custom:picture"){
-                        this.picture = responsive.data.result.UserAttributes[i].Value;
-                        localStorage.setItem("picture", this.picture);
+                        this.ProfilePic = responsive.data.result.UserAttributes[i].Value;
+                        localStorage.setItem("picture", this.ProfilePic);
                         console.log(localStorage.getItem("picture"))
                     }                     
                 }
