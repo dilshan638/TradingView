@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-lg-6 mobile-hide no-padding">
                 <div class="left-logo">
-                    <img src="images/logo/logo.png" />
+                    <img src="images/logo/logo.png" alt="LDCX" title="LDCX" />
                 </div>
             </div>
             <div class="col-lg-6 no-padding">
@@ -208,6 +208,8 @@ export default {
             newpasswordone: '',
             emailnewmask: '',
             startspinner: false,
+            usertype: "",
+            picture: "",
 
             password_length: 0,
             contains_eight_characters: false,
@@ -286,61 +288,62 @@ export default {
                  .then((responsive) => {
                  console.log(responsive)
                 for(let i = 0; i < responsive.data.result.UserAttributes.length; i++){
-
                     if(responsive.data.result.UserAttributes[i].Name=="custom:inspira_2fa_status"){
                         this.inspira_2fa_status = responsive.data.result.UserAttributes[i].Value;
-                         localStorage.setItem('inspira_2fa_status',this.inspira_2fa_status )
+                        localStorage.setItem('inspira_2fa_status',this.inspira_2fa_status )
                     }
-
                     if(responsive.data.result.UserAttributes[i].Name=="custom:inspira_id"){
                         this.inspira_id=responsive.data.result.UserAttributes[i].Value
                       localStorage.setItem('inspira_id',this.inspira_id )
-                       
                     }
-                      if(responsive.data.result.UserAttributes[i].Name=="custom:2fa_email_status"){
-                          this.fa_email_status = responsive.data.result.UserAttributes[i].Value;
-                          localStorage.setItem('fa_email_status',this.fa_email_status )
-                         }
-                        if(responsive.data.result.UserAttributes[i].Name=="custom:2fa_mobile_status"){
-                          this.fa_mobile_status = responsive.data.result.UserAttributes[i].Value;
-                       // this.fa_mobile_status = 'false'
-                            localStorage.setItem('fa_mobile_status',this.fa_mobile_status )
-                        }
-                         if(responsive.data.result.UserAttributes[i].Name=="custom:2fa_ga_status"){
-                              this.fa_ga_status = responsive.data.result.UserAttributes[i].Value;
-                               localStorage.setItem('fa_ga_status',this.fa_ga_status )
-                          }
-                          if(responsive.data.result.UserAttributes[i].Name=="phone_number"){
-                             this.phone_number = responsive.data.result.UserAttributes[i].Value;
-                             localStorage.setItem("phone_number", this.phone_number);
-                             }
-                              }
-
-
+                    if(responsive.data.result.UserAttributes[i].Name=="custom:2fa_email_status"){
+                        this.fa_email_status = responsive.data.result.UserAttributes[i].Value;
+                        localStorage.setItem('fa_email_status',this.fa_email_status )
+                    }
+                    if(responsive.data.result.UserAttributes[i].Name=="custom:2fa_mobile_status"){
+                        this.fa_mobile_status = responsive.data.result.UserAttributes[i].Value;
+                        // this.fa_mobile_status = 'false'
+                        localStorage.setItem('fa_mobile_status',this.fa_mobile_status )
+                    }
+                    if(responsive.data.result.UserAttributes[i].Name=="custom:2fa_ga_status"){
+                        this.fa_ga_status = responsive.data.result.UserAttributes[i].Value;
+                        localStorage.setItem('fa_ga_status',this.fa_ga_status )
+                    }
+                    if(responsive.data.result.UserAttributes[i].Name=="phone_number"){
+                        this.phone_number = responsive.data.result.UserAttributes[i].Value;
+                        localStorage.setItem("phone_number", this.phone_number);
+                    }
+                    if(responsive.data.result.UserAttributes[i].Name=="custom:type"){
+                        this.usertype = responsive.data.result.UserAttributes[i].Value;
+                        localStorage.setItem("usertype", this.usertype);
+                    }
+                    if(responsive.data.result.UserAttributes[i].Name=="custom:picture"){
+                        this.picture = responsive.data.result.UserAttributes[i].Value;
+                        localStorage.setItem("picture", this.picture);
+                    }                     
+                }
                  if( this.fa_mobile_status=='true'){
                      var data = {mobile: this.phone_number};
                      let hed = {  headers: {  Authorization: this.accToken,"Content-Type": "application/json",  }, };
                      axios.post(  "https://dapi.exus.live/api/twofa/sms/code",data, hed )
-                     .then((res) => {
+                        .then((res) => {
                            console.log(res);
                          })
-                        .catch(function (error) {
-                        console.log(error.response.data);
-                         });
+                            .catch(function (error) {
+                            console.log(error.response.data);
+                        });
                      localStorage.setItem('stSMS',"SMSonly")
-                 }
-                  if( (this.fa_mobile_status=='false' || this.fa_mobile_status==''|| this.fa_mobile_status==null ) &&  this.fa_email_status=='true'){
+                    }
+                    if( (this.fa_mobile_status=='false' || this.fa_mobile_status==''|| this.fa_mobile_status==null ) &&  this.fa_email_status=='true'){
                      localStorage.setItem('stEMAIL',"EMAILonly")
-                 }
-
-                if(this.inspira_2fa_status=='true'){
-                       this.$router.push("/permission-checking");
-                  }else{
-                      this.$router.push("/dashboard");
-                  }
-       
-              })
-                   this.$toast.show("Successfully logged in", {type: "success", position: "top"});    
+                    }
+                    if(this.inspira_2fa_status=='true'){
+                        this.$router.push("/permission-checking");
+                    }else{
+                        this.$router.push("/dashboard");
+                    }
+                })
+                this.$toast.show("Successfully logged in", {type: "success", position: "top"});    
              } 
              catch (error) {
                 this.$toast.show(error.message, {type: "error", position: "top"});

@@ -1,10 +1,11 @@
 <template>  
   <div class="top-info">
       <div class="profile-img">
-        <img :src="images.url" />
+        <!-- <img :src="images.url" /> -->
+        {{ picture }}
       </div>
       <div class="pro-detail">
-          <div class="info1"><strong>{{ emailmask }}</strong> <span class="badge bg-primary">Personal</span></div>
+          <div class="info1"><strong>{{ emailmask }}</strong> <span class="badge bg-primary">{{ usertype }}</span></div>
           <span class="userid">User ID: {{ inspiraId }}</span>
       </div>
   </div>
@@ -17,13 +18,10 @@
 export default {
     data() {
         return{
-            images: [
-                {
-                    url:"",
-                }            
-            ],
+            picture:"",
             emailmask:"",
-            inspiraId:""
+            inspiraId:"",
+            usertype: ""
         }
     },
     methods: {
@@ -33,7 +31,7 @@ export default {
             alert(targeturl); // returns 'foo'
         },
         async  getimage() {
-            this.images.url = "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50.jpg";
+            this.picture = localStorage.getItem("picture");
         },
         async  getUserData() {
             console.log("test");
@@ -41,14 +39,16 @@ export default {
         },
         async getInspiraId() {
             this.inspiraId = localStorage.getItem("inspira_id")
+        },
+        async getUserType() {
+            this.usertype = localStorage.getItem("usertype");
         }
-    },
-    created() {
-        this.getimage();
     },
     mounted() {
         this.getUserData();
         this.getInspiraId();
+        this.getUserType();
+        this.getimage();
     }
 }    
 </script>
