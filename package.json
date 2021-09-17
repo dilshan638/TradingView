@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@meforma/vue-toaster": "^1.2.2",
+    "@swyftx/api-crypto-address-validator": "^1.13.1",
     "@vuelidate/core": "^2.0.0-alpha.24",
     "@vuelidate/validators": "^2.0.0-alpha.18",
     "apexcharts": "^3.27.3",
