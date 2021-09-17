@@ -300,7 +300,7 @@ export default {
       qrdata: "",
       token: "",
       googleAuthenticationCode: "",
-      //  showContentFive: false,
+      //  showContentFive: false, 
       GAWrong: false,
       GASuccess: false,
       Emailuccess: false,
