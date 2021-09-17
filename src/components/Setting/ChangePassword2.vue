@@ -142,7 +142,7 @@ import useValidate from "@vuelidate/core";
 var generator = require('generate-password');
 import { Auth } from "aws-amplify";
 import Modal from "../Modal/Modal.vue";
-import { required, sameAs ,minLength ,maxLength, not} from "@vuelidate/validators";
+import { required, sameAs ,minLength ,maxLength} from "@vuelidate/validators";
 import { reactive, computed } from "vue";
 export default {
   name: "Setting",
@@ -160,8 +160,7 @@ export default {
       return {
         oldPassword: {
           required,
-          sameAs: not(sameAs(state.newPassword)),
-          minLength: minLength(8),
+          sameAs: !sameAs(state.newPassword),
         },
 
         newPassword: {
@@ -174,7 +173,7 @@ export default {
           required,
           sameAs: sameAs(state.newPassword),
           minLength: minLength(8),
-          maxLength: maxLength(12),
+            maxLength: maxLength(12),
         },
       };
     });
