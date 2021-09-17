@@ -3,7 +3,7 @@
         <i class="ri-menu-fill"></i>
     </div>
     <div class="sidebar-backdrop" @click="removeslide" v-if="activesidemenu"></div>
-    <transition name="slide">
+    <transition :name="transitionName" mode="out-in">
         <div class="d-flex flex-column flex-shrink-0 p-3 text-white sidebar" v-bind:class="[activesidemenu ? 'active' : '']">
             <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item">

@@ -56,3 +56,17 @@
     }
 
 }
+
+.form-group--error{
+    border: solid 2px red !important;
+    background-color: #fff !important;
+}
+
+.form-control{
+
+    &:focus{
+        box-shadow: none !important;
+        border: solid 2px #89c1ff;
+    }
+
+}

@@ -180,7 +180,7 @@ export default {
           required,
           sameAs: sameAs(state.newPassword),
           minLength: minLength(8),
-          maxLength: maxLength(12),
+            maxLength: maxLength(12),
         },
       };
     });

@@ -10,15 +10,15 @@
                 <div class="right-form">
                     <h2>LDCX Exchange</h2>
                     <div class="eye-area mb-4">
-                        <input placeholder="Email" v-model="state.email" class="form-control" />
-                        <span class="error-msg" v-if="v$.email.$error">{{ v$.email.$errors[0].$message }} </span>
+                        <input placeholder="Email" v-model="state.email" class="form-control" :class="{ 'form-group--error': v$.email.$error }" ref="usernamef" />
+                        <span class="error-msg" v-if="v$.email.$error">Username {{ v$.email.$errors[0].$message }} </span>
                     </div>
                     <div class="eye-area mb-5">
-                        <input v-bind:type="[showPassword ? 'text' : 'password']" placeholder="Password" v-model="state.password.password" class="form-control" />
+                        <input v-bind:type="[showPassword ? 'text' : 'password']" placeholder="Password" :class="{ 'form-group--error': v$.password.password.$error }" v-model="state.password.password" class="form-control" />
                             <div class="eye-box">
                                 <i @click="showPassword = !showPassword" :class="[showPassword ? 'ri-eye-off-line' : 'ri-eye-line']" aria-hidden="true"></i>
                             </div>
-                        <span class="error-msg" v-if="v$.password.password.$error">{{ v$.password.$errors[0].$message }} </span>
+                        <span class="error-msg" v-if="v$.password.password.$error">Password {{ v$.password.$errors[0].$message }} </span>
                     </div>
                     <button class="centered login-btn" @click="SubmitForm" :disabled="startspinner == true">                       
                         <div class="spinner-border spinner-border-sm" v-if="startspinner" role="status"></div>
@@ -35,8 +35,8 @@
             <template v-slot:body>
                     <h5 style="color:black">Enter your Email Address</h5>
                     <div class="form-group pos-rel">    
-                        <input type="email" class="form-control" placeholder="Email Address" style="color:#000" v-model="state.forgotpasswordemail" />
-                        <span class="error-msg" v-if="v$.forgotpasswordemail.$error">{{ v$.forgotpasswordemail.$errors[0].$message }} </span>  
+                        <input type="email" class="form-control" placeholder="Email Address" style="color:#000" v-model="state.forgotpasswordemail" :class="{ 'form-group--error': v$.forgotpasswordemail.$error }" />
+                        <span class="error-msg" v-if="v$.forgotpasswordemail.$error">Email Address {{ v$.forgotpasswordemail.$errors[0].$message }} </span>  
                     </div>
                     <div class="modal-buttons">
                         <button class="mb-3" @click="forgotpassword">Next</button>
@@ -109,6 +109,7 @@
             <template v-slot:footer>
                 <div>
                     <button @click="otpcheck">Next</button>
+                     <button  class="second-btn mt-2" @click="$refs.otpcodemodal.closeModal()">Cancel</button>
                 </div>
             </template>
         </modal>   
@@ -346,6 +347,8 @@ export default {
                 console.log(error.message)
                 console.log('No')
                 this.role=false
+                this.state.email = ""
+                this.state.password.password = ""
             }
             setTimeout(() => this.startspinner = false, 100);
         },
@@ -462,6 +465,7 @@ export default {
      this.encryptData()
      this.passwordGenereate();
      this.alreadyLogin();
+     this.$refs.usernamef.focus()
    //  this.getAttributes();
     }
 }
