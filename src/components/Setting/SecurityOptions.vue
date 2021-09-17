@@ -14,7 +14,7 @@
                     <div class="col-lg-7">
                       <p>{{ mobilemaskaws }}</p>
                       <button class="btn btn-outline" v-show="fa_mobile_status =='true'" @click="smsVerModalOne">Remove</button>
-                       <button class="btn btn-primary"  v-show="fa_mobile_status =='false' || fa_mobile_status ==null" @click="smsVerModalOne">Activate</button>
+                       <button class="btn btn-primary"  v-show="fa_mobile_status =='false' || fa_mobile_status ==null ||fa_mobile_status==''" @click="smsVerModalOne">Activate</button>
                        
                     </div>
                   </div>
@@ -28,7 +28,7 @@
                     </div>
                     <div class="col-lg-7">
                       <button class="btn btn-outline" v-show="fa_ga_status =='true'" @click="openmodaldisableGA">Remove</button>
-                     <button class="btn btn-primary" v-show="fa_ga_status =='false' || fa_ga_status ==null" @click="openWizard">Activate</button>
+                     <button class="btn btn-primary" v-show="fa_ga_status =='false' || fa_ga_status ==null ||fa_ga_status==''" @click="openWizard">Activate</button>
                     </div>
                   </div>
                 </div>
@@ -559,7 +559,7 @@ export default {
            if(responsive.data.result.UserAttributes[i].Name=="phone_number"){
               this.phone_number = responsive.data.result.UserAttributes[i].Value;
               localStorage.setItem('mobilemask', this.phone_number)
-              //console.log(this.phone_number)
+              console.log( this.fa_email_status)
            }
          
          }

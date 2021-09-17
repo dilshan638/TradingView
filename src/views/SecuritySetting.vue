@@ -532,7 +532,7 @@ export default {
         placeholder: "Phone Number",
         autoFormat: true,
         mode: "international",
-        maxlength: 12,
+        maxlength: 18,
         validCharactersOnly: true,
       },
       options2: {

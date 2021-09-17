@@ -1,5 +1,6 @@
 <template>
-  <div class="inner-block no-border">
+ <div>
+    <div class="inner-block no-border">
     <div class="row">
       <div class="col-lg-12">
           <div class="row">
@@ -131,10 +132,15 @@
       <template v-slot:footer>
         <div>
           <button @click="changePassword" class="loginbtn">Change Password</button>
+            <button
+            class="second-btn mb-3" @click="$refs.resetpasswordmodal.closeModal()">
+            Cancel
+          </button>
         </div>
       </template>
     </modal>
     <!-- End Reset Password modal -->    
+ </div>
 </template>
 
 <script>
@@ -160,7 +166,12 @@ export default {
       return {
         oldPassword: {
           required,
+<<<<<<< HEAD
           sameAs: !sameAs(state.newPassword),
+=======
+          sameAs: !(sameAs(state.newPassword)),
+          minLength: minLength(8),
+>>>>>>> 8b3ecd9440a8190143189723a1879dfd57fa58b3
         },
 
         newPassword: {
@@ -208,35 +219,49 @@ export default {
     changepasswordmodal() {
       this.$refs.resetpasswordmodal.openModal();
     },
+     logout() {
+        window.localStorage.clear();
+        this.$router.push("/signin");
+        
+    },
     changePassword() {
       this.v$.$validate();
 
-      if (!this.v$.$error) {
-        console.log("Form successfully submitted.");
-        Auth.currentAuthenticatedUser()
-          .then((user) => {
-            return Auth.changePassword(
-              user,
-              this.state.oldPassword,
-              this.state.newPassword
-            );
-          })
-          .then((data) => {
-             this.$toast.show('Your password change successfully..!!', { 
-          type: "success",
-          position: "top-right",
-        });   
-            console.log(data)})
-          .catch((err) => {
+   
+          if(this.state.oldPassword!=this.state.newPassword){
+
+              if (!this.v$.$error) {
+                 console.log("Form successfully submitted.");
+                 Auth.currentAuthenticatedUser()
+                .then((user) => {
+                 return Auth.changePassword(
+                            user,
+                            this.state.oldPassword,
+                            this.state.newPassword
+                      );
+                          })
+                .then((data) => {
+                  this.$toast.show('Your password change successfully..!!', {  type: "success", position: "top-right",  });   
+                  console.log(data)
+                  this.logout()
+                  })
+            .catch((err) => {
             console.log(err)
             this.$toast.show('Does not match your old password, Please check..!!', {
-          type: "error",
-          position: "top-right",
+            type: "error",
+             position: "top-right",
         });
           });
       } else {
         console.log("Form Failed Validation");
       }
+          }else{
+            this.$toast.show('This is old password..!!', {
+            type: "error",
+             position: "top-right",
+        });
+          }
+
     },
     checkPassword() {
         this.password_length = this.state.newPassword.length;
