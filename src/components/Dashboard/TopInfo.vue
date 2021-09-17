@@ -1,8 +1,7 @@
 <template>  
   <div class="top-info">
       <div class="profile-img">
-        <!-- <img :src="images.url" /> -->
-        {{ picture }}
+        <img :src="images.url" />
       </div>
       <div class="pro-detail">
           <div class="info1"><strong>{{ emailmask }}</strong> <span class="badge bg-primary">{{ usertype }}</span></div>
@@ -18,10 +17,15 @@
 export default {
     data() {
         return{
-            picture:"",
+            images: [
+                {
+                    url:"",
+                }            
+            ],
             emailmask:"",
             inspiraId:"",
-            usertype: ""
+            usertype: "",
+            picture: ""
         }
     },
     methods: {
@@ -31,7 +35,7 @@ export default {
             alert(targeturl); // returns 'foo'
         },
         async  getimage() {
-            this.picture = localStorage.getItem("picture");
+            this.images.url = "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50.jpg";
         },
         async  getUserData() {
             console.log("test");
@@ -44,11 +48,13 @@ export default {
             this.usertype = localStorage.getItem("usertype");
         }
     },
+    created() {
+        this.getimage();
+    },
     mounted() {
         this.getUserData();
         this.getInspiraId();
         this.getUserType();
-        this.getimage();
     }
 }    
 </script>
