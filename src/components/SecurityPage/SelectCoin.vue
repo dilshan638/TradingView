@@ -46,13 +46,39 @@ export default {
     async getCoins() {
       this.arrayCoins = JSON.parse(localStorage.getItem("arraySymbol"));
 
-      this.selectedsingkeCoin = JSON.parse(
-        localStorage.getItem("selectedCoin")
+      this.selectedsingkeCoin = JSON.parse( localStorage.getItem("selectedCoin")
       );
 
       if (this.selectedsingkeCoin != null) {
         this.selectCoin = this.selectedsingkeCoin;
       }
+
+        const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
+      };
+      axios
+        .get("https://dapi.exus.live/api/mobile/v1/wallet/all/crypto", {
+          headers: headers,
+        })
+        .then((response) => {
+          this.cryptoAll = response.data[0];
+          console.log(this.cryptoAll);
+         
+
+          for (let j = 0; j < this.cryptoAll.length; j++) {
+            if (this.arrayCoins[j]["symbol"] == this.cryptoAll[j]["symbol"]) {
+                this.arrayCoins[j]["image"] =  this.cryptoAll[j]["image"];
+            }
+          }
+
+   })
+        .catch(function (error) {
+          console.log(error);
+         
+        });
+
+
     },
 
     async onChange(event) {

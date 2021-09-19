@@ -500,7 +500,8 @@ export default {
 
            addressValid:"",
            successMsg:"Valid address",
-           errorMsg:"Invalid address"  
+           errorMsg:"Invalid address"  ,
+           trcAddress:""
          
     };
   },
@@ -521,7 +522,7 @@ export default {
            
               if(!this.v$.selectCoin.$error &&  !this.v$.withdrawAddress.$error && !this.v$.network.$error && !this.v$.withdrawAmount.$error){
                
-               if(this.balance>this.state.withdrawAmount && this.state.withdrawAmount>this.free){
+               if(this.balance>this.state.withdrawAmount && this.state.withdrawAmount>this.free && (this.addressValid=='true' ||  this.trcAddress=='true' )){
                  
                        this.$refs.CryptoThreeModal.openModal();
                     }
@@ -578,6 +579,10 @@ export default {
               this.min = this.cryptoAll[i].withrow_settings.min;
               this.withdraw_limit_day =this.cryptoAll[i].withrow_settings.withdraw_limit_day;
             }
+
+            if (this.coin[i]["symbol"] == this.cryptoAll[i]["symbol"]) {
+                this.coin[i]["image"] =  this.cryptoAll[i]["image"];
+            }
           }
 
           for (let t = 0; t < this.coinBalances.length; t++) {
@@ -585,6 +590,8 @@ export default {
             this.balance=this.coinBalances[t]["balance"]
             this.balanceSymbol=this.coinBalances[t]["symbol"]
           }
+
+          console.log(this.coin)
 
         }
         })
@@ -858,13 +865,15 @@ async submit(){
 
         console.log(this.free)
           var data = {
+
                 "currency":this.state.selectCoin,
                 "fee_per":this.free,
                 "fees_amt":this.free*this.state.withdrawAmount,
                 "payment_method":`${this.state.selectCoin} Payment`,
                 "withdraw_amount":this.state.withdrawAmount,
                 "wallet_address":this.state.withdrawAddress
-                      };
+                     
+                     };
 
 
         let hed = {
@@ -905,6 +914,11 @@ async validateAddress(){
                       
                        this.addressValid='false'
                     }
+                  }
+                  
+
+                  if(this.state.selectCoin=='TRC'){
+                      this.trcAddress='true'
                   }
                     }
                       
