@@ -133,7 +133,7 @@ const routes=[
     {
         path:'/web-socket',
         component:Websoket,
-        beforeEnter : guardmyrouter 
+        beforeEnter : guardmyrouter
     }     
 ];
 

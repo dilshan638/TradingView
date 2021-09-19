@@ -8,10 +8,13 @@
               <div class="form-group">
                 <div class="profile-pic">
                     <label>
-                        <i class="ri-user-fill"></i>
+                      <input type="file" id="picture" accept="image/png, image/gif, image/jpeg" />
+                      <label for="picture">
+                          <i class="ri-user-fill"></i>
+                      </label>
                     </label>
                 </div>
-              </div>              
+              </div>
             </div>
           </div>
           <div class="row">

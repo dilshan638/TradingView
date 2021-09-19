@@ -209,6 +209,7 @@ export default {
             emailnewmask: '',
             startspinner: false,
             usertype: "",
+            profilePic: "",
           //  picture: "",
 
             password_length: 0,
@@ -216,10 +217,9 @@ export default {
             contains_number: false,
             contains_uppercase: false,
             contains_special_character: false,
-            valid_password: false,  
+            valid_password: false,
             submitdisabled: true,
             phone_number:"",
-            profilePic:"",
  
              data: {
                 firstName: "",
@@ -228,7 +228,7 @@ export default {
                 url:'https://inspira.exus.live/'
                 },
               secret: "LDXINspiraKey#@!",
-              encData:""   
+              encData:""
         }
     },
     methods: {   
@@ -310,18 +310,16 @@ export default {
                               this.fa_ga_status = responsive.data.result.UserAttributes[i].Value;
                                localStorage.setItem('fa_ga_status',this.fa_ga_status )
                           }
-                          if(responsive.data.result.UserAttributes[i].Name=="phone_number"){
+                             if(responsive.data.result.UserAttributes[i].Name=="phone_number"){
                              this.phone_number = responsive.data.result.UserAttributes[i].Value;
                              localStorage.setItem("phone_number", this.phone_number);
-                             }
+                            }
 
-                            //   if(responsive.data.result.UserAttributes[i].Name=="picture"){
-                            //     this.profilePic = responsive.data.result.UserAttributes[i].Value;
-                            //     localStorage.setItem("picture", this.profilePic);
-                            //  }
-                              }
-
-
+                            if(responsive.data.result.UserAttributes[i].Name=="picture"){
+                                this.profilePic = responsive.data.result.UserAttributes[i].Value;
+                                localStorage.setItem("profilepic", this.profilePic);
+                            }
+                        }
                  if( this.fa_mobile_status=='true'){
                      var data = {mobile: this.phone_number};
                      let hed = {  headers: {  Authorization: this.accToken,"Content-Type": "application/json",  }, };

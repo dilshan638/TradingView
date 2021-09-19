@@ -33,7 +33,7 @@ export default {
             alert(targeturl); // returns 'foo'
         },
         async  getimage() {
-            this.images.url = "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50.jpg";
+            this.images.url = localStorage.getItem("profilepic");
         },
         async  getUserData() {
             console.log("test");
