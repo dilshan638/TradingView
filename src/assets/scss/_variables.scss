@@ -99,12 +99,17 @@ body{
     font-size: 0.875rem;
     font-weight: 300;
     margin-left: 15px;
+    cursor: pointer;
 
     i{
         position: relative;
         top: 3px;
         margin-right: 4px;
     }
+}
+
+.eye-point.active{
+    
 }
 
 .only-card-header{

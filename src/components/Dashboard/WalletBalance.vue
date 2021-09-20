@@ -55,6 +55,7 @@ export default {
       cryptoAll: [],
       usergetCrypto: [],
     //  cryptoBalance:[],
+    setLocalStorage:[],
       marketPrice: 0,
       totalBalance: 0,
       marketvalue: 0,
@@ -164,7 +165,7 @@ export default {
             })
             .then((response) => {
               this.usergetCrypto = response.data[0];
-             
+           
 
               for (let i = 0; i < this.cryptoAll.length; i++) {
                 this.cryptoAll[i]["amount"] = this.usergetCrypto[i]["amount"];
@@ -179,15 +180,49 @@ export default {
                 } else {
                     this.totalBalance =  this.totalBalance +JSON.parse((this.cryptoAll[i]["amount"] * this.marketPrice) /this.marketvalue);
                 }
+
+            }
+
+           
+              for (let a = 0; a < this.usergetCrypto.length; a++){
+                  if( this.usergetCrypto[a]["address"]!=null){
+                  
+                  
+                    this.setLocalStorage.push({ symbol: this.usergetCrypto[a]["symbol"] });
+                }
               }
+             
+              localStorage.setItem("arraySymbol", JSON.stringify(this.setLocalStorage));
             });
         })
         .catch(function (error) {
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
+          console.log(error);
+         
         });
     },
+
+    // async pageLoad(){
+    //   const headers = {
+    //     "Content-Type": "application/json",
+    //     Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
+    //   };
+
+    //    axios
+    //         .get("https://dapi.exus.live/api/mobile/v1/wallet/user/crypto", {
+    //           headers: headers,
+    //         })
+    //         .then((response) => {
+    //           this.usergetCrypto = response.data[0]
+              
+    //           })
+    //           .catch(function (error) {
+    //           console.log(error.data);
+         
+    //     });
+    // }
+
+
+
   },
 
   mounted() {

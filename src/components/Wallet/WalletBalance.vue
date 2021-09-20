@@ -5,8 +5,8 @@
         <div class="col-md-6 col-lg-4">
           <h2>
             Wallet Balances
-            <span class="eye-point"
-              ><i class="ri-eye-line"></i> Hide Balances</span
+            <span class="eye-point" @click="hidebalance"
+              ><i  v-bind:class="[ishiddenvalues ? 'ri-eye-off-line' : 'ri-eye-line']"></i> Hide Balances</span
             >
           </h2>
           <router-link to="/securitypage">
@@ -31,11 +31,13 @@
             <div class="col-md-12">
               <div class="block wallet-block">
                 <p>Total Balance</p>
-                <h4>{{ totalBalance }} <span>BTC</span></h4>
+                <h4 v-if="!ishiddenvalues">{{ totalBalance }} <span>BTC</span></h4>
+                <h4 v-else class="hidevalue">******* <span>BTC</span></h4>
               </div>
               <div class="block wallet-block">
-                 <p><!--Market Value--></p> 
-                <h4>${{ marketvalue }}</h4>
+                 <p></p> 
+                <h4 v-if="!ishiddenvalues">${{ marketvalue }}</h4>
+                <h4 class="hidevalue" v-else>*******</h4>
               </div>              
             </div>
           </div>
@@ -53,6 +55,7 @@ export default {
       cryptoAll: [],
       usergetCrypto: [],
       marketPrice: 0,
+      ishiddenvalues: false,
 
       // total:0,
       totalBalance: 0,
@@ -60,7 +63,7 @@ export default {
       total:[]
     };
   },
-
+  
   methods: {
     getCryptoAll() {
       const headers = {
@@ -128,7 +131,6 @@ export default {
           console.log(error.response.headers);
         });
     },
-
     async getMarketPrice() {
       var data = {
         pair: "BTC/USD",
@@ -150,6 +152,9 @@ export default {
 
       console.log(response.data.price);
     },
+    async hidebalance() {
+      this.ishiddenvalues = !this.ishiddenvalues;
+    }
   },
 
   mounted() {

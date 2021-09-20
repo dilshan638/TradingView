@@ -16,7 +16,27 @@
                 <div class="col-md-12">
                   <div class="form-group pos-rel mb-4 multi-group">
                     <p class="labels">Select Coin</p>
-                    <select
+                     <div class="dropdown-area">
+                        <div class="dropdown-title" @click="dropdowntoggle">
+                          <img :src="this.selectedsymbol" width="28" />
+                          {{ this.selectedcoin}}
+                          <i class="ri-arrow-down-s-line" :class="[showdropdown ? 'ri-arrow-up-s-line' : 'ri-arrow-down-s-line']"></i>
+                          </div>
+                        <div class="dropdown-content" v-if="showdropdown" @blur="hidedropdownsymbol">
+                          <input type="hidden" v-model="state.selectCoin" />
+                            <ul>
+                              <li @click="getvalue(coins.symbol, coins.image)"
+                                v-for="coins in coin"
+                                :key="coins.symbol"
+                                :value="coins.symbol"
+                                >
+                                <img :src="coins.image" />
+                                {{ coins.symbol }}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- <select
                       placeholder="BTC-BITCOIN"
                       v-model="state.selectCoin"
                       class="form-control"
@@ -30,7 +50,7 @@
                       >
                         {{ coins.symbol }}
                       </option>
-                    </select>
+                    </select> -->
                       <span class="error-msg" v-if="v$.selectCoin.$error">{{ v$.selectCoin.$errors[0].$message }} </span>
                  
                   </div> 
@@ -482,6 +502,10 @@ export default {
       GASuccess: false,
       emaileSuccessemail: false,
       mobileSuccessMob: false,
+      selectedcoin: "Select a coin",
+      selectedsymbol: "images/icons/coin.png",
+
+       showdropdown: false,
 
         emailWrongEmail: false,
           mobileWrongMob: false,
@@ -500,11 +524,20 @@ export default {
 
            addressValid:"",
            successMsg:"Valid address",
-           errorMsg:"Invalid address"  
+           errorMsg:"Invalid address"  ,
+           trcAddress:""
          
     };
   },
   methods: {
+
+    dropdowntoggle() {
+     this.showdropdown = !this.showdropdown
+   },
+   hidedropdownsymbol() {
+     alert("test");
+     this.showdropdown = false
+   },
 
    cyptothreeclose(){
      this.$refs.CryptoThreeModal.closeModal();
@@ -518,21 +551,16 @@ export default {
             this.v$.withdrawAddress.$touch()
             this.v$.network.$touch()
             this.v$.withdrawAmount.$touch()
-           
               if(!this.v$.selectCoin.$error &&  !this.v$.withdrawAddress.$error && !this.v$.network.$error && !this.v$.withdrawAmount.$error){
                
-               if(this.balance>this.state.withdrawAmount && this.state.withdrawAmount>this.free){
-                 
+               if(this.balance>this.state.withdrawAmount && this.state.withdrawAmount>this.free && (this.addressValid=='true' ||  this.trcAddress=='true' )){                
                        this.$refs.CryptoThreeModal.openModal();
-                    }
-                    
+                    }                 
                     else
                     {
                    this.$toast.show("Please Check Your Account Balance", {type: "info", position: "top"});  
-                  }
-              
+                  }  
             }
-   
     },
     withrowsuccessmodal() {
       this.$refs.CryptoThreeModal.closeModal();
@@ -578,6 +606,10 @@ export default {
               this.min = this.cryptoAll[i].withrow_settings.min;
               this.withdraw_limit_day =this.cryptoAll[i].withrow_settings.withdraw_limit_day;
             }
+
+            if (this.coin[i]["symbol"] == this.cryptoAll[i]["symbol"]) {
+                this.coin[i]["image"] =  this.cryptoAll[i]["image"];
+            }
           }
 
           for (let t = 0; t < this.coinBalances.length; t++) {
@@ -585,6 +617,8 @@ export default {
             this.balance=this.coinBalances[t]["balance"]
             this.balanceSymbol=this.coinBalances[t]["symbol"]
           }
+
+          console.log(this.coin)
 
         }
         })
@@ -594,87 +628,65 @@ export default {
         });
        
     },
-
-    async onChange(event) {
-     
-
-      const headers = {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
-      };
-      axios
-        .get("https://dapi.exus.live/api/mobile/v1/wallet/all/crypto", {
-          headers: headers,
-        })
-        .then((response) => {
-          this.cryptoAll = response.data[0];
-          console.log(this.cryptoAll);
-
-          
-          for (let i = 0; i < this.cryptoAll.length; i++) {
-            if (this.cryptoAll[i]["symbol"] == event.target.value) {
-              this.free = this.cryptoAll[i].withrow_settings.fee;
-              this.max = this.cryptoAll[i].withrow_settings.max;
-              this.min = this.cryptoAll[i].withrow_settings.min;
-              this.withdraw_limit_day =
-              this.cryptoAll[i].withrow_settings.withdraw_limit_day;
-            }
-          }
-
-        for (let t = 0; t < this.coinBalances.length; t++) {
-          if(this.coinBalances[t]["symbol"]==event.target.value){
-            this.balance=this.coinBalances[t]["balance"]
-            this.balanceSymbol=this.coinBalances[t]["symbol"]
-          }
-
-        }
-     
-        })
-        .catch(function (error) {
-          console.log(error);
-         
-        });
-       this.validateAddress()
-  
-  },
-
+    // async onChange(event) {
+    // },
     async withdrawValidation(){
-     // this.displayCard="true"
-
        this.v$.withdrawAmount.$touch()
-
-       if(this.state.withdrawAmount=='' ||this.state.withdrawAmount==null){
-          this.displayCard="false"
-       }else{
+       if(this.state.withdrawAmount=='' ||this.state.withdrawAmount==null) {
+          this.displayCard="false" 
+       } else {
           this.displayCard="true"
        }
-
-           // if(!this.v$.withdrawAmount.$error){
-             //   console.log("Numbers Only")
-            //}
     },
-
-     async labalStatus() {
-      
+    async labalStatus() {
       this.fa_mobile_status = localStorage.getItem("fa_mobile_status");
       this.fa_email_status = localStorage.getItem("fa_email_status");
       this.fa_ga_status = localStorage.getItem("fa_ga_status");
       this.phone_number= localStorage.getItem("phone_number");
-
-      
-      
     },
+    async getvalue(symbol, image) {
+      alert(symbol)
+      this.selectedcoin = symbol;
+      this.selectedsymbol = image;
+      this.showdropdown = false;
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
+      };
+      axios.get("https://dapi.exus.live/api/mobile/v1/wallet/all/crypto", {headers: headers, })
+      .then((response) => {
+        this.cryptoAll = response.data[0];
+        console.log(this.cryptoAll);
+        for (let i = 0; i < this.cryptoAll.length; i++) {
+          if (this.cryptoAll[i]["symbol"] == event.target.value) {
+            this.free = this.cryptoAll[i].withrow_settings.fee;
+            this.max = this.cryptoAll[i].withrow_settings.max;
+            this.min = this.cryptoAll[i].withrow_settings.min;
+            this.withdraw_limit_day =
+            this.cryptoAll[i].withrow_settings.withdraw_limit_day;
+          }
+        }
+      for (let t = 0; t < this.coinBalances.length; t++) {
+        if(this.coinBalances[t]["symbol"]==event.target.value){
+          this.balance=this.coinBalances[t]["balance"]
+          this.balanceSymbol=this.coinBalances[t]["symbol"]
+        }
 
-    //
+      }
+    
+      })
+      .catch(function (error) {
+        console.log(error);  
+      });
+      this.validateAddress()      
+    },
      async senEmailCode(){
-        
       const headers = {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem(
           "X-LDX-Inspira-Access-Token"
         )}`,
       };
-
       axios
         .get("https://dapi.exus.live/api/twofa/email/code", {
           headers: headers,
@@ -682,7 +694,6 @@ export default {
         .then((res) => {
           console.log(res);
            this.$toast.show("Successfully  Send Email Verification Code", {type: "success", position: "top"});
-          
         })
         .catch(function (error) {
           console.log(error);
@@ -716,7 +727,7 @@ export default {
        
        
     },
-       async emailCodeSubmit() {
+    async emailCodeSubmit() {
       this.emailWrongEmail = true;
       
        this.btnEmail=false
@@ -752,12 +763,10 @@ export default {
           });
       }
     },
- 
     async mobileCodeSubmit() {
       this.mobileWrongMob = true;
       this.mobileLabal = false;
       this.btnMob=false
-
       if (this.mobileCodeMob.length == 6) {
         var data = {
           mobile: this.phone_number,
@@ -765,7 +774,6 @@ export default {
           status: "withdraw",
           stage: 3,
         };
-
         let hed = {
           headers: {
             Authorization: `Bearer ${localStorage.getItem(
@@ -774,7 +782,6 @@ export default {
             "Content-Type": "application/json",
           },
         };
-
         let response = await this.axios
           .post("https://dapi.exus.live/api/twofa/sms/status", data, hed)
           .then((res) => {
@@ -815,7 +822,7 @@ export default {
           console.log(error.response.headers);
         });
     },
-      async submitGACode() {
+    async submitGACode() {
       this.GAWrong = true;
       if (this.googleAuthenticationCode.length == 6) {
         let hed = {
@@ -852,78 +859,65 @@ export default {
           });
       }
     },
+    async submit() {
+    console.log(this.free)
+      var data = {
+            "currency":this.state.selectCoin,
+            "fee_per":this.free,
+            "fees_amt":this.free*this.state.withdrawAmount,
+            "payment_method":`${this.state.selectCoin} Payment`,
+            "withdraw_amount":this.state.withdrawAmount,
+            "wallet_address":this.state.withdrawAddress
+          };
+    let hed = {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem(
+          "X-LDX-Inspira-Access-Token"
+        )}`,
+        "Content-Type": "application/json",
+      },
+    };
 
-
-async submit(){
-
-        console.log(this.free)
-          var data = {
-                "currency":this.state.selectCoin,
-                "fee_per":this.free,
-                "fees_amt":this.free*this.state.withdrawAmount,
-                "payment_method":`${this.state.selectCoin} Payment`,
-                "withdraw_amount":this.state.withdrawAmount,
-                "wallet_address":this.state.withdrawAddress
-                      };
-
-
-        let hed = {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem(
-              "X-LDX-Inspira-Access-Token"
-            )}`,
-            "Content-Type": "application/json",
-          },
-        };
-
-          let response = await this.axios
-          .post("https://dapi.exus.live/api/mobile/v1/wallet/withdrow/crypto", data, hed)
-          .then((res) => {
-          
-            console.log(res);
-            console.log(response);
-            this.$refs.CryptoThreeModal.closeModal();
-            this.$refs.successwithdrowmodal.openModal();
-          
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-},
-
-async validateAddress(){
-          const WAValidator = require('@swyftx/api-crypto-address-validator')
-                 var valid = WAValidator.validate(this.state.withdrawAddress , this.state.selectCoin);
-           
-                  if(this.state.selectCoin!='TRC' && this.state.withdrawAddress !=''){
-                      if(valid) {	  
-                         
-                         this.addressValid='true'
+      let response = await this.axios
+      .post("https://dapi.exus.live/api/mobile/v1/wallet/withdrow/crypto", data, hed)
+      .then((res) => {
+        console.log(res);
+        console.log(response);
+        this.$refs.CryptoThreeModal.closeModal();
+        this.$refs.successwithdrowmodal.openModal();
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    },
+    async validateAddress(){
+              const WAValidator = require('@swyftx/api-crypto-address-validator')
+                    var valid = WAValidator.validate(this.state.withdrawAddress , this.state.selectCoin);
+              
+                      if(this.state.selectCoin!='TRC' && this.state.withdrawAddress !=''){
+                          if(valid) {	  
+                            
+                            this.addressValid='true'
+                          }
+                      else
+                        { 
+                          
+                          this.addressValid='false'
+                        }
                       }
-                  else
-                    { 
                       
-                       this.addressValid='false'
-                    }
-                  }
-                    }
-                      
+
+                      if(this.state.selectCoin=='TRC'){
+                          this.trcAddress='true'
+                      }
+    }
   },
- 
-
-
   mounted() {
     this.coinBalances=JSON.parse(localStorage.getItem("totalBalances"));
     this.getCoins();
     this.labalStatus();
-     this.tokenGA()
-
-   
-     
-   
+    this.tokenGA()
   },
-
-
 };
 </script>
 

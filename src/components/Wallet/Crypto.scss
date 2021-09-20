@@ -231,6 +231,13 @@ p.sm-texture{
       line-height: 1.5;
       color: #212529;
 
+      i.coin{
+        float: left;
+        font-size: 1.7rem;
+        position: absolute;
+        top: 9px;
+      }
+
       i{
         float: right;
         margin-right: 10px;

@@ -176,22 +176,21 @@ export default {
               for (let z = 0; z < this.cryptoAll.length; z++) {
                 if (this.cryptoAll[z]["address"] != null) {
                   this.arrayCoinsLocalStorage.push({symbol: this.cryptoAll[z]["symbol"]});
+                  // this.arrayCoinsLocalStorage.push({symbol: this.cryptoAll[z]["image"]});//
+
                   this.arraySymbolWithInAddress = this.arrayCoinsLocalStorage;
                 }
               }
 
-              localStorage.setItem(
-                "arraySymbol",
-                JSON.stringify(this.arraySymbolWithInAddress)
-              );
-
+              localStorage.setItem(  "arraySymbol",JSON.stringify(this.arraySymbolWithInAddress));
+              console.log(this.arraySymbolWithInAddress)
               console.log(this.cryptoAll);
+             
             });
         })
         .catch(function (error) {
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
+          console.log(error.data);
+         
         });
     },
 
@@ -271,10 +270,7 @@ export default {
 
       if (this.arrayAddress == null) {
         for (var x = 1; x <= 1; x++) {
-          this.arrayAddress3.push({
-            symbol: this.selectedCurrency,
-            address: this.createdAddress,
-          });
+          this.arrayAddress3.push({ symbol: this.selectedCurrency, address: this.createdAddress});
         }
         localStorage.setItem(
           "AddressListArray",
