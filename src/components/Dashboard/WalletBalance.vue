@@ -52,6 +52,7 @@ export default {
   components: {},
   data() {
     return {
+        total:[],
       cryptoAll: [],
       usergetCrypto: [],
     //  cryptoBalance:[],
@@ -173,7 +174,8 @@ export default {
 
                 this.series.push(this.cryptoAll[i]["amount"]*this.marketPrice)
                 this.chartOptions.labels.push(this.cryptoAll[i]["symbol"])
-            
+                this.total.push({ symbol: this.cryptoAll[i]["symbol"], balance:  this.cryptoAll[i]["amount"]*this.marketPrice });
+                  
 
                 if (this.marketvalue == 0) {
                   this.totalBalance = 0;
@@ -193,6 +195,7 @@ export default {
               }
              
               localStorage.setItem("arraySymbol", JSON.stringify(this.setLocalStorage));
+                localStorage.setItem("totalBalances", JSON.stringify(this.total));
             });
         })
         .catch(function (error) {
