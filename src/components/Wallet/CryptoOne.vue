@@ -643,7 +643,6 @@ export default {
       this.phone_number= localStorage.getItem("phone_number");
     },
     async getvalue(symbol, image) {
-      alert(symbol)
       this.selectedcoin = symbol;
       this.selectedsymbol = image;
       this.showdropdown = false;
@@ -656,7 +655,7 @@ export default {
         this.cryptoAll = response.data[0];
         console.log(this.cryptoAll);
         for (let i = 0; i < this.cryptoAll.length; i++) {
-          if (this.cryptoAll[i]["symbol"] == event.target.value) {
+          if (this.cryptoAll[i]["symbol"] == symbol) {
             this.free = this.cryptoAll[i].withrow_settings.fee;
             this.max = this.cryptoAll[i].withrow_settings.max;
             this.min = this.cryptoAll[i].withrow_settings.min;
@@ -665,7 +664,7 @@ export default {
           }
         }
       for (let t = 0; t < this.coinBalances.length; t++) {
-        if(this.coinBalances[t]["symbol"]==event.target.value){
+        if(this.coinBalances[t]["symbol"]==symbol){
           this.balance=this.coinBalances[t]["balance"]
           this.balanceSymbol=this.coinBalances[t]["symbol"]
         }
