@@ -596,7 +596,7 @@ export default {
         })
         .then((response) => {
           this.cryptoAll = response.data[0];
-          // console.log(this.cryptoAll)
+        
           console.log(this.coinBalances);
 
           for (let i = 0; i < this.cryptoAll.length; i++) {
@@ -617,8 +617,6 @@ export default {
             this.balance=this.coinBalances[t]["balance"]
             this.balanceSymbol=this.coinBalances[t]["symbol"]
           }
-
-          console.log(this.coin)
 
         }
         })

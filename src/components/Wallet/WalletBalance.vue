@@ -86,8 +86,7 @@ export default {
 
               for (let i = 0; i < this.cryptoAll.length; i++) {
                 this.cryptoAll[i]["amount"] = this.usergetCrypto[i]["amount"];
-                this.marketvalue =
-                  this.marketvalue + JSON.parse(this.cryptoAll[i]["amount"]);
+                this.marketvalue = this.marketvalue + JSON.parse(this.cryptoAll[i]["amount"]);
                   this.total.push({ symbol: this.cryptoAll[i]["symbol"], balance:  this.cryptoAll[i]["amount"]*this.marketPrice });
                   
 
@@ -107,9 +106,8 @@ export default {
             });
         })
         .catch(function (error) {
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
+          console.log(error);
+         
         });
     },
 
