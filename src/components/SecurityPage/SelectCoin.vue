@@ -2,6 +2,28 @@
   <div class="inner-guard">
     <p>Select Coin</p>
     <div class="form-field">
+    <p class="labels">Select Coin</p>
+      <div class="dropdown-area">
+        <div class="dropdown-title" @click="dropdowntoggle">
+          <img :src="this.selectedsymbol" width="28" />
+          {{ this.selectedcoin}}
+          <i class="ri-arrow-down-s-line" :class="[showdropdown ? 'ri-arrow-up-s-line' : 'ri-arrow-down-s-line']"></i>
+          </div>
+        <div class="dropdown-content" v-if="showdropdown">
+          <!-- <input type="hidden" v-model="state.selectCoin" /> -->
+            <ul>
+              <li @click="getvalue(coins.symbol, coins.image)"
+                v-for="coins in arrayCoins"
+                :key="coins.symbol"
+                :value="coins.symbol"
+                >
+                <img :src="coins.image" />
+                {{ coins.symbol }}
+                </li>
+            </ul>
+        </div>
+    </div>
+
       <select
         class="form-control "
         v-model="selectCoin"
@@ -31,6 +53,9 @@ export default {
       selectCoin: "",
       arrayCoins: [],
 
+      showdropdown: false,
+      selectedcoin: '',
+
       selectedsingkeCoin: "", 
       cryptoAll: [],
       minimum_deposite: "",
@@ -43,6 +68,12 @@ export default {
   },
 
   methods: {
+    async getvalue(symbol, image) {
+      this.selectedcoin = symbol;
+      this.selectedsymbol = image;
+      this.showdropdown = false;
+      this.onChangeCoin = symbol;
+    },      
     async getCoins() {
       this.arrayCoins = JSON.parse(localStorage.getItem("arraySymbol"));
 
@@ -80,7 +111,6 @@ export default {
 
 
     },
-
     async onChange(event) {
       this.onChangeCoin = event.target.value;
 
@@ -107,7 +137,6 @@ export default {
 
       this.getCryptoAll();
     },
-
     async pageLoad() {
       var data = {
         currency: this.selectedsingkeCoin,
@@ -130,7 +159,6 @@ export default {
 
       this.$emit("AddList", this.createdAddress);
     },
-
     async getCryptoAll() {
       const headers = {
         "Content-Type": "application/json",
@@ -169,6 +197,9 @@ export default {
           console.log(error.response.headers);
         });
     },
+    dropdowntoggle() {
+     this.showdropdown = !this.showdropdown
+    }
   },
 
   mounted() {
