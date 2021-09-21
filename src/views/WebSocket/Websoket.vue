@@ -114,7 +114,7 @@ data: function() {
 
     this.connection.onmessage = function(event) {
       console.log(JSON.parse(event.data));
-      console.log(event)
+      
       
     }
 
