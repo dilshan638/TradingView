@@ -18,24 +18,28 @@
                     <p class="labels">Select Coin</p>
                      <div class="dropdown-area">
                         <div class="dropdown-title" @click="dropdowntoggle">
-                          <img :src="this.selectedsymbol" width="28" />
-                          {{ this.selectedcoin}}
+                          <img :src="selectedsymbol" width="28" />
+                          {{ selectedcoin}}
                           <i class="ri-arrow-down-s-line" :class="[showdropdown ? 'ri-arrow-up-s-line' : 'ri-arrow-down-s-line']"></i>
                           </div>
                         <div class="dropdown-content" v-if="showdropdown" @blur="hidedropdownsymbol">
-                          <input type="hidden" v-model="state.selectCoin" />
+                          <!-- <input type="hidden" v-model="state.selectCoin" /> -->
                             <ul>
                               <li @click="getvalue(coins.symbol, coins.image)"
                                 v-for="coins in coin"
                                 :key="coins.symbol"
                                 :value="coins.symbol"
+                               
                                 >
                                 <img :src="coins.image" />
                                 {{ coins.symbol }}
                                 </li>
                             </ul>
+                            
                         </div>
+                          <!-- <span class="error-msg" v-if="v$.selectCoin.$error">{{ v$.selectCoin.$errors[0].$message }} </span> -->
                     </div>
+                    
                     <!-- <select
                       placeholder="BTC-BITCOIN"
                       v-model="state.selectCoin"
@@ -51,7 +55,7 @@
                         {{ coins.symbol }}
                       </option>
                     </select> -->
-                      <span class="error-msg" v-if="v$.selectCoin.$error">{{ v$.selectCoin.$errors[0].$message }} </span>
+                    
                  
                   </div> 
                     
@@ -64,11 +68,13 @@
                   <div class="form-group pos-rel multi-group mb-4">
                     <p class="labels">Withdraw to</p>
                     <input
+
                       type="text"
                       placeholder="Address"
                       class="form-control"
                       v-model="state.withdrawAddress"
                       @blur="validateAddress"
+                    
                      
                     />
                      <span class="error-msg" v-if="v$.withdrawAddress.$error">{{ v$.withdrawAddress.$errors[0].$message }} </span>
@@ -82,8 +88,9 @@
                 <div class="col-md-12">
                   <div class="form-group pos-rel multi-group mb-4">
                     <p class="labels">Network</p>
-                    <select placeholder="BTC-BITCOIN" class="form-control" v-model="state.network">
-                      <option value="BTC-BITCOIN">BTC-BITCOIN</option>
+                    <select placeholder="Network" class="form-control" v-model="state.network" @change="networkClick">
+                       <option value="" disabled selected>Select network</option>
+                      <option :value="symNetwork">{{symNetwork}}-{{sybName}}</option> 
                     </select>
                      <span class="error-msg" v-if="v$.network.$error">{{ v$.network.$errors[0].$message }} </span>
                  
@@ -525,7 +532,10 @@ export default {
            addressValid:"",
            successMsg:"Valid address",
            errorMsg:"Invalid address"  ,
-           trcAddress:""
+           trcAddress:"",
+
+           symNetwork:"",
+           sybName:""
          
     };
   },
@@ -535,7 +545,7 @@ export default {
      this.showdropdown = !this.showdropdown
    },
    hidedropdownsymbol() {
-     alert("test");
+    
      this.showdropdown = false
    },
 
@@ -547,20 +557,22 @@ export default {
     },
   async  actionwithorwsecuritymodal() {
       // const WAValidator = require('@swyftx/api-crypto-address-validator')
-            this.v$.selectCoin.$touch()
-            this.v$.withdrawAddress.$touch()
-            this.v$.network.$touch()
-            this.v$.withdrawAmount.$touch()
-              if(!this.v$.selectCoin.$error &&  !this.v$.withdrawAddress.$error && !this.v$.network.$error && !this.v$.withdrawAmount.$error){
+
+      this.$refs.CryptoThreeModal.openModal();
+            // this.v$.selectCoin.$touch()
+            // this.v$.withdrawAddress.$touch()
+            // this.v$.network.$touch()
+            // this.v$.withdrawAmount.$touch()
+            //   if(!this.v$.selectCoin.$error &&  !this.v$.withdrawAddress.$error && !this.v$.network.$error && !this.v$.withdrawAmount.$error){
                
-               if(this.balance>this.state.withdrawAmount && this.state.withdrawAmount>this.free && (this.addressValid=='true' ||  this.trcAddress=='true' )){                
-                       this.$refs.CryptoThreeModal.openModal();
-                    }                 
-                    else
-                    {
-                   this.$toast.show("Please Check Your Account Balance", {type: "info", position: "top"});  
-                  }  
-            }
+            //    if(this.balance>this.state.withdrawAmount && this.state.withdrawAmount>this.free && (this.addressValid=='true' ||  this.trcAddress=='true' )){                
+            //            this.$refs.CryptoThreeModal.openModal();
+            //         }                 
+            //         else
+            //         {
+            //        this.$toast.show("Please Check Your Account Balance", {type: "info", position: "top"});  
+            //       }  
+            // }
     },
     withrowsuccessmodal() {
       this.$refs.CryptoThreeModal.closeModal();
@@ -629,12 +641,22 @@ export default {
     // async onChange(event) {
     // },
     async withdrawValidation(){
-       this.v$.withdrawAmount.$touch()
-       if(this.state.withdrawAmount=='' ||this.state.withdrawAmount==null) {
-          this.displayCard="false" 
-       } else {
-          this.displayCard="true"
+      // this.v$.withdrawAmount.$touch()
+
+ 
+       if(!this.v$.withdrawAddress.$error && this.addressValid=='true' && this.state.withdrawAddress!='' && this.balance>this.state.withdrawAmount && this.state.withdrawAmount>0 && this.state.network !='' ){
+
+
+           this.displayCard="true"
+       }else{
+          this.displayCard="false"
        }
+
+      //  if(this.state.withdrawAmount=='' ||this.state.withdrawAmount==null  ) {
+      //     this.displayCard="false" 
+      //  } else {
+      //     this.displayCard="true"
+      //  }
     },
     async labalStatus() {
       this.fa_mobile_status = localStorage.getItem("fa_mobile_status");
@@ -643,6 +665,16 @@ export default {
       this.phone_number= localStorage.getItem("phone_number");
     },
     async getvalue(symbol, image) {
+
+    
+    if(symbol==''){
+       localStorage.setItem("syb",'')
+    }else{
+          localStorage.setItem("syb",symbol) 
+    }
+   
+      this.symNetwork= localStorage.getItem("syb")
+
       this.selectedcoin = symbol;
       this.selectedsymbol = image;
       this.showdropdown = false;
@@ -653,7 +685,8 @@ export default {
       axios.get("https://dapi.exus.live/api/mobile/v1/wallet/all/crypto", {headers: headers, })
       .then((response) => {
         this.cryptoAll = response.data[0];
-        console.log(this.cryptoAll);
+        console.log(this.cryptoAll)
+      
         for (let i = 0; i < this.cryptoAll.length; i++) {
           if (this.cryptoAll[i]["symbol"] == symbol) {
             this.free = this.cryptoAll[i].withrow_settings.fee;
@@ -661,7 +694,10 @@ export default {
             this.min = this.cryptoAll[i].withrow_settings.min;
             this.withdraw_limit_day =
             this.cryptoAll[i].withrow_settings.withdraw_limit_day;
+            this.sybName=this.cryptoAll[i].name
           }
+
+          
         }
       for (let t = 0; t < this.coinBalances.length; t++) {
         if(this.coinBalances[t]["symbol"]==symbol){
@@ -675,7 +711,8 @@ export default {
       .catch(function (error) {
         console.log(error);  
       });
-      this.validateAddress()      
+      this.validateAddress()   
+         
     },
      async senEmailCode(){
       const headers = {
@@ -887,11 +924,12 @@ export default {
         console.log(error);
       });
     },
-    async validateAddress(){
+   async validateAddress(){
+     
               const WAValidator = require('@swyftx/api-crypto-address-validator')
-                    var valid = WAValidator.validate(this.state.withdrawAddress , this.state.selectCoin);
+                    var valid = WAValidator.validate(this.state.withdrawAddress ,  this.symNetwork);
               
-                      if(this.state.selectCoin!='TRC' && this.state.withdrawAddress !=''){
+                      if( this.state.selectCoin !='TRC' && this.state.withdrawAddress !=''){
                           if(valid) {	  
                             
                             this.addressValid='true'
@@ -904,16 +942,23 @@ export default {
                       }
                       
 
-                      if(this.state.selectCoin=='TRC'){
+                      if( this.state.selectCoin=='TRC'){
                           this.trcAddress='true'
                       }
-    }
+
+                      this.withdrawValidation()
+   },
+
+   async  networkClick(){
+     this.withdrawValidation()
+   }
   },
   mounted() {
     this.coinBalances=JSON.parse(localStorage.getItem("totalBalances"));
     this.getCoins();
     this.labalStatus();
     this.tokenGA()
+  
   },
 };
 </script>
