@@ -24,6 +24,8 @@ import WithdrawalDetails from '../views/WithdrawDetails.vue';
 //Import store
 // import store from "../store";Withdrawal Details
 
+import BuyAndSellList from '../components/Trade/BuyAndSellList.vue';
+
 function guardmyrouter(to, from, next) {
     var isauthoticated = false;
     if(localStorage.getItem("X-LDX-Inspira-Access-Token")!=null){
@@ -134,7 +136,12 @@ const routes=[
         path:'/web-socket',
         component:Websoket,
         beforeEnter : guardmyrouter
-    }     
+    },
+    {
+        path:'/trade/buy-sell-list',
+        component:BuyAndSellList,
+        beforeEnter : guardmyrouter
+    }          
 ];
 
 const router = createRouter({
