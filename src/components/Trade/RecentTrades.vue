@@ -15,9 +15,9 @@
             <tbody>
                
                 <tr class="plus" v-for="recent in recentData" :key="recent">
-                    <td>{{ recent.price}}</td>
-                    <td>{{ recent.size}}</td>
-                    <td class="text-right">{{ recent.price *  recent.size}}</td>
+                    <td  v-bind:class="[ recent.slide=='buy'? 'buy' : 'sell']">{{ recent.price}}</td>
+                    <td >{{ recent.size}}</td>
+                    <td class="text-right" >{{ recent.price *  recent.size}}</td>
                 </tr>
              </tbody>
             </table>            
@@ -79,7 +79,7 @@ export default {
   created: function () {
    const ts = this
     this.connection = new WebSocket(
-      "ws://17ff-2402-4000-2182-4fac-f197-2d83-22be-2d.ngrok.io/ws"
+      "ws://bebd-2402-4000-2182-4fac-f197-2d83-22be-2d.ngrok.io/ws"
     );
 
     this.connection.onmessage = function (event) {
@@ -132,4 +132,11 @@ export default {
 
 <style lang="scss" scoped>
   @import "../../assets/scss/Trade/Trade";
+
+  .buy{
+    color: red;
+  }
+  .sell{
+    color: green;
+  }
 </style>

@@ -7,7 +7,7 @@
       <div class="sw-b"></div>
       <div class="sw-b active"></div>
     </div>
-    <div class="trade-body">
+    <div class="trade-body tbl">
       <table class="table table-hover">
         <thead>
           <tr >
@@ -31,6 +31,10 @@
          
         </tbody>
       </table>
+    </div>
+    <div class="read-more " >
+     <a class="link " href="/trade/buy-sell-list">View more</a>
+     
     </div>
     
   </div>
@@ -88,7 +92,7 @@ export default {
   created: function () {
    const ts = this
     this.connection = new WebSocket(
-       "ws://17ff-2402-4000-2182-4fac-f197-2d83-22be-2d.ngrok.io/ws"
+       "ws://bebd-2402-4000-2182-4fac-f197-2d83-22be-2d.ngrok.io/ws"
     );
 
     this.connection.onmessage = function (event) {
@@ -124,4 +128,23 @@ export default {
 
 <style lang="scss" scoped>
 @import "../../assets/scss/Trade/Trade";
+
+.tbl{
+  max-height: 400px;
+    overflow-y: hidden;
+}
+
+.read-more{
+  padding: 15px;
+  float: left;
+  width: 100%;
+  text-align: right;
+  a{
+    color: white;
+    text-decoration: underline;
+  }
+
+}
+
+
 </style>
