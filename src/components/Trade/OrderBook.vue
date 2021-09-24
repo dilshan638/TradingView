@@ -28,8 +28,8 @@
       <table class="table table-hover special">
         <tbody>
           <tr>
-            <td>33.545345</td>
-            <td>$33.545345</td>
+            <td class="success-tst">33.545345</td>
+            <td class="mid">$33.545345</td>
             <td class="text-right">More</td>
           </tr>
         </tbody>
@@ -146,5 +146,11 @@ export default {
 .table.table-hover.special tr td{
     font-size: 1rem !important;
     font-weight: 500;
+}
+.mid{
+  color: #878787 !important;
+}
+.success-tst{
+  color: #18e140 !important;
 }
 </style>
