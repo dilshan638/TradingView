@@ -31,48 +31,32 @@ data: function() {
         }))
     },
 
-     handleRecv:function(data) {
-            var jsonData = JSON.parse(data)
-            this.message_list.unshift(jsonData.data)
-           
-        },
-        wsOpen: function () {
-            var that = this
-            var ws = new WebSocket("ws://dc54-2402-4000-2281-830-2571-4be4-dc0b-917f.ngrok.io/ws")
+   
 
-            ws.onopen = function () {
-                console.info("ws open")
-            }
+  async  sendMessage(){
 
-            ws.onmessage = function (evt) {
-               
-                that.handleRecv(evt.data)
-                
-            }
+ 
+      try{
+       console.log(this.connection);
+       this.connection.send(JSON.stringify({
+                 "type":"subscribe",
+                 "product_ids":["BTC-USDT"],
+                 "currency_ids":[],
+                 "channels":["ticker", "match", "level2","funds","order"],
+                 "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoYXJha2FAZ21haWwuY29tIiwiZXhwaXJlZEF0IjoxNjMyMTU4MDQ5LCJpZCI6NDEsInBhc3N3b3JkSGFzaCI6ImFlMDA1Y2ViN2U5YTIxN2NjZWQyZjhhYTM1NDE4N2M3In0.6KW--OvqAjUbVNP6r0b4avksK0R6MBi_FzmYtptDknQ"
+                  }));
 
-            ws.onclose  = function () {
-                console.info("ws close")
-            }
+      }catch(error){
 
-            this.ws = ws
-        },
-        wsSend: function() {
-         
-            if(this.ws == null) {
-                console.info ("connection has not been opened")
-            }
-
-            this.ws.send(JSON.stringify({
-                type:this.type,
-                product_ids:this.product_ids,
-                currency_ids:this.currency_ids,
-                channels:this.channels,
-                token:this.token
-            }))
-        }
-  },
- mounted(){
-        this.wsOpen();
+        console.log(error)
+      }
+    },
+  async loadData(){
+       this.connection = new WebSocket("ws://dc54-2402-4000-2281-830-2571-4be4-dc0b-917f.ngrok.io/ws")
+        this.connection.onmessage = function(event) {
+        console.log(JSON.parse(event.data));
+      
+      
     }
   // created: function() {
   //   console.log("Starting connection to WebSocket Server")
@@ -87,7 +71,40 @@ data: function() {
   //     console.log("Successfully connected to the echo websocket server...")
   //   }
 
-  // }
+     
+     
+    }
+    },
+ mounted(){
+   this.sendMessage()
+    
+    },
+
+
+ // created: function() {
+    // console.log("Starting connection to WebSocket Server")
+    // this.connection = new WebSocket("ws://dc54-2402-4000-2281-830-2571-4be4-dc0b-917f.ngrok.io/ws")
+
+    // this.connection.onmessage = function(event) {
+    //   console.log(JSON.parse(event.data));
+      
+      
+    // }
+
+    // this.connection.onopen = function(event) {
+    //   console.log(event)
+    //   console.log("Successfully connected to the echo websocket server...")
+    // }
+
+ // },
+
+   created(){
+     this.loadData()
+   },
+
+  
+
+
 }
 </script>
 
