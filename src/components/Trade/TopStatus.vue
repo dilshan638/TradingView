@@ -34,9 +34,9 @@
           <h3>MA(7)</h3>
           <b>434234.43</b>
         </div>
-        <div class="top-sub">
-          <h3>MA(25)</h3>
-          <b>434234.43</b>
+        <div class="top-sub" >
+          <h3 >24h Volume(LDXI)</h3>
+          <b  ></b>
         </div>
         <div class="top-sub">
           <h3>MA(99)</h3>

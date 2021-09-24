@@ -9,6 +9,8 @@ import VueApexCharts from "vue3-apexcharts";
 //import VueSession from 'vue-session'
 import router from './router';
 import TableLite from "vue3-table-lite";
+//import { Money3Component } from "v-money3";
+
 
 
 const app = createApp(App);
@@ -19,6 +21,8 @@ app.use(VueApexCharts)
 
 
 app.mount('#app');
+
+//app.component("money3", Money3Component);
 
 import VueTelInput from 'vue3-tel-input'
 import 'vue3-tel-input/dist/vue3-tel-input.css'

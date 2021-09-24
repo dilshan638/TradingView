@@ -2,64 +2,7 @@
     <div class="trade-box">
         <div class="row status1">
             <div class="row">
-                <div class="col-md-4" style="position:relative">
-                    <div class="search-head" @click="dropdownshow = !dropdownshow">
-                        <h4>Markets</h4>
-                        <i class="ri-arrow-down-s-line" :class="[dropdownshow ? 'ri-arrow-up-s-line' : 'ri-arrow-down-s-line']"></i>
-                    </div>
-                    <div class="search-body buysell-form" v-if="dropdownshow">
-                        <input class="form-control" placeholder="search" />
-                                        <div class="trade-body coins-body bottom-table">
-                                            <table class="table table-hover">
-                                            <thead>
-                                                <tr>
-                                                <th scope="col" class="no-border-table-th">Coin</th>
-                                                <th scope="col" class="no-border-table-th">Last Price</th>
-                                                <th scope="col" class="no-border-table-th text-right">Change</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>LDXI/ETH</td>
-                                                    <td>0.22123212</td>
-                                                    <td class="text-right success-text">+ 1.32%</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><i class="ri-star-fill"></i> LDXI/ETH</td>
-                                                    <td>0.22123212</td>
-                                                    <td class="text-right success-text">+ 1.32%</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><i class="ri-star-fill"></i> LDXI/ETH</td>
-                                                    <td>0.22123212</td>
-                                                    <td class="text-right success-text">+ 1.32%</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><i class="ri-star-fill"></i> LDXI/ETH</td>
-                                                    <td>0.22123212</td>
-                                                    <td class="text-right success-text">+ 1.32%</td>
-                                                </tr>    
-                                                <tr>
-                                                    <td><i class="ri-star-fill"></i> LDXI/ETH</td>
-                                                    <td>0.22123212</td>
-                                                    <td class="text-right success-text">+ 1.32%</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><i class="ri-star-fill"></i> LDXI/ETH</td>
-                                                    <td>0.22123212</td>
-                                                    <td class="text-right success-text">+ 1.32%</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><i class="ri-star-fill"></i> LDXI/ETH</td>
-                                                    <td>0.22123212</td>
-                                                    <td class="text-right success-text">+ 1.32%</td>
-                                                </tr>                                                                                                                                                                                            
-                                            </tbody>
-                                            </table>            
-                                        </div>
-                    </div>
-                </div>
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-9">
                             <div class="chart-stat">
@@ -134,7 +77,6 @@ export default {
     dailyStats: [],
     yearlyStats: [],
     toggle: true,
-    dropdownshow: false
   }),
   computed: {
     series() {

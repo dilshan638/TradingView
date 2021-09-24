@@ -1,7 +1,7 @@
 <template>
   <div>
-<h2>Vue.js WebSocket Tutorial</h2> 
-    <button @click="sendMessage">Send Message</button>
+<h2>Tranding WebSocket Test</h2> 
+    <button @click="wsSend">Send Message</button>
   </div>
 </template>
 
@@ -10,9 +10,9 @@ export default {
 name:"Websoket",
 data: function() {
     return {
-      connection: null,
+     // connection: null,
        ws:null,
-           type:"subscribe",
+          type:"subscribe",
            product_ids:["BTC-USDT"],
            currency_ids:[],
            channels:["ticker", "match", "level2","funds","order"],
@@ -20,6 +20,16 @@ data: function() {
     }
   },
    methods: {
+    sendMessage: function() {
+      console.log(this.ws);
+    this.ws.send(JSON.stringify({
+        type:this.type,
+        product_ids:this.product_ids,
+        currency_ids:this.currency_ids,
+        channels:this.channels,
+        token:this.token
+        }))
+    },
 
    
 
@@ -48,11 +58,18 @@ data: function() {
       
       
     }
+  // created: function() {
+  //   console.log("Starting connection to WebSocket Server")
+  //   this.connection = new WebSocket("ws://25b4-2402-4000-2281-830-2571-4be4-dc0b-917f.ngrok.io/ws", { protocol: this.protocols } )
 
-    this.connection.onopen = function(event) {
-      console.log(event)
-      console.log("Successfully connected to the echo websocket server...")
-    }
+  //   this.connection.onmessage = function(event) {
+  //     console.log(event);
+  //   }
+
+  //   this.connection.onopen = function(event) {
+  //     console.log(event)
+  //     console.log("Successfully connected to the echo websocket server...")
+  //   }
 
      
      

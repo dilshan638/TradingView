@@ -10,6 +10,21 @@
 @import "form";
 @import "transition";
 
+.new-error{
+
+    border: solid 1px red !important;
+
+    .error-msg{
+        position: relative;
+        width: 100%;
+        top: 0px;
+        margin-bottom: 10px;
+        font-size: 0.65rem;
+        font-weight: 500;
+    }
+
+}
+
 
 body{
     font-family: 'Rubik', sans-serif;

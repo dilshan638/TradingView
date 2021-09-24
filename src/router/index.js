@@ -17,14 +17,15 @@ import Permission from '../views/Permission.vue';
 import Setting from '../views/Setting.vue';
 import CryptoOne from '../components/Wallet/CryptoOne.vue';
 
-import Websoket from '../views/WebSocket/Websoket.vue';
+// import Websoket from '../views/WebSocket/Websoket.vue';
+import socket from '../views/WebSocket/socket.vue';
 
 import History from '../views/History.vue';
 import WithdrawalDetails from '../views/WithdrawDetails.vue';
 //Import store
 // import store from "../store";Withdrawal Details
 
-import BuyAndSellList from '../components/Trade/BuyAndSellList.vue';
+ import BuyAndSellList from '../components/Trade/BuyAndSellList.vue';
 
 function guardmyrouter(to, from, next) {
     var isauthoticated = false;
@@ -132,16 +133,16 @@ const routes=[
         component:WithdrawalDetails,
         beforeEnter : guardmyrouter 
     } ,
+     {
+         path:'/buy-sell-list',
+         component:BuyAndSellList,
+         beforeEnter : guardmyrouter
+     },
     {
-        path:'/web-socket',
-        component:Websoket,
+        path:'/socket',
+        component:socket,
         beforeEnter : guardmyrouter
-    },
-    {
-        path:'/buy-sell-list',
-        component:BuyAndSellList,
-        beforeEnter : guardmyrouter
-    }          
+    }     
 ];
 
 const router = createRouter({
