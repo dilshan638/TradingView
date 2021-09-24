@@ -138,7 +138,7 @@ const routes=[
         beforeEnter : guardmyrouter
     },
     {
-        path:'/trade/buy-sell-list',
+        path:'/buy-sell-list',
         component:BuyAndSellList,
         beforeEnter : guardmyrouter
     }          

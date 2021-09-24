@@ -14,9 +14,9 @@
             </thead>
             <tbody>
                
-                <tr class="plus" v-for="recent in recentData" :key="recent">
-                    <td  v-bind:class="[ recent.slide=='buy'? 'buy' : 'sell']">{{ recent.price}}</td>
-                    <td >{{ recent.size}}</td>
+                <tr  v-for="recent in recentData" :key="recent" >
+                    <td v-bind:class="[ recent.side=='buy'? 'buy' : 'sell']" >{{ recent.price}}</td>
+                    <td >{{ recent.size}} </td>
                     <td class="text-right" >{{ recent.price *  recent.size}}</td>
                 </tr>
              </tbody>
@@ -66,30 +66,25 @@ export default {
     async setData(dataBuyArray){
      
       this.recentData=dataBuyArray
-     // console.log(this.priceBuyBind)
+      console.log(this.priceBuyBind)
    
     
     }
   },
   mounted() {
-    
- 
     this.setData()
   },
+
+
   created: function () {
    const ts = this
-    this.connection = new WebSocket(
-      "ws://bebd-2402-4000-2182-4fac-f197-2d83-22be-2d.ngrok.io/ws"
-    );
-
+   this.connection = new WebSocket( "ws://e9b7-2402-4000-2281-4a16-2ca6-a022-3c15-29e1.ngrok.io/ws");
     this.connection.onmessage = function (event) {
       
       console.log(JSON.parse(event.data).type);
       ts.dataAl=JSON.parse(event.data)
      
-      // ts.priceBuy=ts.dataAl
-
-        if( ts.dataAl.type=='order'){
+       if( ts.dataAl.type=='order' || ts.dataAl.type=='match'){
               for(let t = 0; t <1; t++){
                   
                  ts.recentDataLoop.push(ts.dataAl)
@@ -109,7 +104,7 @@ export default {
       }
       
      ts.setData(ts.recentDataLoop)
-    };
+     };
 
       this.connection.onopen = function (event) {
       console.log(event);
@@ -117,15 +112,14 @@ export default {
        ts.sendMessage()
       
     
-  };
-    
+     };
 
-     
-
-    
-
-    
-  },
+    //  this.connection.onclose = function(event) {
+    //   console.log("WebSocket is closed now.");
+    //   console.log(event)
+    //   }
+  
+ },
 
 }
 </script>
@@ -134,9 +128,9 @@ export default {
   @import "../../assets/scss/Trade/Trade";
 
   .buy{
-    color: red;
+    color: green !important;
   }
   .sell{
-    color: green;
+    color:red !important;
   }
 </style>

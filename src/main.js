@@ -10,13 +10,14 @@ import VueApexCharts from "vue3-apexcharts";
 import router from './router';
 import TableLite from "vue3-table-lite";
 
+
 const app = createApp(App);
 app.use(router)
 app.use(TableLite)
 app.use(Toaster)
 app.use(VueApexCharts)
 
-//app.use(VueSession)
+
 app.mount('#app');
 
 import VueTelInput from 'vue3-tel-input'
