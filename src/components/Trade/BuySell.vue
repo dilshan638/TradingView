@@ -4,149 +4,279 @@
             Buy / Sell
         </div>
         <div class="trade-body">
-            <ul class="nav nav-tabs main-tab" id="myTab" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link buy-btn active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Buy</a>
-                </li>
-                <li class="nav-item" style="margin-right: 0 !important;">
-                    <a class="nav-link sell-btn" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Sell</a>
-                </li>
-                <p>Balance 0.00 USD</p>
-            </ul>
-            <div class="tab-content sub-tab-area" id="myTabContent2">
-
-                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    <ul class="nav nav-tabs sub-tab" id="myTab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="home-tab2" data-toggle="tab" href="#home2" role="tab" aria-controls="home2" aria-selected="true">Limit</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="profile-tab2" data-toggle="tab" href="#profile2" role="tab" aria-controls="profile2" aria-selected="false">Market</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="contact-tab2" data-toggle="tab" href="#contact2" role="tab" aria-controls="contact2" aria-selected="false">Stop</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="contact-tab3" data-toggle="tab" href="#contact3" role="tab" aria-controls="contact3" aria-selected="false">Stop Limit</a>
-                        </li>
-                    </ul>
-                    <div class="tab-content" id="myTabContent2">
-                        <div class="tab-pane fade show active" id="home2" role="tabpanel" aria-labelledby="home-tab2">
-                            <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Amount</span>
-                            </div>
-                            <input type="text" class="form-control" aria-label="" value="5456.434">
-                            <div class="input-group-append">
-                                <span class="input-group-text">BTC</span>
-                            </div>
-                            </div>  
-                            <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Amount</span>
-                            </div>
-                            <input type="text" class="form-control" aria-label="" value="5456.434">
-                            <div class="input-group-append">
-                                <span class="input-group-text">BTC</span>
-                            </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="bottom-v">
-                                        <b>Fee (0.1%) :</b>
-                                        <b>0.00</b>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="bottom-v">
-                                        <b>Fee (0.1%) :</b>
-                                        <b class="success-text">0.00</b>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <button class="btn btn-primary">BUY BTC</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="profile2" role="tabpanel" aria-labelledby="profile-tab2">2</div>
-                        <div class="tab-pane fade" id="contact2" role="tabpanel" aria-labelledby="contact-tab2">3</div>
-                        <div class="tab-pane fade" id="contact3" role="tabpanel" aria-labelledby="contact-tab3">4</div>
-                    </div>                
-                </div>
-            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                    <ul class="nav nav-tabs sub-tab" id="myTab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="home-tab2-sell" data-toggle="tab" href="#home2-sell" role="tab" aria-controls="home2-sell" aria-selected="true">Limit</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="profile-tab2-sell" data-toggle="tab" href="#profile2-sell" role="tab" aria-controls="profile2-sell" aria-selected="false">Market</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="contact-tab2-sell" data-toggle="tab" href="#contact2" role="tab" aria-controls="contact2" aria-selected="false">Stop</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="contact-tab3" data-toggle="tab" href="#contact3" role="tab" aria-controls="contact3" aria-selected="false">Stop Limit</a>
-                        </li>
-                    </ul>
-                    <div class="tab-content" id="myTabContent2">
-                        <div class="tab-pane fade show active" id="home2" role="tabpanel" aria-labelledby="home-tab2">
-                            <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Amount</span>
-                            </div>
-                            <input type="text" class="form-control" aria-label="" value="5456.434">
-                            <div class="input-group-append">
-                                <span class="input-group-text">BTC</span>
-                            </div>
-                            </div>  
-                            <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Amount</span>
-                            </div>
-                            <input type="text" class="form-control" aria-label="" value="5456.434">
-                            <div class="input-group-append">
-                                <span class="input-group-text">BTC</span>
-                            </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="bottom-v">
-                                        <b>Fee (0.1%) :</b>
-                                        <b>0.00</b>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="bottom-v">
-                                        <b>Fee (0.1%) :</b>
-                                        <b class="success-text">0.00</b>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <button class="btn btn-primary">SELL BTC</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="profile2" role="tabpanel" aria-labelledby="profile-tab2">2</div>
-                        <div class="tab-pane fade" id="contact2" role="tabpanel" aria-labelledby="contact-tab2">3</div>
-                        <div class="tab-pane fade" id="contact3" role="tabpanel" aria-labelledby="contact-tab3">4</div>
-                    </div>                  
+            <div class="tab-top">
+                <div class="top-tab buy-btn" @click="togglebuy" v-bind:class="[buytab == true ? 'active' : '']">Buy</div>
+                <div class="top-tab sell-btn" @click="togglesell" v-bind:class="[selltab == true ? 'active' : '']">Sell</div>
             </div>
-            </div>            
+            <div class="buy-sell-content">
+                <div class="sub-type" @click="toLimit" v-bind:class="[limitTab == true ? 'active' : '']">LImit</div>
+                <div class="sub-type" @click="toMarket" v-bind:class="[marketTab == true ? 'active' : '']">Market</div>
+                <div class="sub-type" @click="toStop" v-bind:class="[stopTab == true ? 'active' : '']">Stop</div>
+                <div class="sub-type" @click="toStopLimit" v-bind:class="[stoplimitTab == true ? 'active' : '']">Limit</div>
+            </div>
+            <div class="price-form">
+                <div class="input-group mb-3" :class="{ 'new-error': v$.amount.$error }">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Amount</span>
+                    </div>
+                    <input type="text" class="form-control" v-model="state.amount" aria-label="" />
+                    <div class="input-group-append">
+                        <span class="input-group-text">BTC</span>
+                    </div>
+                    <span class="error-msg" v-if="v$.amount.$error">Amount is {{ v$.amount.$errors[0].$message }} </span>
+                </div>
+                <div class="input-group mb-3" :class="{ 'new-error': v$.price.$error }">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Price</span>
+                    </div>
+                    <input type="text" class="form-control" v-model="state.price" aria-label="" />
+                    <div class="input-group-append">
+                        <span class="input-group-text">USD</span>
+                    </div>
+                    <span class="error-msg" v-if="v$.price.$error">Price is {{ v$.price.$errors[0].$message }} </span>
+                </div>                  
+                <div class="row">
+                    <div class="col-6">
+                        <div class="bottom-v">
+                            <b>Fee (0.1%) :</b>
+                            <b>0.00</b>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="bottom-v">
+                            <b>Total</b>
+                            <b class="success-text">{{this.state.amount * this.state.price}}</b>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="btn btn-primary pass-btn" @click="buybtcformaction">BUY BTC</button>
+                        <ul>
+                            <li v-for="sell in coin" :key="sell">
+                                {{ sell.symbol }}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </div> 
 </template>
 
 <script>
+
+
+
+import useValidate from '@vuelidate/core'
+import { required, numeric } from '@vuelidate/validators'
+import { reactive, computed } from 'vue'
+// eslint-disable-next-line no-unused-vars
+import axios from 'axios';
+
+
 export default {
-    name:'orderbook'
+    name:'orderbook',
+    components: {
+    },
+    setup() {
+        const state = reactive({
+            amount:'',
+            price:''
+        })
+
+        const rules = computed(() => {
+            return {
+                amount: { 
+                    required,
+                    numeric
+                },
+                price: { 
+                    required,
+                    numeric
+                },                
+                
+            }    
+        }) 
+        
+        const v$ = useValidate(rules, state)
+        return { state, v$ }
+    },     
+    data() {
+        return{
+            buytab: true,
+            selltab: false,
+            limitTab: true,
+            marketTab: false,
+            stopTab: false,
+            stoplimitTab: false,
+
+            total:this.state.price*this.state.amount,
+
+            coin: [],
+
+            sendData: [],
+            client_oid: "4949049",
+            productId: "69069069",
+            funds: 12,
+            side: "buy",
+            type: "limit",
+            timeInForce: ""
+        }
+    },
+    methods:{
+        async buybtcformaction() {
+            this.v$.amount.$touch()
+            this.v$.price.$touch()
+            if (!this.v$.amount.error && !this.v$.price.error) { // if ANY fail validation
+                var data = {
+                    "client_oid":"1616663784828",
+                    "productId":"BTC-USDT",
+                   // "size": this.size,
+                    "funds":0.020,
+                    "price": this.price,
+                    "side":this.side,
+                    "type":this.type,
+                    "timeInForce":"52100"
+                };            
+                try{
+                    let response = await this.axios.post("http://2e62-2402-4000-2182-4fac-f197-2d83-22be-2d.ngrok.io/api/orders", data)
+                    .then(res => {
+                       // this.sendData = response.data
+                        console.log(response); 
+                        console.log(res); 
+                    })
+                }catch(error){
+                    console.log(error)
+                }         
+            } else {
+                console.log('invalid form validation')
+            }
+        },
+        async togglebuy() {
+            this.buytab = true;
+            this.selltab = false;
+            if(this.buytab == true) {
+                this.side = "buy";
+            }
+            else{
+                this.side = "sell";
+            }
+        },
+        async togglesell() {
+            this.buytab = false;
+            this.selltab = true;
+            if(this.selltab == true) {
+                this.side = "sell";
+            }
+            else{
+                this.side = "buy";
+            }
+        },
+        async toLimit() {
+            this.limitTab = true;
+            this.marketTab = false;
+            this.stopTab = false;
+            this.stoplimitTab = false;
+            if(this.limitTab == true) {
+                this.type = "limit";
+            }          
+        },
+        async toMarket() {
+            this.limitTab = false;
+            this.marketTab = true;
+            this.stopTab = false;
+            this.stoplimitTab = false;
+            if(this.marketTab == true) {
+                this.type = "market";
+            }          
+        },
+        async toStop() {
+            this.limitTab = false;
+            this.marketTab = false;
+            this.stopTab = true;
+            this.stoplimitTab = false;
+            if(this.stopTab == true) {
+                this.type = "stop";
+            }          
+        },
+        async toStopLimit() {
+            this.limitTab = false;
+            this.marketTab = false;
+            this.stopTab = false;
+            this.stoplimitTab = true;
+            if(this.stoplimitTab == true) {
+                this.type = "stoplimit";
+            }          
+        },
+        getUserBalance() {
+            this.coin = JSON.parse(localStorage.getItem("arraySymbol"));
+            console.log(this.coin);
+        }
+    },
+  created: function() {
+  },
+  mounted() {
+      this.getUserBalance();
+  }
 
 }
 </script>
 
 <style lang="scss" scoped>
   @import "../../assets/scss/Trade/Trade";
+  .tab-top{
+    float: left;
+    width: 100%;
+    padding: 15px;
+  }
+  .top-tab{
+    float: left;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    width: 44%;
+    background-color: #393939;
+    padding: 7px;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+  }
+  .top-tab.active.buy-btn{
+      background-color: #60db78;
+      color: #fff !important;
+  }
+    .top-tab.active.sell-btn{
+      background-color: #f14848;
+      color: #fff !important;
+  }
+  .buy-sell-content{
+    float: left;
+    width: 100%;
+    padding: 15px;
+  }
+  .sub-type{
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 15px;
+    font-family: Rubik;
+    font-size: 0.625rem;
+    margin-bottom: 0 !important;
+  }
+  .sub-type.active{
+      color: yellow;
+  }
+  .price-form{
+    float: left;
+    width: 100%;
+    padding: 15px;
+  }
+  .pass-btn{
+    float: left;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    max-width: none;
+    margin-top: 30px;
+  }
 </style>

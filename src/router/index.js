@@ -18,6 +18,7 @@ import Setting from '../views/Setting.vue';
 import CryptoOne from '../components/Wallet/CryptoOne.vue';
 
 import Websoket from '../views/WebSocket/Websoket.vue';
+import socket from '../views/WebSocket/socket.vue';
 
 import History from '../views/History.vue';
 import WithdrawalDetails from '../views/WithdrawDetails.vue';
@@ -133,6 +134,11 @@ const routes=[
     {
         path:'/web-socket',
         component:Websoket,
+        beforeEnter : guardmyrouter
+    },
+    {
+        path:'/socket',
+        component:socket,
         beforeEnter : guardmyrouter
     }     
 ];
