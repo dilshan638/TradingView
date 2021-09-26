@@ -36,7 +36,7 @@
           :value="coins.symbol"
          
         >
-          {{ coins.symbol }}
+          {{ coins.symbol }} 
         </option>
       </select>
     </div>

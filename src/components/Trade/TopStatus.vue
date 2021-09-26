@@ -24,7 +24,7 @@
         </div>
         <div class="top-sub" >
           <h3 >24h Volume(LDXI)</h3>
-          <b v-bind:class="[ldcx24hBind <0? 'sell' : 'buy']">{{ldcx24hBind}} %</b>
+          <b v-bind:class="[ldcx24hBind <0? 'sell' : 'buy']">{{parseFloat(ldcx24hBind).toFixed(2)}} %</b>
         </div>
         <div class="top-sub"  >
           <h3>24h Volume( USDT )</h3>
@@ -107,7 +107,7 @@ export default {
   },
   created: function () {
     const ts = this;
-    this.connection = new WebSocket( "ws://2fc6-2402-4000-2281-4a16-2ca6-a022-3c15-29e1.ngrok.io/ws");
+    this.connection = new WebSocket( "ws://716e-2402-4000-2382-7a26-b268-54fd-e8c0-47e1.ngrok.io/ws");
 
     this.connection.onmessage = function (event) {
      ts.dataAl = JSON.parse(event.data);

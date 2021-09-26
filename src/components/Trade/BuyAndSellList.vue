@@ -7,41 +7,45 @@
           <div class="card-header card-head-30">
             <div class="row">
               <div class="col-md-6 breadcrum">
-                <h2><router-link to="/trade" class="sm-text">Exchange</router-link></h2> 
-                <i class="ri-arrow-right-s-line"></i> 
+                <h2>
+                  <router-link to="/trade" class="sm-text"
+                    >Exchange</router-link
+                  >
+                </h2>
+                <i class="ri-arrow-right-s-line"></i>
                 <h2>Order Book</h2>
                 <div class="sub-trade-row">
                   <h3>Wallet Balances</h3>
-                  <h3>BTC/USDT</h3>                  
+                  <h3>BTC/USDT</h3>
                 </div>
               </div>
               <div class="col-md-6 breadcrum">
-                  <div class="row">
-                    <div class="col-md-6"></div>
-                    <div class="col-md-2">
-                      <div class="top-select">
-                          <h5>Depth</h5>
-                          <select class="form-control">
-                            <option>5</option>
-                            <option>10</option>  
-                            <option>15</option>  
-                            <option>20</option>  
-                          </select>
-                      </div>                      
-                    </div>
-                    <div class="col-md-4">
-                      <div class="top-select">
-                          <h5>Group</h5>
-                          <select class="form-control">
-                            <option>2 Decimals</option>
-                            <option>10 Decimals</option>  
-                            <option>15 Decimals</option>   
-                            <option>20 Decimals</option>  
-                          </select>
-                      </div>                      
+                <div class="row">
+                  <div class="col-md-6"></div>
+                  <div class="col-md-2">
+                    <div class="top-select">
+                      <h5>Depth</h5>
+                      <select class="form-control">
+                        <option>5</option>
+                        <option>10</option>
+                        <option>15</option>
+                        <option>20</option>
+                      </select>
                     </div>
                   </div>
-              </div>              
+                  <div class="col-md-4">
+                    <div class="top-select">
+                      <h5>Group</h5>
+                      <select class="form-control"   @change="onChange($event)">
+                        <option value="2">2 Decimals</option>
+                        <option value="3"> 3 Decimals</option>
+                        <option value="4">4 Decimals</option>
+                        <option value="5">5 Decimals</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <div class="card-body">
@@ -60,11 +64,41 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr class="plus" v-for="buy in priceBuyBind" :key="buy">
-                            <td>{{ buy[0] }}</td>
-                            <td>{{ buy[1] }}</td>
-                            <td class="text-right">{{ buy[0] * buy[1] }}</td>
+
+                          <tr class="plus" v-for="buy in priceBuyBind" :key="buy" v-show="deci=='2'">
+                            <td>{{parseFloat(buy[0]).toFixed(2)}}</td>
+                            <td>{{parseFloat(buy[1]).toFixed(2)}}</td>
+                            <td class="text-right">{{ parseFloat(buy[0]).toFixed(2) * parseFloat(buy[1]).toFixed(2) }}</td>
                           </tr>
+
+                          <tr class="plus" v-for="buy in priceBuyBind" :key="buy" v-show="deci=='3'">
+                            <td>{{parseFloat(buy[0]).toFixed(3)}}</td>
+                            <td>{{parseFloat(buy[1]).toFixed(3)}}</td>
+                            <td class="text-right">{{ parseFloat(buy[0]).toFixed(3) * parseFloat(buy[1]).toFixed(3) }}</td>
+                          </tr>
+
+                          <tr class="plus" v-for="buy in priceBuyBind" :key="buy" v-show="deci=='4'">
+                            <td>{{parseFloat(buy[0]).toFixed(4)}}</td>
+                            <td>{{parseFloat(buy[1]).toFixed(4)}}</td>
+                            <td class="text-right">{{ parseFloat(buy[0]).toFixed(4) * parseFloat(buy[1]).toFixed(4) }}</td>
+                          </tr>
+
+                            <tr class="plus" v-for="buy in priceBuyBind" :key="buy" v-show="deci=='5'">
+                            <td>{{parseFloat(buy[0]).toFixed(5)}}</td>
+                            <td>{{parseFloat(buy[1]).toFixed(5)}}</td>
+                            <td class="text-right">{{ parseFloat(buy[0]).toFixed(5) * parseFloat(buy[1]).toFixed(5) }}</td>
+                          </tr>
+
+                            <tr class="plus" v-for="buy in priceBuyBind" :key="buy" v-show="deci=='6'">
+                            <td>{{parseFloat(buy[0]).toFixed(6)}}</td>
+                            <td>{{parseFloat(buy[1]).toFixed(6)}}</td>
+                            <td class="text-right">{{ parseFloat(buy[0]).toFixed(6) * parseFloat(buy[1]).toFixed(6) }}</td>
+                          </tr>
+
+
+
+                         
+                          
                         </tbody>
                       </table>
                     </div>
@@ -85,11 +119,34 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr v-for="sell in priceSellBind" :key="sell">
-                            <td>{{ sell[0] }}</td>
-                            <td>{{ sell[1] }}</td>
-                            <td class="text-right">{{ sell[0] * sell[1] }}</td>
+
+                           <tr v-for="sell in priceSellBind" :key="sell" v-show="deci=='2'">
+                            <td>{{parseFloat(sell[0]).toFixed(2)}}</td>
+                            <td>{{parseFloat(sell[1]).toFixed(2)}}</td>
+                            <td class="text-right">{{ parseFloat(sell[0]).toFixed(2) * parseFloat(sell[1]).toFixed(2) }}</td>
                           </tr>
+                          <tr v-for="sell in priceSellBind" :key="sell" v-show="deci=='3'">
+                            <td>{{parseFloat(sell[0]).toFixed(3)}}</td>
+                            <td>{{parseFloat(sell[1]).toFixed(3)}}</td>
+                            <td class="text-right">{{ parseFloat(sell[0]).toFixed(3) * parseFloat(sell[1]).toFixed(3) }}</td>
+                          </tr>
+                           <tr v-for="sell in priceSellBind" :key="sell" v-show="deci=='4'">
+                            <td>{{parseFloat(sell[0]).toFixed(4)}}</td>
+                            <td>{{parseFloat(sell[1]).toFixed(4)}}</td>
+                            <td class="text-right">{{ parseFloat(sell[0]).toFixed(4) * parseFloat(sell[1]).toFixed(4) }}</td>
+                          </tr>
+                           <tr v-for="sell in priceSellBind" :key="sell" v-show="deci=='5'">
+                            <td>{{parseFloat(sell[0]).toFixed(5)}}</td>
+                            <td>{{parseFloat(sell[1]).toFixed(5)}}</td>
+                            <td class="text-right">{{ parseFloat(sell[0]).toFixed(5) * parseFloat(sell[1]).toFixed(5) }}</td>
+                          </tr>
+                           <tr v-for="sell in priceSellBind" :key="sell" v-show="deci=='6'">
+                            <td>{{parseFloat(sell[0]).toFixed(6)}}</td>
+                            <td>{{parseFloat(sell[1]).toFixed(6)}}</td>
+                            <td class="text-right">{{ parseFloat(sell[0]).toFixed(6) * parseFloat(sell[1]).toFixed(6) }}</td>
+                          </tr>
+
+
                         </tbody>
                       </table>
                     </div>
@@ -101,7 +158,6 @@
         </div>
       </div>
     </div>
-    
   </default-layout>
 </template>
 
@@ -121,10 +177,24 @@ export default {
 
       priceSell: [],
       priceSellBind: [],
+
+      test: [
+        ["100", "200.123", "300.1234"],
+        ["400.33", "500.43445", "600.5656"],
+        ["99.4545436", "199.5656", "299.557"],
+        ["9.566", "8.565", "10000.565"],
+      ],
+
+      deci:"2"
     };
   },
 
   methods: {
+
+    async onChange(event){
+    
+    this.deci=event.target.value
+    },
     async sendMessage() {
       try {
         this.connection.send(
@@ -142,11 +212,10 @@ export default {
     },
 
     async setData(dataBuyArray, dataSellArray) {
-      this.priceBuyBind = dataBuyArray;
-      this.priceSellBind = dataSellArray;
+      this.priceBuyBind = dataBuyArray.sort((a, b) => {return a[0] - b[0] });
+      this.priceSellBind = dataSellArray.sort((a, b) => {return b[0] - a[0] });
 
-      console.log(this.priceBuyBind)
-        console.log(this.priceSellBind)
+      
     },
   },
   mounted() {
@@ -154,7 +223,9 @@ export default {
   },
   created: function () {
     const ts = this;
-   this.connection = new WebSocket( "ws://2fc6-2402-4000-2281-4a16-2ca6-a022-3c15-29e1.ngrok.io/ws");
+    this.connection = new WebSocket(
+      "ws://716e-2402-4000-2382-7a26-b268-54fd-e8c0-47e1.ngrok.io/ws"
+    );
 
     this.connection.onmessage = function (event) {
       console.log(JSON.parse(event.data));
@@ -163,10 +234,10 @@ export default {
       // ts.priceBuy = ts.dataAl.bids;
       // ts.priceSell = ts.dataAl.asks;
 
-        if(ts.dataAl.type == "snapshot"){
-           ts.priceSell = ts.dataAl.asks;
-           ts.priceBuy=ts.dataAl.bids
-        }
+      if (ts.dataAl.type == "snapshot") {
+        ts.priceSell = ts.dataAl.asks;
+        ts.priceBuy = ts.dataAl.bids;
+      }
 
       ts.setData(ts.priceBuy, ts.priceSell);
       console.log(ts.priceBuy);
@@ -177,14 +248,13 @@ export default {
       console.log("Successfully connected to the echo websocket server...");
       ts.sendMessage();
     };
-
-    
   },
 };
 </script>
 
 
 <style lang="scss" scoped>
-
 @import "../../assets/scss/Trade/Trade";
+
+
 </style>
