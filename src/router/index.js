@@ -25,7 +25,7 @@ import WithdrawalDetails from '../views/WithdrawDetails.vue';
 //Import store
 // import store from "../store";Withdrawal Details
 
-import BuyAndSellList from '../components/Trade/BuyAndSellList.vue';
+ import BuyAndSellList from '../components/Trade/BuyAndSellList.vue';
 
 function guardmyrouter(to, from, next) {
     var isauthoticated = false;
@@ -133,11 +133,11 @@ const routes=[
         component:WithdrawalDetails,
         beforeEnter : guardmyrouter 
     } ,
-    {
-        path:'/buy-sell-list',
-        component:BuyAndSellList,
-        beforeEnter : guardmyrouter
-    },
+     {
+         path:'/buy-sell-list',
+         component:BuyAndSellList,
+         beforeEnter : guardmyrouter
+     },
     {
         path:'/socket',
         component:socket,

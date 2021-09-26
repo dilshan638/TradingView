@@ -1,51 +1,78 @@
 <template>
-  <div class="trade-box">
-    <div class="trade-header">
-      Order Book
-      <div class="sw-b"></div>
-      <div class="sw-b"></div>
-      <div class="sw-b active"></div>
-    </div>
-    <div class="trade-body tbl">
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th scope="col">Price(USDT)</th>
-            <th scope="col">Amount(LDXI)</th>
-            <th scope="col" class="text-right">Total</th>
-          </tr>
-        </thead>
+  <div>
+    <div class="trade-box">
+      <div class="trade-header">
+        Order Book
+        <div class="sw-b"></div>
+        <div class="sw-b"></div>
+        <div class="sw-b active"></div>
+      </div>
+      <div class="trade-body tbl">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Price(USDT)</th>
+              <th scope="col">Amount(LDXI)</th>
+              <th scope="col" class="text-right">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="sell in priceSellBind" :key="sell">
+              <td>{{ sell[0] }}</td>
+              <td>{{ sell[1] }}</td>
+              <td class="text-right">{{ sell[0] * sell[1] }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="trade-body tbl">
+        <table class="table table-hover special">
         <tbody>
-          <tr v-for="sell in priceSellBind" :key="sell">
-            <td>{{ sell[0] }}</td>
-            <td>{{ sell[1] }}</td>
-            <td class="text-right">{{ sell[0] * sell[1] }}</td>
+          <tr>
+            <td class="success-tst">{{price}}</td>
+            <td class="mid">${{price}}</td>
+            <td class="text-right"> <div class="read-more">
+        <a class="link" href="/buy-sell-list">More</a>
+      </div></td>
           </tr>
         </tbody>
       </table>
-    </div>
-    <div class="trade-body tbl">
-      <table class="table table-hover special">
-        <tbody>
-          <tr>
-            <td class="success-tst">33.545345</td>
-            <td class="mid">$33.545345</td>
-            <td class="text-right">More</td>
+      </div>
+      <div class="trade-body tbl">
+        <table lass="table table-hover">
+          <tr class="plus" v-for="buy in priceBuyBind" :key="buy">
+            <td>{{ buy[0] }}</td>
+            <td>{{ buy[1] }}</td>
+            <td class="text-right">{{ buy[0] * buy[1] }}</td>
           </tr>
-        </tbody>
-      </table>
-    </div>    
-    <div class="trade-body tbl">
-      <table lass="table table-hover">
-        <tr class="plus" v-for="buy in priceBuyBind" :key="buy">
-          <td>{{ buy[0] }}</td>
-           <td>{{ buy[1] }}</td>
-           <td class="text-right">{{ buy[0] * buy[1] }}</td>
-        </tr>
-      </table>
+        </table>
+      </div>
+      
     </div>
-    <div class="read-more">
-      <a class="link" href="/buy-sell-list">View more</a>
+
+    <div class="trade-box">
+      <div class="trade-header">Recent Trades</div>
+      <div class="trade-body tbl2">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Price(USDT)</th>
+              <th scope="col">Amount(LDXI)</th>
+              <th scope="col" class="text-right">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="recent in recentData" :key="recent">
+              <td v-bind:class="[recent.side == 'buy' ? 'buy' : 'sell']">
+                {{ recent.price }}
+              </td>
+              <td>{{recent.lastSize}} </td>
+              <td class="text-right">{{ recent.price * recent.lastSize }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+     
     </div>
   </div>
 </template>
@@ -65,6 +92,13 @@ export default {
       priceBuyBind: [],
 
       priceBool: false,
+      recentDataLoop: [],
+      recentData: [],
+
+      priceBuyUpdate: [],
+      fill:"",
+      price:""
+
     };
   },
 
@@ -77,8 +111,8 @@ export default {
             product_ids: ["BTC-USDT"],
             currency_ids: [],
             channels: ["ticker", "match", "level2", "funds", "order"],
-            token:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoYXJha2FAZ21haWwuY29tIiwiZXhwaXJlZEF0IjoxNjMyMTU4MDQ5LCJpZCI6NDEsInBhc3N3b3JkSGFzaCI6ImFlMDA1Y2ViN2U5YTIxN2NjZWQyZjhhYTM1NDE4N2M3In0.6KW--OvqAjUbVNP6r0b4avksK0R6MBi_FzmYtptDknQ",
+            token: "",
+            //"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoYXJha2FAZ21haWwuY29tIiwiZXhwaXJlZEF0IjoxNjMyMTU4MDQ5LCJpZCI6NDEsInBhc3N3b3JkSGFzaCI6ImFlMDA1Y2ViN2U5YTIxN2NjZWQyZjhhYTM1NDE4N2M3In0.6KW--OvqAjUbVNP6r0b4avksK0R6MBi_FzmYtptDknQ",
           })
         );
       } catch (error) {
@@ -86,9 +120,11 @@ export default {
       }
     },
 
-    async setData(dataSellArray,dataBuyArray) {
+    async setData(dataSellArray, dataBuyArray, recendData, fillPrice) {
       this.priceSellBind = dataSellArray;
       this.priceBuyBind = dataBuyArray;
+      this.recentData = recendData;
+      this.price=fillPrice
 
     },
   },
@@ -97,17 +133,64 @@ export default {
   },
   created: function () {
     const ts = this;
-    this.connection = new WebSocket( "ws://e9b7-2402-4000-2281-4a16-2ca6-a022-3c15-29e1.ngrok.io/ws");
+    this.connection = new WebSocket(
+      "ws://2fc6-2402-4000-2281-4a16-2ca6-a022-3c15-29e1.ngrok.io/ws"
+    );
 
     this.connection.onmessage = function (event) {
       console.log(JSON.parse(event.data));
-      ts.dataAl = JSON.parse(event.data);
-      ts.priceSell = ts.dataAl.asks;
-      ts.priceBuy=ts.dataAl.bids
+       ts.dataAl = JSON.parse(event.data);
 
-     
+        //Oder Book Page Onload
 
-      ts.setData(ts.priceSell,ts.priceBuy);
+        if(ts.dataAl.type == "snapshot"){
+         
+           ts.priceSell = ts.dataAl.asks;
+           ts.priceBuy=ts.dataAl.bids
+        }
+
+
+        //Order Book
+       if (ts.dataAl.type == "l2update") {
+
+          ts.priceBuyUpdate =[]
+
+        if (ts.dataAl.changes[0][0] == "buy") {
+          ts.priceBuyUpdate[0] = ts.dataAl.changes[0][1];
+          ts.priceBuyUpdate[1] = ts.dataAl.changes[0][2];
+          ts.priceBuyUpdate[2] = 1;
+
+           console.log(ts.priceBuyUpdate);
+          ts.priceBuy.push(ts.priceBuyUpdate);
+         
+        }
+        if (ts.dataAl.changes[0][0] == "sell") {
+          ts.priceBuyUpdate[0] = ts.dataAl.changes[0][1];
+          ts.priceBuyUpdate[1] = ts.dataAl.changes[0][2];
+          ts.priceBuyUpdate[2] = 1;
+
+          ts.priceSell.push(ts.priceBuyUpdate);
+          console.log(ts.priceBuyUpdate);
+        }
+
+       // console.log("Updated Value  " + ts.priceBuy);
+
+      } else {
+
+          
+         // Recent Trades //ts.dataAl.type == "order" || ts.dataAl.type == "match" || ***************To Do****************
+        if (ts.dataAl.type == "ticker") {
+
+          for (let t = 0; t < 1; t++) {
+            ts.recentDataLoop.push(ts.dataAl);
+             ts.fill = ts.dataAl.price;
+          }
+        }
+      }
+
+      ts.setData(ts.priceSell, ts.priceBuy, ts.recentDataLoop,ts.fill);
+
+      //}
     };
 
     this.connection.onopen = function (event) {
@@ -115,11 +198,7 @@ export default {
       console.log("Successfully connected to the echo websocket server...");
       ts.sendMessage();
     };
-
-  
   },
-
-  
 };
 </script>
 
@@ -127,8 +206,13 @@ export default {
 @import "../../assets/scss/Trade/Trade";
 
 .tbl {
-  max-height: 400px;
-  overflow-y: auto;
+   max-height: 165px;
+  overflow: hidden;
+}
+
+.tbl2{
+   max-height: 230px;
+  overflow: hidden;
 }
 
 .read-more {
@@ -140,17 +224,22 @@ export default {
     color: white;
     text-decoration: underline;
   }
+}
+.buy {
+  color: green !important;
+}
+.sell {
+  color: red !important;
+}
 
- 
+.table.table-hover.special tr td {
+  font-size: 1rem !important;
+  font-weight: 500;
 }
-.table.table-hover.special tr td{
-    font-size: 1rem !important;
-    font-weight: 500;
-}
-.mid{
+.mid {
   color: #878787 !important;
 }
-.success-tst{
+.success-tst {
   color: #18e140 !important;
 }
 </style>

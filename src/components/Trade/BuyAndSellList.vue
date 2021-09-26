@@ -144,6 +144,9 @@ export default {
     async setData(dataBuyArray, dataSellArray) {
       this.priceBuyBind = dataBuyArray;
       this.priceSellBind = dataSellArray;
+
+      console.log(this.priceBuyBind)
+        console.log(this.priceSellBind)
     },
   },
   mounted() {
@@ -151,14 +154,19 @@ export default {
   },
   created: function () {
     const ts = this;
-   this.connection = new WebSocket( "ws://e9b7-2402-4000-2281-4a16-2ca6-a022-3c15-29e1.ngrok.io/ws");
+   this.connection = new WebSocket( "ws://2fc6-2402-4000-2281-4a16-2ca6-a022-3c15-29e1.ngrok.io/ws");
 
     this.connection.onmessage = function (event) {
       console.log(JSON.parse(event.data));
       ts.dataAl = JSON.parse(event.data);
 
-      ts.priceBuy = ts.dataAl.bids;
-      ts.priceSell = ts.dataAl.asks;
+      // ts.priceBuy = ts.dataAl.bids;
+      // ts.priceSell = ts.dataAl.asks;
+
+        if(ts.dataAl.type == "snapshot"){
+           ts.priceSell = ts.dataAl.asks;
+           ts.priceBuy=ts.dataAl.bids
+        }
 
       ts.setData(ts.priceBuy, ts.priceSell);
       console.log(ts.priceBuy);
