@@ -22,6 +22,12 @@
               <td>{{ sell[1] }}</td>
               <td class="text-right">{{ sell[0] * sell[1] }}</td>
             </tr>
+
+                <tr v-for="tst in testNew" :key="tst">
+                  <td>{{tst[0]}}</td>
+                  <td>{{tst[1]}}</td>
+                  <td>{{tst[2]}}</td>
+                </tr>
           </tbody>
         </table>
       </div>
@@ -97,12 +103,27 @@ export default {
 
       priceBuyUpdate: [],
       fill:"",
-      price:""
+      price:"",
+
+
+      test:[
+        ['100','200','300'],
+        ['400','500','600'],
+         ['99','199','299'],
+         ['9','8','10000']
+        ],
+
+        testNew:[]
 
     };
   },
 
   methods: {
+
+   async testShort(){
+    this.testNew=  this.test.sort((a, b) => {return a[0] - b[0] });
+    },
+
     async sendMessage() {
       try {
         this.connection.send(
@@ -129,6 +150,7 @@ export default {
     },
   },
   mounted() {
+    this.testShort()
     this.setData();
   },
   created: function () {

@@ -69,7 +69,9 @@ export default {
       ldcx24h:"",
       ldcx24hBind:"",
 
-      tickerPrice:""
+      tickerPrice:"",
+
+      
       
     };
   },
@@ -101,6 +103,7 @@ export default {
   },
   mounted() {
     this.setData();
+    
   },
   created: function () {
     const ts = this;
