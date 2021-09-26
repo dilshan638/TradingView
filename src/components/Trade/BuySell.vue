@@ -52,11 +52,11 @@
                 <div class="row">
                     <div class="col-md-12">
                         <button class="btn btn-primary pass-btn" @click="buybtcformaction">BUY BTC</button>
-                        <ul>
+                        <!-- <ul>
                             <li v-for="sell in coin" :key="sell">
                                 {{ sell.symbol }}
                             </li>
-                        </ul>
+                        </ul> -->
                     </div>
                 </div>
             </div>
@@ -138,9 +138,12 @@ export default {
                     "side":this.side,
                     "type":this.type,
                     "timeInForce":"52100"
-                };            
+                };   
+                const headers = {
+                    "Access-Control-Allow-Origin": "*"
+                };
                 try{
-                    let response = await this.axios.post("http://2e62-2402-4000-2182-4fac-f197-2d83-22be-2d.ngrok.io/api/orders", data)
+                    let response = await this.axios.post("http://2e62-2402-4000-2182-4fac-f197-2d83-22be-2d.ngrok.io/api/orders", data, headers)
                     .then(res => {
                        // this.sendData = response.data
                         console.log(response); 
