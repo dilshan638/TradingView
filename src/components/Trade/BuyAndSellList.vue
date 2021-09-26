@@ -7,7 +7,7 @@
           <div class="card-header card-head-30">
             <div class="row">
               <div class="col-md-6 breadcrum">
-                <h2>Exchange</h2> 
+                <h2><router-link to="/trade" class="sm-text">Exchange</router-link></h2> 
                 <i class="ri-arrow-right-s-line"></i> 
                 <h2>Order Book</h2>
                 <div class="sub-trade-row">
