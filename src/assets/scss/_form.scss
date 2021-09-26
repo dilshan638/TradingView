@@ -144,3 +144,68 @@
           }
       }
   }
+
+  .breadcrum {
+
+    h2{
+      float: left;
+      margin-right: 15px !important;
+    }
+
+    i{
+      float: left;
+      color: #fff;
+      margin-right: 20px;
+    }
+
+    .sub-trade-row{ 
+
+      float: left;
+      width: 100%;
+
+      h3{
+        float: left;
+        margin-right: 15px !important;
+        font-size: 1rem;
+        margin-top: 30px;
+        color: #fff;
+        margin-bottom: 0;
+
+        &:last-child{
+          font-size: 0.875rem;
+          font-weight: 400;
+          margin-right: 0 !important;
+        }
+
+      }
+
+    }
+
+  }
+
+  .card-head-30{
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+  }
+
+  .landing-trade{
+    background-color: transparent !important;
+    border: solid 1px #505164 !important;
+    border-radius: 10px !important;
+    padding: 30px !important;
+
+    .trade-body{
+      margin-top: 0 !important;
+    }
+
+  }
+
+  .top-select {
+
+    h5{
+      font-size: 0.85rem;
+      color: #fff;
+      margin-bottom: 15px;
+    }
+
+  }
