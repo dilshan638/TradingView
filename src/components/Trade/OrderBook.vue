@@ -30,7 +30,7 @@
         <tbody>
           <tr>
             <td class="success-tst">{{price}}</td>
-            <td class="mid">$33.545345</td>
+            <td class="mid">${{price}}</td>
             <td class="text-right"> <div class="read-more">
         <a class="link" href="/buy-sell-list">More</a>
       </div></td>
@@ -66,7 +66,7 @@
               <td v-bind:class="[recent.side == 'buy' ? 'buy' : 'sell']">
                 {{ recent.price }}
               </td>
-              <td>{{ recent.lastSize }} </td>
+              <td>{{recent.lastSize}} </td>
               <td class="text-right">{{ recent.price * recent.lastSize }}</td>
             </tr>
           </tbody>
