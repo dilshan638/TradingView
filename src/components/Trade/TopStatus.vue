@@ -27,7 +27,7 @@
           <b v-bind:class="[ldcx24hBind <0? 'sell' : 'buy']">{{parseFloat(ldcx24hBind).toFixed(2)}} %</b>
         </div>
         <div class="top-sub"  >
-          <h3>24h Volume( USDT )</h3>
+          <h3>24h Volume(USDT)</h3>
           <b >{{volume24hBind}}</b>
         </div>
         <!-- <div class="top-sub">
@@ -130,10 +130,10 @@ export default {
        
       }
 
-      if(ts.open24h==0){
+      if(ts.tickerPrice==0){
          ts.ldcx24h==0
       }else{
-          ts.ldcx24h=((ts.tickerPrice- ts.open24h)/ts.open24h )* 100
+          ts.ldcx24h=((ts.tickerPrice- ts.open24h)/ts.tickerPrice )* 100
       }
     
       ts.setData(ts.fill, ts.open24h,ts.low24h, ts.volume24h, ts.ldcx24h);

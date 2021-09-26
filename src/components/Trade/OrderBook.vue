@@ -127,7 +127,7 @@ export default {
     async setData(dataSellArray, dataBuyArray, recendData, fillPrice) {
       this.priceSellBind = dataSellArray.sort((a, b) => {return b[0] - a[0] });
       this.priceBuyBind = dataBuyArray.sort((a, b) => {return a[0] - b[0] });
-      this.recentData = recendData;
+      this.recentData = recendData.reverse();
       this.price=fillPrice
 
     },
