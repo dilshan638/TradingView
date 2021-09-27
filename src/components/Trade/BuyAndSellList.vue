@@ -37,11 +37,10 @@
                     <div class="top-select">
                       <h5>Group</h5>
                       <select class="form-control"   @change="onChange($event)">
+                        <option value="0">0 Decimals</option>
+                        <option value="1"> 1 Decimals</option>
                         <option value="2">2 Decimals</option>
-                        <option value="3"> 3 Decimals</option>
-                        <option value="4">4 Decimals</option>
-                        <option value="5">5 Decimals</option>
-                        <option value="6">6 Decimals</option>
+                       
                       </select>
                     </div>
                   </div>
@@ -59,13 +58,26 @@
                       <table class="table table-hover tbl">
                         <thead>
                           <tr>
-                           
+                           <th>Buy Order</th>
                             <th scope="col">Price(USDT)</th>
                             <th scope="col">Amount(LDXI)</th>
                             <th scope="col" class="text-right">Total</th>
+                            <th>Sum(USDT)</th>
                           </tr>
                         </thead>
                         <tbody>
+
+                          <tr class="plus" v-for="buy in priceBuyBind" :key="buy" v-show="deci=='0'">
+                            <td>{{parseFloat(buy[0]).toFixed(0)}}</td>
+                            <td>{{parseFloat(buy[1]).toFixed(0)}}</td>
+                             <td class="text-right">{{parseFloat(buy[0] * buy[1]).toFixed(0) }}</td>
+                         </tr>
+
+                          <tr class="plus" v-for="buy in priceBuyBind" :key="buy" v-show="deci=='1'">
+                            <td>{{parseFloat(buy[0]).toFixed(1)}}</td>
+                            <td>{{parseFloat(buy[1]).toFixed(1)}}</td>
+                              <td class="text-right">{{parseFloat(buy[0] * buy[1]).toFixed(1) }}</td>
+                        </tr>
 
                           <tr class="plus" v-for="buy in priceBuyBind" :key="buy" v-show="deci=='2'">
                            
@@ -74,34 +86,8 @@
                             <td class="text-right">{{parseFloat(buy[0] * buy[1]).toFixed(2) }}</td>
                           </tr>
 
-                          <tr class="plus" v-for="buy in priceBuyBind" :key="buy" v-show="deci=='3'">
-                            <td>{{parseFloat(buy[0]).toFixed(3)}}</td>
-                            <td>{{parseFloat(buy[1]).toFixed(3)}}</td>
-                             <td class="text-right">{{parseFloat(buy[0] * buy[1]).toFixed(3) }}</td>
-                         </tr>
-
-                          <tr class="plus" v-for="buy in priceBuyBind" :key="buy" v-show="deci=='4'">
-                            <td>{{parseFloat(buy[0]).toFixed(4)}}</td>
-                            <td>{{parseFloat(buy[1]).toFixed(4)}}</td>
-                              <td class="text-right">{{parseFloat(buy[0] * buy[1]).toFixed(4) }}</td>
-                        </tr>
-
-                            <tr class="plus" v-for="buy in priceBuyBind" :key="buy" v-show="deci=='5'">
-                            <td>{{parseFloat(buy[0]).toFixed(5)}}</td>
-                            <td>{{parseFloat(buy[1]).toFixed(5)}}</td>
-                            <td class="text-right">{{parseFloat(buy[0] * buy[1]).toFixed(5) }}</td>
-                           </tr>
-
-                            <tr class="plus" v-for="buy in priceBuyBind" :key="buy" v-show="deci=='6'">
-                            <td>{{parseFloat(buy[0]).toFixed(6)}}</td>
-                            <td>{{parseFloat(buy[1]).toFixed(6)}}</td>
-                            <td class="text-right">{{parseFloat(buy[0] * buy[1]).toFixed(6) }}</td>
-                          </tr>
-
-
-
-                         
                           
+    
                         </tbody>
                       </table>
                     </div>
@@ -116,13 +102,25 @@
                       <table class="table table-hover tbl">
                         <thead>
                           <tr>
-                            
+                            <th>Sell Order</th>
                             <th scope="col">Price(USDT)</th>
                             <th scope="col">Amount(LDXI)</th>
                             <th scope="col" class="text-right">Total</th>
+                              <th>Sum(USDT)</th>
                           </tr>
                         </thead>
                         <tbody>
+
+                             <tr v-for="sell in priceSellBind" :key="sell" v-show="deci=='0'">
+                            <td>{{parseFloat(sell[0]).toFixed(0)}}</td>
+                            <td>{{parseFloat(sell[1]).toFixed(0)}}</td>
+                                <td class="text-right">{{parseFloat(sell[0] * sell[1]).toFixed(0) }}</td>
+                       </tr>
+                           <tr v-for="sell in priceSellBind" :key="sell" v-show="deci=='1'">
+                            <td>{{parseFloat(sell[0]).toFixed(1)}}</td>
+                            <td>{{parseFloat(sell[1]).toFixed(1)}}</td>
+                               <td class="text-right">{{parseFloat(sell[0] * sell[1]).toFixed(1) }}</td>
+                        </tr>
 
                            <tr v-for="sell in priceSellBind" :key="sell" v-show="deci=='2'">
                             
@@ -130,26 +128,7 @@
                             <td>{{parseFloat(sell[1]).toFixed(2)}}</td>
                              <td class="text-right">{{parseFloat(sell[0] * sell[1]).toFixed(2) }}</td>
                         </tr>
-                          <tr v-for="sell in priceSellBind" :key="sell" v-show="deci=='3'">
-                            <td>{{parseFloat(sell[0]).toFixed(3)}}</td>
-                            <td>{{parseFloat(sell[1]).toFixed(3)}}</td>
-                                <td class="text-right">{{parseFloat(sell[0] * sell[1]).toFixed(3) }}</td>
-                       </tr>
-                           <tr v-for="sell in priceSellBind" :key="sell" v-show="deci=='4'">
-                            <td>{{parseFloat(sell[0]).toFixed(4)}}</td>
-                            <td>{{parseFloat(sell[1]).toFixed(4)}}</td>
-                               <td class="text-right">{{parseFloat(sell[0] * sell[1]).toFixed(4) }}</td>
-                        </tr>
-                           <tr v-for="sell in priceSellBind" :key="sell" v-show="deci=='5'">
-                            <td>{{parseFloat(sell[0]).toFixed(5)}}</td>
-                            <td>{{parseFloat(sell[1]).toFixed(5)}}</td>
-                               <td class="text-right">{{parseFloat(sell[0] * sell[1]).toFixed(5) }}</td>
-                       </tr>
-                           <tr v-for="sell in priceSellBind" :key="sell" v-show="deci=='6'">
-                            <td>{{parseFloat(sell[0]).toFixed(6)}}</td>
-                            <td>{{parseFloat(sell[1]).toFixed(6)}}</td>
-                              <td class="text-right">{{parseFloat(sell[0] * sell[1]).toFixed(6) }}</td>
-                        </tr>
+                       
 
 
                         </tbody>
@@ -190,7 +169,7 @@ export default {
         ["9.566", "8.565", "10000.565"],
       ],
 
-      deci:"2"
+      deci:"0"
     };
   },
 
@@ -229,7 +208,7 @@ export default {
   created: function () {
     const ts = this;
     this.connection = new WebSocket(
-      "ws://8c0b-2402-4000-2380-f223-d59b-f2e8-933c-1391.ngrok.io/ws"
+      "ws://a449-2402-4000-2380-f223-b1f4-2b94-3df9-310.ngrok.io/ws"
     );
 
     this.connection.onmessage = function (event) {

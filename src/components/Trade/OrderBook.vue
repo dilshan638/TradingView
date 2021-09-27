@@ -125,8 +125,8 @@ export default {
     },
 
     async setData(dataSellArray, dataBuyArray, recendData, fillPrice) {
-      this.priceSellBind = dataSellArray.sort((a, b) => {return b[0] - a[0] });
-      this.priceBuyBind = dataBuyArray.sort((a, b) => {return a[0] - b[0] });
+      this.priceSellBind = dataSellArray.sort((a, b) => {return a[0] - b[0] });
+      this.priceBuyBind = dataBuyArray.sort((a, b) => {return b[0] - a[0] });
       this.recentData = recendData.reverse();
       this.price=fillPrice
 
@@ -139,7 +139,7 @@ export default {
   created: function () {
     const ts = this;
     this.connection = new WebSocket(
-      "ws://8c0b-2402-4000-2380-f223-d59b-f2e8-933c-1391.ngrok.io/ws"
+      "ws://a449-2402-4000-2380-f223-b1f4-2b94-3df9-310.ngrok.io/ws"
     );
 
     this.connection.onmessage = function (event) {
