@@ -139,7 +139,7 @@ export default {
   created: function () {
     const ts = this;
     this.connection = new WebSocket(
-      "ws://716e-2402-4000-2382-7a26-b268-54fd-e8c0-47e1.ngrok.io/ws"
+      "ws://8c0b-2402-4000-2380-f223-d59b-f2e8-933c-1391.ngrok.io/ws"
     );
 
     this.connection.onmessage = function (event) {

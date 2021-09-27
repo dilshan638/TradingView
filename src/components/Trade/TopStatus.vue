@@ -1,15 +1,38 @@
 <template>
   <div class="trade-box">
     <div class="row status1">
-      <div class="col-md-3">
-        <img src="images/icons/btc@3x.webp" />
-        <h3>BTC/USDT</h3>
+      <div class="col-md-4 pos-rel">
+        <div class="search-head" @click="dropdownshow = !dropdownshow">
+            <img :src="selectedcoinimage" /> <h4>{{selectedcoin}}</h4>
+            <i class="ri-arrow-down-s-line" :class="[dropdownshow ? 'ri-arrow-up-s-line' : 'ri-arrow-down-s-line']"></i>
+        </div>
+        <div class="search-body buysell-form" v-if="dropdownshow">
+          <!-- <input class="form-control" placeholder="search" /> -->
+          <div class="trade-body coins-body bottom-table">
+              <table class="table table-hover coins-table">
+                <thead>
+                    <tr>
+                    <th scope="col" class="no-border-table-th">Coin</th>
+                    <th scope="col" class="no-border-table-th">Last Price</th>
+                    <th scope="col" class="no-border-table-th text-right">Change</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="marketprice in coindata" :key="marketprice.coin">
+                        <td @click="selectcoin(marketprice.pair_name)">{{ marketprice.pair_name }}</td>
+                        <td @click="selectcoin(marketprice.pair_name)">{{ marketprice.price }}</td>
+                        <td @click="selectcoin(marketprice.pair_name)" class="text-right success-text">{{marketprice.change_24h}}%</td>
+                    </tr>                                                                                                                                                                                           
+                </tbody>
+              </table>            
+          </div>
+        </div>
       </div>
       <div class="col-md-2">
         <h4>{{marketPrice}}</h4>
         <span class="sub-bottom">$35,988.54</span>
       </div>
-      <div class="col-md-7" >
+      <div class="col-md-6" >
         <div class="top-sub"  >
           <h3>24h Change</h3>
           <b  >{{volume24hBind}}</b>
@@ -30,24 +53,15 @@
           <h3>24h Volume(USDT)</h3>
           <b >{{volume24hBind}}</b>
         </div>
-        <!-- <div class="top-sub">
-          <h3>MA(7)</h3>
-          <b>434234.43</b>
-        </div>
-        <div class="top-sub" >
-          <h3 >24h Volume(LDXI)</h3>
-          <b  ></b>
-        </div>
-        <div class="top-sub">
-          <h3>MA(99)</h3>
-          <b>434234.43</b>
-        </div> -->
       </div>
-    </div>
+    </div> 
   </div>
 </template>
 
 <script>
+
+// eslint-disable-next-line no-unused-vars
+import axios from 'axios';
 export default {
   name: "topstatus",
 
@@ -56,7 +70,15 @@ export default {
       fill: "",
       dataAl: [],
       marketPrice: "",
+      dropdownshow: false,
 
+      selectedcoin: "BTC/USDC",
+      selectedcoinimage: "https://ldev.exus.live/public/frontend/images/currency/btc_icon.png",
+      coin: "",
+      lastprice: "",
+      priceChanege: "",   
+      
+      cryptoAll: [],
      
       open24h:"",
       low24h:"",
@@ -84,7 +106,7 @@ export default {
             "type":"subscribe",
              "product_ids":["BTC-USDT"],
              "currency_ids":[],
-             "channels": [ "order", "ticker" ] 
+             "channels": [ "order", "ticker" ]
           })
         );
       } catch (error) {
@@ -97,17 +119,64 @@ export default {
         this.open24hBind = open24hBnd;
         this.low24hBind = low24hBnd;
          this.volume24hBind = volume24hBnd;
-         this.ldcx24hBind=ldcx24hBnd
-        
+         this.ldcx24hBind=ldcx24hBnd    
     },
+    async getMarketDropdown() {
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem(
+          "X-LDX-Inspira-Access-Token"
+        )}`,
+      };           
+       axios.get("https://dapi.exus.live/api/mobile/v1/dashboard/summary/GBP?volume_24h=desc", {headers: headers})
+        .then((res) => {
+        this.coindata =  res.data;
+        console.log(this.coindata); 
+
+        for (let i = 0; i < this.coindata.length; i++) {
+            this.coin = this.coindata[i].pair_name;
+            this.lastprice = this.coindata[i].price;
+            this.priceChanege = this.coindata[i].change_24h;
+        }
+      })
+        .catch(function (error) {
+          console.log(error);
+         })
+    },
+    async selectcoin(pair_name) {
+      this.selectedcoin = pair_name;
+    },
+    async selectcoinImage() {
+
+      this.selectcoinImage = localStorage.setItem("maincoin");
+      console.log(localStorage.getItem("maincoin"))
+
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
+      };   
+      axios
+        .get("https://dapi.exus.live/api/mobile/v1/wallet/all/crypto", {
+          headers: headers,
+        })
+        .then((response) => {
+          this.cryptoAll = response.data[0];
+          console.log(this.coinBalances);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+    }
   },
   mounted() {
     this.setData();
+    this.getMarketDropdown();
     
   },
   created: function () {
     const ts = this;
-    this.connection = new WebSocket( "ws://716e-2402-4000-2382-7a26-b268-54fd-e8c0-47e1.ngrok.io/ws");
+    this.connection = new WebSocket( "ws://8c0b-2402-4000-2380-f223-d59b-f2e8-933c-1391.ngrok.io/ws");
 
     this.connection.onmessage = function (event) {
      ts.dataAl = JSON.parse(event.data);

@@ -66,7 +66,7 @@
                         </thead>
                         <tbody>
 
-                          <tr class="plus" v-for="buy in priceBuyBind" :key="buy" v-show="deci=='2'">
+                          <tr class="plus" v-for="buy in priceBuyBind.slice(0, 3)" :key="buy" v-show="deci=='2'">
                             <td>{{parseFloat(buy[0]).toFixed(2)}}</td>
                             <td>{{parseFloat(buy[1]).toFixed(2)}}</td>
                             <td class="text-right">{{parseFloat(buy[0] * buy[1]).toFixed(2) }}</td>
@@ -225,7 +225,7 @@ export default {
   created: function () {
     const ts = this;
     this.connection = new WebSocket(
-      "ws://716e-2402-4000-2382-7a26-b268-54fd-e8c0-47e1.ngrok.io/ws"
+     "ws://8c0b-2402-4000-2380-f223-d59b-f2e8-933c-1391.ngrok.io/ws"
     );
 
     this.connection.onmessage = function (event) {

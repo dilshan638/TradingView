@@ -131,10 +131,10 @@ export default {
             if (!this.v$.amount.error && !this.v$.price.error) { // if ANY fail validation
                 // alert(this.state.amount)
                 // alert(this.state.price)
-                const headers = {
-                    Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
-                    "Content-Type": "application/json",
-                };                
+                // const headers = {
+                //     Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
+                //     "Content-Type": "application/json",
+                // };                
                 var data = {
                 "client_oid":"1616663784828",
                 "productId":"BTC-USDT",
@@ -147,14 +147,14 @@ export default {
                 };   
 
                 try{
-                    let response = await this.axios.post("http://80e1-2402-4000-2382-7a26-b268-54fd-e8c0-47e1.ngrok.io/api/orders", data)
+                    let response = await this.axios.post("https://80e1-2402-4000-2382-7a26-b268-54fd-e8c0-47e1.ngrok.io/api/orders", data)
                     .then(res => {
                        // this.sendData = response.data
                         console.log(response);
                         console.log(res); 
                     })
                 }catch(error){
-                    console.log(error.response.data)
+                    console.log(error)
                 }         
             } else {
                 console.log('invalid form validation')
