@@ -25,11 +25,12 @@
                   <div class="col-md-2">
                     <div class="top-select">
                       <h5>Depth</h5>
-                      <select class="form-control">
-                        <option>5</option>
-                        <option>10</option>
-                        <option>15</option>
-                        <option>20</option>
+                      <select class="form-control" @change="changeDepth($depthval)">
+                        <option value="15">15</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="75">75</option>
+                        <option value="100">100</option>
                       </select>
                     </div>
                   </div>
@@ -67,7 +68,7 @@
                         </thead>
                         <tbody>
 
-                          <tr class="plus" v-for="buy in priceBuyBind" :key="buy" v-show="deci=='2'">
+                          <tr class="plus" v-for="buy in priceBuyBind.slice(0, this.depth)" :key="buy" v-show="deci=='2'" >
                            
                             <td>{{parseFloat(buy[0]).toFixed(2)}}</td>
                             <td>{{parseFloat(buy[1]).toFixed(2)}}</td>
@@ -179,6 +180,7 @@ export default {
       priceBuyBind: [],
       priceBuy: [],
       dataAl: [],
+      depth: 15,
 
       priceSell: [],
       priceSellBind: [],
@@ -197,9 +199,11 @@ export default {
   methods: {
 
     async onChange(event){
-    
-    this.deci=event.target.value
+      this.deci=event.target.value
     },
+    async changeDepth(depthval){
+      this.depth = depthval.target.value
+    },    
     async sendMessage() {
       try {
         this.connection.send(
@@ -229,7 +233,7 @@ export default {
   created: function () {
     const ts = this;
     this.connection = new WebSocket(
-      "ws://8c0b-2402-4000-2380-f223-d59b-f2e8-933c-1391.ngrok.io/ws"
+      "ws://cbe7-2402-4000-2380-f223-b1f4-2b94-3df9-310.ngrok.io/ws"
     );
 
     this.connection.onmessage = function (event) {
