@@ -40,10 +40,10 @@
       </table>
       </div>
       <div class="trade-body tbl">
-        <table lass="table table-hover">
+        <table lass="table table-hover" style="width:100% !important;">
           <tr class="plus" v-for="buy in priceBuyBind" :key="buy">
-            <td>{{ buy[0] }}</td>
-            <td>{{ buy[1] }}</td>
+            <td >{{ buy[0] }}</td>
+            <td >{{ buy[1] }}</td>
             <td class="text-right">{{ buy[0] * buy[1] }}</td>
           </tr>
         </table>
@@ -247,4 +247,8 @@ export default {
 .success-tst {
   color: #18e140 !important;
 }
+.td-al{
+  margin-left: "30px";
+}
+
 </style>

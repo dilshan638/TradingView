@@ -696,8 +696,6 @@ export default {
             this.cryptoAll[i].withrow_settings.withdraw_limit_day;
             this.sybName=this.cryptoAll[i].name
           }
-
-          
         }
       for (let t = 0; t < this.coinBalances.length; t++) {
         if(this.coinBalances[t]["symbol"]==symbol){

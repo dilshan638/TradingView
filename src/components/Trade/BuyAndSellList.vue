@@ -59,6 +59,7 @@
                       <table class="table table-hover tbl">
                         <thead>
                           <tr>
+                           
                             <th scope="col">Price(USDT)</th>
                             <th scope="col">Amount(LDXI)</th>
                             <th scope="col" class="text-right">Total</th>
@@ -66,7 +67,8 @@
                         </thead>
                         <tbody>
 
-                          <tr class="plus" v-for="buy in priceBuyBind.slice(0, 3)" :key="buy" v-show="deci=='2'">
+                          <tr class="plus" v-for="buy in priceBuyBind" :key="buy" v-show="deci=='2'">
+                           
                             <td>{{parseFloat(buy[0]).toFixed(2)}}</td>
                             <td>{{parseFloat(buy[1]).toFixed(2)}}</td>
                             <td class="text-right">{{parseFloat(buy[0] * buy[1]).toFixed(2) }}</td>
@@ -114,6 +116,7 @@
                       <table class="table table-hover tbl">
                         <thead>
                           <tr>
+                            
                             <th scope="col">Price(USDT)</th>
                             <th scope="col">Amount(LDXI)</th>
                             <th scope="col" class="text-right">Total</th>
@@ -122,6 +125,7 @@
                         <tbody>
 
                            <tr v-for="sell in priceSellBind" :key="sell" v-show="deci=='2'">
+                            
                             <td>{{parseFloat(sell[0]).toFixed(2)}}</td>
                             <td>{{parseFloat(sell[1]).toFixed(2)}}</td>
                              <td class="text-right">{{parseFloat(sell[0] * sell[1]).toFixed(2) }}</td>
@@ -225,7 +229,7 @@ export default {
   created: function () {
     const ts = this;
     this.connection = new WebSocket(
-     "ws://8c0b-2402-4000-2380-f223-d59b-f2e8-933c-1391.ngrok.io/ws"
+      "ws://8c0b-2402-4000-2380-f223-d59b-f2e8-933c-1391.ngrok.io/ws"
     );
 
     this.connection.onmessage = function (event) {
@@ -241,7 +245,7 @@ export default {
       }
 
       ts.setData(ts.priceBuy, ts.priceSell);
-      console.log(ts.priceBuy);
+     
     };
 
     this.connection.onopen = function (event) {
