@@ -21,12 +21,13 @@
 .coins-table {
 
     tr{
-
-
         td{
             cursor: pointer;
         }
-
     }
 
+}
+
+.trade-body.coins-body.bottom-table{
+    padding-bottom: 10px !important;
 }

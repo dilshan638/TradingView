@@ -19,9 +19,9 @@
                 </thead>
                 <tbody>
                     <tr v-for="marketprice in coindata" :key="marketprice.coin">
-                        <td @click="selectcoin(marketprice.pair_name)">{{ marketprice.pair_name }}</td>
-                        <td @click="selectcoin(marketprice.pair_name)">{{ marketprice.price }}</td>
-                        <td @click="selectcoin(marketprice.pair_name)" class="text-right success-text">{{marketprice.change_24h}}%</td>
+                        <td @click="selectcoin(marketprice.pair_name, marketprice.image)">{{ marketprice.pair_name }}</td>
+                        <td @click="selectcoin(marketprice.pair_name, marketprice.image)">{{ marketprice.price }}</td>
+                        <td @click="selectcoin(marketprice.pair_name, marketprice.image)" class="text-right success-text">{{marketprice.change_24h}}%</td>
                     </tr>                                                                                                                                                                                           
                 </tbody>
               </table>            
@@ -143,34 +143,21 @@ export default {
           console.log(error);
          })
     },
-    async selectcoin(pair_name) {
+    async selectcoin(pair_name , image) {      
       this.selectedcoin = pair_name;
+      this.selectedcoinimage = image;
+      this.setCoin();
     },
-    async selectcoinImage() {
+    async setCoin() {
+      localStorage.setItem("selectedmainCoin", this.selectedcoin)
+      console.log(localStorage.getItem("selectedmainCoin"))
+    }    
 
-      this.selectcoinImage = localStorage.setItem("maincoin");
-      console.log(localStorage.getItem("maincoin"))
-
-      const headers = {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
-      };   
-      axios
-        .get("https://dapi.exus.live/api/mobile/v1/wallet/all/crypto", {
-          headers: headers,
-        })
-        .then((response) => {
-          this.cryptoAll = response.data[0];
-          console.log(this.coinBalances);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    }
   },
   mounted() {
     this.setData();
     this.getMarketDropdown();
+    this.setCoin();
     
   },
   created: function () {
