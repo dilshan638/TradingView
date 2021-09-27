@@ -107,7 +107,7 @@ export default {
   },
   created: function () {
     const ts = this;
-    this.connection = new WebSocket( "ws://716e-2402-4000-2382-7a26-b268-54fd-e8c0-47e1.ngrok.io/ws");
+    this.connection = new WebSocket( "ws://8c0b-2402-4000-2380-f223-d59b-f2e8-933c-1391.ngrok.io/ws");
 
     this.connection.onmessage = function (event) {
      ts.dataAl = JSON.parse(event.data);
@@ -130,7 +130,7 @@ export default {
        
       }
 
-      if(ts.tickerPrice==0){
+      if(ts.tickerPrice==0 ){
          ts.ldcx24h==0
       }else{
           ts.ldcx24h=((ts.tickerPrice- ts.open24h)/ts.tickerPrice )* 100

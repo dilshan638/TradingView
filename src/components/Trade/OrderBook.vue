@@ -40,10 +40,10 @@
       </table>
       </div>
       <div class="trade-body tbl">
-        <table lass="table table-hover">
+        <table lass="table table-hover" style="width:100% !important;">
           <tr class="plus" v-for="buy in priceBuyBind" :key="buy">
-            <td>{{ buy[0] }}</td>
-            <td>{{ buy[1] }}</td>
+            <td >{{ buy[0] }}</td>
+            <td >{{ buy[1] }}</td>
             <td class="text-right">{{ buy[0] * buy[1] }}</td>
           </tr>
         </table>
@@ -139,7 +139,7 @@ export default {
   created: function () {
     const ts = this;
     this.connection = new WebSocket(
-      "ws://716e-2402-4000-2382-7a26-b268-54fd-e8c0-47e1.ngrok.io/ws"
+      "ws://8c0b-2402-4000-2380-f223-d59b-f2e8-933c-1391.ngrok.io/ws"
     );
 
     this.connection.onmessage = function (event) {
@@ -247,4 +247,8 @@ export default {
 .success-tst {
   color: #18e140 !important;
 }
+.td-al{
+  margin-left: "30px";
+}
+
 </style>
