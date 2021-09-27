@@ -22,6 +22,7 @@
               <td>{{ sell[1] }}</td>
               <td class="text-right">{{ sell[0] * sell[1] }}</td>
             </tr>
+
           </tbody>
         </table>
       </div>
@@ -97,12 +98,15 @@ export default {
 
       priceBuyUpdate: [],
       fill:"",
-      price:""
+      price:"",
 
-    };
+   };
   },
 
   methods: {
+
+  
+
     async sendMessage() {
       try {
         this.connection.send(
@@ -121,20 +125,21 @@ export default {
     },
 
     async setData(dataSellArray, dataBuyArray, recendData, fillPrice) {
-      this.priceSellBind = dataSellArray;
-      this.priceBuyBind = dataBuyArray;
-      this.recentData = recendData;
+      this.priceSellBind = dataSellArray.sort((a, b) => {return b[0] - a[0] });
+      this.priceBuyBind = dataBuyArray.sort((a, b) => {return a[0] - b[0] });
+      this.recentData = recendData.reverse();
       this.price=fillPrice
 
     },
   },
   mounted() {
+   
     this.setData();
   },
   created: function () {
     const ts = this;
     this.connection = new WebSocket(
-      "ws://2fc6-2402-4000-2281-4a16-2ca6-a022-3c15-29e1.ngrok.io/ws"
+      "ws://716e-2402-4000-2382-7a26-b268-54fd-e8c0-47e1.ngrok.io/ws"
     );
 
     this.connection.onmessage = function (event) {
