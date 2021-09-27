@@ -162,7 +162,7 @@ export default {
   },
   created: function () {
     const ts = this;
-    this.connection = new WebSocket( "ws://a449-2402-4000-2380-f223-b1f4-2b94-3df9-310.ngrok.io/ws");
+    this.connection = new WebSocket( "ws://e492-2402-4000-2380-f223-b1f4-2b94-3df9-310.ngrok.io/ws");
 
     this.connection.onmessage = function (event) {
      ts.dataAl = JSON.parse(event.data);

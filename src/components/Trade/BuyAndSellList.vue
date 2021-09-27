@@ -37,7 +37,7 @@
                     <div class="top-select">
                       <h5>Group</h5>
                       <select class="form-control"   @change="onChange($event)">
-                        <option value="0">0 Decimals</option>
+                        <option value="0">With Out Decimals</option>
                         <option value="1"> 1 Decimals</option>
                         <option value="2">2 Decimals</option>
                        
@@ -65,25 +65,30 @@
                             <th>Sum(USDT)</th>
                           </tr>
                         </thead>
-                        <tbody>
+                        <tbody>  
 
                           <tr class="plus" v-for="buy in priceBuyBind" :key="buy" v-show="deci=='0'">
+                             <td>Buy-{{buy[3]}}</td>
                             <td>{{parseFloat(buy[0]).toFixed(0)}}</td>
                             <td>{{parseFloat(buy[1]).toFixed(0)}}</td>
-                             <td class="text-right">{{parseFloat(buy[0] * buy[1]).toFixed(0) }}</td>
+                              <td class="text-right">{{parseFloat(buy[0] * buy[1]).toFixed(0) }}</td>
+                             <td class="text-right">{{parseFloat(buy[4]).toFixed(0)}}</td>
                          </tr>
 
                           <tr class="plus" v-for="buy in priceBuyBind" :key="buy" v-show="deci=='1'">
+                             <td>Buy-{{buy[3]}}</td>
                             <td>{{parseFloat(buy[0]).toFixed(1)}}</td>
                             <td>{{parseFloat(buy[1]).toFixed(1)}}</td>
-                              <td class="text-right">{{parseFloat(buy[0] * buy[1]).toFixed(1) }}</td>
+                             <td class="text-right">{{parseFloat(buy[0] * buy[1]).toFixed(1) }}</td>
+                                  <td class="text-right">{{parseFloat(buy[4]).toFixed(1)}}</td>
                         </tr>
 
                           <tr class="plus" v-for="buy in priceBuyBind" :key="buy" v-show="deci=='2'">
-                           
+                            <td>Buy-{{buy[3]}}</td>
                             <td>{{parseFloat(buy[0]).toFixed(2)}}</td>
                             <td>{{parseFloat(buy[1]).toFixed(2)}}</td>
-                            <td class="text-right">{{parseFloat(buy[0] * buy[1]).toFixed(2) }}</td>
+                             <td class="text-right">{{parseFloat(buy[0] * buy[1]).toFixed(2) }}</td>
+                              <td class="text-right">{{parseFloat(buy[4]).toFixed(2)}}</td>
                           </tr>
 
                           
@@ -110,23 +115,28 @@
                           </tr>
                         </thead>
                         <tbody>
-
+                              
                              <tr v-for="sell in priceSellBind" :key="sell" v-show="deci=='0'">
+                               <td>Sell-{{sell[3]}}</td>
                             <td>{{parseFloat(sell[0]).toFixed(0)}}</td>
                             <td>{{parseFloat(sell[1]).toFixed(0)}}</td>
                                 <td class="text-right">{{parseFloat(sell[0] * sell[1]).toFixed(0) }}</td>
+                                 <td class="text-right">{{parseFloat(sell[4]).toFixed(0)}}</td>
                        </tr>
                            <tr v-for="sell in priceSellBind" :key="sell" v-show="deci=='1'">
+                              <td>Sell-{{sell[3]}}</td>
                             <td>{{parseFloat(sell[0]).toFixed(1)}}</td>
                             <td>{{parseFloat(sell[1]).toFixed(1)}}</td>
                                <td class="text-right">{{parseFloat(sell[0] * sell[1]).toFixed(1) }}</td>
+                                <td class="text-right">{{parseFloat(sell[4]).toFixed(1)}}</td>
                         </tr>
 
                            <tr v-for="sell in priceSellBind" :key="sell" v-show="deci=='2'">
-                            
+                             <td>Sell-{{sell[3]}}</td>
                             <td>{{parseFloat(sell[0]).toFixed(2)}}</td>
                             <td>{{parseFloat(sell[1]).toFixed(2)}}</td>
                              <td class="text-right">{{parseFloat(sell[0] * sell[1]).toFixed(2) }}</td>
+                              <td class="text-right">{{parseFloat(sell[4]).toFixed(2)}}</td>
                         </tr>
                        
 
@@ -169,7 +179,9 @@ export default {
         ["9.566", "8.565", "10000.565"],
       ],
 
-      deci:"0"
+      deci:"0",
+      buyTotal:0,
+      sellTotal:0
     };
   },
 
@@ -196,9 +208,24 @@ export default {
     },
 
     async setData(dataBuyArray, dataSellArray) {
-      this.priceBuyBind = dataBuyArray.sort((a, b) => {return a[0] - b[0] });
-      this.priceSellBind = dataSellArray.sort((a, b) => {return b[0] - a[0] });
+      this.priceBuyBind = dataBuyArray.sort((a, b) => {return b[0] - a[0] });
+      this.priceSellBind = dataSellArray.sort((a, b) => {return a[0] - b[0] });
 
+
+  
+
+  for (let i = 0; i < this.priceBuyBind.length; i++) {
+        this.buyTotal += (parseFloat(this.priceBuyBind[i][0]) * parseFloat(this.priceBuyBind[i][1]))
+        this.priceBuyBind[i][3]=i+1
+        this.priceBuyBind[i][4]=this.buyTotal
+      }
+
+      for (let j = 0; j < this.priceSellBind.length; j++) {
+        this.sellTotal+= (parseFloat(this.priceSellBind[j][0]) * parseFloat(this.priceSellBind[j][1]))
+         this.priceSellBind[j][4]=this.sellTotal
+        this.priceSellBind[j][3]=j+1
+      }
+   console.log(this.priceBuyBind)
       
     },
   },
@@ -208,7 +235,7 @@ export default {
   created: function () {
     const ts = this;
     this.connection = new WebSocket(
-      "ws://a449-2402-4000-2380-f223-b1f4-2b94-3df9-310.ngrok.io/ws"
+      "ws://e492-2402-4000-2380-f223-b1f4-2b94-3df9-310.ngrok.io/ws"
     );
 
     this.connection.onmessage = function (event) {
@@ -221,6 +248,7 @@ export default {
       if (ts.dataAl.type == "snapshot") {
         ts.priceSell = ts.dataAl.asks;
         ts.priceBuy = ts.dataAl.bids;
+
       }
 
       ts.setData(ts.priceBuy, ts.priceSell);
