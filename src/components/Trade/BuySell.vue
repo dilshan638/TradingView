@@ -81,8 +81,8 @@ export default {
     },
     setup() {
         const state = reactive({
-            amount:'',
-            price:''
+            amount: 0,
+            price: 0
         })
 
         const rules = computed(() => {
@@ -129,28 +129,32 @@ export default {
             this.v$.amount.$touch()
             this.v$.price.$touch()
             if (!this.v$.amount.error && !this.v$.price.error) { // if ANY fail validation
-                var data = {
-                    "client_oid":"1616663784828",
-                    "productId":"BTC-USDT",
-                   // "size": this.size,
-                    "funds":0.020,
-                    "price": this.price,
-                    "side":this.side,
-                    "type":this.type,
-                    "timeInForce":"52100"
-                };   
+                // alert(this.state.amount)
+                // alert(this.state.price)
                 const headers = {
-                    "Access-Control-Allow-Origin": "*"
-                };
+                    Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
+                    "Content-Type": "application/json",
+                };                
+                var data = {
+                "client_oid":"1616663784828",
+                "productId":"BTC-USDT",
+                "size":parseFloat(this.state.amount),
+                "funds":0.01,
+                "price":parseFloat(this.state.price),
+                "side":this.side,
+                "type":this.type,
+                "timeInForce":"1616663784828"
+                };   
+
                 try{
-                    let response = await this.axios.post("http://2e62-2402-4000-2182-4fac-f197-2d83-22be-2d.ngrok.io/api/orders", data, headers)
+                    let response = await this.axios.post("http://80e1-2402-4000-2382-7a26-b268-54fd-e8c0-47e1.ngrok.io/api/orders", data)
                     .then(res => {
                        // this.sendData = response.data
-                        console.log(response); 
+                        console.log(response);
                         console.log(res); 
                     })
                 }catch(error){
-                    console.log(error)
+                    console.log(error.response.data)
                 }         
             } else {
                 console.log('invalid form validation')
@@ -212,15 +216,15 @@ export default {
                 this.type = "stoplimit";
             }          
         },
-        getUserBalance() {
-            this.coin = JSON.parse(localStorage.getItem("arraySymbol"));
-            console.log(this.coin);
-        }
+        // getUserBalance() {
+        //     this.coin = JSON.parse(localStorage.getItem("arraySymbol"));
+        //     console.log(this.coin);
+        // }
     },
   created: function() {
   },
   mounted() {
-      this.getUserBalance();
+    //   this.getUserBalance();
   }
 
 }
