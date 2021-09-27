@@ -131,10 +131,10 @@ export default {
             if (!this.v$.amount.error && !this.v$.price.error) { // if ANY fail validation
                 // alert(this.state.amount)
                 // alert(this.state.price)
-                const headers = {
-                    Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
-                    "Content-Type": "application/json",
-                };                
+                // const headers = {
+                //     Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
+                //     "Content-Type": "application/json",
+                // };                
                 var data = {
                 "client_oid":"1616663784828",
                 "productId":"BTC-USDT",
