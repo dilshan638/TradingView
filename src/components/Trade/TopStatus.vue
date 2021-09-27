@@ -2,13 +2,13 @@
   <div class="trade-box">
     <div class="row status1">
       <div class="col-md-4 pos-rel">
-        <div class="search-head" @click="dropdownshow = !dropdownshow">
+        <div class="search-head" @click="dropdownshow = !dropdownshow" @blur="dropdownshow = false">
             <img :src="selectedcoinimage" /> <h4>{{selectedcoin}}</h4>
             <i class="ri-arrow-down-s-line" :class="[dropdownshow ? 'ri-arrow-up-s-line' : 'ri-arrow-down-s-line']"></i>
         </div>
         <div class="search-body buysell-form" v-if="dropdownshow">
-          <!-- <input class="form-control" placeholder="search" /> -->
-          <div class="trade-body coins-body bottom-table">
+          <input class="form-control search-input" placeholder="search" v-model="searchcoin" />
+          <div class="trade-body coins-body bottom-table" @click="dropdown">
               <table class="table table-hover coins-table">
                 <thead>
                     <tr>
@@ -18,7 +18,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="marketprice in coindata" :key="marketprice.coin">
+                    <tr v-for="marketprice in filterCoins" :key="marketprice.coin">
                         <td @click="selectcoin(marketprice.pair_name, marketprice.image)">{{ marketprice.pair_name }}</td>
                         <td @click="selectcoin(marketprice.pair_name, marketprice.image)">{{ marketprice.price }}</td>
                         <td @click="selectcoin(marketprice.pair_name, marketprice.image)" class="text-right success-text">{{marketprice.change_24h}}%</td>
@@ -64,13 +64,13 @@
 import axios from 'axios';
 export default {
   name: "topstatus",
-
   data() {
     return {
       fill: "",
       dataAl: [],
       marketPrice: "",
       dropdownshow: false,
+      searchcoin: '',
 
       selectedcoin: "BTC/USDC",
       selectedcoinimage: "https://ldev.exus.live/public/frontend/images/currency/btc_icon.png",
@@ -113,7 +113,6 @@ export default {
         console.log(error);
       }
     },
-
     async setData(filledPrice,open24hBnd,low24hBnd,volume24hBnd,ldcx24hBnd) {
         this.marketPrice = filledPrice
         this.open24hBind = open24hBnd;
@@ -134,7 +133,7 @@ export default {
         console.log(this.coindata); 
 
         for (let i = 0; i < this.coindata.length; i++) {
-            this.coin = this.coindata[i].pair_name;
+            this.coin = this.coindata[i].pair_name.toLowerCase();
             this.lastprice = this.coindata[i].price;
             this.priceChanege = this.coindata[i].change_24h;
         }
@@ -143,7 +142,8 @@ export default {
           console.log(error);
          })
     },
-    async selectcoin(pair_name , image) {      
+    async selectcoin(pair_name , image) {   
+      this.dropdownshow = false;   
       this.selectedcoin = pair_name;
       this.selectedcoinimage = image;
       this.setCoin();
@@ -152,13 +152,18 @@ export default {
       localStorage.setItem("selectedmainCoin", this.selectedcoin)
       console.log(localStorage.getItem("selectedmainCoin"))
     }    
-
   },
   mounted() {
     this.setData();
     this.getMarketDropdown();
     this.setCoin();
-    
+  },
+  computed: {
+    filterCoins: function(){
+      return this.coindata.filter((marketPrice) => {
+        return marketPrice.pair_name.toLowerCase().includes(this.searchcoin.toLowerCase())
+      })
+    }
   },
   created: function () {
     const ts = this;
