@@ -139,7 +139,7 @@ export default {
   created: function () {
     const ts = this;
     this.connection = new WebSocket(
-      "ws://e492-2402-4000-2380-f223-b1f4-2b94-3df9-310.ngrok.io/ws"
+      "ws://34.152.9.147:8002/ws"
     );
 
     this.connection.onmessage = function (event) {
@@ -221,7 +221,7 @@ export default {
 }
 
 .read-more {
-  padding: 15px;
+  padding: 0;
   float: left;
   width: 100%;
   text-align: right;

@@ -19,9 +19,9 @@
                 </thead>
                 <tbody>
                     <tr v-for="marketprice in filterCoins" :key="marketprice.coin">
-                        <td @click="selectcoin(marketprice.pair_name, marketprice.image)">{{ marketprice.pair_name }}</td>
-                        <td @click="selectcoin(marketprice.pair_name, marketprice.image)">{{ marketprice.price }}</td>
-                        <td @click="selectcoin(marketprice.pair_name, marketprice.image)" class="text-right success-text">{{marketprice.change_24h}}%</td>
+                        <td @click="selectcoin(marketprice.pair_name, marketprice.image, marketprice.currency)">{{ marketprice.pair_name }}</td>
+                        <td @click="selectcoin(marketprice.pair_name, marketprice.image, marketprice.currency)">{{ marketprice.price }}</td>
+                        <td @click="selectcoin(marketprice.pair_name, marketprice.image, marketprice.currency)" class="text-right success-text">{{marketprice.change_24h}}%</td>
                     </tr>                                                                                                                                                                                           
                 </tbody>
               </table>            
@@ -74,6 +74,7 @@ export default {
 
       selectedcoin: "BTC/USDC",
       selectedcoinimage: "https://ldev.exus.live/public/frontend/images/currency/btc_icon.png",
+      selectedcurrency: "BTC",
       coin: "",
       lastprice: "",
       priceChanege: "",   
@@ -142,15 +143,18 @@ export default {
           console.log(error);
          })
     },
-    async selectcoin(pair_name , image) {   
+    async selectcoin(pair_name , image, currency) {   
       this.dropdownshow = false;   
       this.selectedcoin = pair_name;
       this.selectedcoinimage = image;
+      this.selectedcurrency = currency;
       this.setCoin();
     },
     async setCoin() {
       localStorage.setItem("selectedmainCoin", this.selectedcoin)
+      localStorage.setItem("selectedmainCurrency", this.selectedcurrency)
       console.log(localStorage.getItem("selectedmainCoin"))
+      console.log(localStorage.getItem("selectedmainCurrency"))
     }    
   },
   mounted() {
@@ -167,7 +171,7 @@ export default {
   },
   created: function () {
     const ts = this;
-    this.connection = new WebSocket( "ws://e492-2402-4000-2380-f223-b1f4-2b94-3df9-310.ngrok.io/ws");
+    this.connection = new WebSocket("ws://34.152.9.147:8002/ws"); 
 
     this.connection.onmessage = function (event) {
      ts.dataAl = JSON.parse(event.data);
