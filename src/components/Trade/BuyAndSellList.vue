@@ -25,7 +25,7 @@
                   <div class="col-md-2">
                     <div class="top-select">
                       <h5>Depth</h5>
-                      <select class="form-control" @change="changeDepth($depthval)">
+                      <select class="form-control" @change="changeDepth($event)">
                         <option value="15">15</option>
                         <option value="25">25</option>
                         <option value="50">50</option>
@@ -120,7 +120,7 @@
                         </thead>
                         <tbody>
                               
-                             <tr v-for="sell in priceSellBind" :key="sell" v-show="deci=='0'">
+                             <tr v-for="sell in priceSellBind.slice(0, this.depth)" :key="sell" v-show="deci=='0'">
                                <td>Sell-{{sell[3]}}</td>
                             <td>{{parseFloat(sell[0]).toFixed(0)}}</td>
                             <td>{{parseFloat(sell[1]).toFixed(0)}}</td>
@@ -195,8 +195,8 @@ export default {
     async onChange(event){
       this.deci=event.target.value
     },
-    async changeDepth(depthval){
-      this.depth = depthval.target.value
+    async changeDepth(event){
+      this.depth = event.target.value
     },    
     async sendMessage() {
       try {
