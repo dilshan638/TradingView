@@ -81,8 +81,8 @@ export default {
     },
     setup() {
         const state = reactive({
-            amount: 0,
-            price: 0
+            amount: '',
+            price: ''
         })
 
         const rules = computed(() => {
@@ -110,6 +110,7 @@ export default {
             marketTab: false,
             stopTab: false,
             stoplimitTab: false,
+            userBalance: '',
 
             total:this.state.price*this.state.amount,
 
@@ -131,10 +132,10 @@ export default {
             if (!this.v$.amount.error && !this.v$.price.error) { // if ANY fail validation
                 // alert(this.state.amount)
                 // alert(this.state.price)
-                // const headers = {
-                //     Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
-                //     "Content-Type": "application/json",
-                // };                
+                const headers = {
+                    Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
+                    "Content-Type": "application/json",
+                };                
                 var data = {
                 "client_oid":"1616663784828",
                 "productId":"BTC-USDT",
@@ -147,7 +148,7 @@ export default {
                 };   
 
                 try{
-                    let response = await this.axios.post("http://8a5e-2402-4000-2380-f223-b1f4-2b94-3df9-310.ngrok.io/api/orders", data)
+                    let response = await this.axios.post("https://c403-2402-4000-2380-f223-b1f4-2b94-3df9-310.ngrok.io/api/orders", data, headers)
                     .then(res => {
                        // this.sendData = response.data
                         console.log(response);
@@ -216,15 +217,19 @@ export default {
                 this.type = "stoplimit";
             }          
         },
-        // getUserBalance() {
-        //     this.coin = JSON.parse(localStorage.getItem("arraySymbol"));
-        //     console.log(this.coin);
-        // }
+        getUserBalance() {
+            this.coin = JSON.parse(localStorage.getItem("arraySymbol"));
+            console.log(this.coin);
+        },
+        checkUserBalance() {
+           // alert(localStorage.getItem("totalBalances"))
+        }
     },
   created: function() {
   },
   mounted() {
-    //   this.getUserBalance();
+       this.getUserBalance();
+       this.checkUserBalance();
   }
 
 }

@@ -196,6 +196,7 @@ export default {
              
               localStorage.setItem("arraySymbol", JSON.stringify(this.setLocalStorage));
                 localStorage.setItem("totalBalances", JSON.stringify(this.total));
+                console.log(JSON.parse(localStorage.getItem("totalBalances")));
             });
         })
         .catch(function (error) {

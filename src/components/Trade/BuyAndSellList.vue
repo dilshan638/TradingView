@@ -25,7 +25,7 @@
                   <div class="col-md-2">
                     <div class="top-select">
                       <h5>Depth</h5>
-                      <select class="form-control" @change="changeDepth($depthval)">
+                      <select class="form-control" @change="changeDepth($event)">
                         <option value="15">15</option>
                         <option value="25">25</option>
                         <option value="50">50</option>
@@ -125,7 +125,7 @@
                         </thead>
                         <tbody>
 
-                           <tr v-for="sell in priceSellBind" :key="sell" v-show="deci=='2'">
+                           <tr v-for="sell in priceSellBind.slice(0, this.depth)" :key="sell" v-show="deci=='2'">
                             
                             <td>{{parseFloat(sell[0]).toFixed(2)}}</td>
                             <td>{{parseFloat(sell[1]).toFixed(2)}}</td>
@@ -201,8 +201,8 @@ export default {
     async onChange(event){
       this.deci=event.target.value
     },
-    async changeDepth(depthval){
-      this.depth = depthval.target.value
+    async changeDepth(event){
+      this.depth = event.target.value
     },    
     async sendMessage() {
       try {
@@ -233,7 +233,7 @@ export default {
   created: function () {
     const ts = this;
     this.connection = new WebSocket(
-      "ws://cbe7-2402-4000-2380-f223-b1f4-2b94-3df9-310.ngrok.io/ws"
+      "ws://54a2-2402-4000-2380-f223-b1f4-2b94-3df9-310.ngrok.io/ws"
     );
 
     this.connection.onmessage = function (event) {
