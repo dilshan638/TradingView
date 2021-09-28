@@ -18,7 +18,7 @@
                      <qrcode-vue
                       :value="addressList"
                       :size="size"
-                      level="H"
+                      level="H" 
                       class="qr"
                     /> 
 
@@ -38,24 +38,24 @@
 
                     <li class="col-md-6">
                       <b>Minimum Deposit</b>
-                      <p v-if="minimum_deposite!==null">--</p>
-                      <p v-else >{{minimum_deposite}} BTC</p>
+                     
+                      <p >{{minimum_deposite}} </p>
                     </li>
                     
                     <li class="col-md-6">
                       <b>Average Arrival Time</b>
-                       <p v-if="avarege_arrival_time!==null">--</p>
-                      <p v-else>{{avarege_arrival_time}}  BTC</p>
+                      
+                      <p >{{avarege_arrival_time}} </p>
                     </li>
                     <li class="col-md-6">
                       <b>Expected arrival</b>
-                       <p v-if="expected_arrival!==null">--</p>
-                      <p v-else>{{expected_arrival}}</p>
+                     
+                      <p >{{expected_arrival}}</p>
                     </li>
                     <li class="col-md-6">
                       <b>Expected Unlock</b>
-                       <p v-if="expected_unlock!==null">--</p>
-                      <p v-else>{{expected_unlock}}</p>
+                      
+                      <p>{{expected_unlock}}</p>
                     </li>
                   </ul>
                 </div>
@@ -94,11 +94,15 @@ export default {
       expected_arrival: "",
       expected_unlock: "",
       //qrdata:"",
+
+      selectCoinSymbolDeposit:""
     };
   },
 
   methods: {
   async  getAddress() {
+   
+
       const headers = {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
@@ -121,6 +125,7 @@ export default {
     async getPassingAddress(ad) {
       console.log(ad);
       this.addressList = ad;
+     // alert(coin)
     },
 
     async depositDetails(){
@@ -128,6 +133,10 @@ export default {
        this.avarege_arrival_time= localStorage.getItem("avarege_arrival_time");
         this.expected_arrival= localStorage.getItem("expected_arrival");
          this.expected_unlock= localStorage.getItem("expected_unlock");
+
+         // this.selectCoinSymbolDeposit = localStorage.getItem("depositSelectCoin")
+        // alert(this.selectCoinSymbolDeposit)
+      
 
      
     },
@@ -153,6 +162,10 @@ export default {
     this.depositDetails()
     
   },
+
+ 
+
+  
 };
 </script>
 

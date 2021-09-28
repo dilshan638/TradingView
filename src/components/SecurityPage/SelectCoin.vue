@@ -2,7 +2,7 @@
   <div class="inner-guard">
     <p>Select Coin</p>
     <div class="form-field">
-    <p class="labels">Select Coin</p>
+    <p class="labels">Select Coin </p>
       <div class="dropdown-area">
         <div class="dropdown-title" @click="dropdowntoggle">
           <img :src="this.selectedsymbol" width="28" />
@@ -46,7 +46,7 @@
 <script>
 import axios from "axios";
 export default {
-  emits: ["ads"], 
+  emits: ["ads","depositCoin"], 
   data() {
     return {
       createdAddress: [],
@@ -113,6 +113,9 @@ export default {
     },
     async onChange(event) {
       this.onChangeCoin = event.target.value;
+      localStorage.setItem("depositSelectCoin", event.target.value);
+     
+
 
       var data = {
         currency: event.target.value,
@@ -134,7 +137,7 @@ export default {
       localStorage.setItem("createdAddressSelectList", this.createdAddress);
 
       this.$emit("AddList", this.createdAddress);
-
+      
       this.getCryptoAll();
     },
     async pageLoad() {
@@ -170,8 +173,7 @@ export default {
         })
         .then((response) => {
           this.cryptoAll = response.data[0];
-          console.log(this.cryptoAll);
-          console.log(this.onChangeCoin);
+         
 
           for (let j = 0; j < this.cryptoAll.length; j++) {
             if (this.cryptoAll[j]["symbol"] == this.onChangeCoin) {

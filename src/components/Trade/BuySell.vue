@@ -148,7 +148,7 @@ export default {
                 };   
 
                 try{
-                    let response = await this.axios.post("https://c403-2402-4000-2380-f223-b1f4-2b94-3df9-310.ngrok.io/api/orders", data, headers)
+                    let response = await this.axios.post("http://34.152.9.147:8001/api/orders", data, headers)
                     .then(res => {
                        // this.sendData = response.data
                         console.log(response);
