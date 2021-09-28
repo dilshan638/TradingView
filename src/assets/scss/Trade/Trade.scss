@@ -263,6 +263,11 @@
             color: #a8a8a8;
             font-size: 0.65rem;
             min-height: 100%;
+            min-width: 62px;
+            text-align: center;
+            padding-right: 0;
+            display: inline-grid;
+            padding-left: 0;
         }
 
     }
@@ -419,4 +424,11 @@
 
 .card table tr th {
     font-size: 0.68rem !important;
+}
+
+.inner-type{
+    float: left;
+    width: 100%;
+    padding-bottom: 0px;
+    border-bottom: solid 1px #474747;
 }

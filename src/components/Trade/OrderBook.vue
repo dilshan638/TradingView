@@ -67,8 +67,8 @@
               <td v-bind:class="[recent.side == 'buy' ? 'buy' : 'sell']">
                 {{ recent.price }}
               </td>
-              <td>{{recent.lastSize}} </td>
-              <td class="text-right">{{ recent.price * recent.lastSize }}</td>
+              <td>{{recent.size}} </td>
+              <td class="text-right">{{ recent.price * recent.size }}</td>
             </tr>
           </tbody>
         </table>
@@ -184,8 +184,8 @@ export default {
 
           
          // Recent Trades //ts.dataAl.type == "order" || ts.dataAl.type == "match" || ***************To Do****************
-        if (ts.dataAl.type == "ticker") {
-
+        if (ts.dataAl.type == "match") {
+           
           for (let t = 0; t < 1; t++) {
             ts.recentDataLoop.push(ts.dataAl);
              ts.fill = ts.dataAl.price;
@@ -221,7 +221,7 @@ export default {
 }
 
 .read-more {
-  padding: 15px;
+  padding: 0;
   float: left;
   width: 100%;
   text-align: right;

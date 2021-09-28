@@ -9,10 +9,12 @@
                 <div class="top-tab sell-btn" @click="togglesell" v-bind:class="[selltab == true ? 'active' : '']">Sell</div>
             </div>
             <div class="buy-sell-content">
-                <div class="sub-type" @click="toLimit" v-bind:class="[limitTab == true ? 'active' : '']">LImit</div>
-                <div class="sub-type" @click="toMarket" v-bind:class="[marketTab == true ? 'active' : '']">Market</div>
-                <div class="sub-type" @click="toStop" v-bind:class="[stopTab == true ? 'active' : '']">Stop</div>
-                <div class="sub-type" @click="toStopLimit" v-bind:class="[stoplimitTab == true ? 'active' : '']">Limit</div>
+                <div class="inner-type">
+                    <div class="sub-type" @click="toLimit" v-bind:class="[limitTab == true ? 'active' : '']">LImit</div>
+                    <div class="sub-type" @click="toMarket" v-bind:class="[marketTab == true ? 'active' : '']">Market</div>
+                    <div class="sub-type" @click="toStop" v-bind:class="[stopTab == true ? 'active' : '']">Stop</div>
+                    <div class="sub-type" @click="toStopLimit" v-bind:class="[stoplimitTab == true ? 'active' : '']">Limit</div>
+                </div>
             </div>
             <div class="price-form">
                 <div class="input-group mb-3" :class="{ 'new-error': v$.amount.$error }">
@@ -51,7 +53,8 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <button class="btn btn-primary pass-btn" @click="buybtcformaction">BUY BTC</button>
+                        <button class="btn btn-primary pass-btn buyaction" v-if="buytab" @click="buybtcformaction">BUY {{selectedcurrency}}</button>
+                        <button class="btn btn-primary pass-btn sellaction" v-else @click="buybtcformaction">SELL {{selectedcurrency}}</button>
                         <!-- <ul>
                             <li v-for="sell in coin" :key="sell">
                                 {{ sell.symbol }}
@@ -111,18 +114,17 @@ export default {
             stopTab: false,
             stoplimitTab: false,
             userBalance: '',
+            selectedcurrency: localStorage.getItem("selectedcurrency"),
 
             total:this.state.price*this.state.amount,
-
             coin: [],
-
             sendData: [],
             client_oid: "4949049",
             productId: "69069069",
             funds: 12,
             side: "buy",
             type: "limit",
-            timeInForce: ""
+            timeInForce: "",
         }
     },
     methods:{
@@ -135,16 +137,19 @@ export default {
                 const headers = {
                     Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
                     "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
+                    "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
                 };                
                 var data = {
-                "client_oid":"1616663784828",
-                "productId":"BTC-USDT",
-                "size":parseFloat(this.state.amount),
-                "funds":0.01,
-                "price":parseFloat(this.state.price),
-                "side":this.side,
-                "type":this.type,
-                "timeInForce":"1616663784828"
+                    "client_oid":"1616663784828",
+                    "productId":"BTC-USDT",
+                    "size":parseFloat(this.state.amount),
+                    "funds":0.001,
+                    "price":parseFloat(this.state.price),
+                    "side":this.side,
+                    "type":this.type,
+                    "timeInForce":"1616663784828"
                 };   
 
                 try{
@@ -160,6 +165,10 @@ export default {
             } else {
                 console.log('invalid form validation')
             }
+        },
+        async setCuurency() {
+            this.selectcurrency = localStorage.getItem("selectedmainCurrency")
+            this.setCuurency();
         },
         async togglebuy() {
             this.buytab = true;
@@ -230,6 +239,7 @@ export default {
   mounted() {
        this.getUserBalance();
        this.checkUserBalance();
+       this.setCuurency();
   }
 
 }
@@ -268,14 +278,24 @@ export default {
   }
   .sub-type{
     float: left;
-    margin-right: 10px;
+    margin-right: 17px;
     margin-bottom: 15px;
     font-family: Rubik;
-    font-size: 0.625rem;
+    font-size: 0.7rem;
     margin-bottom: 0 !important;
+    cursor: pointer;
+
+    &:hover{
+    color: white;
+    border-bottom: solid 2px;
+    padding-bottom: 7px;
+    }
+
   }
   .sub-type.active{
-      color: yellow;
+    color: white;
+    border-bottom: solid 2px;
+    padding-bottom: 7px;
   }
   .price-form{
     float: left;
