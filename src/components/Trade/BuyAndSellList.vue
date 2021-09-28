@@ -233,7 +233,7 @@ export default {
         this.priceSellBind[j][3]=j+1
       }
   
-      
+      console.log( this.priceSellBind)
     },
   },
   mounted() {
@@ -242,7 +242,7 @@ export default {
   created: function () {
     const ts = this;
     this.connection = new WebSocket(
-      "ws://cbe7-2402-4000-2380-f223-b1f4-2b94-3df9-310.ngrok.io/ws"
+      "ws://54a2-2402-4000-2380-f223-b1f4-2b94-3df9-310.ngrok.io/ws"
     );
 
     this.connection.onmessage = function (event) {
