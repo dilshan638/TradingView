@@ -33,7 +33,7 @@
             <td class="success-tst">{{price}}</td>
             <td class="mid">${{price}}</td>
             <td class="text-right"> <div class="read-more">
-        <a class="link" href="/buy-sell-list">More</a>
+        <router-link to="/buy-sell-list">More</router-link>
       </div></td>
           </tr>
         </tbody>
@@ -185,7 +185,7 @@ export default {
           
          // Recent Trades //ts.dataAl.type == "order" || ts.dataAl.type == "match" || ***************To Do****************
         if (ts.dataAl.type == "match") {
-
+           
           for (let t = 0; t < 1; t++) {
             ts.recentDataLoop.push(ts.dataAl);
              ts.fill = ts.dataAl.price;

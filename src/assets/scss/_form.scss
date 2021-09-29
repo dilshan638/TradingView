@@ -219,3 +219,15 @@
     color: #fff;
     font-size: 0.85rem;
   }
+
+  .price-form{
+
+    .form-control{
+
+      &:focus{
+        border: solid 1px #0277fa !important;
+      }
+
+    }
+
+  }

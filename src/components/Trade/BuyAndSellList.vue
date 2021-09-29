@@ -235,7 +235,7 @@ export default {
         this.priceSellBind[j][3]=j+1
       }
   
-      
+      console.log( this.priceBuyBind)
     },
   },
   mounted() {

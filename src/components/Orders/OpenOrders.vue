@@ -31,8 +31,53 @@ export default {
     },
     data(){
         return{
+            dataAl:[]
         }
-    }
+    },
+
+     methods: {
+          async sendMessage() {
+      try {
+        this.connection.send(
+          JSON.stringify({
+           type: "subscribe",
+            product_ids: ["BTC-USDT"],
+            currency_ids: [],
+            channels: ["ticker", "match", "level2", "funds", "order"],
+            token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoYXJha2FAZ21haWwuY29tIiwiZXhwaXJlZEF0IjoxNjMyNzY0MzcyLCJpZCI6NDEsInBhc3N3b3JkSGFzaCI6ImFlMDA1Y2ViN2U5YTIxN2NjZWQyZjhhYTM1NDE4N2M3In0.1cwqK6VfVsHpRUX_3sAOvVgzkeDvvlmqH0C-7up7nJg",
+          })
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    // async setData() {   
+    // },
+     },
+
+      mounted() {
+    //this.setData()
+    
+    },
+
+   
+  created: function () {
+    const ts = this;
+    this.connection = new WebSocket( "ws://34.152.9.147:8002/ws");
+
+    this.connection.onmessage = function (event) {
+     ts.dataAl = JSON.parse(event.data);
+     console.log(ts.dataAl)
+   };
+
+    this.connection.onopen = function (event) {
+      console.log(event);
+      console.log("Successfully connected to the echo websocket server...");
+      ts.sendMessage();
+    };
+
+    
+  },
 }
 </script>
 
