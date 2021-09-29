@@ -13,10 +13,10 @@
                    <!-- <recent-trades /> -->
                 </div>
                 <div class="col-md-6">
-                    <buy-sell />
+                    <buy-sell @chooseCurrency="getselectedCoin" />
                 </div>
             </div>
-        </div>        
+        </div>
     </div>
   </trade-layout>
 </template>
@@ -44,7 +44,12 @@ export default {
     data() {
       return {
       }
-    }    
+    },
+    methods: {
+        getselectedCoin (value) {
+            alert(value) // someValue
+        }
+    }
 }
 </script>
 

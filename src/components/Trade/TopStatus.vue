@@ -144,7 +144,6 @@ export default {
          })
     },
     async selectcoin(pair_name , image, currency) {   
-   //   this.$emit('changeTitle','Awesome')
       this.dropdownshow = false;   
       this.selectedcoin = pair_name;
       this.selectedcoinimage = image;
