@@ -9,7 +9,13 @@
           <div class="card-body">
             <div class="row">
               <div class="col-xl-4">
-                <select-coin @AddList="getPassingAddress" />
+                <select-coin @AddList="getPassingAddress"
+                 @depositCoin="SelectSymbol"
+                  @min_deposite="minDeposite" 
+                  @avg_arrival_time="avgArrivalTime" 
+                  @exp_arrival="expArrival" 
+                  @exp_unlock="expUnlock"
+                  />
               </div>
               <div class="col-xl-8">
                 <div class="barcode-area">
@@ -39,23 +45,28 @@
                     <li class="col-md-6">
                       <b>Minimum Deposit</b>
                      
-                      <p >{{minimum_deposite}} </p>
+                      <p v-show="minimum_deposite!=null" >{{minimum_deposite}} {{selectCoinSymbolDeposit}} </p>
+                       <p v-show="minimum_deposite==null" >-- </p>
+                       
                     </li>
                     
                     <li class="col-md-6">
                       <b>Average Arrival Time</b>
                       
-                      <p >{{avarege_arrival_time}} </p>
+                      <p v-show="avarege_arrival_time!=null">{{avarege_arrival_time}} Min </p>
+                         <p v-show="avarege_arrival_time==null" >-- </p>
                     </li>
                     <li class="col-md-6">
                       <b>Expected arrival</b>
                      
-                      <p >{{expected_arrival}}</p>
+                      <p v-show="expected_arrival!=null" >{{expected_arrival}} network confirmations</p>
+                         <p v-show="expected_arrival==null" >-- </p>
                     </li>
                     <li class="col-md-6">
                       <b>Expected Unlock</b>
                       
-                      <p>{{expected_unlock}}</p>
+                      <p v-show="expected_unlock!=null">{{expected_unlock}}  network confirmations</p>
+                         <p v-show="expected_unlock==null" >-- </p>
                     </li>
                   </ul>
                 </div>
@@ -125,21 +136,36 @@ export default {
     async getPassingAddress(ad) {
       console.log(ad);
       this.addressList = ad;
-     // alert(coin)
+     },
+
+     async SelectSymbol(sym){
+      this.selectCoinSymbolDeposit=sym
+       console.log(sym)
     },
 
-    async depositDetails(){
-      this.minimum_deposite= localStorage.getItem("minimum_deposite");
-       this.avarege_arrival_time= localStorage.getItem("avarege_arrival_time");
-        this.expected_arrival= localStorage.getItem("expected_arrival");
-         this.expected_unlock= localStorage.getItem("expected_unlock");
+    async minDeposite(minDiposit){
+        this.minimum_deposite=minDiposit
+    },
+     async avgArrivalTime(avaregeArrivalTime){
+        this.avarege_arrival_time=avaregeArrivalTime
+     },
+      async expArrival(expectedArrival){
+        this.expected_arrival=expectedArrival
+      },
+       async expUnlock(expectedUnlock){
+          this.expected_unlock=expectedUnlock
+       },
 
-         // this.selectCoinSymbolDeposit = localStorage.getItem("depositSelectCoin")
-        // alert(this.selectCoinSymbolDeposit)
-      
+    // async depositDetails(){
+    //  // this.minimum_deposite= localStorage.getItem("minimum_deposite");
+    //    this.avarege_arrival_time= localStorage.getItem("avarege_arrival_time");
+    //     this.expected_arrival= localStorage.getItem("expected_arrival");
+    //      this.expected_unlock= localStorage.getItem("expected_unlock");
+
+        
 
      
-    },
+    // },
     copyTestingCode () {
       let testingCodeToCopy = document.querySelector('#testing-code')
       testingCodeToCopy.setAttribute('type', 'text')
@@ -159,8 +185,17 @@ export default {
 
   mounted() {
     this.getAddress();
-    this.depositDetails()
+   // this.depositDetails()
+     this.selectCoinSymbolDeposit = JSON.parse( localStorage.getItem("selectedCoin"))
+
+     this.minimum_deposite = JSON.parse( localStorage.getItem("min_deposite"))
+     this.avarege_arrival_time = JSON.parse( localStorage.getItem("avg_arrival_time"))
+     this.expected_arrival = JSON.parse( localStorage.getItem("exp_arrival"))
+      this.expected_unlock = JSON.parse( localStorage.getItem("exp_unlock"))
+
     
+   
+   
   },
 
  
