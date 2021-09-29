@@ -53,7 +53,8 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <button class="btn btn-primary pass-btn buyaction" v-if="buytab" @click="buybtcformaction">BUY {{selectedcurrency}}</button>
+                        <button class="btn btn-primary pass-btn buyaction" @selectcoin="selectedcurrency = 'new name'" 
+                        v-if="buytab" @click="buybtcformaction">BUY {{selectedcurrency}}</button>
                         <button class="btn btn-primary pass-btn sellaction" v-else @click="buybtcformaction">SELL {{selectedcurrency}}</button>
                         <!-- <ul>
                             <li v-for="sell in coin" :key="sell">
@@ -138,8 +139,8 @@ export default {
                     Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
                     "Content-Type": "application/json",
                     "Access-Control-Allow-Origin": "*",
-                    "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
-                     "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+                    "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS"
+                    // "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
                 };                
                 var data = {
                     "client_oid":"1616663784828",
@@ -153,7 +154,7 @@ export default {
                 };   
 
                 try{
-                    let response = await this.axios.post("http://34.152.9.147:8001/api/orders", data, headers)
+                    let response = await this.axios.post("https://34.152.9.147:8001/api/orders", data, headers)
                     .then(res => {
                        // this.sendData = response.data
                         console.log(response);
@@ -256,12 +257,16 @@ export default {
     float: left;
     margin-right: 15px;
     margin-bottom: 15px;
-    width: 44%;
+    width: 47%;
     background-color: #393939;
     padding: 7px;
     border-radius: 5px;
     text-align: center;
     cursor: pointer;
+
+    &:last-child{
+            margin-right: 0 !important;
+    }
   }
   .top-tab.active.buy-btn{
       background-color: #60db78;

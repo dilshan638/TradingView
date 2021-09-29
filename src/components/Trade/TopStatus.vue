@@ -1,5 +1,5 @@
 <template>
-  <div class="trade-box">
+  <div class="trade-box" style="min-height: auto;">
     <div class="row status1">
       <div class="col-md-4 pos-rel">
         <div class="search-head" @click="dropdownshow = !dropdownshow" @blur="dropdownshow = false">
@@ -156,6 +156,7 @@ export default {
       localStorage.setItem("selectedmainCurrency", this.selectedcurrency)
       console.log(localStorage.getItem("selectedmainCoin"))
       console.log(localStorage.getItem("selectedmainCurrency"))
+      this.$emit("chooseCurrency", this.selectedcurrency)
     }    
   },
   mounted() {

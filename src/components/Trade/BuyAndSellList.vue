@@ -68,7 +68,7 @@
                         </thead>
                         <tbody>  
 
-                          <tr class="plus" v-for="buy in priceBuyBind.slice(0, this.depth)" :key="buy" v-show="deci=='0'" >
+                          <tr class="plus" v-for="buy in priceBuyBind.slice(0, this.depth2)" :key="buy" v-show="deci=='0'" >
                            
                            <td>Buy-{{buy[3]}}</td>
                             <td>{{parseFloat(buy[0]).toFixed(0)}}</td>
@@ -173,6 +173,7 @@ export default {
       priceBuy: [],
       dataAl: [],
       depth: 15,
+      depth2: 15,
 
       priceSell: [],
       priceSellBind: [],
@@ -197,6 +198,7 @@ export default {
     },
     async changeDepth(event){
       this.depth = event.target.value
+      this.depth2 = event.target.value
     },    
     async sendMessage() {
       try {
