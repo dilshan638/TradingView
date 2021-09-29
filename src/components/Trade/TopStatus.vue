@@ -149,6 +149,7 @@ export default {
       this.selectedcoinimage = image;
       this.selectedcurrency = currency;
       this.setCoin();
+      //alert(currency)
     },
     async setCoin() {
       localStorage.setItem("selectedmainCoin", this.selectedcoin)

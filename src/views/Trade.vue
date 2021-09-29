@@ -29,7 +29,7 @@ import OrderBook from '../components/Trade/OrderBook.vue'
 //import RecentTrades from '../components/Trade/RecentTrades.vue'
 import BuySell from '../components/Trade/BuySell.vue'
 import OrderHistory from '../components/Trade/OrderHistory.vue'
-
+ 
 export default {
     name:'trade',
     components: { 

@@ -182,7 +182,7 @@ export default {
                 }
               }
 
-              localStorage.setItem(  "arraySymbol",JSON.stringify(this.arraySymbolWithInAddress));
+              localStorage.setItem("arraySymbol",JSON.stringify(this.arraySymbolWithInAddress));
               console.log(this.arraySymbolWithInAddress)
               console.log(this.cryptoAll);
              

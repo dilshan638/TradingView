@@ -33,7 +33,7 @@
             <td class="success-tst">{{price}}</td>
             <td class="mid">${{price}}</td>
             <td class="text-right"> <div class="read-more">
-        <a class="link" href="/buy-sell-list">More</a>
+        <router-link to="/buy-sell-list">More</router-link>
       </div></td>
           </tr>
         </tbody>
@@ -125,8 +125,19 @@ export default {
     },
 
     async setData(dataSellArray, dataBuyArray, recendData, fillPrice) {
-      this.priceSellBind = dataSellArray.sort((a, b) => {return a[0] - b[0] });
-      this.priceBuyBind = dataBuyArray.sort((a, b) => {return b[0] - a[0] });
+      console.log(dataSellArray)
+       if(dataSellArray!=undefined ){
+       this.priceSellBind = dataSellArray.sort((a, b) => {return a[0] - b[0] });
+    
+      }
+        if(dataBuyArray !=undefined){
+       this.priceBuyBind = dataBuyArray.sort((a, b) => {return b[0] - a[0] });
+    
+      }
+      //   if(recendData !=undefined){
+    
+    
+      // }
       this.recentData = recendData.reverse();
       this.price=fillPrice
 
