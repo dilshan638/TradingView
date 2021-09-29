@@ -52,7 +52,7 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-               
+                <img src="images/logo/chart.jpeg" class="img-responsive" />
             </div>
         </div>
     </div>

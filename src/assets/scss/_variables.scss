@@ -25,6 +25,10 @@
 
 }
 
+.img-responsive{
+    width: 100%;
+}
+
 
 body{
     font-family: 'Rubik', sans-serif;
@@ -813,4 +817,8 @@ body.open-modal{
     h3{
         padding-top: 0 !important;
     }
+}
+
+.trade-area {
+    background-color: #1e1e1e !important;
 }

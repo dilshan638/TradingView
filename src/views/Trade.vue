@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-md-7 no-padding-right">
           <top-status />
-          <!-- <top-chart /> -->
+          <top-chart />
           <order-history />
         </div>
         <div class="col-md-5">
@@ -24,7 +24,7 @@
 <script>
 import TradeLayout from '../layout/TradeLayout.vue'
 import TopStatus from '../components/Trade/TopStatus.vue'
-// import TopChart from '../components/Trade/TopChart.vue'
+import TopChart from '../components/Trade/TopChart.vue'
 import OrderBook from '../components/Trade/OrderBook.vue'
 //import RecentTrades from '../components/Trade/RecentTrades.vue'
 import BuySell from '../components/Trade/BuySell.vue'
@@ -38,7 +38,7 @@ export default {
       OrderBook,
     //  RecentTrades,
       BuySell,
-      //TopChart,
+      TopChart,
       OrderHistory
     },
     data() {

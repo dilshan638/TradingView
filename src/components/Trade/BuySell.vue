@@ -139,8 +139,8 @@ export default {
                     Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
                     "Content-Type": "application/json",
                     "Access-Control-Allow-Origin": "*",
-                    "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
-                    "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+                    "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS"
+                    // "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
                 };                
                 var data = {
                     "client_oid":"1616663784828",
