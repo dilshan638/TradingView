@@ -143,7 +143,7 @@ export default {
           console.log(error);
          })
     },
-    async selectcoin(pair_name , image, currency) {   
+    async selectcoin(pair_name , image, currency) {
       this.dropdownshow = false;   
       this.selectedcoin = pair_name;
       this.selectedcoinimage = image;
@@ -154,8 +154,8 @@ export default {
       localStorage.setItem("selectedmainCoin", this.selectedcoin)
       localStorage.setItem("selectedmainCurrency", this.selectedcurrency)
       console.log(localStorage.getItem("selectedmainCoin"))
-      console.log(localStorage.getItem("selectedmainCurrency"))
-      this.$emit("chooseCurrency", this.selectedcurrency)
+      alert(localStorage.getItem("selectedmainCurrency"))
+     // this.$emit("chooseCurrency", this.selectedcurrency)
     }    
   },
   mounted() {

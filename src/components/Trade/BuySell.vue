@@ -233,17 +233,16 @@ export default {
         },
         checkUserBalance() {
            // alert(localStorage.getItem("totalBalances"))
-        }
+        }       
     },
-  created: function() {
-  },
-  mounted() {
-       this.getUserBalance();
-       this.checkUserBalance();
-       this.setCuurency();
-  }
-
+    mounted() {
+        this.getUserBalance();
+        this.checkUserBalance();
+        this.setCuurency();
+        alert(localStorage.getItem("selectedmainCurrency"))
+    }
 }
+
 </script>
 
 <style lang="scss" scoped>
@@ -257,7 +256,7 @@ export default {
     float: left;
     margin-right: 15px;
     margin-bottom: 15px;
-    width: 47%;
+    width: 46%;
     background-color: #393939;
     padding: 7px;
     border-radius: 5px;

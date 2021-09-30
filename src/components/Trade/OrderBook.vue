@@ -3,7 +3,17 @@
     <div class="trade-box">
       <div class="trade-header">
         Order Book
-        <div class="sw-b"></div>
+        <div class="sw-b">
+          <div class="box-sm">
+            <div class="half">
+              <div class="eq"></div>
+              <div class="eq"></div>
+            </div>
+            <div class="half">
+              <div class="eql"></div>
+            </div>
+          </div>
+        </div>
         <div class="sw-b"></div>
         <div class="sw-b active"></div>
       </div>
@@ -33,7 +43,7 @@
             <td class="success-tst">{{price}}</td>
             <td class="mid">${{price}}</td>
             <td class="text-right"> <div class="read-more">
-        <router-link to="/buy-sell-list">More</router-link>
+            <router-link to="/buy-sell-list">More</router-link>
       </div></td>
           </tr>
         </tbody>
