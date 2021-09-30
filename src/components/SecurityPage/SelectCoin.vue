@@ -31,7 +31,7 @@
       >
         <option
        
-          v-for="coins in arrayCoins"
+          v-for="coins in arrayCoins" 
           :key="coins.symbol"
           :value="coins.symbol"
          

@@ -150,7 +150,7 @@ export default {
         this.avarege_arrival_time=avaregeArrivalTime
      },
       async expArrival(expectedArrival){
-        this.expected_arrival=expectedArrival
+        this.expected_arrival=expectedArrival 
       },
        async expUnlock(expectedUnlock){
           this.expected_unlock=expectedUnlock

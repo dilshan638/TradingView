@@ -1,19 +1,21 @@
 <template>
   <trade-layout>
     <div class="row">
+        
         <div class="col-md-7 no-padding-right">
           <top-status />
           <top-chart />
-          <order-history />
+          <order-history  />
         </div>
         <div class="col-md-5">
             <div class="row">
                 <div class="col-md-6 no-padding-right">
-                   <order-book />
+                   <order-book @sellPriceOrderBookPass="sellPriceOrderBook" />
+                 
                    <!-- <recent-trades /> -->
                 </div>
                 <div class="col-md-6">
-                    <buy-sell @chooseCurrency="getselectedCoin" />
+                    <buy-sell @chooseCurrency="getselectedCoin" :sellPrice="SellPrice" />
                 </div>
             </div>
         </div>
@@ -29,7 +31,7 @@ import OrderBook from '../components/Trade/OrderBook.vue'
 //import RecentTrades from '../components/Trade/RecentTrades.vue'
 import BuySell from '../components/Trade/BuySell.vue'
 import OrderHistory from '../components/Trade/OrderHistory.vue'
-
+ 
 export default {
     name:'trade',
     components: { 
@@ -43,13 +45,26 @@ export default {
     },
     data() {
       return {
+        SellPrice:""
       }
     },
     methods: {
         getselectedCoin (value) {
             alert(value) // someValue
+            
+           
+        },
+
+        async sellPriceOrderBook(price){
+          this.SellPrice=price
+       
+
         }
-    }
+
+
+    },
+
+      
 }
 </script>
 

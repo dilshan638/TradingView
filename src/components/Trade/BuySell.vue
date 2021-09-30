@@ -21,7 +21,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Amount</span>
                     </div>
-                    <input type="text" class="form-control" v-model="state.amount" aria-label="" />
+                    <input type="text" class="form-control"  :value="sellPrice"  aria-label="" />
                     <div class="input-group-append">
                         <span class="input-group-text">BTC</span>
                     </div>
@@ -81,6 +81,8 @@ import axios from 'axios';
 
 export default {
     name:'orderbook',
+
+    props:["sellPrice"],
     components: {
     },
     setup() {
@@ -139,8 +141,8 @@ export default {
                     Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
                     "Content-Type": "application/json",
                     "Access-Control-Allow-Origin": "*",
-                    "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS"
-                    // "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+                    "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
+                     "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
                 };                
                 var data = {
                     "client_oid":"1616663784828",
@@ -154,7 +156,7 @@ export default {
                 };   
 
                 try{
-                    let response = await this.axios.post("https://34.152.9.147:8001/api/orders", data, headers)
+                    let response = await this.axios.post("http://34.152.9.147:8001/api/orders", data, headers)
                     .then(res => {
                        // this.sendData = response.data
                         console.log(response);

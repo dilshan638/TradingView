@@ -107,7 +107,7 @@ export default {
             "type":"subscribe",
              "product_ids":["BTC-USDT"],
              "currency_ids":[],
-             "channels": [ "order", "ticker" ]
+             "channels": [ "order", "ticker","match" ]
           })
         );
       } catch (error) {
@@ -149,6 +149,7 @@ export default {
       this.selectedcoinimage = image;
       this.selectedcurrency = currency;
       this.setCoin();
+      //alert(currency)
     },
     async setCoin() {
       localStorage.setItem("selectedmainCoin", this.selectedcoin)
@@ -184,10 +185,18 @@ export default {
       //   // }
       // }
 
-      if(ts.dataAl.type == "ticker"){
-        for (let a = 0; a < 1; a++) {
-          ts.fill = ts.dataAl.price;
+      if (ts.dataAl.type == "match") {
+           
+          for (let a = 0; a < 1; a++) {
+             ts.fill = ts.dataAl.price;
+          }
         }
+
+
+      if(ts.dataAl.type == "ticker"){
+        // for (let a = 0; a < 1; a++) {
+        //   ts.fill = ts.dataAl.price;
+        // }
         ts.tickerPrice=ts.dataAl.price
         ts.open24h=ts.dataAl.open24h
         ts.low24h=ts.dataAl.low24h
