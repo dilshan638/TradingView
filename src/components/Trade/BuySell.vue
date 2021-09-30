@@ -13,7 +13,7 @@
                     <div class="sub-type" @click="toLimit" v-bind:class="[limitTab == true ? 'active' : '']">LImit</div>
                     <div class="sub-type" @click="toMarket" v-bind:class="[marketTab == true ? 'active' : '']">Market</div>
                     <div class="sub-type" @click="toStop" v-bind:class="[stopTab == true ? 'active' : '']">Stop</div>
-                    <div class="sub-type" @click="toStopLimit" v-bind:class="[stoplimitTab == true ? 'active' : '']">Limit</div>
+                    <div class="sub-type" @click="toStopLimit" v-bind:class="[stoplimitTab == true ? 'active' : '']">Stop Limit</div>
                 </div>
             </div>
             <div class="price-form">
@@ -21,7 +21,8 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Amount</span>
                     </div>
-                    <input type="text" class="form-control"  :value="sellPrice"  aria-label="" />
+                    <!-- :value="sellPrice" -->
+                    <input type="text" class="form-control" v-model="state.amount"  aria-label="" />
                     <div class="input-group-append">
                         <span class="input-group-text">BTC</span>
                     </div>
@@ -229,6 +230,9 @@ export default {
                 this.type = "stoplimit";
             }          
         },
+       async setAmount() {
+            this.state.amount = this.sellPrice;
+        },
         getUserBalance() {
             this.coin = JSON.parse(localStorage.getItem("arraySymbol"));
             console.log(this.coin);
@@ -241,7 +245,6 @@ export default {
         this.getUserBalance();
         this.checkUserBalance();
         this.setCuurency();
-        alert(localStorage.getItem("selectedmainCurrency"))
     }
 }
 
@@ -316,5 +319,6 @@ export default {
     display: block;
     max-width: none;
     margin-top: 30px;
+    font-weight: 700;
   }
 </style>

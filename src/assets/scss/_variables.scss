@@ -823,7 +823,39 @@ body.open-modal{
     background-color: #1e1e1e !important;
 }
 .box-sm{
-    width: 32px;
-    height: 32px;
-    background-color: #fff;
+    width: 98%;
+    height: 98%;
+    top: 0;
+    left: 0;
+    margin: 1%;
+
+    .half{
+        width: 50%;
+        float: left;
+        height: 100%;
+
+        .eq{
+            float: left;
+            height: 50%;
+            position: relative;
+            width: 100%;
+        }
+        .eql{
+            float: left;
+            height: 100%;
+            position: relative;
+            width: 100%;            
+        }
+
+    }
+}
+
+.blue-bg{
+    background-color: #464b85;
+}
+.red-bg{
+    background-color: #f14848;
+}
+.green-bg{
+    background-color: #1e8d34;
 }

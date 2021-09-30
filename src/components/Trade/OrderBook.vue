@@ -3,19 +3,37 @@
     <div class="trade-box">
       <div class="trade-header">
         Order Book
-        <div class="sw-b">
+        <div class="sw-b" @click="activebuy" v-bind:class="[buytab ? 'active' : '']">
           <div class="box-sm">
             <div class="half">
-              <div class="eq"></div>
-              <div class="eq"></div>
+              <div class="eql green-bg"></div>
             </div>
             <div class="half">
-              <div class="eql"></div>
+              <div class="eql blue-bg"></div>
+            </div>
+          </div>
+        </div>        
+        <div class="sw-b" @click="activesell" v-bind:class="[selltab ? 'active' : '']">
+          <div class="box-sm">
+            <div class="half">
+              <div class="eql red-bg"></div>
+            </div>
+            <div class="half">
+              <div class="eql blue-bg"></div>
             </div>
           </div>
         </div>
-        <div class="sw-b"></div>
-        <div class="sw-b active"></div>
+        <div class="sw-b" @click="activebuysell" v-bind:class="[buyselltab ? 'active' : '']">
+          <div class="box-sm">
+            <div class="half">
+              <div class="eq red-bg"></div>
+              <div class="eq green-bg"></div>
+            </div>
+            <div class="half">
+              <div class="eql blue-bg"></div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="trade-body tbl">
         <table class="table table-hover">
@@ -32,11 +50,10 @@
               <td>{{ sell[1] }}</td>
               <td class="text-right">{{ sell[0] * sell[1] }}</td>
             </tr>
-
           </tbody>
         </table>
       </div>
-      <div class="trade-body tbl">
+      <div class="trade-body">
         <table class="table table-hover special">
         <tbody>
           <tr>
@@ -44,12 +61,13 @@
             <td class="mid">${{price}}</td>
             <td class="text-right"> <div class="read-more">
             <router-link to="/buy-sell-list">More</router-link>
-      </div></td>
+      </div>
+      </td>
           </tr>
         </tbody>
       </table>
       </div>
-      <div class="trade-body tbl">
+      <div class="trade-body">
         <table lass="table table-hover" style="width:100% !important;">
           <tr class="plus" v-for="buy in priceBuyBind" :key="buy">
             <td  @click="sellPriceOrderBook(buy[0])" >{{ buy[0] }}</td>
@@ -95,6 +113,11 @@ export default {
    
   data() {
     return {
+      buyselltab: true,
+      selltab: false,
+      buytab: false,
+      showbuyandsell: true,
+
       connection: null,
       priceSell: [],
       priceBuy: [],
@@ -116,13 +139,9 @@ export default {
   },
 
   methods: {
-
-  async sellPriceOrderBook(pr){
-    this.$emit("sellPriceOrderBookPass", pr)
-   
-  
-  },
-
+    async sellPriceOrderBook(pr){
+      this.$emit("sellPriceOrderBookPass", pr)
+    },
     async sendMessage() {
       try {
         this.connection.send(
@@ -139,15 +158,14 @@ export default {
         console.log(error);
       }
     },
-
     async setData(dataSellArray, dataBuyArray, recendData, fillPrice) {
       console.log(dataSellArray)
-       if(dataSellArray!=undefined ){
-       this.priceSellBind = dataSellArray.sort((a, b) => {return a[0] - b[0] });
+        if(dataSellArray!=undefined ){
+        this.priceSellBind = dataSellArray.sort((a, b) => {return a[0] - b[0] });
     
       }
         if(dataBuyArray !=undefined){
-       this.priceBuyBind = dataBuyArray.sort((a, b) => {return b[0] - a[0] });
+        this.priceBuyBind = dataBuyArray.sort((a, b) => {return b[0] - a[0] });
     
       }
       //   if(recendData !=undefined){
@@ -158,11 +176,25 @@ export default {
       this.price=fillPrice
 
     },
-
-    
+    async activebuysell() {
+      this.buyselltab = true;
+      this.selltab = false;
+      this.buytab = false;
+    },
+    async activesell() {
+      this.selltab = true;
+      this.buyselltab = false;
+      this.buytab = false;
+      this.showbuyandsell = false
+    },    
+    async activebuy() {
+      this.buytab = true;
+      this.buyselltab = false;
+      this.selltab = false;
+      this.showbuyandsell = false
+    }
   },
   mounted() {
-   
     this.setData();
   },
   created: function () {
@@ -240,13 +272,13 @@ export default {
 @import "../../assets/scss/Trade/Trade";
 
 .tbl {
-   max-height: 165px;
-  overflow: hidden;
+ //  max-height: 165px;
+ // overflow: hidden;
 }
 
 .tbl2{
-   max-height: 230px;
-  overflow: hidden;
+  //  max-height: 230px;
+  // overflow: hidden;
 }
 
 .read-more {
