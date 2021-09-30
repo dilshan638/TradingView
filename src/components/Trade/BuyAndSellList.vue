@@ -14,6 +14,7 @@
                 </h2>
                 <i class="ri-arrow-right-s-line"></i>
                 <h2>Order Book</h2>
+                
                 <div class="sub-trade-row">
                   <h3>Wallet Balances</h3>
                   <h3>BTC/USDT</h3>
@@ -93,11 +94,7 @@
                                   <td class="text-right">{{parseFloat(buy[4]).toFixed(2)}}</td>
                         </tr>
 
-                         
-
-                          
-    
-                        </tbody>
+                    </tbody>
                       </table>
                     </div>
                   </div>
@@ -178,12 +175,7 @@ export default {
       priceSell: [],
       priceSellBind: [],
 
-      test: [
-        ["100", "200.123", "300.1234"],
-        ["400.33", "500.43445", "600.5656"],
-        ["99.4545436", "199.5656", "299.557"],
-        ["9.566", "8.565", "10000.565"],
-      ],
+     
 
       deci:"0",
       buyTotal:0,
