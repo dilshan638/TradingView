@@ -150,13 +150,15 @@ export default {
       fill:"",
       price:"",
        deci:"0.01",
+       
+      
 
    };
   },
 
   methods: {
 
-  async onChange(event){
+ async onChange(event){
       this.deci=event.target.value
     },
   async selectedSymbol(SelectedSymbol){
@@ -190,14 +192,14 @@ export default {
 
     async setData(dataSellArray, dataBuyArray, recendData, fillPrice) {
       console.log(dataSellArray)
-       if(dataSellArray!=undefined ){
+      // if(dataSellArray!=undefined ){
        this.priceSellBind = dataSellArray.sort((a, b) => {return a[0] - b[0] });
     
-      }
-        if(dataBuyArray !=undefined){
+     // }
+       // if(dataBuyArray !=undefined){
        this.priceBuyBind = dataBuyArray.sort((a, b) => {return b[0] - a[0] });
     
-      }
+     // }
       //   if(recendData !=undefined){
     
     
@@ -211,6 +213,7 @@ export default {
   },
   mounted() {
    
+
     this.setData();
   },
   created: function () {

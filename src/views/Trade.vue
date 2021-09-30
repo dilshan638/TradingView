@@ -15,7 +15,7 @@
                    <!-- <recent-trades /> -->
                 </div>
                 <div class="col-md-6">
-                    <buy-sell @chooseCurrency="getselectedCoin" :sellPrice="SellPrice" :SellAmount="SellAmount" :SelectedSymbol="SelectedSymbol" />
+                    <buy-sell @chooseCurrency="getselectedCoin" :sellPrice="SellPrice" :SellAmount="SellAmount" :SelectedSymbol="SelectedSymbol" :pairName="pairName"/>
                 </div>
             </div>
         </div>

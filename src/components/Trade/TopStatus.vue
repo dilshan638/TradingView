@@ -163,12 +163,16 @@ export default {
       console.log(localStorage.getItem("selectedmainCoin"))
       console.log(localStorage.getItem("selectedmainCurrency"))
       this.$emit("chooseCurrency", this.selectedcurrency)
+
+      this.$emit("symbol", "BTC")
+         this.$emit("pair_name", "USDC")
     }    
   },
   mounted() {
     this.setData();
     this.getMarketDropdown();
     this.setCoin();
+
   },
   computed: {
     filterCoins: function(){

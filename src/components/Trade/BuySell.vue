@@ -24,7 +24,7 @@
                     </div>
                     <input type="text" class="form-control"   aria-label="" :value="SellAmount"  />
                     <div class="input-group-append">
-                        <span class="input-group-text">BTC</span>
+                        <span class="input-group-text">{{SelectedSymbol}}</span>
                     </div>
                     <span class="error-msg" v-if="v$.amount.$error">Amount is {{ v$.amount.$errors[0].$message }} </span>
                 </div>
@@ -34,7 +34,7 @@
                     </div>
                     <input type="text" class="form-control" :value="sellPrice"   aria-label="" />
                     <div class="input-group-append">
-                        <span class="input-group-text">USD</span>
+                        <span class="input-group-text">{{pairName}}</span>
                     </div>
                     <span class="error-msg" v-if="v$.price.$error">Price is {{ v$.price.$errors[0].$message }} </span>
                 </div>                  
@@ -83,7 +83,7 @@ import axios from 'axios';
 export default {
     name:'orderbook',
 
-    props:["sellPrice","SellAmount","SelectedSymbol"],
+    props:["sellPrice","SellAmount","SelectedSymbol","pairName"],
     components: {
     },
     setup() {
