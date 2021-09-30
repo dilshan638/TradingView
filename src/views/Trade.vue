@@ -3,19 +3,19 @@
     <div class="row">
         
         <div class="col-md-7 no-padding-right">
-          <top-status />
+          <top-status @symbol="selectSymbol" @pair_name="selectPair" />
           <top-chart />
           <order-history  />
         </div>
         <div class="col-md-5">
             <div class="row">
                 <div class="col-md-6 no-padding-right">
-                   <order-book @sellPriceOrderBookPass="sellPriceOrderBook" />
+                   <order-book @sellPriceOrderBookPass="sellPriceOrderBook" @sellAmountOrderBookPass="sellAmountOrderBook" :SelectedSymbol="SelectedSymbol" :pairName="pairName" />
                  
                    <!-- <recent-trades /> -->
                 </div>
                 <div class="col-md-6">
-                    <buy-sell @chooseCurrency="getselectedCoin" :sellPrice="SellPrice" />
+                    <buy-sell @chooseCurrency="getselectedCoin" :sellPrice="SellPrice" :SellAmount="SellAmount" :SelectedSymbol="SelectedSymbol" />
                 </div>
             </div>
         </div>
@@ -45,7 +45,11 @@ export default {
     },
     data() {
       return {
-        SellPrice:""
+        SellPrice:"",
+        SellAmount:"",
+
+        SelectedSymbol:"",
+        pairName:"",
       }
     },
     methods: {
@@ -57,8 +61,19 @@ export default {
 
         async sellPriceOrderBook(price){
           this.SellPrice=price
-       
+       },
 
+       async sellAmountOrderBook(amount){
+          this.SellAmount=amount
+       },
+
+        async selectPair(Pair){
+          this.pairName=Pair
+        },
+
+        async selectSymbol(symbol){
+          this.SelectedSymbol=symbol
+        
         }
 
 

@@ -19,9 +19,10 @@
             <div class="price-form">
                 <div class="input-group mb-3" :class="{ 'new-error': v$.amount.$error }">
                     <div class="input-group-prepend">
-                        <span class="input-group-text">Amount</span>
+                        <span class="input-group-text">Amount</span>  
+                        <!-- :value="SellAmount" v-model="state.amount" -->
                     </div>
-                    <input type="text" class="form-control"  :value="sellPrice"  aria-label="" />
+                    <input type="text" class="form-control"   aria-label="" :value="SellAmount"  />
                     <div class="input-group-append">
                         <span class="input-group-text">BTC</span>
                     </div>
@@ -31,7 +32,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Price</span>
                     </div>
-                    <input type="text" class="form-control" v-model="state.price" aria-label="" />
+                    <input type="text" class="form-control" :value="sellPrice"   aria-label="" />
                     <div class="input-group-append">
                         <span class="input-group-text">USD</span>
                     </div>
@@ -54,8 +55,8 @@
                 <div class="row">
                     <div class="col-md-12">
                         <button class="btn btn-primary pass-btn buyaction" @selectcoin="selectedcurrency = 'new name'" 
-                        v-if="buytab" @click="buybtcformaction">BUY {{selectedcurrency}}</button>
-                        <button class="btn btn-primary pass-btn sellaction" v-else @click="buybtcformaction">SELL {{selectedcurrency}}</button>
+                        v-if="buytab" @click="buybtcformaction">BUY/{{SelectedSymbol}} {{selectedcurrency}}</button>
+                        <button class="btn btn-primary pass-btn sellaction" v-else @click="buybtcformaction">SELL/{{SelectedSymbol}} {{selectedcurrency}}</button>
                         <!-- <ul>
                             <li v-for="sell in coin" :key="sell">
                                 {{ sell.symbol }}
@@ -82,7 +83,7 @@ import axios from 'axios';
 export default {
     name:'orderbook',
 
-    props:["sellPrice"],
+    props:["sellPrice","SellAmount","SelectedSymbol"],
     components: {
     },
     setup() {
@@ -131,6 +132,10 @@ export default {
         }
     },
     methods:{
+
+        // async Priceamount(){
+
+        // },
         async buybtcformaction() {
             this.v$.amount.$touch()
             this.v$.price.$touch()

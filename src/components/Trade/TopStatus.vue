@@ -63,6 +63,7 @@
 // eslint-disable-next-line no-unused-vars
 import axios from 'axios';
 export default {
+   emits: ["symbol","pair_name"],
   name: "topstatus",
   data() {
     return {
@@ -148,8 +149,13 @@ export default {
       this.selectedcoin = pair_name;
       this.selectedcoinimage = image;
       this.selectedcurrency = currency;
+
       this.setCoin();
-      //alert(currency)
+     
+     
+        this.$emit("symbol", currency)
+         this.$emit("pair_name", pair_name.substring(pair_name.lastIndexOf("/") + 1))
+
     },
     async setCoin() {
       localStorage.setItem("selectedmainCoin", this.selectedcoin)
