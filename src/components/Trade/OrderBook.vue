@@ -18,7 +18,7 @@
           </thead>
           <tbody>
             <tr v-for="sell in priceSellBind" :key="sell">
-              <td>{{ sell[0] }}</td>
+              <td @click="sellPriceOrderBook(sell[0])">{{ sell[0] }}</td>
               <td>{{ sell[1] }}</td>
               <td class="text-right">{{ sell[0] * sell[1] }}</td>
             </tr>
@@ -42,7 +42,7 @@
       <div class="trade-body tbl">
         <table lass="table table-hover" style="width:100% !important;">
           <tr class="plus" v-for="buy in priceBuyBind" :key="buy">
-            <td >{{ buy[0] }}</td>
+            <td  @click="sellPriceOrderBook(buy[0])" >{{ buy[0] }}</td>
             <td >{{ buy[1] }}</td>
             <td class="text-right">{{ buy[0] * buy[1] }}</td>
           </tr>
@@ -64,7 +64,7 @@
           </thead>
           <tbody>
             <tr v-for="recent in recentData" :key="recent">
-              <td v-bind:class="[recent.side == 'buy' ? 'buy' : 'sell']">
+              <td v-bind:class="[recent.side == 'buy' ? 'buy' : 'sell']"  @click="sellPriceOrderBook(recent.price)" >
                 {{ recent.price }}
               </td>
               <td>{{recent.size}} </td>
@@ -80,7 +80,9 @@
 
 <script>
 export default {
+    emits: ["sellPriceOrderBookPass"],
   name: "orderbook",
+   
   data() {
     return {
       connection: null,
@@ -105,7 +107,11 @@ export default {
 
   methods: {
 
+  async sellPriceOrderBook(pr){
+    this.$emit("sellPriceOrderBookPass", pr)
+   
   
+  },
 
     async sendMessage() {
       try {
@@ -142,6 +148,8 @@ export default {
       this.price=fillPrice
 
     },
+
+    
   },
   mounted() {
    
@@ -203,7 +211,7 @@ export default {
           }
         }
       }
-
+       
       ts.setData(ts.priceSell, ts.priceBuy, ts.recentDataLoop,ts.fill);
 
       //}

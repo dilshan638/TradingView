@@ -21,7 +21,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Amount</span>
                     </div>
-                    <input type="text" class="form-control" v-model="state.amount" aria-label="" />
+                    <input type="text" class="form-control"  :value="sellPrice"  aria-label="" />
                     <div class="input-group-append">
                         <span class="input-group-text">BTC</span>
                     </div>
@@ -81,6 +81,8 @@ import axios from 'axios';
 
 export default {
     name:'orderbook',
+
+    props:["sellPrice"],
     components: {
     },
     setup() {
