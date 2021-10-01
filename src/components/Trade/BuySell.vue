@@ -43,7 +43,7 @@
                     <div class="col-6">
                         <div class="bottom-v">
                             <b>Fee (0.1%) :</b>
-                            <b>0.00</b>
+                            <b>{{trade_fee}}</b>
                         </div>
                     </div>
                     <div class="col-6">
@@ -118,8 +118,11 @@ export default {
             marketTab: false,
             stopTab: false,
             stoplimitTab: false,
+
             userBalance: '',
             selectedcurrency: localStorage.getItem("selectedcurrency"),
+            coindata: [],
+            trade_fee: '',
 
             total:this.state.price*this.state.amount,
             coin: [],
@@ -133,10 +136,33 @@ export default {
         }
     },
     methods:{
+        async getPairDetails() {
+        const headers = {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem(
+            "X-LDX-Inspira-Access-Token"
+            )}`,
+        };           
+        axios.get("https://dapi.exus.live/api/mobile/v1/trade/marcket/trade/pair", {headers: headers})
+            .then((res) => {
+            this.coindata =  res.data;
+            console.log(this.coindata);
 
-        // async Priceamount(){
+            for (let i = 0; i < this.coindata.length; i++) {
+                if (this.coindata[i]["pair_name"] == this.selectedcurrency) {
+                this.trade_fee = this.coindata[i].trade_fee;
+                console.log(this.trade_fee)
+                }                
+            }
+                // this.coin = this.coindata[i].pair_name.toLowerCase();
+                // this.lastprice = this.coindata[i].price;
+                // this.priceChanege = this.coindata[i].change_24h;
 
-        // },
+        })
+            .catch(function (error) {
+            console.log(error);
+            })
+        },
         async buybtcformaction() {
             this.v$.amount.$touch()
             this.v$.price.$touch()
@@ -251,6 +277,7 @@ export default {
         this.getUserBalance();
         this.checkUserBalance();
         this.setCuurency();
+        this.getPairDetails();
     },
     updated() {
 

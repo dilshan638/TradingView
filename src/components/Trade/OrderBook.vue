@@ -49,7 +49,7 @@
         </div>        
       </div>
       <div class="top-order-book">
-        <div class="trade-body sell-body">
+        <div class="trade-body sell-body" v-if="showbuyandsell == true || showsell == true ">
           <table class="table table-hover">
             <tbody>
               <tr v-for="sell in priceSellBind" :key="sell">
@@ -75,7 +75,7 @@
             </tbody>
           </table>
         </div>
-        <div class="trade-body buy-body">
+        <div class="trade-body buy-body" v-if="showbuyandsell == true || showbuy == true ">
           <table lass="table table-hover" style="width:100% !important;">
               <!-- <tr v-for="sell in priceSellBind" :key="sell">
                 <td @click="sellPriceOrderBook(sell[0])">{{ sell[0] }}</td>
@@ -146,6 +146,8 @@ export default {
       selltab: false,
       buytab: false,
       showbuyandsell: true,
+      showbuy: false,
+      showsell: false,
 
       connection: null,
       priceSell: [],
@@ -202,18 +204,9 @@ export default {
   },
     async setData(dataSellArray, dataBuyArray, recendData, fillPrice) {
       console.log(dataSellArray)
-      // if(dataSellArray!=undefined ){
-       this.priceSellBind = dataSellArray.sort((a, b) => {return a[0] - b[0] });
-    
-     // }
-       // if(dataBuyArray !=undefined){
-       this.priceBuyBind = dataBuyArray.sort((a, b) => {return b[0] - a[0] });
-    
-     // }
-      //   if(recendData !=undefined){
-    
-    
-      // }
+      this.priceSellBind = dataSellArray.sort((a, b) => {return a[0] - b[0] });
+      this.priceBuyBind = dataBuyArray.sort((a, b) => {return b[0] - a[0] });
+
       this.recentData = recendData.reverse();
       this.price=fillPrice
 
@@ -222,18 +215,29 @@ export default {
       this.buyselltab = true;
       this.selltab = false;
       this.buytab = false;
+
+      this.showbuyandsell = true;
+      this.showbuy = false;
+      this.showsell = false;
+
     },
     async activesell() {
       this.selltab = true;
       this.buyselltab = false;
       this.buytab = false;
-      this.showbuyandsell = false
+
+      this.showbuyandsell = false;
+      this.showbuy = false;
+      this.showsell = true;
     },    
     async activebuy() {
       this.buytab = true;
       this.buyselltab = false;
       this.selltab = false;
-      this.showbuyandsell = false
+
+      this.showbuyandsell = false;
+      this.showbuy = true;
+      this.showsell = false;
     }
   },
   mounted() {
