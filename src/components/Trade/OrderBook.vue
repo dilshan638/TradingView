@@ -35,58 +35,70 @@
           </div>
         </div>
       </div>
-      <div class="trade-body tbl">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th scope="col">Price(USDT)</th>
-              <th scope="col">Amount(LDXI)</th>
-              <th scope="col" class="text-right">Total</th>
+      <div class="top-title">
+        <div class="trade-body">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Price({{pairName}})</th>
+                <th scope="col">Amount({{SelectedSymbol}})</th>
+                <th scope="col" class="text-right">Total</th>
+              </tr>
+            </thead>
+          </table>
+        </div>        
+      </div>
+      <div class="top-order-book">
+        <div class="trade-body sell-body">
+          <table class="table table-hover">
+            <tbody>
+              <tr v-for="sell in priceSellBind" :key="sell">
+                <td @click="sellPriceOrderBook(sell[0])">{{ sell[0] }}</td>
+                <td @click="amountOrderBook(sell[1])">{{ sell[1] }}</td>
+                <td class="text-right">{{ sell[0] * sell[1] }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="trade-body middle-bdy">
+          <table class="table table-hover special">
+            <tbody>
+              <tr>
+                <td class="success-tst">{{price}}</td>
+                <td class="mid">${{price}}</td>
+                <td class="text-right"> 
+                    <div class="read-more">
+                      <router-link to="/buy-sell-list">More</router-link>
+                    </div>
+                  </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="trade-body buy-body">
+          <table lass="table table-hover" style="width:100% !important;">
+              <!-- <tr v-for="sell in priceSellBind" :key="sell">
+                <td @click="sellPriceOrderBook(sell[0])">{{ sell[0] }}</td>
+                <td @click="amountOrderBook(sell[1])">{{ sell[1] }}</td>
+                <td class="text-right">{{ sell[0] * sell[1] }}</td>
+              </tr>             -->
+            <tr class="plus" v-for="buy in priceBuyBind" :key="buy">
+              <td @click="sellPriceOrderBook(buy[0])" >{{ buy[0] }}</td>
+              <td @click="amountOrderBook(buy[1])">{{ buy[1] }}</td>
+              <td class="text-right">{{ buy[0] * buy[1] }}</td>
             </tr>
-          </thead>
-          <tbody>
-            <tr v-for="sell in priceSellBind" :key="sell">
-              <td @click="sellPriceOrderBook(sell[0])">{{ sell[0] }}</td>
-              <td>{{ sell[1] }}</td>
-              <td class="text-right">{{ sell[0] * sell[1] }}</td>
-            </tr>
-          </tbody>
-        </table>
+          </table>
+        </div>        
       </div>
-      <div class="trade-body">
-        <table class="table table-hover special">
-        <tbody>
-          <tr>
-            <td class="success-tst">{{price}}</td>
-            <td class="mid">${{price}}</td>
-            <td class="text-right"> <div class="read-more">
-            <router-link to="/buy-sell-list">More</router-link>
-      </div>
-      </td>
-          </tr>
-        </tbody>
-      </table>
-      </div>
-      <div class="trade-body">
-        <table lass="table table-hover" style="width:100% !important;">
-          <tr class="plus" v-for="buy in priceBuyBind" :key="buy">
-            <td  @click="sellPriceOrderBook(buy[0])" >{{ buy[0] }}</td>
-            <td >{{ buy[1] }}</td>
-            <td class="text-right">{{ buy[0] * buy[1] }}</td>
-          </tr>
-        </table>
-      </div>
-      
     </div>
-
     <div class="trade-box">
       <div class="trade-header">Recent Trades</div>
       <div class="trade-body tbl2">
         <table class="table table-hover">
           <thead>
             <tr>
-              <th scope="col">Price(USDT)</th>
-              <th scope="col">Amount(LDXI)</th>
+              <th scope="col">Price({{pairName}})</th>
+              <th scope="col">Amount({{SelectedSymbol}})</th>
               <th scope="col" class="text-right">Total</th>
             </tr>
           </thead>
@@ -95,7 +107,7 @@
               <td v-bind:class="[recent.side == 'buy' ? 'buy' : 'sell']"  @click="sellPriceOrderBook(recent.price)" >
                 {{ recent.price }}
               </td>
-              <td>{{recent.size}} </td>
+              <td  @click="amountOrderBook(recent.size)">{{recent.size}} </td>
               <td class="text-right">{{ recent.price * recent.size }}</td>
             </tr>
           </tbody>
@@ -108,8 +120,9 @@
 
 <script>
 export default {
-    emits: ["sellPriceOrderBookPass"],
+    emits: ["sellPriceOrderBookPass","sellAmountOrderBookPass"],
   name: "orderbook",
+  props:["SelectedSymbol","pairName"],
    
   data() {
     return {
@@ -139,34 +152,40 @@ export default {
   },
 
   methods: {
-    async sellPriceOrderBook(pr){
-      this.$emit("sellPriceOrderBookPass", pr)
-    },
-    async sendMessage() {
-      try {
-        this.connection.send(
-          JSON.stringify({
-            type: "subscribe",
-            product_ids: ["BTC-USDT"],
-            currency_ids: [],
-            channels: ["ticker", "match", "level2", "funds", "order"],
-            token: "",
-            //"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoYXJha2FAZ21haWwuY29tIiwiZXhwaXJlZEF0IjoxNjMyMTU4MDQ5LCJpZCI6NDEsInBhc3N3b3JkSGFzaCI6ImFlMDA1Y2ViN2U5YTIxN2NjZWQyZjhhYTM1NDE4N2M3In0.6KW--OvqAjUbVNP6r0b4avksK0R6MBi_FzmYtptDknQ",
-          })
-        );
-      } catch (error) {
-        console.log(error);
-      }
-    },
+
+
+  async selectedSymbol(SelectedSymbol){
+    this.symbol =SelectedSymbol
+  },
+  async sellPriceOrderBook(value){
+    this.$emit("sellPriceOrderBookPass", value)
+  },
+  async amountOrderBook(amount){
+     this.$emit("sellAmountOrderBookPass", amount)
+  },
+  async sendMessage() {
+    try {
+      this.connection.send(
+        JSON.stringify({
+          type: "subscribe",
+          product_ids: ["BTC-USDT"],
+          currency_ids: [],
+          channels: ["ticker", "match", "level2", "funds", "order"],
+          token: "",
+          //"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoYXJha2FAZ21haWwuY29tIiwiZXhwaXJlZEF0IjoxNjMyMTU4MDQ5LCJpZCI6NDEsInBhc3N3b3JkSGFzaCI6ImFlMDA1Y2ViN2U5YTIxN2NjZWQyZjhhYTM1NDE4N2M3In0.6KW--OvqAjUbVNP6r0b4avksK0R6MBi_FzmYtptDknQ",
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  },
     async setData(dataSellArray, dataBuyArray, recendData, fillPrice) {
       console.log(dataSellArray)
-        if(dataSellArray!=undefined ){
+      if(dataSellArray!=undefined ){
         this.priceSellBind = dataSellArray.sort((a, b) => {return a[0] - b[0] });
-    
       }
-        if(dataBuyArray !=undefined){
+      if(dataBuyArray !=undefined){
         this.priceBuyBind = dataBuyArray.sort((a, b) => {return b[0] - a[0] });
-    
       }
       //   if(recendData !=undefined){
     
@@ -270,16 +289,6 @@ export default {
 
 <style lang="scss" scoped>
 @import "../../assets/scss/Trade/Trade";
-
-.tbl {
- //  max-height: 165px;
- // overflow: hidden;
-}
-
-.tbl2{
-  //  max-height: 230px;
-  // overflow: hidden;
-}
 
 .read-more {
   padding: 0;

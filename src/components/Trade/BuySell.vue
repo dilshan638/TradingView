@@ -19,10 +19,10 @@
             <div class="price-form">
                 <div class="input-group mb-3" :class="{ 'new-error': v$.amount.$error }">
                     <div class="input-group-prepend">
-                        <span class="input-group-text">Amount</span>
+                        <span class="input-group-text">Amount</span>  
+                        <!-- :value="SellAmount" v-model="state.amount" -->
                     </div>
-                    <!-- :value="sellPrice" -->
-                    <input type="text" class="form-control" v-model="state.amount"  aria-label="" />
+                    <input type="text" class="form-control" v-model="state.amount"  />
                     <div class="input-group-append">
                         <span class="input-group-text">BTC</span>
                     </div>
@@ -32,7 +32,8 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Price</span>
                     </div>
-                    <input type="text" class="form-control" v-model="state.price" aria-label="" />
+                    <!-- v-bind:value="sellPrice" -->
+                    <input type="text" class="form-control" @input="setAmount" id="priceval" v-model="state.price" />
                     <div class="input-group-append">
                         <span class="input-group-text">USD</span>
                     </div>
@@ -55,8 +56,8 @@
                 <div class="row">
                     <div class="col-md-12">
                         <button class="btn btn-primary pass-btn buyaction" @selectcoin="selectedcurrency = 'new name'" 
-                        v-if="buytab" @click="buybtcformaction">BUY {{selectedcurrency}}</button>
-                        <button class="btn btn-primary pass-btn sellaction" v-else @click="buybtcformaction">SELL {{selectedcurrency}}</button>
+                        v-if="buytab" @click="buybtcformaction">BUY {{SelectedSymbol}} {{selectedcurrency}}</button>
+                        <button class="btn btn-primary pass-btn sellaction" v-else @click="buybtcformaction">SELL {{SelectedSymbol}} {{selectedcurrency}}</button>
                         <!-- <ul>
                             <li v-for="sell in coin" :key="sell">
                                 {{ sell.symbol }}
@@ -83,7 +84,7 @@ import axios from 'axios';
 export default {
     name:'orderbook',
 
-    props:["sellPrice"],
+    props:["sellPrice","SellAmount","SelectedSymbol"],
     components: {
     },
     setup() {
@@ -132,6 +133,10 @@ export default {
         }
     },
     methods:{
+
+        // async Priceamount(){
+
+        // },
         async buybtcformaction() {
             this.v$.amount.$touch()
             this.v$.price.$touch()
@@ -143,7 +148,7 @@ export default {
                     "Content-Type": "application/json",
                     "Access-Control-Allow-Origin": "*",
                     "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
-                     "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+                    "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
                 };                
                 var data = {
                     "client_oid":"1616663784828",
@@ -231,7 +236,8 @@ export default {
             }          
         },
        async setAmount() {
-            this.state.amount = this.sellPrice;
+            // document.getElementById("priceval").value = this.sellPrice;
+            // this.state.price = this.sellPrice
         },
         getUserBalance() {
             this.coin = JSON.parse(localStorage.getItem("arraySymbol"));
@@ -245,7 +251,16 @@ export default {
         this.getUserBalance();
         this.checkUserBalance();
         this.setCuurency();
-    }
+    },
+    updated() {
+
+    },
+    watch: {
+        // `visible(value) => this.isVisible = value` could work too
+        visible() {
+        this.isVisible = this.$props.visible
+        }
+    }    
 }
 
 </script>

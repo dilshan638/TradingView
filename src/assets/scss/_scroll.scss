@@ -1,0 +1,56 @@
+.trade-body::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Track */
+  .trade-body::-webkit-scrollbar-track {
+    background: #242424; 
+  }
+   
+  /* Handle */
+  .trade-body::-webkit-scrollbar-thumb {
+    background: #9597af; 
+    border-radius: 5px;
+  }
+  
+  /* Handle on hover */
+  .trade-body::-webkit-scrollbar-thumb:hover {
+    background: red; 
+  }
+
+  .sell-body{
+    position: absolute;
+    height: 45%;
+    overflow-y: auto;
+    width: 100%;
+    left: 0;
+    top: 15px;
+    margin: 0 !important;
+  }
+  .middle-bdy{
+    position: absolute;
+    height: 6%;
+    overflow-y: auto;
+    width: 100%;
+    left: 0;
+    top: 49%;
+    margin-top: 0 !important;
+  }
+  .buy-body{
+    position: absolute;
+    height: 45%;
+    /* overflow-y: hidden; */
+    width: 100%;
+    left: 0;
+    top: 55%;
+    overflow-y: auto;
+    margin: 0 !important;
+  }
+
+  .trade-body{
+
+    table{
+        margin: 0 !important;
+    }
+
+  }
