@@ -130,7 +130,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="recent in recentData.slice" :key="recent"  v-show="deci=='0.01'">
+            <tr v-for="recent in recentData" :key="recent"  v-show="deci=='0.01'">
               <td v-bind:class="[recent.side == 'buy' ? 'buy' : 'sell']"  @click="sellPriceOrderBook(recent.price)" >
                 {{ parseFloat(recent.price).toFixed(2) }}
               </td>
