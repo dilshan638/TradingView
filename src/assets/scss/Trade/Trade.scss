@@ -25,6 +25,10 @@
             margin-left: 5px;
             border-radius: 3px;
             padding: 3px;
+
+            &:hover{
+                opacity: 1;
+            }
         }
 
         .active{
@@ -58,7 +62,7 @@
                     border: none;
                     font-size: 0.65rem;
                     vertical-align: middle;
-                    padding: 0.1rem 0.5rem 0.1rem 0.5rem;
+                    padding: 0.1rem 0.5rem 0.1rem 0;
                     color: #fff;
                     /* vertical-align: middle; */
                     font-weight: 500;
@@ -71,7 +75,7 @@
                 &:last-child{
                     
                     td{
-                        padding: 0.1rem 0.5rem 0.1rem 0.5rem;
+                        padding: 0.1rem 0.5rem 0.1rem 0;
                     }
 
                 }
@@ -444,7 +448,7 @@
     min-height: 540px;
     position: relative;
     height: 100%;
-    margin-right: -15px;
+    margin-right: -6px;
 }
 
 select.sel-val{
@@ -466,3 +470,72 @@ select.sel-val{
         border: none !important;
     }
 }
+
+.tab-top{
+    float: left;
+    width: 100%;
+    padding: 15px;
+  }
+  .top-tab{
+    float: left;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    width: 46%;
+    background-color: #393939;
+    padding: 7px;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+
+    &:last-child{
+            margin-right: 0 !important;
+    }
+  }
+  .top-tab.active.buy-btn{
+      background-color: #60db78;
+      color: #fff !important;
+  }
+    .top-tab.active.sell-btn{
+      background-color: #f14848;
+      color: #fff !important;
+  }
+  .buy-sell-content{
+    float: left;
+    width: 100%;
+    padding: 15px;
+  }
+  .sub-type{
+    float: left;
+    margin-right: 17px;
+    margin-bottom: 15px;
+    font-family: Rubik;
+    font-size: 0.7rem;
+    margin-bottom: 0 !important;
+    cursor: pointer;
+
+    &:hover{
+    color: white;
+    border-bottom: solid 2px;
+    padding-bottom: 7px;
+    }
+
+  }
+  .sub-type.active{
+    color: white;
+    border-bottom: solid 2px;
+    padding-bottom: 7px;
+  }
+  .price-form{
+    float: left;
+    width: 100%;
+    padding: 15px;
+  }
+  .pass-btn{
+    float: left;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    max-width: none;
+    margin-top: 30px;
+  }

@@ -1,3 +1,17 @@
+body::-webkit-scrollbar {
+    width: 5px;
+  }
+   
+body::-webkit-scrollbar-track {
+box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+body::-webkit-scrollbar-thumb {
+background-color: #4e4e4e;
+outline: 1px solid 464b85;
+border-radius: 5px;
+}
+
 .trade-body::-webkit-scrollbar {
     width: 5px;
   }
@@ -15,9 +29,9 @@
   
   /* Handle on hover */
   .trade-body::-webkit-scrollbar-thumb:hover {
-    background: red; 
+   // background: red; 
   }
-  
+
 
   .sell-body{
     position: absolute;

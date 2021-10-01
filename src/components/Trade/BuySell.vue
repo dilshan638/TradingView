@@ -41,8 +41,8 @@
                 <div class="row">
                     <div class="col-6">
                         <div class="bottom-v">
-                            <b>Fee (0.1%) :</b>
-                            <b>{{trade_fee}}</b>
+                            <b>Fee {{ trade_fee }} :</b>
+                            <b>{{parseFloat(trade_fee).toFixed(3) }}</b>
                         </div>
                     </div>
                     <div class="col-6">
@@ -55,8 +55,8 @@
                 <div class="row">
                     <div class="col-md-12">
                         <button class="btn btn-primary pass-btn buyaction" @selectcoin="selectedcurrency = 'new name'" 
-                        v-if="buytab" @click="buybtcformaction">BUY {{SelectedSymbol}} {{selectedcurrency}}</button>
-                        <button class="btn btn-primary pass-btn sellaction" v-else @click="buybtcformaction">SELL {{SelectedSymbol}} {{selectedcurrency}}</button>
+                        v-if="buytab" @click="buybtcformaction">BUY {{SelectedSymbol}}</button>
+                        <button class="btn btn-primary pass-btn sellaction" v-else @click="buybtcformaction">SELL {{SelectedSymbol}} {{full_pair_name}}</button>
                     </div>
                 </div>
             </div>
@@ -78,7 +78,7 @@ import axios from 'axios';
 export default {
     name:'orderbook',
 
-    props:["sellPrice","SellAmount","SelectedSymbol","pairName"],
+    props:["sellPrice","SellAmount","SelectedSymbol","pairName", "fullPairName"],
     components: {
     },
     setup() {
@@ -112,9 +112,10 @@ export default {
             marketTab: false,
             stopTab: false,
             stoplimitTab: false,
+            test2: '',
 
             userBalance: '',
-            selectedcurrency: localStorage.getItem("selectedcurrency"),
+            selectedcurrency: localStorage.getItem("selectedmainCoin"),
             coindata: [],
             trade_fee: '',
 
@@ -130,6 +131,9 @@ export default {
         }
     },
     methods:{
+        async setSelectedCurrency() {
+            
+        },
         async getPairDetails() {
         const headers = {
             "Content-Type": "application/json",
@@ -140,25 +144,14 @@ export default {
         axios.get("https://dapi.exus.live/api/mobile/v1/trade/marcket/trade/pair", {headers: headers})
             .then((res) => {
             this.coindata =  res.data;
-            console.log(res.data[0]);
-            console.log("1")
-            console.log(res.data[0][1]["pair_name"])
-            console.log("2")  
-
-            console.log(this.selectedcurrency)
-
-            for (let i = 0; i < 20; i++) {
-                if(res.data[0][i]["pair_name"] == this.selectedcurrency) {
-                    this.trade_fee = this.coindata[i].trade_fee;
-                    console.log("3")
-                    console.log(this.trade_fee)
-                    console.log("4")
+            for (let i = 0; i < res.data[0].length; i++) {
+                console.log(res.data[0][i])
+                if(res.data[0][i]["pair_name"] == this.test2) {
+                     this.trade_fee =res.data[0][i].trade_fee
+                    // alert(fullPairName)
+                   //  alert(this.trade_fee)
                 }                
             }
-                // this.coin = this.coindata[i].pair_name.toLowerCase();
-                // this.lastprice = this.coindata[i].price;
-                // this.priceChanege = this.coindata[i].change_24h;
-
         })
             .catch(function (error) {
             console.log(error);
@@ -249,7 +242,7 @@ export default {
             this.marketTab = false;
             this.stopTab = true;
             this.stoplimitTab = false;
-            if(this.stopTab == true) {
+            if(this.stopTab == true) { 
                 this.type = "stop";
             }          
         },
@@ -270,7 +263,10 @@ export default {
            // alert(localStorage.getItem("totalBalances"))
         }       
     },
-  created: function() {
+created: function () {
+
+    this.test2 = localStorage.getItem("selectedmainCoin");
+    this.getPairDetails();
   },
   mounted() {
        this.getUserBalance();
@@ -284,72 +280,4 @@ export default {
 
 <style lang="scss" scoped>
   @import "../../assets/scss/Trade/Trade";
-  .tab-top{
-    float: left;
-    width: 100%;
-    padding: 15px;
-  }
-  .top-tab{
-    float: left;
-    margin-right: 15px;
-    margin-bottom: 15px;
-    width: 46%;
-    background-color: #393939;
-    padding: 7px;
-    border-radius: 5px;
-    text-align: center;
-    cursor: pointer;
-
-    &:last-child{
-            margin-right: 0 !important;
-    }
-  }
-  .top-tab.active.buy-btn{
-      background-color: #60db78;
-      color: #fff !important;
-  }
-    .top-tab.active.sell-btn{
-      background-color: #f14848;
-      color: #fff !important;
-  }
-  .buy-sell-content{
-    float: left;
-    width: 100%;
-    padding: 15px;
-  }
-  .sub-type{
-    float: left;
-    margin-right: 17px;
-    margin-bottom: 15px;
-    font-family: Rubik;
-    font-size: 0.7rem;
-    margin-bottom: 0 !important;
-    cursor: pointer;
-
-    &:hover{
-    color: white;
-    border-bottom: solid 2px;
-    padding-bottom: 7px;
-    }
-
-  }
-  .sub-type.active{
-    color: white;
-    border-bottom: solid 2px;
-    padding-bottom: 7px;
-  }
-  .price-form{
-    float: left;
-    width: 100%;
-    padding: 15px;
-  }
-  .pass-btn{
-    float: left;
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-    max-width: none;
-    margin-top: 30px;
-  }
 </style>

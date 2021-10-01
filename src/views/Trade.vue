@@ -1,9 +1,8 @@
 <template>
   <trade-layout>
-    <div class="row">
-        
+    <div class="row"> 
         <div class="col-md-7 no-padding-right">
-          <top-status @symbol="selectSymbol" @pair_name="selectPair" />
+          <top-status @symbol="selectSymbol" @pair_name="selectPair" @full_pair_name="setPairName" />
           <top-chart />
           <order-history  />
         </div>
@@ -15,7 +14,7 @@
                    <!-- <recent-trades /> -->
                 </div>
                 <div class="col-md-6">
-                    <buy-sell @chooseCurrency="getselectedCoin" :sellPrice="SellPrice" :SellAmount="SellAmount" :SelectedSymbol="SelectedSymbol" :pairName="pairName"/>
+                    <buy-sell @chooseCurrency="getselectedCoin" :sellPrice="SellPrice" :SellAmount="SellAmount" :SelectedSymbol="SelectedSymbol" :pairName="pairName" :fullPairName="fullPairName" />
                 </div>
             </div>
         </div>
@@ -47,6 +46,7 @@ export default {
       return {
         SellPrice:"",
         SellAmount:"",
+        fullPairName: "",
 
         SelectedSymbol:"",
         pairName:"",
@@ -55,8 +55,9 @@ export default {
     methods: {
         getselectedCoin (value) {
             alert(value) // someValue
-            
-           
+        },
+        setPairName(fullpair) {
+          this.fullPairName = fullpair
         },
 
         async sellPriceOrderBook(price){
