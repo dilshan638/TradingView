@@ -51,7 +51,7 @@
                     border: none;
                     border-bottom: solid 1px #393e77;
                     padding-bottom: 15px;
-                    padding: 0.5rem 1rem;
+                    padding: 0.5rem 0.1rem;
                 }
 
                 td{
@@ -445,4 +445,17 @@
     position: relative;
     height: 100%;
     margin-right: -15px;
+}
+
+select.sel-val{
+    float: right;
+    width: auto;
+    margin-left: 22px;
+    background-color: #4e4e4e;
+    color: #fff;
+    min-height: auto;
+    padding: 2px 9px;
+    line-height: 23px;
+    font-size: 0.7rem;
+    font-weight: 500;
 }

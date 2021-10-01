@@ -3,17 +3,23 @@
     <div class="trade-box">
       <div class="trade-header">
         Order Book
-        <div class="sw-b" @click="activebuy" v-bind:class="[buytab ? 'active' : '']">
+        <select class="form-control sel-val" @change="onChange($event)" >
+          <option value="0.01">0.01</option>
+          <option value="0.1">0.1</option>
+          <option value="0">1</option>
+        </select>
+        <div class="sw-b" @click="activebuy" v-bind:class="[buytab ? 'active' : '']" title="Buy">
           <div class="box-sm">
             <div class="half">
-              <div class="eql green-bg"></div>
+              <div class="eql green-bg">
+             </div>
             </div>
             <div class="half">
               <div class="eql blue-bg"></div>
             </div>
           </div>
         </div>        
-        <div class="sw-b" @click="activesell" v-bind:class="[selltab ? 'active' : '']">
+        <div class="sw-b" @click="activesell" v-bind:class="[selltab ? 'active' : '']" title="Sell">
           <div class="box-sm">
             <div class="half">
               <div class="eql red-bg"></div>
@@ -23,7 +29,7 @@
             </div>
           </div>
         </div>
-        <div class="sw-b" @click="activebuysell" v-bind:class="[buyselltab ? 'active' : '']">
+        <div class="sw-b" @click="activebuysell" v-bind:class="[buyselltab ? 'active' : '']" title="Buy and Sell">
           <div class="box-sm">
             <div class="half">
               <div class="eq red-bg"></div>
@@ -52,12 +58,25 @@
         <div class="trade-body sell-body" v-if="showbuyandsell == true || showsell == true ">
           <table class="table table-hover">
             <tbody>
-              <tr v-for="sell in priceSellBind" :key="sell">
-                <td @click="sellPriceOrderBook(sell[0])">{{ sell[0] }}</td>
-                <td @click="amountOrderBook(sell[1])">{{ sell[1] }}</td>
-                <td class="text-right">{{ sell[0] * sell[1] }}</td>
-              </tr>
-            </tbody>
+            <tr v-for="sell in priceSellBind" :key="sell" v-show="deci=='0.01'">
+              <td @click="sellPriceOrderBook(sell[0])">{{ parseFloat(sell[0]).toFixed(2) }}</td>
+              <td @click="amountOrderBook(sell[1])">{{ sell[1] }}</td>
+              <td class="text-right">{{ sell[0] * sell[1] }}</td>
+            </tr>
+
+             <tr v-for="sell in priceSellBind" :key="sell" v-show="deci=='0.1'">
+              <td @click="sellPriceOrderBook(sell[0])">{{ parseFloat(sell[0]).toFixed(1) }}</td>
+              <td @click="amountOrderBook(sell[1])">{{ sell[1] }}</td>
+              <td class="text-right">{{ sell[0] * sell[1] }}</td>
+            </tr>
+
+             <tr v-for="sell in priceSellBind" :key="sell" v-show="deci=='0'">
+              <td @click="sellPriceOrderBook(sell[0])">{{ parseFloat(sell[0]).toFixed(0) }}</td>
+              <td @click="amountOrderBook(sell[1])">{{ sell[1] }}</td>
+              <td class="text-right">{{ sell[0] * sell[1] }}</td>
+            </tr>
+
+          </tbody>
           </table>
         </div>
         <div class="trade-body middle-bdy">
@@ -76,18 +95,26 @@
           </table>
         </div>
         <div class="trade-body buy-body" v-if="showbuyandsell == true || showbuy == true ">
-          <table lass="table table-hover" style="width:100% !important;">
-              <!-- <tr v-for="sell in priceSellBind" :key="sell">
-                <td @click="sellPriceOrderBook(sell[0])">{{ sell[0] }}</td>
-                <td @click="amountOrderBook(sell[1])">{{ sell[1] }}</td>
-                <td class="text-right">{{ sell[0] * sell[1] }}</td>
-              </tr>             -->
-            <tr class="plus" v-for="buy in priceBuyBind" :key="buy">
-              <td @click="sellPriceOrderBook(buy[0])" >{{ buy[0] }}</td>
-              <td @click="amountOrderBook(buy[1])">{{ buy[1] }}</td>
-              <td class="text-right">{{ buy[0] * buy[1] }}</td>
-            </tr>
-          </table>
+         <table lass="table table-hover" style="width:100% !important;">
+
+          <tr class="plus" v-for="buy in priceBuyBind" :key="buy" v-show="deci=='0.01'">
+            <td @click="sellPriceOrderBook(buy[0])" >{{ parseFloat(buy[0]).toFixed(2) }}</td>
+            <td @click="amountOrderBook(buy[1])">{{ buy[1] }}</td>
+            <td class="text-right">{{ buy[0] * buy[1] }}</td>
+          </tr>
+
+          <tr class="plus" v-for="buy in priceBuyBind" :key="buy" v-show="deci=='0.1'">
+            <td @click="sellPriceOrderBook(buy[0])" >{{ parseFloat(buy[0]).toFixed(1) }}</td>
+            <td @click="amountOrderBook(buy[1])">{{ buy[1] }}</td>
+            <td class="text-right">{{ buy[0] * buy[1] }}</td>
+          </tr>
+
+          <tr class="plus" v-for="buy in priceBuyBind" :key="buy" v-show="deci=='0'">
+            <td @click="sellPriceOrderBook(buy[0])" >{{ parseFloat(buy[0]).toFixed(0) }}</td>
+            <td @click="amountOrderBook(buy[1])">{{ buy[1] }}</td>
+            <td class="text-right">{{ buy[0] * buy[1] }}</td>
+          </tr>
+          </table>          
         </div>        
       </div>
     </div>
@@ -165,7 +192,7 @@ export default {
       priceBuyUpdate: [],
       fill:"",
       price:"",
-       deci:"0.01",
+      deci:"0.01",
        
       
 
@@ -203,10 +230,10 @@ export default {
     }
   },
     async setData(dataSellArray, dataBuyArray, recendData, fillPrice) {
-      console.log(dataSellArray)
-      this.priceSellBind = dataSellArray.sort((a, b) => {return a[0] - b[0] });
-      this.priceBuyBind = dataBuyArray.sort((a, b) => {return b[0] - a[0] });
-
+       
+        this.priceSellBind = dataSellArray.sort((a, b) => {return a[0] - b[0] });
+        this.priceBuyBind = dataBuyArray.sort((a, b) => {return b[0] - a[0] });
+    
       this.recentData = recendData.reverse();
       this.price=fillPrice
 
@@ -245,7 +272,7 @@ export default {
 
     this.setData();
   },
-  created: function () {
+created: function () {
     const ts = this;
     this.connection = new WebSocket(
       "ws://34.152.9.147:8002/ws"
@@ -264,43 +291,60 @@ export default {
         }
 
 
-        //Order Book
-       if (ts.dataAl.type == "l2update") {
+      //   //Order Book
+      //  if (ts.dataAl.type == "l2update") {
 
-          ts.priceBuyUpdate =[]
+      //     ts.priceBuyUpdate =[]
 
-        if (ts.dataAl.changes[0][0] == "buy") {
-          ts.priceBuyUpdate[0] = ts.dataAl.changes[0][1];
-          ts.priceBuyUpdate[1] = ts.dataAl.changes[0][2];
-          ts.priceBuyUpdate[2] = 1;
+      //   if (ts.dataAl.changes[0][0] == "buy") {
+      //     ts.priceBuyUpdate[0] = ts.dataAl.changes[0][1];
+      //     ts.priceBuyUpdate[1] = ts.dataAl.changes[0][2];
+      //     ts.priceBuyUpdate[2] = 1;
 
-           console.log(ts.priceBuyUpdate);
-          ts.priceBuy.push(ts.priceBuyUpdate);
+      //      console.log(ts.priceBuyUpdate);
+      //     ts.priceBuy.push(ts.priceBuyUpdate);
          
-        }
-        if (ts.dataAl.changes[0][0] == "sell") {
-          ts.priceBuyUpdate[0] = ts.dataAl.changes[0][1];
-          ts.priceBuyUpdate[1] = ts.dataAl.changes[0][2];
-          ts.priceBuyUpdate[2] = 1;
+      //   }
+      //   if (ts.dataAl.changes[0][0] == "sell") {
+      //     ts.priceBuyUpdate[0] = ts.dataAl.changes[0][1];
+      //     ts.priceBuyUpdate[1] = ts.dataAl.changes[0][2];
+      //     ts.priceBuyUpdate[2] = 1;
 
-          ts.priceSell.push(ts.priceBuyUpdate);
-          console.log(ts.priceBuyUpdate);
-        }
+      //     ts.priceSell.push(ts.priceBuyUpdate);
+      //     console.log(ts.priceBuyUpdate);
+      //   }
 
-       // console.log("Updated Value  " + ts.priceBuy);
+      //  // console.log("Updated Value  " + ts.priceBuy);
 
-      } else {
+      // }
+      if (ts.dataAl.type == "l2update") {
+         ts.priceSell = [];
+         ts.priceBuy =[];
+         ts.priceSell = ts.dataAl.asks;
+         ts.priceBuy=ts.dataAl.bids
+           
+           }
+
+           
+      
+      else {
 
           
-         // Recent Trades //ts.dataAl.type == "order" || ts.dataAl.type == "match" || ***************To Do****************
+         // Recent Trades //ts.dataAl.type == "order" || ts.dataAl.type == "match" || ******To Do*****
+        
+        
+        
         if (ts.dataAl.type == "match") {
-           
+          
           for (let t = 0; t < 1; t++) {
             ts.recentDataLoop.push(ts.dataAl);
              ts.fill = ts.dataAl.price;
           }
         }
       }
+
+
+      
        
       ts.setData(ts.priceSell, ts.priceBuy, ts.recentDataLoop,ts.fill);
 

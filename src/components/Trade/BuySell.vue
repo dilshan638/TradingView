@@ -13,16 +13,16 @@
                     <div class="sub-type" @click="toLimit" v-bind:class="[limitTab == true ? 'active' : '']">LImit</div>
                     <div class="sub-type" @click="toMarket" v-bind:class="[marketTab == true ? 'active' : '']">Market</div>
                     <div class="sub-type" @click="toStop" v-bind:class="[stopTab == true ? 'active' : '']">Stop</div>
-                    <div class="sub-type" @click="toStopLimit" v-bind:class="[stoplimitTab == true ? 'active' : '']">Stop Limit</div>
+                    <div class="sub-type" @click="toStopLimit" v-bind:class="[stoplimitTab == true ? 'active' : '']">Limit</div>
                 </div>
             </div>
             <div class="price-form">
                 <div class="input-group mb-3" :class="{ 'new-error': v$.amount.$error }">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Amount</span>  
-                        <!-- :value="SellAmount" v-model="state.amount" -->
+                        <!-- :value="SellAmount" v-model="state.amount"  -->
                     </div>
-                    <input type="text" class="form-control" v-model="state.amount"  />
+                    <input type="text" class="form-control" v-model="state.amount"  aria-label=""   />
                     <div class="input-group-append">
                         <span class="input-group-text">{{SelectedSymbol}}</span>
                     </div>
@@ -32,8 +32,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Price</span>
                     </div>
-                    <!-- v-bind:value="sellPrice" -->
-                    <input type="text" class="form-control" @input="setAmount" id="priceval" v-model="state.price" />
+                    <input type="text" class="form-control" v-model="state.price"   aria-label="" />
                     <div class="input-group-append">
                         <span class="input-group-text">{{pairName}}</span>
                     </div>
@@ -58,11 +57,6 @@
                         <button class="btn btn-primary pass-btn buyaction" @selectcoin="selectedcurrency = 'new name'" 
                         v-if="buytab" @click="buybtcformaction">BUY {{SelectedSymbol}} {{selectedcurrency}}</button>
                         <button class="btn btn-primary pass-btn sellaction" v-else @click="buybtcformaction">SELL {{SelectedSymbol}} {{selectedcurrency}}</button>
-                        <!-- <ul>
-                            <li v-for="sell in coin" :key="sell">
-                                {{ sell.symbol }}
-                            </li>
-                        </ul> -->
                     </div>
                 </div>
             </div>
@@ -146,12 +140,17 @@ export default {
         axios.get("https://dapi.exus.live/api/mobile/v1/trade/marcket/trade/pair", {headers: headers})
             .then((res) => {
             this.coindata =  res.data;
-            console.log(this.coindata);
+            console.log(res.data[0]);
+            console.log("1")
+            console.log(res.data[0][1]["pair_name"])
+            console.log("2")
 
-            for (let i = 0; i < this.coindata.length; i++) {
-                if (this.coindata[i]["pair_name"] == this.selectedcurrency) {
-                this.trade_fee = this.coindata[i].trade_fee;
-                console.log(this.trade_fee)
+            for (let i = 0; i < 20; i++) {
+                if(res.data[0][i]["pair_name"] == this.selectedcurrency) {
+                    this.trade_fee = this.coindata[i].trade_fee;
+                    console.log("3")
+                    console.log(this.trade_fee)
+                    console.log("4")
                 }                
             }
                 // this.coin = this.coindata[i].pair_name.toLowerCase();
@@ -174,7 +173,7 @@ export default {
                     "Content-Type": "application/json",
                     "Access-Control-Allow-Origin": "*",
                     "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
-                    "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+                     "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
                 };                
                 var data = {
                     "client_oid":"1616663784828",
@@ -261,10 +260,6 @@ export default {
                 this.type = "stoplimit";
             }          
         },
-       async setAmount() {
-            // document.getElementById("priceval").value = this.sellPrice;
-            // this.state.price = this.sellPrice
-        },
         getUserBalance() {
             this.coin = JSON.parse(localStorage.getItem("arraySymbol"));
             console.log(this.coin);
@@ -273,23 +268,16 @@ export default {
            // alert(localStorage.getItem("totalBalances"))
         }       
     },
-    mounted() {
-        this.getUserBalance();
-        this.checkUserBalance();
-        this.setCuurency();
+  created: function() {
+  },
+  mounted() {
+       this.getUserBalance();
+       this.checkUserBalance();
+       this.setCuurency();
         this.getPairDetails();
-    },
-    updated() {
+  }
 
-    },
-    watch: {
-        // `visible(value) => this.isVisible = value` could work too
-        visible() {
-        this.isVisible = this.$props.visible
-        }
-    }    
 }
-
 </script>
 
 <style lang="scss" scoped>
@@ -303,7 +291,7 @@ export default {
     float: left;
     margin-right: 15px;
     margin-bottom: 15px;
-    width: 46%;
+    width: 47%;
     background-color: #393939;
     padding: 7px;
     border-radius: 5px;
@@ -361,6 +349,5 @@ export default {
     display: block;
     max-width: none;
     margin-top: 30px;
-    font-weight: 700;
   }
 </style>

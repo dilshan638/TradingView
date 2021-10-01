@@ -14,7 +14,7 @@
                 </h2>
                 <i class="ri-arrow-right-s-line"></i>
                 <h2>Order Book</h2>
-                
+
                 <div class="sub-trade-row">
                   <h3>Wallet Balances</h3>
                   <h3>BTC/USDT</h3>
@@ -39,9 +39,9 @@
                     <div class="top-select">
                       <h5>Group</h5>
                       <select class="form-control"   @change="onChange($event)">
-                        <option value="0">With Out Decimals</option>
-                        <option value="1"> 1 Decimals</option>
-                        <option value="2">2 Decimals</option>
+                        <option value="0">0</option>
+                        <option value="1"> 1 </option>
+                        <option value="2">2 </option>
                        
                       </select>
                     </div>

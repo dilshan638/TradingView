@@ -1,5 +1,5 @@
 <template>
-    <div class="trade-box" style="min-height: auto;">
+    <div class="trade-box">
     <div class="row">
         <div class="col-md-12">
             <div class="card table-card trades-card">
