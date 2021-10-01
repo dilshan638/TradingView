@@ -14,7 +14,36 @@
 }
 
 @media only screen and (max-width: 768px) { 
+    .trade-area{
+        padding-top: 86px !important;
+    }
+    .trade-box{
+        min-height: auto !important;
+    }
+    .table-card.trades-card .table-tab ul li a.nav-link {
+        font-size: 0.65rem !important;
+    }
 
+    .row.status1{
+        width: auto !important;
+    }
+    .top-sub {
+        float: left;
+        width: 50% !important;
+        padding: 6px !important;
+    }
+    .trade-box .sub-bottom {
+        float: left !important;
+        width: 100% !important;
+        text-align: center !important;
+        padding: 15px !important;
+        color: #fff !important;
+        font-size: 1.2rem !important;
+        background-color: #1e1e1e !important;
+        border-radius: 5px !important;
+        margin-top: 15px !important;
+        margin-bottom: 15px !important;
+    }
     .profile-pic{
         margin-left: auto !important;
         margin-right: auto !important;
@@ -393,6 +422,10 @@
 }
 
 @media only screen and (min-device-width : 1152px) and (max-device-width : 1440px) {
+
+    .buysell-form .input-group .form-control {
+        font-size: 0.72rem !important;
+    }
 
     .barcode-detail{
         width: 70% !important;

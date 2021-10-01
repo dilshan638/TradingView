@@ -458,4 +458,11 @@ select.sel-val{
     line-height: 23px;
     font-size: 0.7rem;
     font-weight: 500;
+    cursor: pointer;
+
+    &:focus, &:hover{
+        box-shadow: none !important;
+        outline: none !important;
+        border: none !important;
+    }
 }

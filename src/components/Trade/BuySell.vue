@@ -143,7 +143,9 @@ export default {
             console.log(res.data[0]);
             console.log("1")
             console.log(res.data[0][1]["pair_name"])
-            console.log("2")
+            console.log("2")  
+
+            console.log(this.selectedcurrency)
 
             for (let i = 0; i < 20; i++) {
                 if(res.data[0][i]["pair_name"] == this.selectedcurrency) {
@@ -291,7 +293,7 @@ export default {
     float: left;
     margin-right: 15px;
     margin-bottom: 15px;
-    width: 47%;
+    width: 46%;
     background-color: #393939;
     padding: 7px;
     border-radius: 5px;
