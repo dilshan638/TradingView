@@ -41,7 +41,7 @@
                 <div class="row">
                     <div class="col-6">
                         <div class="bottom-v">
-                            <b>Fee {{ trade_fee }} :</b>
+                            <b>Fee</b>
                             <b>{{parseFloat(trade_fee).toFixed(3) }}</b>
                         </div>
                     </div>
@@ -63,17 +63,12 @@
         </div>
     </div> 
 </template>
-
 <script>
-
-
-
 import useValidate from '@vuelidate/core'
 import { required, numeric } from '@vuelidate/validators'
 import { reactive, computed } from 'vue'
 // eslint-disable-next-line no-unused-vars
 import axios from 'axios';
-
 
 export default {
     name:'orderbook',
