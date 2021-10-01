@@ -219,7 +219,7 @@ export default {
             this.marketTab = false;
             this.stopTab = true;
             this.stoplimitTab = false;
-            if(this.stopTab == true) {
+            if(this.stopTab == true) { 
                 this.type = "stop";
             }          
         },

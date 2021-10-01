@@ -164,6 +164,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
     emits: ["sellPriceOrderBookPass","sellAmountOrderBookPass"],
   name: "orderbook",
@@ -193,6 +194,9 @@ export default {
       fill:"",
       price:"",
       deci:"0.01",
+      reentDataOnLoad:[]
+
+      
        
       
 
@@ -212,6 +216,29 @@ export default {
   },
   async amountOrderBook(amount){
      this.$emit("sellAmountOrderBookPass", amount)
+  },
+
+  async pageLoadRecentData(){
+ const headers = {
+        "Content-Type": "application/json",
+      
+        }
+
+         axios
+        .get("http://34.152.9.147:8001/api/products/BTC-USDT/trades", {
+          headers: headers,
+        })
+        .then((response) => {
+         console.log(response.data)
+        // this.recentData.push(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+          
+        });
+        
+     //  console.log(this.recentData)
+       
   },
   async sendMessage() {
     try {
@@ -258,7 +285,7 @@ export default {
   },
   mounted() {
    
-
+this.pageLoadRecentData()
     this.setData();
   },
   created: function () {
@@ -313,19 +340,27 @@ export default {
          ts.priceBuy=ts.dataAl.bids
            
            }
+
+           
       
       else {
 
           
          // Recent Trades //ts.dataAl.type == "order" || ts.dataAl.type == "match" || ***************To Do****************
+        
+        
+        
         if (ts.dataAl.type == "match") {
-           
+          
           for (let t = 0; t < 1; t++) {
             ts.recentDataLoop.push(ts.dataAl);
              ts.fill = ts.dataAl.price;
           }
         }
       }
+
+
+      
        
       ts.setData(ts.priceSell, ts.priceBuy, ts.recentDataLoop,ts.fill);
 
