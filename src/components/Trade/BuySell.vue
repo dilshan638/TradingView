@@ -42,7 +42,7 @@
                     <div class="col-6">
                         <div class="bottom-v">
                             <b>Fee (0.1%) :</b>
-                            <b>0.00</b>
+                            <b>{{trade_fee}}</b>
                         </div>
                     </div>
                     <div class="col-6">
@@ -55,13 +55,8 @@
                 <div class="row">
                     <div class="col-md-12">
                         <button class="btn btn-primary pass-btn buyaction" @selectcoin="selectedcurrency = 'new name'" 
-                        v-if="buytab" @click="buybtcformaction">BUY/{{SelectedSymbol}} {{selectedcurrency}}</button>
-                        <button class="btn btn-primary pass-btn sellaction" v-else @click="buybtcformaction">SELL/{{SelectedSymbol}} {{selectedcurrency}}</button>
-                        <!-- <ul>
-                            <li v-for="sell in coin" :key="sell">
-                                {{ sell.symbol }}
-                            </li>
-                        </ul> -->
+                        v-if="buytab" @click="buybtcformaction">BUY {{SelectedSymbol}} {{selectedcurrency}}</button>
+                        <button class="btn btn-primary pass-btn sellaction" v-else @click="buybtcformaction">SELL {{SelectedSymbol}} {{selectedcurrency}}</button>
                     </div>
                 </div>
             </div>
@@ -77,7 +72,7 @@ import useValidate from '@vuelidate/core'
 import { required, numeric } from '@vuelidate/validators'
 import { reactive, computed } from 'vue'
 // eslint-disable-next-line no-unused-vars
-//import axios from 'axios';
+import axios from 'axios';
 
 
 export default {
@@ -117,8 +112,11 @@ export default {
             marketTab: false,
             stopTab: false,
             stoplimitTab: false,
+
             userBalance: '',
             selectedcurrency: localStorage.getItem("selectedcurrency"),
+            coindata: [],
+            trade_fee: '',
 
             total:this.state.price*this.state.amount,
             coin: [],
@@ -132,8 +130,39 @@ export default {
         }
     },
     methods:{
+        async getPairDetails() {
+        const headers = {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem(
+            "X-LDX-Inspira-Access-Token"
+            )}`,
+        };           
+        axios.get("https://dapi.exus.live/api/mobile/v1/trade/marcket/trade/pair", {headers: headers})
+            .then((res) => {
+            this.coindata =  res.data;
+            console.log(res.data[0]);
+            console.log("1")
+            console.log(res.data[0][1]["pair_name"])
+            console.log("2")
 
-        
+                alert(this.selectedcurrency)
+            for (let i = 0; i < 20; i++) {
+                if(res.data[0][i]["pair_name"] == this.selectedcurrency) {
+                    this.trade_fee = this.coindata[i].trade_fee;
+                    console.log("3")
+                    console.log(this.trade_fee)
+                    console.log("4")
+                }                
+            }
+                // this.coin = this.coindata[i].pair_name.toLowerCase();
+                // this.lastprice = this.coindata[i].price;
+                // this.priceChanege = this.coindata[i].change_24h;
+
+        })
+            .catch(function (error) {
+            console.log(error);
+            })
+        },
         async buybtcformaction() {
             this.v$.amount.$touch()
             this.v$.price.$touch()
@@ -238,7 +267,7 @@ export default {
         },
         checkUserBalance() {
            // alert(localStorage.getItem("totalBalances"))
-        }
+        }       
     },
   created: function() {
   },
@@ -246,7 +275,7 @@ export default {
        this.getUserBalance();
        this.checkUserBalance();
        this.setCuurency();
-    
+        this.getPairDetails();
   }
 
 }

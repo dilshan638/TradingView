@@ -3,14 +3,12 @@
     <div class="trade-box">
       <div class="trade-header">
         Order Book
-
-         <select class="form-control" @change="onChange($event)" >
-                        <option value="0.01">0.01</option>
-                        <option value="0.1">0.1</option>
-                        <option value="0">1</option>
-                       
-                      </select>
-        <div class="sw-b" @click="activebuy" v-bind:class="[buytab ? 'active' : '']">
+        <select class="form-control sel-val" @change="onChange($event)" >
+          <option value="0.01">0.01</option>
+          <option value="0.1">0.1</option>
+          <option value="0">1</option>
+        </select>
+        <div class="sw-b" @click="activebuy" v-bind:class="[buytab ? 'active' : '']" title="Buy">
           <div class="box-sm">
             <div class="half">
               <div class="eql green-bg">
@@ -21,7 +19,7 @@
             </div>
           </div>
         </div>        
-        <div class="sw-b" @click="activesell" v-bind:class="[selltab ? 'active' : '']">
+        <div class="sw-b" @click="activesell" v-bind:class="[selltab ? 'active' : '']" title="Sell">
           <div class="box-sm">
             <div class="half">
               <div class="eql red-bg"></div>
@@ -31,7 +29,7 @@
             </div>
           </div>
         </div>
-        <div class="sw-b" @click="activebuysell" v-bind:class="[buyselltab ? 'active' : '']">
+        <div class="sw-b" @click="activebuysell" v-bind:class="[buyselltab ? 'active' : '']" title="Buy and Sell">
           <div class="box-sm">
             <div class="half">
               <div class="eq red-bg"></div>
@@ -57,7 +55,7 @@
         </div>        
       </div>
       <div class="top-order-book">
-        <div class="trade-body sell-body">
+        <div class="trade-body sell-body" v-if="showbuyandsell == true || showsell == true ">
           <table class="table table-hover">
             <tbody>
             <tr v-for="sell in priceSellBind" :key="sell" v-show="deci=='0.01'">
@@ -96,7 +94,7 @@
             </tbody>
           </table>
         </div>
-        <div class="trade-body buy-body">
+        <div class="trade-body buy-body" v-if="showbuyandsell == true || showbuy == true ">
          <table lass="table table-hover" style="width:100% !important;">
 
           <tr class="plus" v-for="buy in priceBuyBind" :key="buy" v-show="deci=='0.01'">
@@ -176,6 +174,8 @@ export default {
       selltab: false,
       buytab: false,
       showbuyandsell: true,
+      showbuy: false,
+      showsell: false,
 
       connection: null,
       priceSell: [],
@@ -269,18 +269,29 @@ export default {
       this.buyselltab = true;
       this.selltab = false;
       this.buytab = false;
+
+      this.showbuyandsell = true;
+      this.showbuy = false;
+      this.showsell = false;
+
     },
     async activesell() {
       this.selltab = true;
       this.buyselltab = false;
       this.buytab = false;
-      this.showbuyandsell = false
+
+      this.showbuyandsell = false;
+      this.showbuy = false;
+      this.showsell = true;
     },    
     async activebuy() {
       this.buytab = true;
       this.buyselltab = false;
       this.selltab = false;
-      this.showbuyandsell = false
+
+      this.showbuyandsell = false;
+      this.showbuy = true;
+      this.showsell = false;
     }
   },
   mounted() {
@@ -288,7 +299,7 @@ export default {
 this.pageLoadRecentData()
     this.setData();
   },
-  created: function () {
+created: function () {
     const ts = this;
     this.connection = new WebSocket(
       "ws://34.152.9.147:8002/ws"

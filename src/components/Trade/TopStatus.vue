@@ -19,7 +19,7 @@
                 </thead>
                 <tbody>
                     <tr v-for="marketprice in filterCoins" :key="marketprice.coin">
-                        <td @click="selectcoin(marketprice.pair_name, marketprice.image, marketprice.currency)">{{ marketprice.pair_name }}</td>
+                        <td @click="selectcoin(marketprice.pair_name, marketprice.image, marketprice.currency, marketprice)">{{ marketprice.pair_name }}</td>
                         <td @click="selectcoin(marketprice.pair_name, marketprice.image, marketprice.currency)">{{ marketprice.price }}</td>
                         <td @click="selectcoin(marketprice.pair_name, marketprice.image, marketprice.currency)" class="text-right success-text">{{marketprice.change_24h}}%</td>
                     </tr>                                                                                                                                                                                           
