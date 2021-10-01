@@ -79,6 +79,7 @@ export default {
       coin: "",
       lastprice: "",
       priceChanege: "",   
+      moneyCoin: "",
       
       cryptoAll: [],
      
@@ -144,7 +145,7 @@ export default {
           console.log(error);
          })
     },
-    async selectcoin(pair_name , image, currency) {   
+    async selectcoin(pair_name , image, currency) {
       this.dropdownshow = false;   
       this.selectedcoin = pair_name;
       this.selectedcoinimage = image;

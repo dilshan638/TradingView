@@ -9,6 +9,7 @@
 @import "toast";
 @import "form";
 @import "transition";
+@import "scroll";
 
 .new-error{
 
@@ -822,3 +823,66 @@ body.open-modal{
 .trade-area {
     background-color: #1e1e1e !important;
 }
+.box-sm{
+    width: 98%;
+    height: 98%;
+    top: 0;
+    left: 0;
+    margin: 1%;
+
+    .half{
+        width: 50%;
+        float: left;
+        height: 100%;
+
+        .eq{
+            float: left;
+            height: 50%;
+            position: relative;
+            width: 100%;
+            cursor: pointer;
+        }
+        .eql{
+            float: left;
+            height: 100%;
+            position: relative;
+            width: 100%;
+            cursor: pointer;
+        }
+
+    }
+}
+
+.blue-bg{
+    background-color: #464b85;
+}
+.red-bg{
+    background-color: #f14848;
+}
+.green-bg{
+    background-color: #1e8d34;
+}
+
+body::-webkit-scrollbar {
+    width: 3px;
+  }
+   
+  body::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+   
+  body::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid 464b85;
+  }
+
+  .inner-scroller{
+
+    max-height: 250px;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar{
+        width: 3px;
+    }
+    
+  }

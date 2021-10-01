@@ -3,85 +3,94 @@
     <div class="trade-box">
       <div class="trade-header">
         Order Book
-        <div class="sw-b"></div>
-        <div class="sw-b"></div>
-        <div class="sw-b active"></div>
+        <div class="sw-b" @click="activebuy" v-bind:class="[buytab ? 'active' : '']">
+          <div class="box-sm">
+            <div class="half">
+              <div class="eql green-bg"></div>
+            </div>
+            <div class="half">
+              <div class="eql blue-bg"></div>
+            </div>
+          </div>
+        </div>        
+        <div class="sw-b" @click="activesell" v-bind:class="[selltab ? 'active' : '']">
+          <div class="box-sm">
+            <div class="half">
+              <div class="eql red-bg"></div>
+            </div>
+            <div class="half">
+              <div class="eql blue-bg"></div>
+            </div>
+          </div>
+        </div>
+        <div class="sw-b" @click="activebuysell" v-bind:class="[buyselltab ? 'active' : '']">
+          <div class="box-sm">
+            <div class="half">
+              <div class="eq red-bg"></div>
+              <div class="eq green-bg"></div>
+            </div>
+            <div class="half">
+              <div class="eql blue-bg"></div>
+            </div>
+          </div>
+        </div>
       </div>
-       <select class="form-control" @change="onChange($event)" >
-                        <option value="0.01">0.01</option>
-                        <option value="0.1">0.1</option>
-                        <option value="0">1</option>
-                       
-                      </select>
-      <div class="trade-body tbl">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th scope="col">Price({{pairName}})</th>
-              <th scope="col">Amount({{SelectedSymbol}})</th>
-              <th scope="col" class="text-right">Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="sell in priceSellBind" :key="sell" v-show="deci=='0.01'">
-              <td @click="sellPriceOrderBook(sell[0])">{{ parseFloat(sell[0]).toFixed(2) }}</td>
-              <td @click="amountOrderBook(sell[1])">{{ sell[1] }}</td>
-              <td class="text-right">{{ sell[0] * sell[1] }}</td>
-            </tr>
-
-             <tr v-for="sell in priceSellBind" :key="sell" v-show="deci=='0.1'">
-              <td @click="sellPriceOrderBook(sell[0])">{{ parseFloat(sell[0]).toFixed(1) }}</td>
-              <td @click="amountOrderBook(sell[1])">{{ sell[1] }}</td>
-              <td class="text-right">{{ sell[0] * sell[1] }}</td>
-            </tr>
-
-             <tr v-for="sell in priceSellBind" :key="sell" v-show="deci=='0'">
-              <td @click="sellPriceOrderBook(sell[0])">{{ parseFloat(sell[0]).toFixed(0) }}</td>
-              <td @click="amountOrderBook(sell[1])">{{ sell[1] }}</td>
-              <td class="text-right">{{ sell[0] * sell[1] }}</td>
-            </tr>
-
-          </tbody>
-        </table>
+      <div class="top-title">
+        <div class="trade-body">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Price({{pairName}})</th>
+                <th scope="col">Amount({{SelectedSymbol}})</th>
+                <th scope="col" class="text-right">Total</th>
+              </tr>
+            </thead>
+          </table>
+        </div>        
       </div>
-      <div class="trade-body tbl">
-        <table class="table table-hover special">
-        <tbody>
-          <tr>
-            <td class="success-tst">{{price}}</td>
-            <td class="mid">${{price}}</td>
-            <td class="text-right"> <div class="read-more">
-        <router-link to="/buy-sell-list">More</router-link>
-      </div></td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="top-order-book">
+        <div class="trade-body sell-body">
+          <table class="table table-hover">
+            <tbody>
+              <tr v-for="sell in priceSellBind" :key="sell">
+                <td @click="sellPriceOrderBook(sell[0])">{{ sell[0] }}</td>
+                <td @click="amountOrderBook(sell[1])">{{ sell[1] }}</td>
+                <td class="text-right">{{ sell[0] * sell[1] }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="trade-body middle-bdy">
+          <table class="table table-hover special">
+            <tbody>
+              <tr>
+                <td class="success-tst">{{price}}</td>
+                <td class="mid">${{price}}</td>
+                <td class="text-right"> 
+                    <div class="read-more">
+                      <router-link to="/buy-sell-list">More</router-link>
+                    </div>
+                  </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="trade-body buy-body">
+          <table lass="table table-hover" style="width:100% !important;">
+              <!-- <tr v-for="sell in priceSellBind" :key="sell">
+                <td @click="sellPriceOrderBook(sell[0])">{{ sell[0] }}</td>
+                <td @click="amountOrderBook(sell[1])">{{ sell[1] }}</td>
+                <td class="text-right">{{ sell[0] * sell[1] }}</td>
+              </tr>             -->
+            <tr class="plus" v-for="buy in priceBuyBind" :key="buy">
+              <td @click="sellPriceOrderBook(buy[0])" >{{ buy[0] }}</td>
+              <td @click="amountOrderBook(buy[1])">{{ buy[1] }}</td>
+              <td class="text-right">{{ buy[0] * buy[1] }}</td>
+            </tr>
+          </table>
+        </div>        
       </div>
-      <div class="trade-body tbl">
-        <table lass="table table-hover" style="width:100% !important;">
-
-          <tr class="plus" v-for="buy in priceBuyBind" :key="buy" v-show="deci=='0.01'">
-            <td @click="sellPriceOrderBook(buy[0])" >{{ parseFloat(buy[0]).toFixed(2) }}</td>
-            <td @click="amountOrderBook(buy[1])">{{ buy[1] }}</td>
-            <td class="text-right">{{ buy[0] * buy[1] }}</td>
-          </tr>
-
-          <tr class="plus" v-for="buy in priceBuyBind" :key="buy" v-show="deci=='0.1'">
-            <td @click="sellPriceOrderBook(buy[0])" >{{ parseFloat(buy[0]).toFixed(1) }}</td>
-            <td @click="amountOrderBook(buy[1])">{{ buy[1] }}</td>
-            <td class="text-right">{{ buy[0] * buy[1] }}</td>
-          </tr>
-
-          <tr class="plus" v-for="buy in priceBuyBind" :key="buy" v-show="deci=='0'">
-            <td @click="sellPriceOrderBook(buy[0])" >{{ parseFloat(buy[0]).toFixed(0) }}</td>
-            <td @click="amountOrderBook(buy[1])">{{ buy[1] }}</td>
-            <td class="text-right">{{ buy[0] * buy[1] }}</td>
-          </tr>
-        </table>
-      </div>
-      
     </div>
-
     <div class="trade-box">
       <div class="trade-header">Recent Trades</div>
       <div class="trade-body tbl2">
@@ -133,6 +142,11 @@ export default {
    
   data() {
     return {
+      buyselltab: true,
+      selltab: false,
+      buytab: false,
+      showbuyandsell: true,
+
       connection: null,
       priceSell: [],
       priceBuy: [],
@@ -163,33 +177,29 @@ export default {
     },
   async selectedSymbol(SelectedSymbol){
     this.symbol =SelectedSymbol
- },
-
+  },
   async sellPriceOrderBook(value){
     this.$emit("sellPriceOrderBookPass", value)
   },
-
   async amountOrderBook(amount){
      this.$emit("sellAmountOrderBookPass", amount)
   },
-
-    async sendMessage() {
-      try {
-        this.connection.send(
-          JSON.stringify({
-            type: "subscribe",
-            product_ids: ["BTC-USDT"],
-            currency_ids: [],
-            channels: ["ticker", "match", "level2", "funds", "order"],
-            token: "",
-            //"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoYXJha2FAZ21haWwuY29tIiwiZXhwaXJlZEF0IjoxNjMyMTU4MDQ5LCJpZCI6NDEsInBhc3N3b3JkSGFzaCI6ImFlMDA1Y2ViN2U5YTIxN2NjZWQyZjhhYTM1NDE4N2M3In0.6KW--OvqAjUbVNP6r0b4avksK0R6MBi_FzmYtptDknQ",
-          })
-        );
-      } catch (error) {
-        console.log(error);
-      }
-    },
-
+  async sendMessage() {
+    try {
+      this.connection.send(
+        JSON.stringify({
+          type: "subscribe",
+          product_ids: ["BTC-USDT"],
+          currency_ids: [],
+          channels: ["ticker", "match", "level2", "funds", "order"],
+          token: "",
+          //"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoYXJha2FAZ21haWwuY29tIiwiZXhwaXJlZEF0IjoxNjMyMTU4MDQ5LCJpZCI6NDEsInBhc3N3b3JkSGFzaCI6ImFlMDA1Y2ViN2U5YTIxN2NjZWQyZjhhYTM1NDE4N2M3In0.6KW--OvqAjUbVNP6r0b4avksK0R6MBi_FzmYtptDknQ",
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  },
     async setData(dataSellArray, dataBuyArray, recendData, fillPrice) {
       console.log(dataSellArray)
         this.priceSellBind = dataSellArray.sort((a, b) => {return a[0] - b[0] });
@@ -199,8 +209,23 @@ export default {
       this.price=fillPrice
 
     },
-
-    
+    async activebuysell() {
+      this.buyselltab = true;
+      this.selltab = false;
+      this.buytab = false;
+    },
+    async activesell() {
+      this.selltab = true;
+      this.buyselltab = false;
+      this.buytab = false;
+      this.showbuyandsell = false
+    },    
+    async activebuy() {
+      this.buytab = true;
+      this.buyselltab = false;
+      this.selltab = false;
+      this.showbuyandsell = false
+    }
   },
   mounted() {
    
@@ -280,16 +305,6 @@ export default {
 
 <style lang="scss" scoped>
 @import "../../assets/scss/Trade/Trade";
-
-.tbl {
-   max-height: 165px;
-  overflow: hidden;
-}
-
-.tbl2{
-   max-height: 230px;
-  overflow: hidden;
-}
 
 .read-more {
   padding: 0;
