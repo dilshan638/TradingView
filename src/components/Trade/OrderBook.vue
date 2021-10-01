@@ -192,18 +192,9 @@ export default {
 
     async setData(dataSellArray, dataBuyArray, recendData, fillPrice) {
       console.log(dataSellArray)
-      // if(dataSellArray!=undefined ){
-       this.priceSellBind = dataSellArray.sort((a, b) => {return a[0] - b[0] });
+        this.priceSellBind = dataSellArray.sort((a, b) => {return a[0] - b[0] });
+          this.priceBuyBind = dataBuyArray.sort((a, b) => {return b[0] - a[0] });
     
-     // }
-       // if(dataBuyArray !=undefined){
-       this.priceBuyBind = dataBuyArray.sort((a, b) => {return b[0] - a[0] });
-    
-     // }
-      //   if(recendData !=undefined){
-    
-    
-      // }
       this.recentData = recendData.reverse();
       this.price=fillPrice
 

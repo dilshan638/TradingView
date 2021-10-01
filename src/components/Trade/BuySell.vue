@@ -20,9 +20,9 @@
                 <div class="input-group mb-3" :class="{ 'new-error': v$.amount.$error }">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Amount</span>  
-                        <!-- :value="SellAmount" v-model="state.amount" -->
+                        <!-- :value="SellAmount" v-model="state.amount"  -->
                     </div>
-                    <input type="text" class="form-control"   aria-label="" :value="SellAmount"  />
+                    <input type="text" class="form-control" v-model="state.amount"  aria-label=""   />
                     <div class="input-group-append">
                         <span class="input-group-text">{{SelectedSymbol}}</span>
                     </div>
@@ -32,7 +32,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Price</span>
                     </div>
-                    <input type="text" class="form-control" :value="sellPrice"   aria-label="" />
+                    <input type="text" class="form-control" v-model="state.price"   aria-label="" />
                     <div class="input-group-append">
                         <span class="input-group-text">{{pairName}}</span>
                     </div>
@@ -77,7 +77,7 @@ import useValidate from '@vuelidate/core'
 import { required, numeric } from '@vuelidate/validators'
 import { reactive, computed } from 'vue'
 // eslint-disable-next-line no-unused-vars
-import axios from 'axios';
+//import axios from 'axios';
 
 
 export default {
@@ -133,9 +133,7 @@ export default {
     },
     methods:{
 
-        // async Priceamount(){
-
-        // },
+        
         async buybtcformaction() {
             this.v$.amount.$touch()
             this.v$.price.$touch()
@@ -248,6 +246,7 @@ export default {
        this.getUserBalance();
        this.checkUserBalance();
        this.setCuurency();
+    
   }
 
 }
