@@ -114,7 +114,7 @@ export default {
             stoplimitTab: false,
 
             userBalance: '',
-            selectedcurrency: localStorage.getItem("selectedcurrency"),
+            selectedcurrency: localStorage.getItem("selectedmainCoin"),
             coindata: [],
             trade_fee: '',
 
@@ -140,18 +140,24 @@ export default {
         axios.get("https://dapi.exus.live/api/mobile/v1/trade/marcket/trade/pair", {headers: headers})
             .then((res) => {
             this.coindata =  res.data;
-            console.log(res.data[0]);
-            console.log("1")
-            console.log(res.data[0][1]["pair_name"])
-            console.log("2")
+            // console.log(res.data[0]);
+            // console.log("1")
+            // console.log(res.data[0][1]["pair_name"])
+            // console.log("2")
 
-                alert(this.selectedcurrency)
-            for (let i = 0; i < 20; i++) {
-                if(res.data[0][i]["pair_name"] == this.selectedcurrency) {
-                    this.trade_fee = this.coindata[i].trade_fee;
-                    console.log("3")
-                    console.log(this.trade_fee)
-                    console.log("4")
+               
+            for (let i = 0; i < res.data[0].length; i++) {
+
+                console.log(res.data[0][i])
+                if(res.data[0][i]["pair_name"] ==this.selectedcurrency) {
+                    //this.trade_fee = this.coindata[i].trade_fee;
+                     this.trade_fee =res.data[0][i].trade_fee
+                    // console.log("3")
+                    // console.log(this.trade_fee)
+                    // console.log("4")
+                    
+                   
+                    
                 }                
             }
                 // this.coin = this.coindata[i].pair_name.toLowerCase();
