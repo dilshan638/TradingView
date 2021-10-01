@@ -103,9 +103,25 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="recent in recentData" :key="recent">
+            <tr v-for="recent in recentData" :key="recent"  v-show="deci=='0.01'">
               <td v-bind:class="[recent.side == 'buy' ? 'buy' : 'sell']"  @click="sellPriceOrderBook(recent.price)" >
-                {{ recent.price }}
+                {{ parseFloat(recent.price).toFixed(2) }}
+              </td>
+              <td  @click="amountOrderBook(recent.size)">{{recent.size}} </td>
+              <td class="text-right">{{ recent.price * recent.size }}</td>
+            </tr>
+
+             <tr v-for="recent in recentData" :key="recent"  v-show="deci=='0.1'">
+              <td v-bind:class="[recent.side == 'buy' ? 'buy' : 'sell']"  @click="sellPriceOrderBook(recent.price)" >
+                {{ parseFloat(recent.price).toFixed(1) }}
+              </td>
+              <td  @click="amountOrderBook(recent.size)">{{recent.size}} </td>
+              <td class="text-right">{{ recent.price * recent.size }}</td>
+            </tr>
+
+             <tr v-for="recent in recentData" :key="recent"  v-show="deci=='0'">
+              <td v-bind:class="[recent.side == 'buy' ? 'buy' : 'sell']"  @click="sellPriceOrderBook(recent.price)" >
+                {{ parseFloat(recent.price).toFixed(0) }}
               </td>
               <td  @click="amountOrderBook(recent.size)">{{recent.size}} </td>
               <td class="text-right">{{ recent.price * recent.size }}</td>
@@ -147,13 +163,18 @@ export default {
       priceBuyUpdate: [],
       fill:"",
       price:"",
+       deci:"0.01",
+       
+      
 
    };
   },
 
   methods: {
 
-
+ async onChange(event){
+      this.deci=event.target.value
+    },
   async selectedSymbol(SelectedSymbol){
     this.symbol =SelectedSymbol
   },
@@ -181,12 +202,14 @@ export default {
   },
     async setData(dataSellArray, dataBuyArray, recendData, fillPrice) {
       console.log(dataSellArray)
-      if(dataSellArray!=undefined ){
-        this.priceSellBind = dataSellArray.sort((a, b) => {return a[0] - b[0] });
-      }
-      if(dataBuyArray !=undefined){
-        this.priceBuyBind = dataBuyArray.sort((a, b) => {return b[0] - a[0] });
-      }
+      // if(dataSellArray!=undefined ){
+       this.priceSellBind = dataSellArray.sort((a, b) => {return a[0] - b[0] });
+    
+     // }
+       // if(dataBuyArray !=undefined){
+       this.priceBuyBind = dataBuyArray.sort((a, b) => {return b[0] - a[0] });
+    
+     // }
       //   if(recendData !=undefined){
     
     
@@ -214,6 +237,8 @@ export default {
     }
   },
   mounted() {
+   
+
     this.setData();
   },
   created: function () {

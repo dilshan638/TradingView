@@ -162,20 +162,18 @@ export default {
       localStorage.setItem("selectedmainCoin", this.selectedcoin)
       localStorage.setItem("selectedmainCurrency", this.selectedcurrency)
       console.log(localStorage.getItem("selectedmainCoin"))
-     // alert(localStorage.getItem("selectedmainCurrency"))
-      this.getMoneyType();
-     // this.$emit("chooseCurrency", this.selectedcurrency)
-    },
-    // async getMoneyType() {
-    //   this.moneyCoin = localStorage.getItem("selectedmainCoin")
-    //   var result = this.moneyCoin.substring(this.moneyCoin.lastIndexOf("/") + 1);
-    //   alert(result);
-    // }
+      console.log(localStorage.getItem("selectedmainCurrency"))
+      this.$emit("chooseCurrency", this.selectedcurrency)
+
+      this.$emit("symbol", "BTC")
+         this.$emit("pair_name", "USDC")
+    }    
   },
   mounted() {
     this.setData();
     this.getMarketDropdown();
     this.setCoin();
+
   },
   computed: {
     filterCoins: function(){
