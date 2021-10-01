@@ -56,7 +56,7 @@
                     <div class="col-md-12">
                         <button class="btn btn-primary pass-btn buyaction" @selectcoin="selectedcurrency = 'new name'" 
                         v-if="buytab" @click="buybtcformaction">BUY {{SelectedSymbol}}</button>
-                        <button class="btn btn-primary pass-btn sellaction" v-else @click="buybtcformaction">SELL {{SelectedSymbol}} {{full_pair_name}}</button>
+                        <button class="btn btn-primary pass-btn sellaction" v-else @click="buybtcformaction">SELL {{SelectedSymbol}} </button>
                     </div>
                 </div>
             </div>
