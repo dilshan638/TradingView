@@ -166,7 +166,7 @@ export default {
       this.$emit("chooseCurrency", this.selectedcurrency)
 
       this.$emit("symbol", "BTC")
-         this.$emit("pair_name", "USDC")
+      this.$emit("pair_name", "USDC")
     }    
   },
   mounted() {

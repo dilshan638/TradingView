@@ -130,7 +130,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="recent in recentData" :key="recent"  v-show="deci=='0.01'">
+            <tr v-for="recent in recentData.slice" :key="recent"  v-show="deci=='0.01'">
               <td v-bind:class="[recent.side == 'buy' ? 'buy' : 'sell']"  @click="sellPriceOrderBook(recent.price)" >
                 {{ parseFloat(recent.price).toFixed(2) }}
               </td>
@@ -194,7 +194,8 @@ export default {
       fill:"",
       price:"",
       deci:"0.01",
-      reentDataOnLoad:[]
+      reentDataOnLoad:[],
+     
 
       
        
@@ -218,28 +219,7 @@ export default {
      this.$emit("sellAmountOrderBookPass", amount)
   },
 
-  async pageLoadRecentData(){
- const headers = {
-        "Content-Type": "application/json",
-      
-        }
-
-         axios
-        .get("http://34.152.9.147:8001/api/products/BTC-USDT/trades", {
-          headers: headers,
-        })
-        .then((response) => {
-         console.log(response.data)
-        // this.recentData.push(response.data);
-        })
-        .catch(function (error) {
-          console.log(error);
-          
-        });
-        
-     //  console.log(this.recentData)
-       
-  },
+ 
   async sendMessage() {
     try {
       this.connection.send(
@@ -256,15 +236,20 @@ export default {
       console.log(error);
     }
   },
-    async setData(dataSellArray, dataBuyArray, recendData, fillPrice) {
-       
+  //  async setData(dataSellArray, dataBuyArray, recendData, fillPrice) {
+        async setData(dataSellArray, dataBuyArray, fillPrice) {
         this.priceSellBind = dataSellArray.sort((a, b) => {return a[0] - b[0] });
         this.priceBuyBind = dataBuyArray.sort((a, b) => {return b[0] - a[0] });
-    
-      this.recentData = recendData.reverse();
-      this.price=fillPrice
+     
+        this.price=fillPrice
+        
+       // this.recentData = recendData.reverse();    
 
     },
+
+    // async pageLoadRecentData(){
+       
+    // },
     async activebuysell() {
       this.buyselltab = true;
       this.selltab = false;
@@ -296,7 +281,7 @@ export default {
   },
   mounted() {
    
-this.pageLoadRecentData()
+   
     this.setData();
   },
 created: function () {
@@ -362,20 +347,60 @@ created: function () {
         
         
         if (ts.dataAl.type == "match") {
-          
-          for (let t = 0; t < 1; t++) {
-            ts.recentDataLoop.push(ts.dataAl);
+         
+        //  for (let t = 0; t < 1; t++) {
+          //  ts.recentDataLoop.push(ts.dataAl);
              ts.fill = ts.dataAl.price;
-          }
+           
+            // ts.recentDataLoop.push({ 
+            //    side: ts.dataAl.side,
+            //    size: ts.dataAl.size,
+            //    price:ts.dataAl.price,
+            //     });
+                  
+
+
+          //}
         }
       }
 
-
       
-       
-      ts.setData(ts.priceSell, ts.priceBuy, ts.recentDataLoop,ts.fill);
+ const headers = {
+        "Content-Type": "application/json",
+       }
 
+         axios
+        .get("http://34.152.9.147:8001/api/products/BTC-USDT/trades", {
+          headers: headers,
+        })
+        .then((response) => {
+         console.log(response.data)
+      
+        if(ts.recentData.length !=0){
+          ts.recentData=[]
+         
+        }
+          for (let b = 0; b < response.data.length ; b++) {
+           ts.recentData.push({ side: response.data[b].side, size: response.data[b].size, price:response.data[b].price});
+         }
+
+       
+       
+       
+        })
+        .catch(function (error) {
+          console.log(error);
+          
+        });
+     
+       
+     // ts.setData(ts.priceSell, ts.priceBuy, ts.recentDataLoop,ts.fill);
+      ts.setData(ts.priceSell, ts.priceBuy,ts.fill);
+
+     // ts.recentDataSet(ts.recentDataLoop)
       //}
+
+     
     };
 
     this.connection.onopen = function (event) {
