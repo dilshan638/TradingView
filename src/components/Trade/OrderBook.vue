@@ -128,11 +128,11 @@
               <th scope="col">Amount({{SelectedSymbol}})</th>
               <th scope="col" class="text-right">Total</th>
             </tr>
-          </thead>
+          </thead>  
           <tbody>
             <tr v-for="recent in recentData" :key="recent"  v-show="deci=='0.01'">
               <td v-bind:class="[recent.side == 'buy' ? 'buy' : 'sell']"  @click="sellPriceOrderBook(recent.price)" >
-                {{ parseFloat(recent.price).toFixed(2) }}
+                {{ parseFloat(recent.price).toFixed(2) }}  
               </td>
               <td  @click="amountOrderBook(recent.size)">{{recent.size}} </td>
               <td class="text-right">{{ recent.price * recent.size }}</td>

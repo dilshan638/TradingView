@@ -160,12 +160,11 @@ export default {
       localStorage.setItem("selectedmainCoin", this.selectedcoin)
       localStorage.setItem("selectedmainCurrency", this.selectedcurrency)
       this.selectedcoin = localStorage.getItem("selectedmainCoin")
-      alert(localStorage.getItem("selectedmainCoin"))
+    
       this.setSelectedCoin();
       console.log(localStorage.getItem("selectedmainCurrency"))
       this.$emit("chooseCurrency", this.selectedcurrency)
-      this.$emit("symbol", "BTC")
-      this.$emit("pair_name", "USDC")
+      
     },
     setSelectedCoin() {
       if(this.selectedcoin == ""){
@@ -181,6 +180,8 @@ export default {
     this.getMarketDropdown();
     this.setSelectedCoin();
    // this.setCoin();
+   this.$emit("symbol", "BTC")
+   this.$emit("pair_name", "USDC")  
   },
   computed: {
     filterCoins: function(){
