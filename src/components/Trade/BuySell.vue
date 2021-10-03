@@ -107,7 +107,6 @@ export default {
             marketTab: false,
             stopTab: false,
             stoplimitTab: false,
-            test2: '',
 
             userBalance: '',
             selectedcurrency: localStorage.getItem("selectedmainCoin"),
@@ -126,9 +125,6 @@ export default {
         }
     },
     methods:{
-        async setSelectedCurrency() {
-            
-        },
         async getPairDetails() {
         const headers = {
             "Content-Type": "application/json",
@@ -141,10 +137,10 @@ export default {
             this.coindata =  res.data;
             for (let i = 0; i < res.data[0].length; i++) {
                 console.log(res.data[0][i])
-                if(res.data[0][i]["pair_name"] == this.test2) {
+                if(res.data[0][i]["pair_name"] == this.selectedcurrency) {
                      this.trade_fee =res.data[0][i].trade_fee
                     // alert(fullPairName)
-                   //  alert(this.trade_fee)
+                    //alert(this.trade_fee)
                 }                
             }
         })
@@ -260,8 +256,8 @@ export default {
     },
 created: function () {
 
-    this.test2 = localStorage.getItem("selectedmainCoin");
-    this.getPairDetails();
+  //  this.test2 = localStorage.getItem("selectedmainCoin");
+  //  this.getPairDetails();
   },
   mounted() {
        this.getUserBalance();

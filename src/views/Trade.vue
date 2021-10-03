@@ -53,9 +53,6 @@ export default {
       }
     },
     methods: {
-        getselectedCoin (value) {
-            alert(value) // someValue
-        },
         setPairName(fullpair) {
           this.fullPairName = fullpair
         },
@@ -70,6 +67,7 @@ export default {
 
         async selectPair(Pair){
           this.pairName=Pair
+        //  alert(Pair)
         },
 
         async selectSymbol(symbol){

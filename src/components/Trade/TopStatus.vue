@@ -73,7 +73,7 @@ export default {
       dropdownshow: false,
       searchcoin: '',
 
-      selectedcoin: "BTC/USDC",
+      selectedcoin: "",
       selectedcoinimage: "https://ldev.exus.live/public/frontend/images/currency/btc_icon.png",
       selectedcurrency: "BTC",
       coin: "",
@@ -159,18 +159,28 @@ export default {
     async setCoin() {
       localStorage.setItem("selectedmainCoin", this.selectedcoin)
       localStorage.setItem("selectedmainCurrency", this.selectedcurrency)
-      console.log(localStorage.getItem("selectedmainCoin"))
+      this.selectedcoin = localStorage.getItem("selectedmainCoin")
+      alert(localStorage.getItem("selectedmainCoin"))
+      this.setSelectedCoin();
       console.log(localStorage.getItem("selectedmainCurrency"))
       this.$emit("chooseCurrency", this.selectedcurrency)
       this.$emit("symbol", "BTC")
       this.$emit("pair_name", "USDC")
-    }    
+    },
+    setSelectedCoin() {
+      if(this.selectedcoin == ""){
+        this.selectedcoin = "BTC/USDC"
+      }
+      else{
+        this.selectedcoin = localStorage.getItem("selectedmainCoin")
+      }
+    } 
   },
   mounted() {
     this.setData();
     this.getMarketDropdown();
-    this.setCoin();
-
+    this.setSelectedCoin();
+   // this.setCoin();
   },
   computed: {
     filterCoins: function(){
@@ -180,6 +190,7 @@ export default {
     }
   },
   created: function () {
+   // this.setCoin();
     const ts = this;
     this.connection = new WebSocket( "ws://34.152.9.147:8002/ws");
 
