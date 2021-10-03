@@ -160,7 +160,7 @@ export default {
       localStorage.setItem("selectedmainCoin", this.selectedcoin)
       localStorage.setItem("selectedmainCurrency", this.selectedcurrency)
       this.selectedcoin = localStorage.getItem("selectedmainCoin")
-      alert(localStorage.getItem("selectedmainCoin"))
+   //   alert(localStorage.getItem("selectedmainCoin"))
       this.setSelectedCoin();
       console.log(localStorage.getItem("selectedmainCurrency"))
       this.$emit("chooseCurrency", this.selectedcurrency)
