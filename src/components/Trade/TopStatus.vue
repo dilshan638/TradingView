@@ -3,7 +3,7 @@
     <div class="row status1">
       <div class="col-md-4 pos-rel">
         <div class="search-head" @click="dropdownshow = !dropdownshow" @blur="dropdownshow = false">
-            <img :src="selectedcoinimage" /> <h4>{{selectedcoin}}</h4>
+            <img :src="selectedcoinimage" /> <h4></h4>
             <i class="ri-arrow-down-s-line" :class="[dropdownshow ? 'ri-arrow-up-s-line' : 'ri-arrow-down-s-line']"></i>
         </div>
         <div class="search-body buysell-form" v-if="dropdownshow">
@@ -72,6 +72,7 @@ export default {
       marketPrice: "",
       dropdownshow: false,
       searchcoin: '',
+      defaultCoin: "",
 
       selectedcoin: "",
       selectedcoinimage: "https://ldev.exus.live/public/frontend/images/currency/btc_icon.png",
@@ -102,6 +103,14 @@ export default {
   },
 
   methods: {
+    setMainCoin() {
+      if(localStorage.getItem("selectedmainCoin" == !null)) {
+        this.defaultCoin = localStorage.getItem("selectedmainCoin");
+      }
+      else{
+        this.defaultCoin = "BTC/USDC"
+      }
+    },
     async sendMessage() {
       try {
         this.connection.send(
@@ -160,12 +169,11 @@ export default {
       localStorage.setItem("selectedmainCoin", this.selectedcoin)
       localStorage.setItem("selectedmainCurrency", this.selectedcurrency)
       this.selectedcoin = localStorage.getItem("selectedmainCoin")
-   //   alert(localStorage.getItem("selectedmainCoin"))
+    
       this.setSelectedCoin();
       console.log(localStorage.getItem("selectedmainCurrency"))
       this.$emit("chooseCurrency", this.selectedcurrency)
-      this.$emit("symbol", "BTC")
-      this.$emit("pair_name", "USDC")
+      
     },
     setSelectedCoin() {
       if(this.selectedcoin == ""){
@@ -180,7 +188,9 @@ export default {
     this.setData();
     this.getMarketDropdown();
     this.setSelectedCoin();
-   // this.setCoin();
+   this.setCoin();
+   this.$emit("symbol", "BTC")
+   this.$emit("pair_name", "USDC")  
   },
   computed: {
     filterCoins: function(){
