@@ -64,7 +64,7 @@
                             <th scope="col">Price(USDT)</th>
                             <th scope="col">Amount(LDXI)</th>
                             <th scope="col" class="text-right">Total</th>
-                            <th>Sum(USDT)</th>
+                            <th class="text-right">Sum(USDT)</th>
                           </tr>
                         </thead>
                         <tbody>  
@@ -112,7 +112,7 @@
                             <th scope="col">Price(USDT)</th>
                             <th scope="col">Amount(LDXI)</th>
                             <th scope="col" class="text-right">Total</th>
-                              <th>Sum(USDT)</th>
+                              <th class="text-right">Sum(USDT)</th>
                           </tr>
                         </thead>
                         <tbody>

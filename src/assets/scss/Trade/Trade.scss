@@ -539,3 +539,12 @@ select.sel-val{
     max-width: none;
     margin-top: 30px;
   }
+  .recent-body{
+    top: 0 !important;
+    max-height: 437px;
+    overflow-y: auto;
+    min-height: 437px;
+  }
+  .top-order-book.recent{
+      min-height: auto !important;
+  }

@@ -31,3 +31,33 @@
 .trade-body.coins-body.bottom-table{
     padding-bottom: 10px !important;
 }
+
+.trade-history{
+
+    .table-responsive{
+        overflow-y: auto;
+        max-height: 373px;
+        min-height: 373px;
+    }
+
+    table{
+
+        tr{
+            th{
+                font-size: 0.72rem !important;
+                font-weight: 400 !important;
+                padding: 7px 15px !important;
+                vertical-align: middle !important;
+            }
+
+            td{
+                font-size: 0.72rem !important;
+                font-weight: 400 !important;
+                padding: 7px 15px !important;
+                vertical-align: middle !important;
+            }
+        }
+
+    }
+
+}

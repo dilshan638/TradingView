@@ -120,16 +120,22 @@
     </div>
     <div class="trade-box">
       <div class="trade-header">Recent Trades</div>
-      <div class="trade-body tbl2">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th scope="col">Price({{pairName}})</th>
-              <th scope="col">Amount({{SelectedSymbol}})</th>
-              <th scope="col" class="text-right">Total</th>
-            </tr>
-          </thead>  
-          <tbody>
+      <div class="top-title">
+        <div class="trade-body">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Price({{pairName}})</th>
+                <th scope="col">Amount({{SelectedSymbol}})</th>
+                <th scope="col" class="text-right">Total</th>
+              </tr>
+            </thead>
+          </table>
+        </div>        
+      </div>
+      <div class="top-order-book recent">
+        <div class="trade-body recent-body">
+         <table lass="table table-hover" style="width:100% !important;">
             <tr v-for="recent in recentData" :key="recent"  v-show="deci=='0.01'">
               <td v-bind:class="[recent.side == 'buy' ? 'buy' : 'sell']"  @click="sellPriceOrderBook(recent.price)" >
                 {{ parseFloat(recent.price).toFixed(2) }}  
@@ -153,10 +159,9 @@
               <td  @click="amountOrderBook(recent.size)">{{recent.size}} </td>
               <td class="text-right">{{ recent.price * recent.size }}</td>
             </tr>
-          </tbody>
-        </table>
-      </div>
-     
+          </table>          
+        </div>        
+      </div>     
     </div>
   </div>
 </template>

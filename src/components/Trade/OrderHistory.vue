@@ -10,7 +10,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-body no-padding no-padding-all table-tab">
+                <div class="card-body no-padding no-padding-all table-tab trade-history">
                     <div class="row">
                         <div class="col-md-12">
                             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">

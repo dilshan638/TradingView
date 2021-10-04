@@ -5,8 +5,8 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th scope="col">Date</th>
-                        <th scope="col">Pair</th>
+                        <th width="25%" scope="col">Date</th>
+                        <th width="10%" scope="col">Pair</th>
                         <th scope="col">Type</th>
                         <th scope="col">Side</th>
                         <th scope="col">Price</th>
@@ -18,8 +18,8 @@
                 </thead>
                 <tbody  v-if="myTradeHistory.length !=0">   
                     <tr  v-for="orders in myTradeHistory" :key="orders.id">
-                    <td>{{orders.createdAt}}</td>
-                     <td>{{orders.productId}}</td>
+                    <td width="25%">{{orders.createdAt}}</td>
+                     <td width="10%">{{orders.productId}}</td>
                     <td>{{orders.type}}</td>
                      <td v-bind:class="[orders.side == 'buy' ? 'buy' : 'sell']">{{orders.side}}</td>
                        <td>{{orders.price}}</td>
