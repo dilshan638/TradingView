@@ -132,7 +132,12 @@ export default {
         this.open24hBind = open24hBnd;
         this.low24hBind = low24hBnd;
          this.volume24hBind = volume24hBnd;
-         this.ldcx24hBind=ldcx24hBnd    
+           
+         if(ldcx24hBnd==undefined){
+             this.ldcx24hBind=0
+         }else{
+            this.ldcx24hBind=ldcx24hBnd 
+         }
     },
     async getMarketDropdown() {
       const headers = {
@@ -144,8 +149,7 @@ export default {
        axios.get("https://dapi.exus.live/api/mobile/v1/dashboard/summary/GBP?volume_24h=desc", {headers: headers})
         .then((res) => {
         this.coindata =  res.data;
-        console.log(this.coindata); 
-
+      
         for (let i = 0; i < this.coindata.length; i++) {
             this.coin = this.coindata[i].pair_name.toLowerCase();
             this.lastprice = this.coindata[i].price;
@@ -179,7 +183,6 @@ export default {
       localStorage.setItem("selectedmainCurrency", this.selectedcurrency)
       this.selectedcoin = localStorage.getItem("selectedmainCoin")
       this.setSelectedCoin();
-      console.log(localStorage.getItem("selectedmainCurrency"))
       this.$emit("chooseCurrency", this.selectedcurrency)
       
     },
@@ -234,14 +237,14 @@ export default {
        
       }
 
-      if(ts.open24h==0){
+      if(ts.open24h==0 ){
          ts.ldcx24h==0
       }else{
           ts.ldcx24h=((ts.tickerPrice - ts.open24h)/ts.open24h )* 100
       }
     
       ts.setData(ts.fill, ts.open24h,ts.low24h, ts.volume24h, ts.ldcx24h);
-      console.log(ts.fill)
+   
     };
 
     this.connection.onopen = function (event) {
