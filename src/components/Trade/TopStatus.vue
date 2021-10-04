@@ -108,9 +108,14 @@ export default {
       if(localStorage.getItem("selectedmainCoin")!=null){
           this.defaultCoin = localStorage.getItem("selectedmainCoin");
           this.selectedcoinimage = localStorage.getItem("selectedcoinimage");
+
+           this.$emit("symbol", this.defaultCoin.substring(0, this.defaultCoin.lastIndexOf('/')))
+           this.$emit("pair_name", this.defaultCoin.substring(this.defaultCoin.lastIndexOf("/") + 1))
       }
       else{
           this.defaultCoin = "BTC/USDC";
+           this.$emit("symbol", "BTC")
+           this.$emit("pair_name", "USDC")
       }
     },
     async sendMessage() {
@@ -178,6 +183,9 @@ export default {
       this.$emit("pair_name", pair_name.substring(pair_name.lastIndexOf("/") + 1))
       this.$emit("full_pair_name", pair_name)
 
+    
+     
+
     },
     async setCoin() {
       localStorage.setItem("selectedmainCurrency", this.selectedcurrency)
@@ -191,8 +199,8 @@ export default {
     this.setData();
     this.getMarketDropdown();
    // this.setCoin();
-   this.$emit("symbol", "BTC")
-   this.$emit("pair_name", "USDC")  
+  // this.$emit("symbol", "BTC")
+  // this.$emit("pair_name", "USDC")  
    this.setMainCoin();
   },
   computed: {
@@ -249,7 +257,6 @@ export default {
 
     this.connection.onopen = function (event) {
       console.log(event);
-      console.log("Successfully connected to the echo websocket server...");
       ts.sendMessage();
     };
 

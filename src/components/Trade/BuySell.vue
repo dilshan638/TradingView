@@ -256,7 +256,7 @@ export default {
     },
     watch: {
         fullPairName: function (value) {
-            alert(value);
+          console.log(value)
             const headers = {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${localStorage.getItem(
