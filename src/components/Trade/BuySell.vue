@@ -188,7 +188,7 @@ export default {
         },
         async setCuurency() {
             this.selectcurrency = localStorage.getItem("selectedmainCurrency")
-            this.setCuurency();
+           // this.setCuurency();
         },
         async togglebuy() {
             this.buytab = true;

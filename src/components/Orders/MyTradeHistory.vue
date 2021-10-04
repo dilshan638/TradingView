@@ -11,22 +11,24 @@
                         <th scope="col">Side</th>
                         <th scope="col">Price</th>
                         <th scope="col">Amount</th>
-                        <th scope="col">Field</th>
+                        <th scope="col">Filled</th>
                         <th scope="col">Total</th>
                         <th scope="col">Trigger Conditions</th>
                     </tr>
                 </thead>
-                <tbody  v-if="tradeHistory.length !=0">   
-                    <tr v-for="trdhistory in tradeHistory" :key="trdhistory.created_at">
-                    <td>One</td>
-                    <td>One</td>
-                    <td>One</td>
-                    <td>One</td>
-                    <td>One</td>
-                    <td>One</td>
-                    <td>One</td>
-                    <td>One</td>
-                    <td>One</td>
+                <tbody  v-if="myTradeHistory.length !=0">   
+                    <tr  v-for="orders in myTradeHistory" :key="orders.id">
+                    <td>{{orders.createdAt}}</td>
+                     <td>{{orders.productId}}</td>
+                    <td>{{orders.type}}</td>
+                     <td v-bind:class="[orders.side == 'buy' ? 'buy' : 'sell']">{{orders.side}}</td>
+                       <td>{{orders.price}}</td>
+                     <td>{{orders.executedValue}}</td>
+                         <td>{{orders.filledSize}}</td>
+                     <td>{{orders.filledSize * orders.price }}</td>
+                          <td>-</td>
+                     
+                
                   </tr>                         
                 </tbody>
 
@@ -42,14 +44,15 @@
 </template>
 
 <script>
-
+import axios from "axios";
 export default {
     name: 'orderhistory',
     components: {
     },
     data(){
         return{
-            tradeHistory:[]
+            tradeHistory:[],
+            myTradeHistory:[]
         }
     },
 
@@ -77,10 +80,30 @@ export default {
       this.tradeHistory = response.data;
       console.log(this.tradeHistory);
     },
+
+       async getData() {
+       const headers = {
+ };
+
+      axios
+        .get("http://34.152.9.147:8001/api/orders?productId=BTC-USDT&status=filled&before&after&limit=100", {
+          headers: headers,
+
+        })
+        .then((responsive) => {
+          console.log(responsive.data);
+          this.myTradeHistory=responsive.data
+         
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
     },
 
     mounted() {
     this.geTradeHistory();
+    this.getData()
    
 
   },
@@ -88,5 +111,10 @@ export default {
 </script>
 
 <style>
-
+.buy {
+  color: green !important;
+}
+.sell {
+  color: red !important;
+}
 </style>

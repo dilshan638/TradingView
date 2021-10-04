@@ -209,9 +209,20 @@ export default {
     },
 
     async setData(dataBuyArray, dataSellArray) {
-      this.priceBuyBind = dataBuyArray.sort((a, b) => {return b[0] - a[0] });
-      this.priceSellBind = dataSellArray.sort((a, b) => {return a[0] - b[0] });
 
+
+
+          if(dataBuyArray!=undefined){
+           this.priceBuyBind = dataBuyArray.sort((a, b) => {return b[0] - a[0] });
+     
+       
+          }
+           if(dataSellArray!=undefined){
+           this.priceSellBind = dataSellArray.sort((a, b) => {return a[0] - b[0] });
+
+          }
+
+    
 
   
 
@@ -227,8 +238,7 @@ export default {
         this.priceSellBind[j][3]=j+1
       }
   
-      console.log( this.priceBuyBind)
-    },
+   },
   },
   mounted() {
     this.setData();
@@ -237,10 +247,10 @@ export default {
     const ts = this;
     this.connection = new WebSocket(
       "ws://34.152.9.147:8002/ws"
+      
     );
 
     this.connection.onmessage = function (event) {
-      console.log(JSON.parse(event.data));
       ts.dataAl = JSON.parse(event.data);
 
       // ts.priceBuy = ts.dataAl.bids;

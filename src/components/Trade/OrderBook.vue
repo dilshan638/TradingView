@@ -238,8 +238,16 @@ export default {
   },
   //  async setData(dataSellArray, dataBuyArray, recendData, fillPrice) {
         async setData(dataSellArray, dataBuyArray, fillPrice) {
-        this.priceSellBind = dataSellArray.sort((a, b) => {return a[0] - b[0] });
-        this.priceBuyBind = dataBuyArray.sort((a, b) => {return b[0] - a[0] });
+
+
+          if(dataSellArray!=undefined){
+         this.priceSellBind = dataSellArray.sort((a, b) => {return a[0] - b[0] });
+       
+          }
+           if(dataBuyArray!=undefined){
+          this.priceBuyBind = dataBuyArray.sort((a, b) => {return b[0] - a[0] });
+     
+          }
      
         this.price=fillPrice
         
@@ -291,8 +299,7 @@ created: function () {
     );
 
     this.connection.onmessage = function (event) {
-      console.log(JSON.parse(event.data));
-       ts.dataAl = JSON.parse(event.data);
+        ts.dataAl = JSON.parse(event.data);
 
         //Oder Book Page Onload
 
