@@ -22,7 +22,7 @@
                         <span class="input-group-text">Amount</span>  
                         <!-- :value="SellAmount" v-model="state.amount"  -->
                     </div>
-                    <input type="text" class="form-control" v-model="state.amount"  aria-label=""   />
+                    <input type="text" class="form-control" v-model="state.amount"   aria-label=""   />
                     <div class="input-group-append">
                         <span class="input-group-text">{{SelectedSymbol}}</span>
                     </div>
@@ -126,24 +126,24 @@ export default {
     },
     methods:{
         async getPairDetails() {
-        const headers = {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem(
-            "X-LDX-Inspira-Access-Token"
-            )}`,
-        };           
-        axios.get("https://dapi.exus.live/api/mobile/v1/trade/marcket/trade/pair", {headers: headers})
-            .then((res) => {
-            this.coindata =  res.data;
-            for (let i = 0; i < res.data[0].length; i++) {
-                console.log(res.data[0][i])
-                if(res.data[0][i]["pair_name"] == this.selectedcurrency) {
-                     this.trade_fee =res.data[0][i].trade_fee
+            const headers = {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem(
+                "X-LDX-Inspira-Access-Token"
+                )}`,
+            };           
+            axios.get("https://dapi.exus.live/api/mobile/v1/trade/marcket/trade/pair", {headers: headers})
+                .then((res) => {
+                    this.coindata =  res.data; 
+                    for (let i = 0; i < res.data[0].length; i++) {
+                    console.log(res.data[0][i])
+                    if(res.data[0][i]["pair_name"] == this.selectedcurrency) {
+                        this.trade_fee =res.data[0][i].trade_fee
                     // alert(fullPairName)
-                    //alert(this.trade_fee)
-                }                
-            }
-        })
+                    // alert(this.trade_fee)
+                    }                
+                }
+            })
             .catch(function (error) {
             console.log(error);
             })
@@ -254,17 +254,41 @@ export default {
            // alert(localStorage.getItem("totalBalances"))
         }       
     },
-created: function () {
-
-  //  this.test2 = localStorage.getItem("selectedmainCoin");
-  //  this.getPairDetails();
-  },
+    watch: {
+        fullPairName: function (value) {
+            alert(value);
+            const headers = {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem(
+                "X-LDX-Inspira-Access-Token"
+                )}`,
+            };           
+            axios.get("https://dapi.exus.live/api/mobile/v1/trade/marcket/trade/pair", {headers: headers})
+            .then((res) => {
+                for (let i = 0; i < res.data[0].length; i++) {
+                    console.log(res.data[0][i])
+                    if(res.data[0][i]["pair_name"] == this.selectedcurrency) {
+                        this.trade_fee =res.data[0][i].trade_fee
+                    // alert(fullPairName)
+                    }
+                }
+            })
+            .catch(function (error) {
+            console.log(error);
+            });        
+        }
+    },
+    computed: {
+      getPr () {
+          return this.fullPairName;
+      }
+    },
   mounted() {
-       this.getUserBalance();
-       this.checkUserBalance();
-       this.setCuurency();
-        this.getPairDetails();
-  }
+    this.getUserBalance();
+    this.checkUserBalance();
+    this.setCuurency();
+    this.getPairDetails();
+  },
 
 }
 </script>

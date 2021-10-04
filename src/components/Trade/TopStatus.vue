@@ -3,7 +3,7 @@
     <div class="row status1">
       <div class="col-md-4 pos-rel">
         <div class="search-head" @click="dropdownshow = !dropdownshow" @blur="dropdownshow = false">
-            <img :src="selectedcoinimage" /> <h4></h4>
+            <img :src="selectedcoinimage" /> <h4>{{defaultCoin}}</h4>
             <i class="ri-arrow-down-s-line" :class="[dropdownshow ? 'ri-arrow-up-s-line' : 'ri-arrow-down-s-line']"></i>
         </div>
         <div class="search-body buysell-form" v-if="dropdownshow">
@@ -75,8 +75,9 @@ export default {
       defaultCoin: "",
 
       selectedcoin: "",
-      selectedcoinimage: "https://ldev.exus.live/public/frontend/images/currency/btc_icon.png",
+      selectedcoinimage: "",
       selectedcurrency: "BTC",
+      dafaultcoinimage: "",
       coin: "",
       lastprice: "",
       priceChanege: "",   
@@ -104,11 +105,12 @@ export default {
 
   methods: {
     setMainCoin() {
-      if(localStorage.getItem("selectedmainCoin" == !null)) {
-        this.defaultCoin = localStorage.getItem("selectedmainCoin");
+      if(localStorage.getItem("selectedmainCoin")!=null){
+          this.defaultCoin = localStorage.getItem("selectedmainCoin");
+          this.selectedcoinimage = localStorage.getItem("selectedcoinimage");
       }
       else{
-        this.defaultCoin = "BTC/USDC"
+          this.defaultCoin = "BTC/USDC";
       }
     },
     async sendMessage() {
@@ -149,6 +151,11 @@ export default {
             this.lastprice = this.coindata[i].price;
             this.priceChanege = this.coindata[i].change_24h;
         }
+        for (let i = 0; i < this.coindata.length; i++) {
+          if(this.defaultCoin == "BTC/USDC") {
+            this.selectedcoinimage = this.coindata[i].image;
+          }
+        }        
       })
         .catch(function (error) {
           console.log(error);
@@ -159,38 +166,31 @@ export default {
       this.selectedcoin = pair_name;
       this.selectedcoinimage = image;
       this.selectedcurrency = currency;
+      localStorage.setItem("selectedmainCoin", pair_name)
+      localStorage.setItem("selectedcoinimage", image)
       this.setCoin();
+      this.setMainCoin();
       this.$emit("symbol", currency)
       this.$emit("pair_name", pair_name.substring(pair_name.lastIndexOf("/") + 1))
       this.$emit("full_pair_name", pair_name)
 
     },
     async setCoin() {
-      localStorage.setItem("selectedmainCoin", this.selectedcoin)
       localStorage.setItem("selectedmainCurrency", this.selectedcurrency)
       this.selectedcoin = localStorage.getItem("selectedmainCoin")
-    
       this.setSelectedCoin();
       console.log(localStorage.getItem("selectedmainCurrency"))
       this.$emit("chooseCurrency", this.selectedcurrency)
       
     },
-    setSelectedCoin() {
-      if(this.selectedcoin == ""){
-        this.selectedcoin = "BTC/USDC"
-      }
-      else{
-        this.selectedcoin = localStorage.getItem("selectedmainCoin")
-      }
-    } 
   },
   mounted() {
     this.setData();
     this.getMarketDropdown();
-    this.setSelectedCoin();
-   this.setCoin();
+   // this.setCoin();
    this.$emit("symbol", "BTC")
    this.$emit("pair_name", "USDC")  
+   this.setMainCoin();
   },
   computed: {
     filterCoins: function(){
@@ -200,6 +200,7 @@ export default {
     }
   },
   created: function () {
+    this.setMainCoin();
    // this.setCoin();
     const ts = this;
     this.connection = new WebSocket( "ws://34.152.9.147:8002/ws");

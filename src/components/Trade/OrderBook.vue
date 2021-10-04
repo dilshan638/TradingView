@@ -57,7 +57,7 @@
       <div class="top-order-book">
         <div class="trade-body sell-body" v-if="showbuyandsell == true || showsell == true ">
           <table class="table table-hover">
-            <tbody>
+            <tbody>             
             <tr v-for="sell in priceSellBind" :key="sell" v-show="deci=='0.01'">
               <td @click="sellPriceOrderBook(sell[0])">{{ parseFloat(sell[0]).toFixed(2) }}</td>
               <td @click="amountOrderBook(sell[1])">{{ sell[1] }}</td>

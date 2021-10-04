@@ -55,6 +55,7 @@ export default {
     methods: {
         setPairName(fullpair) {
           this.fullPairName = fullpair
+          localStorage.setItem("test1", fullpair)
         },
 
         async sellPriceOrderBook(price){
@@ -72,7 +73,6 @@ export default {
 
         async selectSymbol(symbol){
           this.SelectedSymbol=symbol
-        
         }
 
 
