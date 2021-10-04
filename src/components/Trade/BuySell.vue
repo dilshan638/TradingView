@@ -256,7 +256,7 @@ export default {
     },
     watch: {
         fullPairName: function (value) {
-          console.log(value)
+          //  alert(value);
             const headers = {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${localStorage.getItem(
@@ -267,7 +267,7 @@ export default {
             .then((res) => {
                 for (let i = 0; i < res.data[0].length; i++) {
                     console.log(res.data[0][i])
-                    if(res.data[0][i]["pair_name"] == this.selectedcurrency) {
+                    if(res.data[0][i]["pair_name"] == value) {
                         this.trade_fee =res.data[0][i].trade_fee
                     // alert(fullPairName)
                     }
