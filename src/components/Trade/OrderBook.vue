@@ -2,7 +2,6 @@
   <div>
     <div class="trade-box">
       <div class="trade-header">
-        <!-- trade comoponents -->
         Order Book
         <select class="form-control sel-val" @change="onChange($event)" >
           <option value="0.01">0.01</option>
@@ -59,7 +58,7 @@
         <div class="trade-body sell-body" v-if="showbuyandsell == true || showsell == true ">
           <table class="table table-hover">
             <tbody>             
-            <tr v-for="sell in priceSellBind" :key="sell" v-show="deci=='0.01'">
+            <tr v-for="sell in priceSellBind.slice(0, 15)" :key="sell" v-show="deci=='0.01'">
               <td @click="sellPriceOrderBook(sell[0])">{{ parseFloat(sell[0]).toFixed(2) }}</td>
               <td @click="amountOrderBook(sell[1])">{{ sell[1] }}</td>
               <td class="text-right">{{ sell[0] * sell[1] }}</td>
@@ -137,7 +136,7 @@
       <div class="top-order-book recent">
         <div class="trade-body recent-body">
          <table lass="table table-hover" style="width:100% !important;">
-            <tr v-for="recent in recentData.slice(0, 5)" :key="recent"  v-show="deci=='0.01'">
+            <tr v-for="recent in recentData" :key="recent"  v-show="deci=='0.01'">
               <td v-bind:class="[recent.side == 'buy' ? 'buy' : 'sell']"  @click="sellPriceOrderBook(recent.price)" >
                 {{ parseFloat(recent.price).toFixed(2) }}  
               </td>
@@ -301,7 +300,7 @@ export default {
 created: function () {
     const ts = this;
     this.connection = new WebSocket(
-      "ws://localhost:8002/ws"
+      "ws://34.152.9.147:8002/ws"
     );
 
     this.connection.onmessage = function (event) {
@@ -383,7 +382,7 @@ created: function () {
        }
 
          axios
-        .get("http://localhost:8001/api/products/BTC-USDT/trades", {
+        .get("http://34.152.9.147:8001/api/products/BTC-USDT/trades", {
           headers: headers,
         })
         .then((response) => {
