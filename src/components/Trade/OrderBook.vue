@@ -2,6 +2,7 @@
   <div>
     <div class="trade-box">
       <div class="trade-header">
+        <!-- trade comoponents -->
         Order Book
         <select class="form-control sel-val" @change="onChange($event)" >
           <option value="0.01">0.01</option>
@@ -136,7 +137,7 @@
       <div class="top-order-book recent">
         <div class="trade-body recent-body">
          <table lass="table table-hover" style="width:100% !important;">
-            <tr v-for="recent in recentData" :key="recent"  v-show="deci=='0.01'">
+            <tr v-for="recent in recentData.slice(0, 5)" :key="recent"  v-show="deci=='0.01'">
               <td v-bind:class="[recent.side == 'buy' ? 'buy' : 'sell']"  @click="sellPriceOrderBook(recent.price)" >
                 {{ parseFloat(recent.price).toFixed(2) }}  
               </td>
@@ -390,7 +391,7 @@ created: function () {
        }
 
          axios
-        .get("http://34.152.9.147:8001/api/products/BTC-USDT/trades", {
+        .get("http://34.152.9.147:8002/api/products/BTC-USDT/trades", {
           headers: headers,
         })
         .then((response) => {

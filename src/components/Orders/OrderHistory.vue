@@ -56,7 +56,7 @@ export default {
  };
 
       axios
-        .get("http://34.152.9.147:8001/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100", {
+        .get("http://34.152.9.147:8002/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100", {
           headers: headers,
 
         })
