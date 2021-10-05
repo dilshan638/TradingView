@@ -246,7 +246,15 @@ export default {
 
 
           if(dataSellArray!=undefined){
-         this.priceSellBind = dataSellArray.sort((a, b) => {return a[0] - b[0] });
+          this.priceSellBind = dataSellArray.sort((a, b) => {return a[0] - b[0] });
+
+           for (let z = 0; z < this.priceSellBind.length; z++) {
+           
+           if(this.priceSellBind.length>15){
+                this.priceSellBind.shift();
+               //alert(this.priceSellBind[0])
+           }
+          }
        
           }
            if(dataBuyArray!=undefined){
