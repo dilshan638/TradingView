@@ -14,7 +14,12 @@
                    <!-- <recent-trades /> -->
                 </div>
                 <div class="col-md-6">
-                    <buy-sell @chooseCurrency="getselectedCoin" :sellPrice="SellPrice" :SellAmount="SellAmount" :SelectedSymbol="SelectedSymbol" :pairName="pairName" :fullPairName="fullPairName" />
+                    <buy-sell
+                     @tradeHistory="tradehistory"
+                     @chooseCurrency="getselectedCoin"
+                      :sellPrice="SellPrice" :SellAmount="SellAmount" 
+                      :SelectedSymbol="SelectedSymbol" :pairName="pairName" 
+                      :fullPairName="fullPairName" />
                 </div>
             </div>
         </div>
@@ -50,6 +55,10 @@ export default {
 
         SelectedSymbol:"",
         pairName:"",
+
+        myTradeHistory:[]
+
+      
       }
     },
     methods: {
@@ -73,10 +82,10 @@ export default {
 
         async selectSymbol(symbol){
           this.SelectedSymbol=symbol
-        }
+        },
 
-
-    },
+        
+    }
 
       
 }

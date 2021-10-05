@@ -386,7 +386,7 @@ created: function () {
           headers: headers,
         })
         .then((response) => {
-         console.log(response.data)
+        // console.log(response.data)
       
         if(ts.recentData.length !=0){
           ts.recentData=[]

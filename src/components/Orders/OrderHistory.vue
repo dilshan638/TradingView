@@ -19,15 +19,15 @@
                     </thead>
 
                       <tr  v-for="orders in orderHistory" :key="orders.id">
-                    <td width="25%">{{orders.createdAt}}</td>
+                     <td width="25%">{{orders.createdAt}}</td>
                      <td width="10%">{{orders.productId}}</td>
-                    <td>{{orders.type}}</td>
+                     <td>{{orders.type}}</td>
                      <td v-bind:class="[orders.side == 'buy' ? 'buy' : 'sell']">{{orders.side}}</td>
-                       <td>{{orders.price}}</td>
+                     <td>{{orders.price}}</td>
                      <td>{{orders.executedValue}}</td>
-                         <td>{{orders.filledSize}}</td>
+                     <td>{{orders.filledSize}}</td>
                      <td>{{orders.filledSize * orders.price }}</td>
-                          <td>-</td>
+                     <td>-</td>
                      
                 </tr>
                     <tbody>                            
@@ -73,7 +73,8 @@ export default {
      },
 
       mounted() {
-      this.getData()
+     
+        window.setInterval(() => { this.getData()}, 3000)
     
     },
 

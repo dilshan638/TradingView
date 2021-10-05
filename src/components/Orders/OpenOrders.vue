@@ -72,7 +72,7 @@ export default {
      },
 
       mounted() {
-      this.getData()
+       window.setInterval(() => { this.getData()}, 3000)
     
     },
 
