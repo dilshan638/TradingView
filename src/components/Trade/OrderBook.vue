@@ -391,7 +391,7 @@ created: function () {
        }
 
          axios
-        .get("http://34.152.9.147:8002/api/products/BTC-USDT/trades", {
+        .get("http://34.152.9.147:8001/api/products/BTC-USDT/trades", {
           headers: headers,
         })
         .then((response) => {
