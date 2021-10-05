@@ -1,5 +1,6 @@
 <template>
     <div class="trade-box">
+      <!-- trade comoponents -->
         <div class="trade-header">
             Recent Trades 
         </div>

@@ -1,5 +1,6 @@
 <template>
   <div class="trade-box" style="min-height: auto;">
+    <!-- trade comoponents -->
     <div class="row status1">
       <div class="col-md-4 pos-rel">
         <div class="search-head" @click="dropdownshow = !dropdownshow" @blur="dropdownshow = false">

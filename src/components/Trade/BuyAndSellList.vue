@@ -1,6 +1,7 @@
 
 <template>
   <default-layout>
+    <!-- trade comoponents -->
     <div class="row">
       <div class="col-md-12">
         <div class="card table-card">

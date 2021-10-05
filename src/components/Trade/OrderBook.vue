@@ -2,6 +2,7 @@
   <div>
     <div class="trade-box">
       <div class="trade-header">
+        <!-- trade comoponents -->
         Order Book
         <select class="form-control sel-val" @change="onChange($event)" >
           <option value="0.01">0.01</option>

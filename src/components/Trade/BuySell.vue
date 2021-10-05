@@ -1,5 +1,6 @@
 <template>
     <div class="trade-box buysell-form buy-sell-box">
+        <!-- trade comoponents -->
         <div class="trade-header text-center">
             Buy / Sell
         </div>
