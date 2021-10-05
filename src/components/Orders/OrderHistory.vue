@@ -19,15 +19,15 @@
                     </thead>
 
                       <tr  v-for="orders in orderHistory" :key="orders.id">
-                    <td width="25%">{{orders.createdAt}}</td>
+                     <td width="25%">{{orders.createdAt}}</td>
                      <td width="10%">{{orders.productId}}</td>
-                    <td>{{orders.type}}</td>
+                     <td>{{orders.type}}</td>
                      <td v-bind:class="[orders.side == 'buy' ? 'buy' : 'sell']">{{orders.side}}</td>
-                       <td>{{orders.price}}</td>
+                     <td>{{orders.price}}</td>
                      <td>{{orders.executedValue}}</td>
-                         <td>{{orders.filledSize}}</td>
+                     <td>{{orders.filledSize}}</td>
                      <td>{{orders.filledSize * orders.price }}</td>
-                          <td>-</td>
+                     <td>-</td>
                      
                 </tr>
                     <tbody>                            
@@ -56,7 +56,7 @@ export default {
  };
 
       axios
-        .get("http://localhost:8001/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100", {
+        .get("http://34.152.9.147:8001/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100", {
           headers: headers,
 
         })
@@ -73,7 +73,8 @@ export default {
      },
 
       mounted() {
-      this.getData()
+     
+        window.setInterval(() => { this.getData()}, 3000)
     
     },
 
@@ -82,7 +83,7 @@ export default {
 
 <style>
 .buy {
-  color: green !important;
+  color:#18e140 !important;
 }
 .sell {
   color: red !important;

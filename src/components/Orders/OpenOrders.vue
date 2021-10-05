@@ -55,7 +55,7 @@ export default {
  };
 
       axios
-        .get("http://localhost:8001/api/orders?productId=BTC-USDT&status=open&before&after&limit=100", {
+        .get("http://34.152.9.147:8001/api/orders?productId=BTC-USDT&status=open&before&after&limit=100", {
           headers: headers,
 
         })
@@ -72,7 +72,7 @@ export default {
      },
 
       mounted() {
-      this.getData()
+       window.setInterval(() => { this.getData()}, 3000)
     
     },
 
@@ -83,7 +83,7 @@ export default {
 
 <style>
 .buy {
-  color: green !important;
+  color: #18e140 !important;
 }
 .sell {
   color: red !important;

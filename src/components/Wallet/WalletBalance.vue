@@ -76,18 +76,18 @@ export default {
         })
         .then((response) => {
           this.cryptoAll = response.data[0];
-
+          console.log(this.cryptoAll)
           axios
             .get("https://dapi.exus.live/api/mobile/v1/wallet/user/crypto", {
               headers: headers,
             })
             .then((response) => {
               this.usergetCrypto = response.data[0];
-
+              console.log(this.usergetCrypto)
               for (let i = 0; i < this.cryptoAll.length; i++) {
                 this.cryptoAll[i]["amount"] = this.usergetCrypto[i]["amount"];
                 this.marketvalue = this.marketvalue + JSON.parse(this.cryptoAll[i]["amount"]);
-                  this.total.push({ symbol: this.cryptoAll[i]["symbol"], balance:  this.cryptoAll[i]["amount"]*this.marketPrice });
+                this.total.push({ symbol: this.cryptoAll[i]["symbol"], balance:  this.cryptoAll[i]["amount"]*this.marketPrice });
                   
 
                 if (this.marketvalue == 0) {
@@ -110,7 +110,6 @@ export default {
          
         });
     },
-
     getUsergetCrypto() {
       const headers = {
         "Content-Type": "application/json",

@@ -58,19 +58,19 @@
         <div class="trade-body sell-body" v-if="showbuyandsell == true || showsell == true ">
           <table class="table table-hover">
             <tbody>             
-            <tr v-for="sell in priceSellBind.slice(0, 15)" :key="sell" v-show="deci=='0.01'">
+            <tr v-for="sell in priceSellBind.slice(0, 13)" :key="sell" v-show="deci=='0.01'">
               <td @click="sellPriceOrderBook(sell[0])">{{ parseFloat(sell[0]).toFixed(2) }}</td>
               <td @click="amountOrderBook(sell[1])">{{ sell[1] }}</td>
               <td class="text-right">{{ sell[0] * sell[1] }}</td>
             </tr>
 
-             <tr v-for="sell in priceSellBind" :key="sell" v-show="deci=='0.1'">
+             <tr v-for="sell in priceSellBind.slice(0, 13)" :key="sell" v-show="deci=='0.1'">
               <td @click="sellPriceOrderBook(sell[0])">{{ parseFloat(sell[0]).toFixed(1) }}</td>
               <td @click="amountOrderBook(sell[1])">{{ sell[1] }}</td>
               <td class="text-right">{{ sell[0] * sell[1] }}</td>
             </tr>
 
-             <tr v-for="sell in priceSellBind" :key="sell" v-show="deci=='0'">
+             <tr v-for="sell in priceSellBind.slice(0, 13)" :key="sell" v-show="deci=='0'">
               <td @click="sellPriceOrderBook(sell[0])">{{ parseFloat(sell[0]).toFixed(0) }}</td>
               <td @click="amountOrderBook(sell[1])">{{ sell[1] }}</td>
               <td class="text-right">{{ sell[0] * sell[1] }}</td>
@@ -97,19 +97,19 @@
         <div class="trade-body buy-body" v-if="showbuyandsell == true || showbuy == true ">
          <table lass="table table-hover" style="width:100% !important;">
 
-          <tr class="plus" v-for="buy in priceBuyBind" :key="buy" v-show="deci=='0.01'">
+          <tr class="plus" v-for="buy in priceBuyBind.slice(0, 13)" :key="buy" v-show="deci=='0.01'">
             <td @click="sellPriceOrderBook(buy[0])" >{{ parseFloat(buy[0]).toFixed(2) }}</td>
             <td @click="amountOrderBook(buy[1])">{{ buy[1] }}</td>
             <td class="text-right">{{ buy[0] * buy[1] }}</td>
           </tr>
 
-          <tr class="plus" v-for="buy in priceBuyBind" :key="buy" v-show="deci=='0.1'">
+          <tr class="plus" v-for="buy in priceBuyBind.slice(0, 13)" :key="buy" v-show="deci=='0.1'">
             <td @click="sellPriceOrderBook(buy[0])" >{{ parseFloat(buy[0]).toFixed(1) }}</td>
             <td @click="amountOrderBook(buy[1])">{{ buy[1] }}</td>
             <td class="text-right">{{ buy[0] * buy[1] }}</td>
           </tr>
 
-          <tr class="plus" v-for="buy in priceBuyBind" :key="buy" v-show="deci=='0'">
+          <tr class="plus" v-for="buy in priceBuyBind.slice(0, 13)" :key="buy" v-show="deci=='0'">
             <td @click="sellPriceOrderBook(buy[0])" >{{ parseFloat(buy[0]).toFixed(0) }}</td>
             <td @click="amountOrderBook(buy[1])">{{ buy[1] }}</td>
             <td class="text-right">{{ buy[0] * buy[1] }}</td>
@@ -246,11 +246,25 @@ export default {
 
 
           if(dataSellArray!=undefined){
-         this.priceSellBind = dataSellArray.sort((a, b) => {return a[0] - b[0] });
-       
+            this.priceSellBind = dataSellArray.sort((a, b) => {return a[0] - b[0] });
+
+           for (let z = 0; z < this.priceSellBind.length; z++) {
+              if(this.priceSellBind.length>13){
+                this.priceSellBind.shift();
+              }
+            }
+
           }
-           if(dataBuyArray!=undefined){
-          this.priceBuyBind = dataBuyArray.sort((a, b) => {return b[0] - a[0] });
+
+          if(dataBuyArray!=undefined){
+
+            this.priceBuyBind = dataBuyArray.sort((a, b) => {return b[0] - a[0] });
+
+            for (let z = 0; z < this.priceBuyBind.length; z++) {
+                if(this.priceBuyBind.length>13){
+                  this.priceBuyBind.shift();
+                }
+            }
      
           }
      
@@ -386,7 +400,7 @@ created: function () {
           headers: headers,
         })
         .then((response) => {
-         console.log(response.data)
+        // console.log(response.data)
       
         if(ts.recentData.length !=0){
           ts.recentData=[]
@@ -438,7 +452,7 @@ created: function () {
   }
 }
 .buy {
-  color: green !important;
+  color:#18e140 !important;
 }
 .sell {
   color: red !important;

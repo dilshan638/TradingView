@@ -130,7 +130,7 @@ export default {
   @import "../../assets/scss/Trade/Trade";
 
   .buy{
-    color: green !important;
+    color: #18e140 !important;
   }
   .sell{
     color:red !important;

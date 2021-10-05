@@ -43,16 +43,12 @@ border-radius: 5px;
     background: #9597af; 
     border-radius: 5px;
   }
-  
-  /* Handle on hover */
-  .trade-body::-webkit-scrollbar-thumb:hover {
-   // background: red; 
-  }
+
 
 
   .sell-body{
     position: absolute;
-    height: 49%;
+    height: 45%;
     width: 100%;
     left: 0;
     top: 15px;
@@ -64,8 +60,9 @@ border-radius: 5px;
     overflow-y: auto;
     width: 100%;
     left: 0;
-    top: 49%;
+    top: 48%;
     margin-top: 0 !important;
+    overflow: visible;
   }
   .buy-body{
     position: absolute;
@@ -73,7 +70,7 @@ border-radius: 5px;
     /* overflow-y: hidden; */
     width: 100%;
     left: 0;
-    top: 55%;
+    top: 56%;
     margin: 0 !important;
   }
 
