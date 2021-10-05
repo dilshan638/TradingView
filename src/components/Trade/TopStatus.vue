@@ -139,10 +139,10 @@ export default {
         this.low24hBind = low24hBnd;
          this.volume24hBind = volume24hBnd;
            
-         if(ldcx24hBnd==undefined){
+         if(ldcx24hBnd==undefined ||ldcx24hBnd==0){
              this.ldcx24hBind=0
          }else{
-            this.ldcx24hBind=ldcx24hBnd 
+            this.ldcx24hBind=((filledPrice-open24hBnd)/ open24hBnd)*100
          }
     },
     async getMarketDropdown() {

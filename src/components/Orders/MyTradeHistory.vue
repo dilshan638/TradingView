@@ -98,7 +98,7 @@ export default {
           }
         )
         .then((responsive) => {
-          console.log(responsive.data);
+         
           this.dataAll = responsive.data;
              
         })
