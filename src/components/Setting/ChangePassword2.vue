@@ -30,7 +30,7 @@
             <div class="eye-area mb-4">
               <input
                 v-bind:type="[showOldPassword ? 'text' : 'password']"
-                placeholder="Old Password"
+                placeholder="Current Password"
                 class="form-control"
                 v-model="state.oldPassword"
               />

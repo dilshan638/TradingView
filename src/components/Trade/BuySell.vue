@@ -1,5 +1,5 @@
 <template>
-    <div class="trade-box buysell-form">
+    <div class="trade-box buysell-form buy-sell-box">
         <div class="trade-header text-center">
             Buy / Sell
         </div>
@@ -13,7 +13,7 @@
                     <div class="sub-type" @click="toLimit" v-bind:class="[limitTab == true ? 'active' : '']">LImit</div>
                     <div class="sub-type" @click="toMarket" v-bind:class="[marketTab == true ? 'active' : '']">Market</div>
                     <div class="sub-type" @click="toStop" v-bind:class="[stopTab == true ? 'active' : '']">Stop</div>
-                    <div class="sub-type" @click="toStopLimit" v-bind:class="[stoplimitTab == true ? 'active' : '']">Limit</div>
+                    <div class="sub-type" @click="toStopLimit" v-bind:class="[stoplimitTab == true ? 'active' : '']">Stop Limit</div>
                 </div>
             </div>
             <div class="price-form">
@@ -55,8 +55,8 @@
                 <div class="row">
                     <div class="col-md-12">
                         <button class="btn btn-primary pass-btn buyaction" @selectcoin="selectedcurrency = 'new name'" 
-                        v-if="buytab" @click="buybtcformaction">BUY/{{SelectedSymbol}}</button>
-                        <button class="btn btn-primary pass-btn sellaction" v-else @click="buybtcformaction">SELL/{{SelectedSymbol}} </button>
+                        v-if="buytab" @click="buybtcformaction">BUY {{SelectedSymbol}}</button>
+                        <button class="btn btn-primary pass-btn sellaction" v-else @click="buybtcformaction">SELL {{SelectedSymbol}} </button>
                     </div>
                 </div>
             </div>

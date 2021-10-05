@@ -423,6 +423,33 @@
 
 @media only screen and (min-device-width : 1152px) and (max-device-width : 1440px) {
 
+    .sub-type {
+        margin-right: 13px !important;
+        font-size: 0.6rem !important;
+    }
+
+    .trade-box {
+        padding: 0 !important;
+    }
+
+    .top-tab {
+        padding: 8px !important;
+        font-size: 0.75rem !important;
+        font-weight: 500 !important;    
+        margin-bottom: 0px !important;
+    }
+    .pass-btn {
+        margin-top: 24px !important;
+        min-height: 20px !important;
+        line-height: 30px !important;
+    }
+    .trade-box.buy-sell-box{
+        min-height: 430px !important;
+    }
+    .buysell-form .input-group {
+        height: 32px !important;
+    }
+
     .buysell-form .input-group .form-control {
         font-size: 0.72rem !important;
     }

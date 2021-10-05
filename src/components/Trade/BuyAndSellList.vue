@@ -246,7 +246,7 @@ export default {
   created: function () {
     const ts = this;
     this.connection = new WebSocket(
-      "ws://34.152.9.147:8002/ws"
+      "ws://localhost:8002/ws"
       
     );
 

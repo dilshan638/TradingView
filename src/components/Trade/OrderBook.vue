@@ -136,7 +136,7 @@
       <div class="top-order-book recent">
         <div class="trade-body recent-body">
          <table lass="table table-hover" style="width:100% !important;">
-            <tr v-for="recent in recentData" :key="recent"  v-show="deci=='0.01'">
+            <tr v-for="recent in recentData.slice(0, 5)" :key="recent"  v-show="deci=='0.01'">
               <td v-bind:class="[recent.side == 'buy' ? 'buy' : 'sell']"  @click="sellPriceOrderBook(recent.price)" >
                 {{ parseFloat(recent.price).toFixed(2) }}  
               </td>
@@ -300,7 +300,7 @@ export default {
 created: function () {
     const ts = this;
     this.connection = new WebSocket(
-      "ws://34.152.9.147:8002/ws"
+      "ws://localhost:8002/ws"
     );
 
     this.connection.onmessage = function (event) {
@@ -382,7 +382,7 @@ created: function () {
        }
 
          axios
-        .get("http://34.152.9.147:8001/api/products/BTC-USDT/trades", {
+        .get("http://localhost:8001/api/products/BTC-USDT/trades", {
           headers: headers,
         })
         .then((response) => {
