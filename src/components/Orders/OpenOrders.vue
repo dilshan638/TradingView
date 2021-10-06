@@ -25,9 +25,9 @@
               {{ orders.side }}
             </td>
             <td>{{ orders.price }}</td>
-            <td>{{ orders.executedValue }}</td>
+            <td>{{ orders.size }}</td>
             <td>{{ orders.filledSize }}</td>
-            <td>{{ orders.filledSize * orders.price }}</td>
+            <td>{{ orders.size * orders.price }}</td>
             <td>-</td>
           </tr>
           <tbody></tbody>
@@ -54,7 +54,7 @@ export default {
 
       axios
         .get(
-          "http://localhost:8001/api/orders?productId=BTC-USDT&status=open&before&after&limit=100",
+          "http://34.152.9.147:8001/api/orders?productId=BTC-USDT&status=open&before&after&limit=100",
           {
             headers: headers,
           }

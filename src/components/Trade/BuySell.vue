@@ -200,7 +200,7 @@ export default {
 
         axios
           .get(
-            "http://localhost:8001/api/orders?productId=BTC-USDT&status=open&before&after&limit=100",
+            "http://34.152.9.147:8001/api/orders?productId=BTC-USDT&status=open&before&after&limit=100",
             {
               headers: headers,
             }
@@ -218,7 +218,7 @@ export default {
 
         axios
           .get(
-            "http://localhost:8001/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100",
+            "http://34.152.9.147:8001/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100",
             {
               headers: headers,
             }
@@ -235,7 +235,7 @@ export default {
 
         axios
           .get(
-            "http://localhost:8001/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100",
+            "http://34.152.9.147:8001/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100",
             {
               headers: headers,
             }
