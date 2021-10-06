@@ -105,7 +105,7 @@
             </div>
           </div>
         </div>
-        <div class="row">
+        <div class="row" v-if="authUser">
           <div class="col-md-12">
             <button
               class="btn btn-primary pass-btn buyaction"
@@ -124,6 +124,13 @@
             </button>
           </div>
         </div>
+        <div class="row" v-else>
+          <div class="col-md-12">
+            <div class="login-action">
+              <router-link to="/signin">Login</router-link> to trade
+            </div>
+          </div>
+        </div>        
       </div>
     </div>
   </div>
@@ -177,6 +184,7 @@ export default {
       marketTab: false,
       stopTab: false,
       stoplimitTab: false,
+      authUser: false,
 
       userBalance: "",
       selectedcurrency: localStorage.getItem("selectedmainCoin"),
@@ -382,9 +390,15 @@ export default {
       getUserBalance() {
         this.coin = JSON.parse(localStorage.getItem("arraySymbol"));
       },
-      checkUserBalance() {
-        // alert(localStorage.getItem("totalBalances"))
-      },
+      async checkAuthUser() {
+         this.authUser = false;
+          if(localStorage.getItem("X-LDX-Inspira-Access-Token")!=null){
+           this.authUser = true;
+         }
+         else{
+          this.authUser = false;
+        }        
+      }
   },
   watch: {
     fullPairName: function (value) {
@@ -417,9 +431,10 @@ export default {
   },
   mounted() {
     this.getUserBalance();
-    this.checkUserBalance();
+  //  this.checkUserBalance();
     this.setCuurency();
     this.getPairDetails();
+    this.checkAuthUser();
   },
 };
 </script>

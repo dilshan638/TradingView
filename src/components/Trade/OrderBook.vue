@@ -59,7 +59,10 @@
           <table class="table table-hover">
             <tbody>             
             <tr v-for="sell in priceSellBind.slice(0, 13)" :key="sell" v-show="deci=='0.01'">
-              <td @click="sellPriceOrderBook(sell[0])">{{ parseFloat(sell[0]).toFixed(2) }}</td>
+              <td @click="sellPriceOrderBook(sell[0])">
+                {{ parseFloat(sell[0]).toFixed(2) }}
+                <div class="pop-hover">sssss</div>
+                </td>
               <td @click="amountOrderBook(sell[1])">{{ sell[1] }}</td>
               <td class="text-right">{{ sell[0] * sell[1] }}</td>
             </tr>

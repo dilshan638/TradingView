@@ -101,7 +101,7 @@ const routes=[
     {
         path:'/trade',
         component:Trade,
-        beforeEnter : guardmyrouter
+       // beforeEnter : guardmyrouter
     },    
     {
         path:'/market',
