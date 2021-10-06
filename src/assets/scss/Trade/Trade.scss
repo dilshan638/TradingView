@@ -3,7 +3,7 @@
     border-radius: 5px;
     background-color: #242424;
     padding: 15px;
-    min-height: 489px;
+    min-height: 548px;
     float: left;
     width: 100%;
     margin-bottom: 15px;
@@ -547,4 +547,31 @@ select.sel-val{
   }
   .top-order-book.recent{
       min-height: auto !important;
+  }
+  .login-action{
+    padding: 13px;
+    text-align: center;
+    color: #fff;
+    font-weight: 500;
+    background-color: #393939;
+    border-radius: 5px;
+    margin-top: 22px;
+
+    a{
+        text-decoration: none;
+    }
+  }
+
+  .authmsg{
+    padding: 30px;
+    text-align: center;
+
+    a{
+        text-decoration: none;
+    }
+
+  }
+
+  .pop-hover{
+      position: absolute;
   }

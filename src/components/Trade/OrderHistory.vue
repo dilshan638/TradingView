@@ -27,13 +27,16 @@
                             </ul>
                             <div class="tab-content" id="pills-tabContent">
                                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">     
-                                    <open-orders />
+                                    <open-orders v-if="authUser" />
+                                    <div v-else class="authmsg"><router-link to="/signin">Login</router-link> to trade</div>
                                 </div>
                                 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                                    <order-history />
+                                    <order-history v-if="authUser" />
+                                    <div v-else class="authmsg"><router-link to="/signin">Login</router-link> to trade</div>
                                 </div>
                                 <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-                                    <my-trade-history :myTradeHistory="myTradeHistory" /> 
+                                    <my-trade-history  :myTradeHistory="myTradeHistory" v-if="authUser" />
+                                    <div v-else class="authmsg"><router-link to="/signin">Login</router-link> to trade</div>
                                 </div>
                             </div>                      
                         </div>
@@ -56,7 +59,7 @@ export default {
     props:["myTradeHistory"],
     data() {
         return{
-            
+            authUser: false
         }
     },
     components: {
@@ -65,10 +68,18 @@ export default {
         MyTradeHistory
     },
     methods: {   
+      async checkAuthUser() {
+         this.authUser = false;
+          if(localStorage.getItem("X-LDX-Inspira-Access-Token")!=null){
+           this.authUser = true;
+         }
+         else{
+          this.authUser = false;
+        }        
+      }        
     },
     mounted() {
-       
-       
+      this.checkAuthUser();
     }   
 
 }

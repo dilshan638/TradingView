@@ -115,7 +115,7 @@
             <td class="text-right">{{ buy[0] * buy[1] }}</td>
           </tr>
           </table>          
-        </div>        
+        </div>
       </div>
     </div>
     <div class="trade-box">
