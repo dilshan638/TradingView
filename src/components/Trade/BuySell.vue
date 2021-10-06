@@ -192,6 +192,8 @@ export default {
       side: "buy",
       type: "limit",
       timeInForce: "",
+
+      VUE_APP_SERVICE_URL: process.env.VUE_APP_SERVICE_URL
     };
   },
   methods: {
