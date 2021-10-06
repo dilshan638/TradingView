@@ -28,15 +28,15 @@
                             <div class="tab-content" id="pills-tabContent">
                                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">     
                                     <open-orders v-if="authUser" />
-                                    <div class="authmsg"><router-link to="/signin">Login</router-link> to trade</div>
+                                    <div v-else class="authmsg"><router-link to="/signin">Login</router-link> to trade</div>
                                 </div>
                                 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                                     <order-history v-if="authUser" />
-                                    <div class="authmsg"><router-link to="/signin">Login</router-link> to trade</div>
+                                    <div v-else class="authmsg"><router-link to="/signin">Login</router-link> to trade</div>
                                 </div>
                                 <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
                                     <my-trade-history  :myTradeHistory="myTradeHistory" v-if="authUser" />
-                                    <div class="authmsg"><router-link to="/signin">Login</router-link> to trade</div>
+                                    <div v-else class="authmsg"><router-link to="/signin">Login</router-link> to trade</div>
                                 </div>
                             </div>                      
                         </div>
