@@ -43,6 +43,7 @@
     table{
 
         tr{
+
             th{
                 padding: 7px 15px !important;
                 vertical-align: middle !important;
@@ -57,7 +58,20 @@
                 font-size: 0.75rem !important;
                 font-weight: 500 !important;
                 padding: 7px 15px !important;
-                vertical-align: middle !important;            
+                vertical-align: middle !important;    
+                border-bottom: solid 1px #393e77 !important;  
+                
+                button{
+                    min-width: none !important;
+                }
+            }
+
+            &:last-child{
+
+              td{
+                  border-bottom: none !important;
+              }
+
             }
         }
 
