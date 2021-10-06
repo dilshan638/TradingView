@@ -10,10 +10,12 @@
               <th scope="col">Type</th>
               <th scope="col">Side</th>
               <th scope="col">Price</th>
+               <th scope="col">Executed</th>
               <th scope="col">Amount</th>
               <th scope="col">Filled</th>
               <th scope="col">Total</th>
-              <th scope="col">Trigger Conditions</th>
+              <th scope="col">Status</th>
+               <th scope="col">Action</th>
             </tr>
           </thead>
 
@@ -25,10 +27,12 @@
               {{ orders.side }}
             </td>
             <td>{{ orders.price }}</td>
-            <td>{{ orders.executedValue }}</td>
+             <td>{{ orders.executedValue }}</td>
+            <td>{{ orders.size }}</td>
             <td>{{ orders.filledSize }}</td>
-            <td>{{ orders.filledSize * orders.price }}</td>
-            <td>-</td>
+            <td>{{ orders.size * orders.price }}</td>
+            <td>{{orders.status}}</td>
+            <td v-if="orders.status=='open'"> <button>Cancel</button></td>
           </tr>
           <tbody></tbody>
         </table>
@@ -61,6 +65,7 @@ export default {
         )
         .then((responsive) => {
           this.orderHistory = responsive.data;
+          
         })
         .catch(function (error) {
           console.log(error);

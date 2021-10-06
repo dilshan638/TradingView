@@ -25,9 +25,9 @@
               {{ orders.side }}
             </td>
             <td>{{ orders.price }}</td>
-            <td>{{ orders.executedValue }}</td>
+            <td>{{ orders.size }}</td>
             <td>{{ orders.filledSize }}</td>
-            <td>{{ orders.filledSize * orders.price }}</td>
+            <td>{{ orders.size * orders.price }}</td>
             <td>-</td>
           </tr>
           <tbody></tbody>

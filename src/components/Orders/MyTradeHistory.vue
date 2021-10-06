@@ -7,28 +7,28 @@
             <tr>
               <th width="25%" scope="col">Date</th>
               <th width="10%" scope="col">Pair</th>
-              <th scope="col">Type</th>
+            
               <th scope="col">Side</th>
               <th scope="col">Price</th>
-              <th scope="col">Amount</th>
-              <th scope="col">Filled</th>
+              <th scope="col">Executed</th>
+              <th scope="col">Fee</th>
               <th scope="col">Total</th>
-              <th scope="col">Trigger Conditions</th>
+            
             </tr>
           </thead>
           <tbody v-if="dataAll.length != 0">
             <tr v-for="orders in dataAll" :key="orders.id">
               <td width="25%">{{ orders.createdAt }}</td>
               <td width="10%">{{ orders.productId }}</td>
-              <td>{{ orders.type }}</td>
+             
               <td v-bind:class="[orders.side == 'buy' ? 'buy' : 'sell']">
                 {{ orders.side }}
               </td>
               <td>{{ orders.price }}</td>
               <td>{{ orders.executedValue }}</td>
-              <td>{{ orders.filledSize }}</td>
-              <td>{{ orders.filledSize * orders.price }}</td>
-              <td>-</td>
+              <td>{{ orders.fillFees }}</td>
+              <td>{{ orders.size * orders.price }}</td>
+             
             </tr>
           </tbody>
 
@@ -92,7 +92,7 @@ export default {
       const headers = {};
       axios
         .get(
-          "http://34.152.9.147:8001/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100",
+          "http://34.152.9.147:8001/api/orders?productId=BTC-USDT&status=filled&before&after&limit=100",
           {
             headers: headers,
           }
