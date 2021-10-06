@@ -59,10 +59,7 @@
           <table class="table table-hover">
             <tbody>             
             <tr v-for="sell in priceSellBind.slice(0, 13)" :key="sell" v-show="deci=='0.01'">
-              <td @click="sellPriceOrderBook(sell[0])">
-                {{ parseFloat(sell[0]).toFixed(2) }}
-                <div class="pop-hover">sssss</div>
-                </td>
+              <td @click="sellPriceOrderBook(sell[0],sell[3],sell[4])">{{ parseFloat(sell[0]).toFixed(2) }}</td>
               <td @click="amountOrderBook(sell[1])">{{ sell[1] }}</td>
               <td class="text-right">{{ sell[0] * sell[1] }}</td>
             </tr>
@@ -166,14 +163,41 @@
         </div>        
       </div>     
     </div>
+
+ <modal ref="roedetails" class="modal2-modal border50">
+      
+      <template v-slot:body>
+      
+      </template>
+      <template v-slot:footer>
+       <table>
+         <tbody>
+           <tr>
+             <td>Avg.Price: {{avgBuy}}</td>
+              <td>Sum {{SelectedSymbol}} :{{sumAmount}}</td>
+               <td>Sum {{pairName}}: {{sumTotal}}</td>
+           </tr>
+         </tbody>
+       </table>
+        <button class="second-btn mb-3" @click="closeModalDetail">
+            Cancel
+          </button>
+      </template>
+    </modal>
+     
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import Modal from "../Modal/Modal.vue";
 export default {
     emits: ["sellPriceOrderBookPass","sellAmountOrderBookPass"],
   name: "orderbook",
+   components: {
+    Modal,
+    
+  },
   props:["SelectedSymbol","pairName"],
    
   data() {
@@ -203,6 +227,14 @@ export default {
       price:"",
       deci:"0.01",
       reentDataOnLoad:[],
+
+       buyTotal:0,
+      sellTotal:0,
+
+      buyAmount:0,
+      avgBuy:'',
+      sumAmount:'',
+      sumTotal:""
      
 
       
@@ -220,11 +252,21 @@ export default {
   async selectedSymbol(SelectedSymbol){
     this.symbol =SelectedSymbol
   },
-  async sellPriceOrderBook(value){
+  async sellPriceOrderBook(value,amountTotal,total){
     this.$emit("sellPriceOrderBookPass", value)
+     this.$refs.roedetails.openModal();
+     this.avgBuy=value
+     this.sumAmount=amountTotal
+      this.sumTotal=total
+
+
   },
   async amountOrderBook(amount){
      this.$emit("sellAmountOrderBookPass", amount)
+  },
+
+  async closeModalDetail(){
+  this.$refs.roedetails.closeModal();
   },
 
  
@@ -249,15 +291,21 @@ export default {
 
 
           if(dataSellArray!=undefined){
-            this.priceSellBind = dataSellArray.sort((a, b) => {return a[0] - b[0] });
-
+            this.priceSellBind = dataSellArray
            for (let z = 0; z < this.priceSellBind.length; z++) {
-              if(this.priceSellBind.length>13){
+
+                 this.buyAmount += (parseFloat(this.priceSellBind[z][1]))
+                 this.priceSellBind[z][3]=this.buyAmount
+                 this.buyTotal += (parseFloat(this.priceSellBind[z][0]) * parseFloat(this.priceSellBind[z][1]))
+                 this.priceSellBind[z][4]=this.buyTotal
+         }
+            
+             this.priceSellBind.sort((a, b) => {return b[0] - a[0] });
+            }
+             if(this.priceSellBind.length>13){
                 this.priceSellBind.shift();
               }
-            }
-
-          }
+         
 
           if(dataBuyArray!=undefined){
 
