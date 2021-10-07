@@ -66,7 +66,7 @@ export default {
 
   methods: {
     async setOneDay() {
-      
+      this.oneDay= new Date().toJSON().slice(0,10).replace(/-/g,'-');
     },
     async getData() {
       const headers = {};
@@ -105,10 +105,10 @@ export default {
   },
   computed: {
     neworderHistory: function() {
-      var currentDateWithFormat = new Date().toJSON().slice(0,10).replace(/-/g,'-');
-      console.log(currentDateWithFormat);
+     // var currentDateWithFormat = new Date().toJSON().slice(0,10).replace(/-/g,'-');
+    //  console.log(currentDateWithFormat);
       return this.orderHistory.filter((orders) => {
-      return (orders.createdAt.substring(0, orders.createdAt.lastIndexOf('T'))).includes(currentDateWithFormat)
+      return (orders.createdAt.substring(0, orders.createdAt.lastIndexOf('T'))).includes( this.oneDay)
       })
     }
   },
