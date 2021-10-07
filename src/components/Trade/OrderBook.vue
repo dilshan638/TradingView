@@ -61,7 +61,25 @@
             <tr v-for="sell in priceSellBind.slice(0, 13)" :key="sell" v-show="deci=='0.01'">
               <td @click="sellPriceOrderBook(sell[0],sell[3],sell[4])">{{ parseFloat(sell[0]).toFixed(2) }}</td>
               <td @click="amountOrderBook(sell[1])">{{ sell[1] }}</td>
-              <td class="text-right">{{ sell[0] * sell[1] }}</td>
+              <td class="text-right">
+                {{ sell[0] * sell[1] }}
+                <transition name="fade">
+                  <div class="tooltip2">
+                    <div class="tool-row">
+                        <div class="tool-title">Avg Price:</div>
+                        <div class="tool-val">{{ sell[0] }}</div>
+                    </div>
+                    <div class="tool-row">
+                        <div class="tool-title">Sum {{SelectedSymbol}}:</div>
+                        <div class="tool-val">{{ sell[3] }}</div>
+                    </div>
+                    <div class="tool-row">
+                        <div class="tool-title">Sum {{pairName}}:</div>
+                        <div class="tool-val">{{ sell[4] }}</div>
+                    </div>
+                  </div>
+                </transition>
+              </td>
             </tr>
 
              <tr v-for="sell in priceSellBind.slice(0, 13)" :key="sell" v-show="deci=='0.1'">

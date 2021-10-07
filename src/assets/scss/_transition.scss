@@ -9,3 +9,42 @@
     transform: translateX(10px);
     opacity: 0;
   }
+
+  .elementToFadeInAndOut {
+    width: 89%;
+    padding: 7px;
+    float: left;
+    background:rgba(110, 255, 132, 0.35);
+    -webkit-animation: fadeinout 5s linear forwards;
+    animation: fadeinout 5s linear forwards;
+    margin-top: 10px;
+    margin-left: 4%;
+    margin-right: 4%;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    font-weight: 400;
+}
+
+// @-webkit-keyframes fadeinout {
+//   0%,100% { opacity: 0; }
+//   50% { opacity: 1; }
+// }
+
+// @keyframes fadeinout {
+//   0%,100% { opacity: 0; }
+//   50% { opacity: 1; }
+// }
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 1s
+}
+
+.fade-enter,
+.fade-leave-to
+/* .fade-leave-active in <2.1.8 */
+
+{
+  opacity: 0
+}

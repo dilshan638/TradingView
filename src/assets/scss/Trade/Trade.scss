@@ -48,6 +48,22 @@
 
             tr{
 
+                cursor: pointer;
+
+                &:hover{
+
+                    td{
+
+                        .tooltip2{
+                            display: block;
+                        }
+
+                    }
+
+                }
+
+                position: relative;
+
                 th{
                     font-size: 0.65rem;
                     color: #a2a4bf;
@@ -70,6 +86,7 @@
                     &:first-child{
                         color: #f14848;
                     }
+                    
                 }
 
                 &:last-child{
