@@ -30,7 +30,7 @@
         </div>
       </div>
       <div class="col-md-2">
-        <h4>{{marketPrice}}</h4>
+        <h4 v-bind:class="[matchFill == 'buy' ? 'buy' : 'sell']">{{marketPrice}}</h4>
         <span class="sub-bottom">$35,988.54</span>
       </div>
       <div class="col-md-6" >
@@ -98,6 +98,7 @@ export default {
       ldcx24hBind:"",
 
       tickerPrice:"",
+      matchFill:""
 
       
       
@@ -229,9 +230,10 @@ export default {
 
       if (ts.dataAl.type == "match") {
            
-          for (let a = 0; a < 1; a++) {
+         // for (let a = 0; a < 1; a++) {
              ts.fill = ts.dataAl.price;
-          }
+              ts.priceBuy=ts.dataAl.bids;
+          //}
         }
 
 

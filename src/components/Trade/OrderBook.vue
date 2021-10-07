@@ -59,7 +59,7 @@
           <table class="table table-hover">
             <tbody>             
             <tr v-for="sell in priceSellBind.slice(0, 13)" :key="sell" v-show="deci=='0.01'">
-              <td @click="sellPriceOrderBook(sell[0],sell[3],sell[4])">{{ parseFloat(sell[0]).toFixed(2) }}</td>
+              <td @click="sellPriceOrderBook(sell[0])">{{ parseFloat(sell[0]).toFixed(2) }}</td>
               <td @click="amountOrderBook(sell[1])">{{ sell[1] }}</td>
               <td class="text-right">
                 {{ sell[0] * sell[1] }}
@@ -101,8 +101,8 @@
           <table class="table table-hover special">
             <tbody>
               <tr>
-                <td class="success-tst">{{price}}</td>
-                <td class="mid">${{price}}</td>
+                <td  v-bind:class="[matchFill == 'buy' ? 'buy' : 'sell']">{{price}}</td>
+                <td class="mid" >${{price}}</td>
                 <td class="text-right"> 
                     <div class="read-more">
                       <router-link to="/buy-sell-list">More</router-link>
@@ -201,38 +201,18 @@
       </div>     
     </div>
 
- <modal ref="roedetails" class="modal2-modal border50">
-      
-      <template v-slot:body>
-      
-      </template>
-      <template v-slot:footer>
-       <table>
-         <tbody>
-           <tr>
-             <td>Avg.Price: {{avgBuy}}</td>
-              <td>Sum {{SelectedSymbol}} :{{sumAmount}}</td>
-               <td>Sum {{pairName}}: {{sumTotal}}</td>
-           </tr>
-         </tbody>
-       </table>
-        <button class="second-btn mb-3" @click="closeModalDetail">
-            Cancel
-          </button>
-      </template>
-    </modal>
+ 
      
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import Modal from "../Modal/Modal.vue";
 export default {
     emits: ["sellPriceOrderBookPass","sellAmountOrderBookPass"],
-  name: "orderbook",
+    name: "orderbook",
    components: {
-    Modal,
+  
     
   },
   props:["SelectedSymbol","pairName"],
@@ -274,6 +254,7 @@ export default {
       sumTotal:"",
 
       selAmount:0,
+      matchFill:""
 
     
 
@@ -289,12 +270,9 @@ export default {
   async selectedSymbol(SelectedSymbol){
     this.symbol =SelectedSymbol
   },
-  async sellPriceOrderBook(value,amountTotal,total){
+  async sellPriceOrderBook(value){
     this.$emit("sellPriceOrderBookPass", value)
-     this.$refs.roedetails.openModal();
-     this.avgBuy=value
-     this.sumAmount=amountTotal
-      this.sumTotal=total
+    
 
 
   },
@@ -469,6 +447,7 @@ created: function () {
         //  for (let t = 0; t < 1; t++) {
           //  ts.recentDataLoop.push(ts.dataAl);
              ts.fill = ts.dataAl.price;
+              ts.matchFill= ts.dataAl.side
            
             // ts.recentDataLoop.push({ 
             //    side: ts.dataAl.side,

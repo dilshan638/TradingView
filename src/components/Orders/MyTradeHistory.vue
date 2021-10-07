@@ -2,6 +2,16 @@
   <div class="row">
     <div class="col-md-12">
       <div class="table-responsive">
+         <select class="form-control sel-val" @change="PairOne($event)" >
+          <option value="BTC-USDT">BTC-USDT</option>
+          <option value="ETH-test">ETH-Test</option>
+         
+        </select>
+         <select class="form-control sel-val" @change="PairTwo($event)" >
+          <option value="USDC">USDC</option>
+          <option value="BTC">BTC</option>
+         
+        </select>
         <table class="table table-hover">
           <thead>
             <tr>
@@ -17,7 +27,7 @@
             </tr>
           </thead>
           <tbody v-if="dataAll.length != 0">
-            <tr v-for="orders in dataAll" :key="orders.id">
+            <tr v-for="orders in filterCoins" :key="orders.id">
               <td width="22%">{{ orders.createdAt }}</td>
               <td width="13%">{{ orders.productId }}</td>
              
@@ -54,11 +64,24 @@ export default {
       tradeHistory: [],
      // myTradeHistory: [],
       dataAll: [],
+      pOne:"",
+      pairTwo:""
+
      
     };
   },
 
   methods: {
+
+    async PairOne(pairone){
+     this.pOne=pairone.target.value
+    
+    
+    },
+
+    async PairTwo(pairtwo){
+       this.pairOne= pairtwo.target.value
+    },
     async geTradeHistory() {
       var data = {
         limit: "60",
@@ -88,7 +111,7 @@ export default {
   
 
     async getData() {
-    
+     
       const headers = {};
       axios
         .get(
@@ -107,6 +130,29 @@ export default {
           
         });
     },
+  },
+  //  watch: {
+  //   PairOne: function (pairone) {
+     
+  //     this.pairOne = pairone.target.value
+   
+  //   },
+
+    
+  // },
+
+  //  computed: {
+  //     PairOne(pairone) {
+  //     return alert(pairone);
+  //   },
+  // },
+
+   computed: {
+    filterCoins: function(){
+      return this.dataAll.filter((orders) => {
+        return orders.productId.includes(this.pOne)
+      })
+    }
   },
 
 

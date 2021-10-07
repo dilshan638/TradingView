@@ -2,8 +2,8 @@
   <div class="row">
     <div class="col-md-12">
       <div class="table-responsive">
-        <input type="date" v-model="startDate">
-          <input type="date" v-model="endDate">
+       
+         
         <table class="table table-hover">
           <thead>
             <tr>
@@ -48,8 +48,7 @@ export default {
   data() {
     return {
       openOrders: [],
-      startDate:null,
-      endDate:null
+     
 
     };
   },
@@ -83,23 +82,7 @@ export default {
    
   },
 
-  // computed:{
-  //   filtereddata(){
-
-  //     var ts=this
-  //     var startDate=ts.startDate
-  //      var endDate=ts.endDate
-
-  //      return _.filter(ts.openOrders,function (data){
-  //        if((_.isNull(startDate) && _.isNull(endDate))){
-  //          return true
-  //        }else{
-  //          var date =data.createdAt
-  //          return(date>= startDate && date<=endDate)
-  //        }
-  //      })
-  //   }
-  // }
+  
 };
 </script>
 
