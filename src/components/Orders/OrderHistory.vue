@@ -32,7 +32,8 @@
             <td>{{ orders.filledSize }}</td>
             <td>{{ orders.size * orders.price }}</td>
             <td>{{orders.status}}</td>
-            <td v-if="orders.status=='open'"> <button>Cancel</button></td>
+            <td v-if="orders.status=='open'"> <button class="trade-btn">Cancel</button></td>
+            <td class="text-center" v-else>-</td>
           </tr>
           <tbody></tbody>
         </table>
