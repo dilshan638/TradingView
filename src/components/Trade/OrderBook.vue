@@ -118,7 +118,25 @@
           <tr class="plus" v-for="buy in priceBuyBind.slice(0, 13)" :key="buy" v-show="deci=='0.01'">
             <td @click="sellPriceOrderBook(buy[0])" >{{ parseFloat(buy[0]).toFixed(2) }}</td>
             <td @click="amountOrderBook(buy[1])">{{ buy[1] }}</td>
-            <td class="text-right">{{ buy[0] * buy[1] }}</td>
+            <td class="text-right">{{ buy[0] * buy[1] }}
+
+                <transition name="fade">
+                  <div class="tooltip2">
+                    <div class="tool-row">
+                        <div class="tool-title">Avg Price:</div>
+                        <div class="tool-val">{{ buy[0] }}</div>
+                    </div>
+                    <div class="tool-row">
+                        <div class="tool-title">Sum {{SelectedSymbol}}:</div>
+                        <div class="tool-val">{{ buy[3] }}</div>
+                    </div>
+                    <div class="tool-row">
+                        <div class="tool-title">Sum {{pairName}}:</div>
+                        <div class="tool-val">{{ buy[4] }}</div>
+                    </div>
+                  </div>
+                </transition>
+            </td>
           </tr>
 
           <tr class="plus" v-for="buy in priceBuyBind.slice(0, 13)" :key="buy" v-show="deci=='0.1'">
@@ -159,7 +177,8 @@
                 {{ parseFloat(recent.price).toFixed(2) }}  
               </td>
               <td  @click="amountOrderBook(recent.size)">{{recent.size}} </td>
-              <td class="text-right">{{ recent.price * recent.size }}</td>
+              <td class="text-right">{{ recent.price * recent.size }}
+              </td>
             </tr>
 
              <tr v-for="recent in recentData" :key="recent"  v-show="deci=='0.1'">
@@ -251,13 +270,13 @@ export default {
 
       buyAmount:0,
       avgBuy:'',
-      sumAmount:'',
-      sumTotal:""
-     
+      sumAmount:0,
+      sumTotal:"",
 
-      
-       
-      
+      selAmount:0,
+
+    
+
 
    };
   },
@@ -327,15 +346,19 @@ export default {
 
           if(dataBuyArray!=undefined){
 
-            this.priceBuyBind = dataBuyArray.sort((a, b) => {return b[0] - a[0] });
+            this.priceBuyBind = dataBuyArray;
 
-            for (let z = 0; z < this.priceBuyBind.length; z++) {
-                if(this.priceBuyBind.length>13){
-                  this.priceBuyBind.shift();
-                }
+            for (let a = 0; a < this.priceBuyBind.length; a++) {
+              this.selAmount += (parseFloat(this.priceBuyBind[a][1]))
+              this.priceBuyBind[a][3]=this.selAmount
+               this.sellTotal += (parseFloat(this.priceBuyBind[a][0]) * parseFloat(this.priceBuyBind[a][1]))
+               this.priceBuyBind[a][4]=this.sellTotal
             }
-     
+      this.priceBuyBind = dataBuyArray.sort((a, b) => {return b[0] - a[0] });
           }
+           if(this.priceBuyBind.length>13){
+                  this.priceBuyBind.shift();
+              }
      
         this.price=fillPrice
         
@@ -469,17 +492,18 @@ created: function () {
           headers: headers,
         })
         .then((response) => {
-        // console.log(response.data)
+         console.log(response.data)
       
         if(ts.recentData.length !=0){
           ts.recentData=[]
          
         }
           for (let b = 0; b < response.data.length ; b++) {
-           ts.recentData.push({ side: response.data[b].side, size: response.data[b].size, price:response.data[b].price});
+             
+         ts.recentData.push({ side: response.data[b].side, size: response.data[b].size, price:response.data[b].price});
          }
 
-       
+       console.log(ts.recentData)
        
        
         })
