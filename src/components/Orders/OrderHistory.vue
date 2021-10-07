@@ -1,6 +1,11 @@
 <template>
   <div class="row">
     <div class="col-md-12">
+      <div class="set-flter-row">
+          <button class="btn">1 Day</button>
+          <button class="btn">1 Week</button>
+          <button class="btn">1 MOnth</button>
+      </div>
       <div class="table-responsive">
         <table class="table table-hover">
           <thead>
