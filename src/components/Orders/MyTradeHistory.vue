@@ -116,7 +116,10 @@ export default {
   mounted() {
   
     this.geTradeHistory();
-    window.setInterval(() => { this.getData()}, 3000)
+    this.getData()
+    // window.setInterval(() => { 
+    //   this.getData()
+    // }, 3000)
    
    
   },

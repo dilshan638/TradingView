@@ -3,9 +3,9 @@
     <div class="col-md-12">
       <div class="set-flter-row">
           <div class="days-row">
-            <button class="btn">1 Day</button>
-            <button class="btn">1 Week</button>
-            <button class="btn">1 MOnth</button>            
+            <button class="btn top-f-btn active" @click="setOneDay">1 Day</button>
+            <button class="btn top-f-btn">1 Week</button>
+            <button class="btn top-f-btn">1 MOnth</button>            
           </div>
       </div>
           <div class="calc-row">
@@ -30,8 +30,8 @@
             </tr>
           </thead>
 
-          <tr v-for="orders in orderHistory" :key="orders.id">
-            <td width="22%">{{ orders.createdAt }}</td>
+          <tr v-for="orders in neworderHistory" :key="orders.id">
+            <td width="22%">{{ orders.createdAt.substring(0, orders.createdAt.lastIndexOf('T')) }}</td>
             <td width="13%">{{ orders.productId }}</td>
             <td>{{ orders.type }}</td>
             <td v-bind:class="[orders.side == 'buy' ? 'buy' : 'sell']">
@@ -50,7 +50,6 @@
         </table>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -61,10 +60,14 @@ export default {
   data() {
     return {
       orderHistory: [],
+      oneDay: "",
     };
   },
 
   methods: {
+    async setOneDay() {
+      
+    },
     async getData() {
       const headers = {};
 
@@ -77,18 +80,37 @@ export default {
         )
         .then((responsive) => {
           this.orderHistory = responsive.data;
+          console.log(this.orderHistory)
           
         })
         .catch(function (error) {
           console.log(error);
         });
     },
+    toggleSort: function() {
+      this.oldestFirst = !this.oldestFirst;
+    },
+  async  getCurrentdate() {
+      var currentDateWithFormat = new Date().toJSON().slice(0,10).replace(/-/g,'-');
+      console.log(currentDateWithFormat);      
+    }
   },
 
   mounted() {
-    window.setInterval(() => {
-      this.getData();
-    }, 3000);
+    // window.setInterval(() => {
+    //   this.getData();
+    // }, 3000);
+     this.getData();
+     this.getCurrentdate();
+  },
+  computed: {
+    neworderHistory: function() {
+      var currentDateWithFormat = new Date().toJSON().slice(0,10).replace(/-/g,'-');
+      console.log(currentDateWithFormat);
+      return this.orderHistory.filter((orders) => {
+      return (orders.createdAt.substring(0, orders.createdAt.lastIndexOf('T'))).includes(currentDateWithFormat)
+      })
+    }
   },
 };
 </script>

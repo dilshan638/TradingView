@@ -90,3 +90,37 @@ button[disabled]{
 .sellaction{
     background-color:#f14848 !important;
 }
+
+.top-f-btn{
+    min-width: auto !important;
+    border-radius: 1px;
+    background-color: #161515;
+    padding: 6px 12px !important;
+    min-height: auto;
+    line-height: 15px;
+    font-size: 0.75rem;
+    border: solid 1px #161515 !important;
+    color: #878787;
+    font-weight: 500;
+    margin-bottom: 15px;
+    margin-left: 6px;
+    border-radius: 3px;
+    margin-top: 7px;
+
+    &:first-child{
+        margin-left: 15px;
+    }
+
+    &:hover{
+        background-color: #0177fb;
+        border: solid 1px #0177fb !important;
+        color: #fff;
+    }
+
+  }
+
+  .top-f-btn.active{
+    background-color: #0177fb;
+    border: solid 1px #0177fb !important;
+    color: #fff;    
+  }
