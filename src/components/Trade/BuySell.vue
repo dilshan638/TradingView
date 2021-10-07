@@ -1,6 +1,9 @@
 <template>
   <div class="trade-box buysell-form buy-sell-box">
     <div class="trade-header text-center">Buy / Sell</div>
+  <transition name="fade" v-on:enter="enter">
+    <div v-if="showtrademesg" class="elementToFadeInAndOut"> trade Successfully updated!</div>
+  </transition>    
     <div class="trade-body">
       <div class="tab-top">
         <div
@@ -185,6 +188,7 @@ export default {
       stopTab: false,
       stoplimitTab: false,
       authUser: false,
+      showtrademesg: false,
 
       userBalance: "",
       selectedcurrency: localStorage.getItem("selectedmainCoin"),
@@ -321,8 +325,11 @@ export default {
                 // this.sendData = response.data
                 console.log(response);
                 console.log(res);
+                this.fadeMe();
+                this.enter();
               });
-          } catch (error) {
+          } 
+          catch (error) {
             console.log(error);
           }
         } else {
@@ -398,6 +405,15 @@ export default {
          else{
           this.authUser = false;
         }        
+      },
+      fadeMe: function() {
+        this.showtrademesg = !this.showtrademesg
+      },
+      enter: function() {
+        var that = this;
+        setTimeout(function() {
+          that.showtrademesg = false;
+        }, 3000);
       }
   },
   watch: {
