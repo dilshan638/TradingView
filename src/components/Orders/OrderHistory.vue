@@ -75,9 +75,9 @@ export default {
   },
 
   mounted() {
-    window.setInterval(() => {
+   
       this.getData();
-    }, 3000);
+    
   },
 };
 </script>
