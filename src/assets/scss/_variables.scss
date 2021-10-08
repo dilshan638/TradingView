@@ -876,3 +876,34 @@ body.open-modal{
     }
     
   }
+  .data-filter{
+
+    .form-control{
+        padding: 13px 12px !important;
+        min-height: auto;
+        line-height: 15px;
+        font-size: 0.75rem;
+        background-color: #ffffff !important;
+        color: #020202;
+        font-size: 0.8rem;
+        font-weight: 800;
+        margin-top: 10px;
+        margin-bottom: 15px;
+    }
+    button{
+        padding: 13px 12px !important;
+        min-height: auto;
+        line-height: 15px;
+        font-size: 0.95rem !important;
+        background-color: transparent !important;
+        color: #0277fa;
+        font-size: 0.8rem;
+        font-weight: 800;
+        margin-top: 10px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        border: solid 1px #0277fa;
+    }
+
+    
+  }
