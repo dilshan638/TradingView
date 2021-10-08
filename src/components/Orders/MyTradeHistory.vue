@@ -1,17 +1,49 @@
 <template>
-  <div class="row">
-    <div class="col-md-12">
-      <div class="table-responsive">
-         <select class="form-control sel-val" @change="PairOne($event)" >
-          <option value="BTC-USDT">BTC-USDT</option>
-          <option value="ETH-test">ETH-Test</option>
+  <div>
+    <div class="row">
+      <div class="col-md-3">
+       Date
+      </div>
+       <div class="col-md-2">
+           <select class="form-control sel-val" @change="PairOne($event)" >
+            <option value="" >All</option>
+            
+          <option value="BTC-">BTC</option>
+          <option value="ETH-">ETH</option>
          
         </select>
-         <select class="form-control sel-val" @change="PairTwo($event)" >
-          <option value="USDC">USDC</option>
+      </div>
+       <div class="col-md-2">
+          <select class="form-control sel-val" @change="PairTwo($event)" >
+            <option value="" >All</option>
+          <option value="USDT">USDT</option>
           <option value="BTC">BTC</option>
          
         </select>
+      </div>
+       <div class="col-md-2">
+           <select class="form-control sel-val" @change="selectside($event)" >
+            <option  value="">All</option>
+          <option value="buy">Buy</option>
+          <option value="sell">Sell</option>
+       </select>
+      </div>
+       <div class="col-md-2">
+          <button>Reset</button>
+      </div>
+      
+    </div>
+  <div class="row">
+    
+    <div class="col-md-12">
+
+      <div class="table-responsive">
+
+         
+         
+
+        
+
         <table class="table table-hover">
           <thead>
             <tr>
@@ -51,6 +83,7 @@
       </div>
     </div>
   </div>
+  </div>
 </template>
 
 <script>
@@ -65,7 +98,10 @@ export default {
      // myTradeHistory: [],
       dataAll: [],
       pOne:"",
-      pairTwo:""
+      pTwo:"",
+      selectedSide:"",
+
+      test:""
 
      
     };
@@ -75,13 +111,17 @@ export default {
 
     async PairOne(pairone){
      this.pOne=pairone.target.value
-    
-    
-    },
+   },
 
     async PairTwo(pairtwo){
-       this.pairOne= pairtwo.target.value
+       this.pTwo= pairtwo.target.value
     },
+
+    async selectside(side){
+      this.selectedSide=side.target.value
+    },
+
+   
     async geTradeHistory() {
       var data = {
         limit: "60",
@@ -131,28 +171,19 @@ export default {
         });
     },
   },
-  //  watch: {
-  //   PairOne: function (pairone) {
-     
-  //     this.pairOne = pairone.target.value
-   
-  //   },
+ 
+   computed: {
+    filterCoins: function(){ 
+      return this.dataAll.filter((orders) => {
+        return  orders.productId.includes(this.pOne+this.pTwo) && orders.side.includes(this.selectedSide)
+       
+      })
+      
+    },
 
     
-  // },
 
-  //  computed: {
-  //     PairOne(pairone) {
-  //     return alert(pairone);
-  //   },
-  // },
 
-   computed: {
-    filterCoins: function(){
-      return this.dataAll.filter((orders) => {
-        return orders.productId.includes(this.pOne)
-      })
-    }
   },
 
 
