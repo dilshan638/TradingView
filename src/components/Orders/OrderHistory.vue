@@ -5,7 +5,8 @@
           <div class="days-row">
             <button class="btn top-f-btn active" @click="setOneDay">1 Day</button>
             <button class="btn top-f-btn" @click="setWeek">1 Week</button>
-            <button class="btn top-f-btn">1 MOnth</button>            
+            <button class="btn top-f-btn">1 MOnth</button>  
+                      
           </div>
       </div>
           <div class="calc-row">
