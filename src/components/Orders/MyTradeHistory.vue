@@ -1,88 +1,73 @@
 <template>
   <div>
     <div class="row">
-      <div class="col-md-3">
-       Date
-      </div>
-       <div class="col-md-2">
-           <select class="form-control sel-val" @change="PairOne($event)" >
-            <option value="" >All</option>
-            
+      <div class="col-md-3">Date</div>
+      <div class="col-md-2">
+        <select class="form-control sel-val" @change="PairOne($event)">
+          <option value="">All</option>
+
           <option value="BTC-">BTC</option>
           <option value="ETH-">ETH</option>
-         
         </select>
       </div>
-       <div class="col-md-2">
-          <select class="form-control sel-val" @change="PairTwo($event)" >
-            <option value="" >All</option>
+      <div class="col-md-2">
+        <select class="form-control sel-val" @change="PairTwo($event)">
+          <option value="">All</option>
           <option value="USDT">USDT</option>
           <option value="BTC">BTC</option>
-         
         </select>
       </div>
-       <div class="col-md-2">
-           <select class="form-control sel-val" @change="selectside($event)" >
-            <option  value="">All</option>
+      <div class="col-md-2">
+        <select class="form-control sel-val" @change="selectside($event)">
+          <option value="">All</option>
           <option value="buy">Buy</option>
           <option value="sell">Sell</option>
-       </select>
+        </select>
       </div>
-       <div class="col-md-2">
-          <button>Reset</button>
-      </div>
-      
-    </div>
-  <div class="row">
-    
-    <div class="col-md-12">
-
-      <div class="table-responsive">
-
-         
-         
-
-        
-
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th width="22%" scope="col">Date</th>
-              <th width="13%" scope="col">Pair</th>
-            
-              <th scope="col">Side</th>
-              <th scope="col">Price</th>
-              <th scope="col">Executed</th>
-              <th scope="col">Fee</th>
-              <th scope="col">Total</th>
-            
-            </tr>
-          </thead>
-          <tbody v-if="dataAll.length != 0">
-            <tr v-for="orders in filterCoins" :key="orders.id">
-              <td width="22%">{{ orders.createdAt }}</td>
-              <td width="13%">{{ orders.productId }}</td>
-             
-              <td v-bind:class="[orders.side == 'buy' ? 'buy' : 'sell']">
-                {{ orders.side }}
-              </td>
-              <td>{{ orders.price }}</td>
-              <td>{{ orders.executedValue }}</td>
-              <td>{{ orders.fillFees }}</td>
-              <td>{{ orders.size * orders.price }}</td>
-             
-            </tr>
-          </tbody>
-
-          <tbody v-else>
-            <tr>
-              <td colspan="9" align="center">No Data Available</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="col-md-2">
+        <button type="reset" @click="reset">Reset</button>
       </div>
     </div>
-  </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th width="22%" scope="col">Date</th>
+                <th width="13%" scope="col">Pair</th>
+
+                <th scope="col">Side</th>
+                <th scope="col">Price</th>
+                <th scope="col">Executed</th>
+                <th scope="col">Fee</th>
+                <th scope="col">Total</th>
+              </tr>
+            </thead>
+            <tbody v-if="dataAll.length != 0">
+              <tr v-for="orders in filterCoins" :key="orders.id">
+                <td width="22%">{{ orders.createdAt }}</td>
+                <td width="13%">{{ orders.productId }}</td>
+
+                <td v-bind:class="[orders.side == 'buy' ? 'buy' : 'sell']">
+                  {{ orders.side }}
+                </td>
+                <td>{{ orders.price }}</td>
+                <td>{{ orders.executedValue }}</td>
+                <td>{{ orders.fillFees }}</td>
+                <td>{{ orders.size * orders.price }}</td>
+              </tr>
+            </tbody>
+
+            <tbody v-else>
+              <tr>
+                <td colspan="9" align="center">No Data Available</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -90,38 +75,41 @@
 import axios from "axios";
 export default {
   name: "orderhistory",
-  props:["myTradeHistory"],
+  props: ["myTradeHistory"],
   components: {},
   data() {
     return {
       tradeHistory: [],
-     // myTradeHistory: [],
+      // myTradeHistory: [],
       dataAll: [],
-      pOne:"",
-      pTwo:"",
-      selectedSide:"",
+      pOne: "",
+      pTwo: "",
+      selectedSide: "",
 
-      test:""
-
-     
+      test: "",
     };
   },
 
   methods: {
-
-    async PairOne(pairone){
-     this.pOne=pairone.target.value
-   },
-
-    async PairTwo(pairtwo){
-       this.pTwo= pairtwo.target.value
+    async PairOne(pairone) {
+      this.pOne = pairone.target.value;
     },
 
-    async selectside(side){
-      this.selectedSide=side.target.value
+    async PairTwo(pairtwo) {
+      this.pTwo = pairtwo.target.value;
     },
 
-   
+    async selectside(side) {
+      this.selectedSide = side.target.value;
+    },
+
+    async reset(){
+       this.pOne=""
+       this.pTwo=""
+       this.selectedSide=""
+
+    },
+
     async geTradeHistory() {
       var data = {
         limit: "60",
@@ -148,10 +136,7 @@ export default {
       console.log(this.tradeHistory);
     },
 
-  
-
     async getData() {
-     
       const headers = {};
       axios
         .get(
@@ -161,44 +146,31 @@ export default {
           }
         )
         .then((responsive) => {
-         
           this.dataAll = responsive.data;
-             
         })
         .catch(function (error) {
           console.log(error);
-          
         });
     },
   },
- 
-   computed: {
-    filterCoins: function(){ 
+
+  computed: {
+    filterCoins: function () {
       return this.dataAll.filter((orders) => {
-        return  orders.productId.includes(this.pOne+this.pTwo) && orders.side.includes(this.selectedSide)
-       
-      })
-      
+        return (
+          orders.productId.includes(this.pOne + this.pTwo) &&
+          orders.side.includes(this.selectedSide)
+        );
+      });
     },
-
-    
-
-
   },
 
-
-
-
-
   mounted() {
-  
     this.geTradeHistory();
-    this.getData()
-    // window.setInterval(() => { 
+    this.getData();
+    // window.setInterval(() => {
     //   this.getData()
     // }, 3000)
-   
-   
   },
 };
 </script>
