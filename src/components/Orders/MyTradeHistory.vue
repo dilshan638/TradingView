@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-3">Date</div>
       <div class="col-md-2">
-        <select class="form-control sel-val" @change="PairOne($event)">
+        <select class="form-control sel-val" id="ddlFruits" @change="PairOne($event)">
           <option value="">All</option>
 
           <option value="BTC-">BTC</option>
@@ -11,14 +11,14 @@
         </select>
       </div>
       <div class="col-md-2">
-        <select class="form-control sel-val" @change="PairTwo($event)">
+        <select class="form-control sel-val" id="ddlFruits" @change="PairTwo($event)">
           <option value="">All</option>
           <option value="USDT">USDT</option>
           <option value="BTC">BTC</option>
         </select>
       </div>
       <div class="col-md-2">
-        <select class="form-control sel-val" @change="selectside($event)">
+        <select class="form-control sel-val" id="ddlFruits" @change="selectside($event)">
           <option value="">All</option>
           <option value="buy">Buy</option>
           <option value="sell">Sell</option>
@@ -93,6 +93,7 @@ export default {
   methods: {
     async PairOne(pairone) {
       this.pOne = pairone.target.value;
+      
     },
 
     async PairTwo(pairtwo) {
@@ -104,9 +105,13 @@ export default {
     },
 
     async reset(){
-       this.pOne=""
-       this.pTwo=""
-       this.selectedSide=""
+       var dropDown = document.getElementById("ddlFruits");  
+        dropDown.selectedIndex = 0;  
+         this.pOne=""
+          this.pTwo=""
+           this.selectedSide=""
+
+
 
     },
 
