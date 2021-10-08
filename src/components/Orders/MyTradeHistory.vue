@@ -5,7 +5,7 @@
         <div class="data-filter">
           <div class="row">
             <div class="col-md-2">
-              <select class="form-control sel-val" id="ddlFruits" @change="PairOne($event)">
+              <select class="form-control sel-val" id="one" @change="PairOne($event)">
                 <option value="">All</option>
 
                 <option value="BTC-">BTC</option>
@@ -13,14 +13,14 @@
               </select>
             </div>
             <div class="col-md-2">
-              <select class="form-control sel-val" id="ddlFruits" @change="PairTwo($event)">
+              <select class="form-control sel-val" id="two" @change="PairTwo($event)">
                 <option value="">All</option>
                 <option value="USDT">USDT</option>
                 <option value="BTC">BTC</option>
               </select>
             </div>
             <div class="col-md-2">
-              <select class="form-control sel-val" id="ddlFruits" @change="selectside($event)">
+              <select class="form-control sel-val" id="three" @change="selectside($event)">
                 <option value="">All</option>
                 <option value="buy">Buy</option>
                 <option value="sell">Sell</option>
@@ -98,7 +98,6 @@ export default {
   methods: {
     async PairOne(pairone) {
       this.pOne = pairone.target.value;
-      
     },
 
     async PairTwo(pairtwo) {
@@ -109,12 +108,19 @@ export default {
       this.selectedSide = side.target.value;
     },
 
-    async reset(){
-      var dropDown = document.getElementById("ddlFruits");  
-      dropDown.selectedIndex = 0;  
-      this.pOne = ""
-      this.pTwo = ""
-      this.selectedSide = ""
+    async reset() {
+      var dropDown = document.getElementById("one");
+      dropDown.selectedIndex = 0;
+
+       var dropDownTwo = document.getElementById("two");
+      dropDownTwo.selectedIndex = 0;
+
+       var dropDownThree = document.getElementById("three");
+      dropDownThree.selectedIndex = 0;
+
+      this.pOne = "";
+      this.pTwo = "";
+      this.selectedSide = "";
     },
 
     async geTradeHistory() {

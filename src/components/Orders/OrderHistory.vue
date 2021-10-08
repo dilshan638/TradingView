@@ -5,7 +5,8 @@
           <div class="days-row">
             <button class="btn top-f-btn active" @click="setOneDay">1 Day</button>
             <button class="btn top-f-btn" @click="setWeek">1 Week</button>
-            <button class="btn top-f-btn">1 MOnth</button>            
+            <button class="btn top-f-btn">1 MOnth</button>  
+                      
           </div>
       </div>
           <div class="calc-row">
@@ -78,7 +79,7 @@ export default {
       date.setDate(date.getDate() - 7);
       this.oneWeek = date.toJSON().slice(0,10).replace(/-/g,'-');
       this.todayDate = new Date().toJSON().slice(0,10).replace(/-/g,'-');
-      alert(this.todayDate - this.oneWeek)
+      alert(this.todayDate)
 
     },    
     async getData() {
@@ -109,7 +110,7 @@ export default {
 
     neworderHistory: function() {
       return this.orderHistory.filter((orders) => {
-        return (orders.createdAt.substring(0, orders.createdAt.lastIndexOf('T'))).includes(this.oneWeek < this.oneDay)
+        return (orders.createdAt.substring(0, orders.createdAt.lastIndexOf('T'))).includes(this.oneDay)
       })
     }    
 
