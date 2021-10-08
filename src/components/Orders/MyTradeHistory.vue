@@ -5,7 +5,7 @@
       <div class="col-md-2">
         <select
           class="form-control sel-val"
-          id="ddlFruits"
+          id="one"
           @change="PairOne($event)"
         >
           <option value="">All</option>
@@ -17,7 +17,7 @@
       <div class="col-md-2">
         <select
           class="form-control sel-val"
-          id="ddlFruits"
+          id="two"
           @change="PairTwo($event)"
         >
           <option value="">All</option>
@@ -28,7 +28,7 @@
       <div class="col-md-2">
         <select
           class="form-control sel-val"
-          id="ddlFruits"
+          id="three"
           @change="selectside($event)"
         >
           <option value="">All</option>
@@ -116,8 +116,15 @@ export default {
     },
 
     async reset() {
-      var dropDown = document.getElementById("ddlFruits");
+      var dropDown = document.getElementById("one");
       dropDown.selectedIndex = 0;
+
+       var dropDownTwo = document.getElementById("two");
+      dropDownTwo.selectedIndex = 0;
+
+       var dropDownThree = document.getElementById("three");
+      dropDownThree.selectedIndex = 0;
+
       this.pOne = "";
       this.pTwo = "";
       this.selectedSide = "";
