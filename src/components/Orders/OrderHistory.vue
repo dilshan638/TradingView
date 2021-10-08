@@ -4,7 +4,7 @@
       <div class="set-flter-row">
           <div class="days-row">
             <button class="btn top-f-btn active" @click="setOneDay">1 Day</button>
-            <button class="btn top-f-btn">1 Week</button>
+            <button class="btn top-f-btn" @click="setWeek">1 Week</button>
             <button class="btn top-f-btn">1 MOnth</button>            
           </div>
       </div>
@@ -61,13 +61,23 @@ export default {
     return {
       orderHistory: [],
       oneDay: "",
+      oneWeek: "",
+      oneMonth: "",
     };
   },
 
   methods: {
     async setOneDay() {
+      this.oneWeek = "";
       this.oneDay= new Date().toJSON().slice(0,10).replace(/-/g,'-');
     },
+    async setWeek() {
+      this.oneDay = "";
+      var date = new Date();
+      date.setDate(date.getDate() - 7);
+      //this.oneWeek = date.toJSON().slice(0,10).replace(/-/g,'-');
+
+    },    
     async getData() {
       const headers = {};
 
@@ -86,31 +96,20 @@ export default {
         .catch(function (error) {
           console.log(error);
         });
-    },
-    toggleSort: function() {
-      this.oldestFirst = !this.oldestFirst;
-    },
-  async  getCurrentdate() {
-      var currentDateWithFormat = new Date().toJSON().slice(0,10).replace(/-/g,'-');
-      console.log(currentDateWithFormat);      
     }
   },
 
   mounted() {
-    // window.setInterval(() => {
-    //   this.getData();
-    // }, 3000);
      this.getData();
-     this.getCurrentdate();
   },
   computed: {
+
     neworderHistory: function() {
-     // var currentDateWithFormat = new Date().toJSON().slice(0,10).replace(/-/g,'-');
-    //  console.log(currentDateWithFormat);
       return this.orderHistory.filter((orders) => {
-      return (orders.createdAt.substring(0, orders.createdAt.lastIndexOf('T'))).includes( this.oneDay)
+        return (orders.createdAt.substring(0, orders.createdAt.lastIndexOf('T'))).includes( this.oneDay)
       })
-    }
+    }    
+
   },
 };
 </script>
