@@ -98,7 +98,7 @@ export default {
       pTwo: "",
       selectedSide: "",
 
-      test: "",
+     
     };
   },
 
@@ -176,6 +176,7 @@ export default {
 
   computed: {
     filterCoins: function () {
+      
       return this.dataAll.filter((orders) => {
         return (
           orders.productId.includes(this.pOne + this.pTwo) &&

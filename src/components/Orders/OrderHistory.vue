@@ -1,4 +1,45 @@
 <template>
+<div>
+   <div class="row">
+      <div class="col-md-3">Date</div>
+      <div class="col-md-2">
+        <select
+          class="form-control sel-val"
+          id="one"
+          @change="PairOne($event)"
+        >
+          <option value="">All</option>
+
+          <option value="BTC-">BTC</option>
+          <option value="ETH-">ETH</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <select
+          class="form-control sel-val"
+          id="two"
+          @change="PairTwo($event)"
+        >
+          <option value="">All</option>
+          <option value="USDT">USDT</option>
+          <option value="BTC">BTC</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <select
+          class="form-control sel-val"
+          id="three"
+          @change="selectside($event)"
+        >
+          <option value="">All</option>
+          <option value="buy">Buy</option>
+          <option value="sell">Sell</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <button type="reset" @click="reset">Reset</button>
+      </div>
+    </div>
   <div class="row">
     <div class="col-md-12">
       <div class="set-flter-row">
@@ -28,7 +69,7 @@
           </tr>
         </thead>
 
-        <tr v-for="orders in neworderHistory" :key="orders.id">
+        <tr v-for="orders in filterCoins" :key="orders.id">
           <td width="22%">
             {{
               orders.createdAt.substring(0, orders.createdAt.lastIndexOf("T"))
@@ -54,6 +95,7 @@
       </table>
     </div>
   </div>
+  </div>
 </template>
 
 <script>
@@ -68,10 +110,40 @@ export default {
       oneWeek: "",
       oneMonth: "",
       todayDate: "",
+
+        pOne: "",
+      pTwo: "",
+      selectedSide: "",
     };
   },
 
   methods: {
+      async PairOne(pairone) {
+      this.pOne = pairone.target.value;
+    },
+
+    async PairTwo(pairtwo) {
+      this.pTwo = pairtwo.target.value;
+    },
+
+    async selectside(side) {
+      this.selectedSide = side.target.value;
+    },
+
+    async reset() {
+      var dropDown = document.getElementById("one");
+      dropDown.selectedIndex = 0;
+
+       var dropDownTwo = document.getElementById("two");
+      dropDownTwo.selectedIndex = 0;
+
+       var dropDownThree = document.getElementById("three");
+      dropDownThree.selectedIndex = 0;
+
+      this.pOne = "";
+      this.pTwo = "";
+      this.selectedSide = "";
+    },
     async setOneDay() {
       this.oneWeek = "";
       this.oneDay = new Date().toJSON().slice(0, 10).replace(/-/g, "-");
@@ -95,10 +167,7 @@ export default {
         )
         .then((responsive) => {
           this.orderHistory = responsive.data;
-          console.log(this.orderHistory);
-
-          
-        })
+      })
         .catch(function (error) {
           console.log(error);
         });
@@ -109,12 +178,22 @@ export default {
     this.getData();
   },
   computed: {
-    neworderHistory: function () {
-      ////date>= startDate && date<=endDate  //this.oneDay
+    // neworderHistory: function () {
+    //   ////date>= startDate && date<=endDate  //this.oneDay
+    //   return this.orderHistory.filter((orders) => {
+    //     return orders.createdAt
+    //       .substring(0, orders.createdAt.lastIndexOf("T"))
+    //       .includes(this.oneDay);
+    //   });
+    // },
+
+  filterCoins: function () {
+      
       return this.orderHistory.filter((orders) => {
-        return orders.createdAt
-          .substring(0, orders.createdAt.lastIndexOf("T"))
-          .includes(this.oneDay);
+        return (
+          orders.productId.includes(this.pOne + this.pTwo) &&
+          orders.side.includes(this.selectedSide)
+        );
       });
     },
   },
