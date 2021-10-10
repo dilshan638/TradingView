@@ -72,6 +72,7 @@ export default {
     async setOneDay() {
       this.oneWeek = "";
       this.oneDay= new Date().toJSON().slice(0,10).replace(/-/g,'-');
+      alert(this.oneDay)
     },
     async setWeek() {
       this.oneDay = "";
@@ -110,7 +111,7 @@ export default {
 
     neworderHistory: function() {
       return this.orderHistory.filter((orders) => {
-        return (orders.createdAt.substring(0, orders.createdAt.lastIndexOf('T'))).includes(this.oneDay)
+        return (orders.createdAt.substring(0, orders.createdAt.lastIndexOf('T'))).includes( this.oneDay)
       })
     }    
 
