@@ -72,7 +72,7 @@
         <tr v-for="orders in filterCoins" :key="orders.id">
           <td width="22%">
             {{
-              orders.createdAt.substring(0, orders.createdAt.lastIndexOf("T"))
+              orders.createdAt
             }}
           </td>
           <td width="13%">{{ orders.productId }}</td>
@@ -190,10 +190,7 @@ export default {
   filterCoins: function () {
       
       return this.orderHistory.filter((orders) => {
-        return (
-          orders.productId.includes(this.pOne + this.pTwo) &&
-          orders.side.includes(this.selectedSide)
-        );
+        return (orders.productId.includes(this.pOne + this.pTwo) && orders.side.includes(this.selectedSide));
       });
     },
   },
