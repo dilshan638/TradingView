@@ -14,6 +14,7 @@
 
     .trade-header{
         font-size: 0.875rem;
+        font-weight: 700;
         
         .sw-b{
             width: 24px;
@@ -65,13 +66,14 @@
                 position: relative;
 
                 th{
-                    font-size: 0.65rem;
+                    font-size: 0.8rem;
                     color: #a2a4bf;
                     font-weight: 400;
                     border: none;
                     border-bottom: solid 1px #393e77;
                     padding-bottom: 15px;
                     padding: 0.5rem 0.1rem;
+                    font-weight: 700;
                 }
 
                 td{
@@ -104,7 +106,7 @@
                 td{
 
                     &:first-child{
-                        color: #1e8d34;
+                        color: #18e140;
                     }
 
                 }
@@ -326,7 +328,7 @@
         b{
             float: left;
             width: 100%;
-            font-weight: 500;
+            font-weight: 900;
             font-size: 0.85rem;
         }
 
@@ -365,7 +367,7 @@
 
 .search-body{
     position: absolute;
-    width: 93%;
+    width: 90%;
     padding: 15px;
     background-color: #2e2f31;
     border-radius: 0 0 5px 5px;
@@ -528,10 +530,11 @@ select.sel-val{
     float: left;
     margin-right: 17px;
     margin-bottom: 15px;
-    font-family: Rubik;
-    font-size: 0.7rem;
+    /* font-family: Rubik; */
+    font-size: 0.72rem;
     margin-bottom: 0 !important;
     cursor: pointer;
+    font-weight: 700;
 
     &:hover{
     color: white;

@@ -182,7 +182,7 @@ export default {
 
       axios
         .get(
-          "http://34.152.9.147:8001/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100",
+          "https://tradeapi.exus.live/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100",
           {
             headers: headers,
           }
@@ -198,7 +198,9 @@ export default {
 
   mounted() {
     this.getData();
-  //  this.gettoday();
+    window.setInterval(() => {
+      this.getData();
+    }, 3000);
   },
   computed: {
 filterCoins: function () {
