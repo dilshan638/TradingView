@@ -60,7 +60,7 @@ export default {
 
       axios
         .get(
-          "https://tradeapi.exus.live/orders?productId=BTC-USDT&status=open&before&after&limit=100",
+          "https://tradeapi.exus.live/api/orders?productId=BTC-USDT&status=open&before&after&limit=100",
           {
             headers: headers,
           }

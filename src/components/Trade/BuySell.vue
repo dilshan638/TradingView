@@ -320,7 +320,7 @@ export default {
 
           try {
             let response = await this.axios
-              .post("http://34.152.9.147:8001/api/orders", data, headers)
+              .post("https://tradeapi.exus.live/api/orders", data, headers)
               .then((res) => {
                 // this.sendData = response.data
                 console.log(response);
