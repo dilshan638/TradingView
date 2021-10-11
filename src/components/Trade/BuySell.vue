@@ -116,14 +116,14 @@
               v-if="buytab"
               @click="buybtcformaction"
             >
-              BUY/{{ SelectedSymbol }}
+              BUY {{ SelectedSymbol }}
             </button>
             <button
               class="btn btn-primary pass-btn sellaction"
               v-else
               @click="buybtcformaction"
             >
-              SELL/{{ SelectedSymbol }}
+              SELL {{ SelectedSymbol }}
             </button>
           </div>
         </div>
@@ -214,7 +214,7 @@ export default {
 
         axios
           .get(
-            "http://34.152.9.147:8001/api/orders?productId=BTC-USDT&status=open&before&after&limit=100",
+            "https://tradeapi.exus.live/api/orders?productId=BTC-USDT&status=open&before&after&limit=100",
             {
               headers: headers,
             }
@@ -232,7 +232,7 @@ export default {
 
         axios
           .get(
-            "http://34.152.9.147:8001/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100",
+            "https://tradeapi.exus.live/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100",
             {
               headers: headers,
             }
@@ -249,7 +249,7 @@ export default {
 
         axios
           .get(
-            "http://34.152.9.147:8001/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100",
+            "https://tradeapi.exus.live/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100",
             {
               headers: headers,
             }

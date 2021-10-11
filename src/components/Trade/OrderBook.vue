@@ -383,7 +383,7 @@ export default {
 created: function () {
     const ts = this;
     this.connection = new WebSocket(
-      "ws://34.152.9.147:8002/ws"
+      "wss://stream.exus.live/ws"
     );
 
     this.connection.onmessage = function (event) {
@@ -466,7 +466,7 @@ created: function () {
        }
 
          axios
-        .get("http://34.152.9.147:8001/api/products/BTC-USDT/trades", {
+        .get("https://tradeapi.exus.live/api/products/BTC-USDT/trades", {
           headers: headers,
         })
         .then((response) => {

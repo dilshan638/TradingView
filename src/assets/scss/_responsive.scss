@@ -423,6 +423,23 @@
 
 @media only screen and (min-device-width : 1152px) and (max-device-width : 1440px) {
 
+    .search-head h4 {
+        font-size: 0.8rem !important;
+    }
+
+   body .top-sub h3 {
+        font-size: 0.6rem !important;
+    }  
+    .trade-box .trade-body table tr td{
+        font-size: 0.6rem !important;
+    }   
+    .trade-box .trade-body table tr th {
+        font-size: 0.6rem !important;
+    } 
+    .search-body {
+        width: 88% !important;
+    }      
+
    body .trade-history table tr th {
         font-size: 0.7rem !important;
     }    
