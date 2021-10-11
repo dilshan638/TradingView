@@ -67,15 +67,15 @@
                   <div class="tooltip2">
                     <div class="tool-row">
                         <div class="tool-title">Avg Price:</div>
-                        <div class="tool-val">{{ sell[0] }}</div>
+                        <div class="tool-val">{{ parseFloat(sell[0]).toFixed(5) }}</div>
                     </div>
                     <div class="tool-row">
                         <div class="tool-title">Sum {{SelectedSymbol}}:</div>
-                        <div class="tool-val">{{ sell[3] }}</div>
+                        <div class="tool-val">{{ parseFloat(sell[3]).toFixed(5) }}</div>
                     </div>
                     <div class="tool-row">
                         <div class="tool-title">Sum {{pairName}}:</div>
-                        <div class="tool-val">{{ sell[4] }}</div>
+                        <div class="tool-val">{{ parseFloat(sell[4]).toFixed(5) }}</div>
                     </div>
                   </div>
                 </transition>
@@ -123,15 +123,15 @@
                   <div class="tooltip2">
                     <div class="tool-row">
                         <div class="tool-title">Avg Price:</div>
-                        <div class="tool-val">{{ buy[0] }}</div>
+                        <div class="tool-val">{{parseFloat(buy[0]).toFixed(5)}}</div>
                     </div>
                     <div class="tool-row">
                         <div class="tool-title">Sum {{SelectedSymbol}}:</div>
-                        <div class="tool-val">{{ buy[3] }}</div>
+                        <div class="tool-val">{{parseFloat(buy[3]).toFixed(5) }}</div>
                     </div>
                     <div class="tool-row">
                         <div class="tool-title">Sum {{pairName}}:</div>
-                        <div class="tool-val">{{ buy[4] }}</div>
+                        <div class="tool-val">{{parseFloat(buy[4]).toFixed(5) }}</div>
                     </div>
                   </div>
                 </transition>
