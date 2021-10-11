@@ -47,7 +47,6 @@ border-radius: 5px;
 
 
   .sell-body{
-    position: absolute;
     height: 45%;
     width: 100%;
     left: 0;
@@ -55,7 +54,6 @@ border-radius: 5px;
     margin: 0 !important;
   }
   .middle-bdy{
-    position: absolute;
     height: 5%;
     overflow-y: auto;
     width: 100%;
@@ -65,7 +63,6 @@ border-radius: 5px;
     overflow: visible;
   }
   .buy-body{
-    position: absolute;
     height: 45%;
     /* overflow-y: hidden; */
     width: 100%;

@@ -1,36 +1,43 @@
 <template>
   <div>
     <div class="row">
-      <div class="col-md-12">
-        <div class="data-filter">
-          <div class="row">
-            <div class="col-md-2">
-              <select class="form-control sel-val" id="one" @change="PairOne($event)">
-                <option value="">All</option>
+      <div class="col-md-3">Date</div>
+      <div class="col-md-2">
+        <select
+          class="form-control sel-val"
+          id="one"
+          @change="PairOne($event)"
+        >
+          <option value="">All</option>
 
-                <option value="BTC-">BTC</option>
-                <option value="ETH-">ETH</option>
-              </select>
-            </div>
-            <div class="col-md-2">
-              <select class="form-control sel-val" id="two" @change="PairTwo($event)">
-                <option value="">All</option>
-                <option value="USDT">USDT</option>
-                <option value="BTC">BTC</option>
-              </select>
-            </div>
-            <div class="col-md-2">
-              <select class="form-control sel-val" id="three" @change="selectside($event)">
-                <option value="">All</option>
-                <option value="buy">Buy</option>
-                <option value="sell">Sell</option>
-              </select>
-            </div>
-            <div class="col-md-6">
-              <button type="reset" @click="reset">Reset</button>
-            </div>             
-            </div>         
-        </div>
+          <option value="BTC-">BTC</option>
+          <option value="ETH-">ETH</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <select
+          class="form-control sel-val"
+          id="two"
+          @change="PairTwo($event)"
+        >
+          <option value="">All</option>
+          <option value="USDT">USDT</option>
+          <option value="BTC">BTC</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <select
+          class="form-control sel-val"
+          id="three"
+          @change="selectside($event)"
+        >
+          <option value="">All</option>
+          <option value="buy">Buy</option>
+          <option value="sell">Sell</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <button type="reset" @click="reset">Reset</button>
       </div>
     </div>
     <div class="row">
@@ -91,7 +98,7 @@ export default {
       pTwo: "",
       selectedSide: "",
 
-      test: "",
+     
     };
   },
 
@@ -169,6 +176,7 @@ export default {
 
   computed: {
     filterCoins: function () {
+      
       return this.dataAll.filter((orders) => {
         return (
           orders.productId.includes(this.pOne + this.pTwo) &&
@@ -184,6 +192,7 @@ export default {
     // window.setInterval(() => {
     //   this.getData()
     // }, 3000)
+    //date>= startDate && date<=endDate
   },
 };
 </script>

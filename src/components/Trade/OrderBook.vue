@@ -3,7 +3,7 @@
     <div class="trade-box">
       <div class="trade-header">
         Order Book
-        <select class="form-control sel-val" @change="onChange($event)" >
+        <select class="form-control sel-val" @change="onChange($event)">
           <option value="0.01">0.01</option>
           <option value="0.1">0.1</option>
           <option value="0">1</option>
@@ -18,7 +18,7 @@
               <div class="eql blue-bg"></div>
             </div>
           </div>
-        </div>        
+        </div>
         <div class="sw-b" @click="activesell" v-bind:class="[selltab ? 'active' : '']" title="Sell">
           <div class="box-sm">
             <div class="half">
@@ -55,10 +55,10 @@
         </div>        
       </div>
       <div class="top-order-book">
-        <div class="trade-body sell-body" v-if="showbuyandsell == true || showsell == true ">
+        <div class="trade-body sell-body" v-if="showbuyandsell == true || showsell == true" v-bind:class="[showsell ? 'sell-full' : '']">
           <table class="table table-hover">
-            <tbody>             
-            <tr v-for="sell in priceSellBind.slice(0, 13)" :key="sell" v-show="deci=='0.01'">
+            <tbody>
+            <tr v-for="sell in priceSellBind.slice(0, 11)" :key="sell" v-show="deci=='0.01'">
               <td @click="sellPriceOrderBook(sell[0])">{{ parseFloat(sell[0]).toFixed(2) }}</td>
               <td @click="amountOrderBook(sell[1])">{{ sell[1] }}</td>
               <td class="text-right">
@@ -81,14 +81,13 @@
                 </transition>
               </td>
             </tr>
-
-             <tr v-for="sell in priceSellBind.slice(0, 13)" :key="sell" v-show="deci=='0.1'">
+            <tr v-for="sell in priceSellBind.slice(0, 11)" :key="sell" v-show="deci=='0.1'">
               <td @click="sellPriceOrderBook(sell[0])">{{ parseFloat(sell[0]).toFixed(1) }}</td>
               <td @click="amountOrderBook(sell[1])">{{ sell[1] }}</td>
               <td class="text-right">{{ sell[0] * sell[1] }}</td>
             </tr>
 
-             <tr v-for="sell in priceSellBind.slice(0, 13)" :key="sell" v-show="deci=='0'">
+             <tr v-for="sell in priceSellBind.slice(0, 11)" :key="sell" v-show="deci=='0'">
               <td @click="sellPriceOrderBook(sell[0])">{{ parseFloat(sell[0]).toFixed(0) }}</td>
               <td @click="amountOrderBook(sell[1])">{{ sell[1] }}</td>
               <td class="text-right">{{ sell[0] * sell[1] }}</td>
@@ -112,10 +111,10 @@
             </tbody>
           </table>
         </div>
-        <div class="trade-body buy-body" v-if="showbuyandsell == true || showbuy == true ">
+        <div class="trade-body buy-body" v-if="showbuyandsell == true || showbuy == true" v-bind:class="[showbuy ? 'buy-full' : '']">
          <table lass="table table-hover" style="width:100% !important;">
 
-          <tr class="plus" v-for="buy in priceBuyBind.slice(0, 13)" :key="buy" v-show="deci=='0.01'">
+          <tr class="plus" v-for="buy in priceBuyBind.slice(0, 11)" :key="buy" v-show="deci=='0.01'">
             <td @click="sellPriceOrderBook(buy[0])" >{{ parseFloat(buy[0]).toFixed(2) }}</td>
             <td @click="amountOrderBook(buy[1])">{{ buy[1] }}</td>
             <td class="text-right">{{ buy[0] * buy[1] }}
@@ -139,13 +138,13 @@
             </td>
           </tr>
 
-          <tr class="plus" v-for="buy in priceBuyBind.slice(0, 13)" :key="buy" v-show="deci=='0.1'">
+          <tr class="plus" v-for="buy in priceBuyBind.slice(0, 11)" :key="buy" v-show="deci=='0.1'">
             <td @click="sellPriceOrderBook(buy[0])" >{{ parseFloat(buy[0]).toFixed(1) }}</td>
             <td @click="amountOrderBook(buy[1])">{{ buy[1] }}</td>
             <td class="text-right">{{ buy[0] * buy[1] }}</td>
           </tr>
 
-          <tr class="plus" v-for="buy in priceBuyBind.slice(0, 13)" :key="buy" v-show="deci=='0'">
+          <tr class="plus" v-for="buy in priceBuyBind.slice(0, 11)" :key="buy" v-show="deci=='0'">
             <td @click="sellPriceOrderBook(buy[0])" >{{ parseFloat(buy[0]).toFixed(0) }}</td>
             <td @click="amountOrderBook(buy[1])">{{ buy[1] }}</td>
             <td class="text-right">{{ buy[0] * buy[1] }}</td>
@@ -317,7 +316,7 @@ export default {
             
              this.priceSellBind.sort((a, b) => {return b[0] - a[0] });
             }
-             if(this.priceSellBind.length>13){
+             if(this.priceSellBind.length>11){
                 this.priceSellBind.shift();
               }
          
@@ -334,7 +333,7 @@ export default {
             }
       this.priceBuyBind = dataBuyArray.sort((a, b) => {return b[0] - a[0] });
           }
-           if(this.priceBuyBind.length>13){
+           if(this.priceBuyBind.length>11){
                   this.priceBuyBind.shift();
               }
      

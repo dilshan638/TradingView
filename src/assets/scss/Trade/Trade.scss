@@ -168,8 +168,9 @@
     }
 
     .sub-bottom{
-        font-size: 0.625rem;
+        font-size: 0.8rem;
         color: #878787;
+        font-weight: 900;
     } 
 
 }
@@ -180,17 +181,18 @@
 
     h3{
         color: #878787;
-        font-size: 0.625rem !important;
+        font-size: 0.7rem !important;
         width: 100%;
         margin: 0;
         margin-right: 0 !important;
         margin-top: 0 !important;
-        font-weight: 400 !important;
+        font-weight: 900 !important;
     }
 
     b{
         color: #fff;
-        font-size: 0.75rem;
+        font-size: 0.8rem;
+        font-weight: 900;
     }
 }
 
@@ -466,6 +468,7 @@
     position: relative;
     height: 100%;
     margin-right: -6px;
+    padding-top: 15px;
 }
 
 select.sel-val{
@@ -591,4 +594,22 @@ select.sel-val{
 
   .pop-hover{
       position: absolute;
+  }
+
+  .sell-full{
+    height: 98%;
+    max-height: 98%;
+    overflow-y: auto;
+    position: relative;
+    min-height: 540px;
+    max-height: 540px;
+  }
+  .buy-full{
+    height: 98%;
+    max-height: 98%;
+    overflow-y: auto;
+    top: 15px;
+    margin-top: 10px !important;
+    min-height: 540px;
+    max-height: 540px;
   }

@@ -2,7 +2,7 @@
   <div class="trade-box" style="min-height: auto;">
     <!-- trade comoponents -->
     <div class="row status1">
-      <div class="col-md-4 pos-rel">
+      <div class="col-md-3 pos-rel">
         <div class="search-head" @click="dropdownshow = !dropdownshow" @blur="dropdownshow = false">
             <img :src="selectedcoinimage" /> <h4>{{defaultCoin}}</h4>
             <i class="ri-arrow-down-s-line" :class="[dropdownshow ? 'ri-arrow-up-s-line' : 'ri-arrow-down-s-line']"></i>
@@ -25,7 +25,7 @@
                         <td @click="selectcoin(marketprice.pair_name, marketprice.image, marketprice.currency)" class="text-right success-text">{{marketprice.change_24h}}%</td>
                     </tr>                                                                                                                                                                                           
                 </tbody>
-              </table>            
+              </table>
           </div>
         </div>
       </div>
@@ -33,7 +33,7 @@
         <h4 v-bind:class="[matchFill == 'buy' ? 'buy' : 'sell']">{{marketPrice}}</h4>
         <span class="sub-bottom">$35,988.54</span>
       </div>
-      <div class="col-md-6" >
+      <div class="col-md-7" >
         <div class="top-sub"  >
           <h3>24h Change</h3>
           <b  >{{volume24hBind}}</b>

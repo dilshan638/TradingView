@@ -238,3 +238,55 @@
     }
 
   }
+
+  .input-slot.half{
+    width: 50% !important;
+    float: left;
+
+    &:last-child{
+      margin-left: -4px;
+    }
+  }
+
+  .set-flter-row{
+
+    float: left;
+    width: 100%;
+
+    b{
+      float: left;
+      width: 100%;
+      color: #a2a4bf;
+      font-weight: 400;
+      padding-bottom: 10px;
+      min-height: 34px;
+    }
+
+  }
+
+  .input-slot {
+    margin-bottom: 30px;
+  }
+
+  .set-flter-row{
+
+    button{
+      min-width: auto;
+      border-radius: 4px;
+      width: 100%;
+    }
+    .reset-btn{
+      border: solid 2px #a2a4bf;
+      color: #a2a4bf;
+      background-color: transparent;
+    }
+
+  }
+
+  .test-box{
+    background-color: red;
+    width: 100%;
+    float: left;
+    position: relative;
+    height: 100%;
+  }
