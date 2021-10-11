@@ -209,10 +209,11 @@ export default {
 
   mounted() {
     this.geTradeHistory();
-    this.getData();
-    window.setInterval(() => {
-      this.getData()
-    }, 3000)
+   // this.getData();
+    // window.setInterval(() => {
+    //   this.getData()
+    // }, 3000)
+    //date>= startDate && date<=endDate
   },
 };
 </script>
