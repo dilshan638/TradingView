@@ -29,8 +29,12 @@
           </div>
         </div>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-2" v-show="marketPrice !=''">
         <h4 v-bind:class="[matchFill == 'buy' ? 'buy' : 'sell']">{{marketPrice}}</h4>
+        <span class="sub-bottom">$35,988.54</span>
+      </div>
+       <div class="col-md-2" v-show="marketPrice ==''">
+        <h4 v-bind:class="[matchFill == 'buy' ? 'buy' : 'sell']">{{matchPriceMATCH}}</h4>
         <span class="sub-bottom">$35,988.54</span>
       </div>
       <div class="col-md-7" >
@@ -98,7 +102,8 @@ export default {
       ldcx24hBind:"",
 
       tickerPrice:"",
-      matchFill:""
+      matchFill:"",
+      matchPriceMATCH:""
 
       
       
@@ -204,6 +209,7 @@ export default {
   // this.$emit("symbol", "BTC")
   // this.$emit("pair_name", "USDC")  
    this.setMainCoin();
+    this.matchPriceMATCH= localStorage.getItem("matchPriceMATCH")
   },
   computed: {
     filterCoins: function(){

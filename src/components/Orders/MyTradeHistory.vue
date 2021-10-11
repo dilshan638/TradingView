@@ -188,7 +188,7 @@ export default {
 
   mounted() {
     this.geTradeHistory();
-    this.getData();
+   // this.getData();
     // window.setInterval(() => {
     //   this.getData()
     // }, 3000)
