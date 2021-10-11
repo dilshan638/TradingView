@@ -198,7 +198,9 @@ export default {
 
   mounted() {
     this.getData();
-  //  this.gettoday();
+    window.setInterval(() => {
+      this.getData();
+    }, 3000);
   },
   computed: {
 filterCoins: function () {

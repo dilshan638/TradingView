@@ -438,7 +438,10 @@
     } 
     .search-body {
         width: 88% !important;
-    }      
+    }   
+    body #app .trade-history table tr td {
+        font-size: 0.55rem !important;
+    }       
 
    body .trade-history table tr th {
         font-size: 0.7rem !important;

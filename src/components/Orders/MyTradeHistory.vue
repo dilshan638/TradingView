@@ -1,44 +1,65 @@
 <template>
   <div>
     <div class="row">
-      <div class="col-md-3">Date</div>
-      <div class="col-md-2">
-        <select
-          class="form-control sel-val"
-          id="one"
-          @change="PairOne($event)"
-        >
-          <option value="">All</option>
+     <div class="col-md-12">
+       <div class="set-flter-row">
+          <div class="row">
+            <div class="col-md-5">
+              <b>Date</b>
+              <div class="input-slot half">
+                <input type="date" class="form-control" />
+              </div>
+              <div class="input-slot half">
+                <input type="date" class="form-control" />
+              </div>              
+            </div>
+            <div class="col-md-3">
+              <b>Pair</b>
+              <div class="input-slot half">
+                <select
+                  class="form-control sel-val"
+                  id="one"
+                  @change="PairOne($event)"
+                >
+                  <option value="">All</option>
 
-          <option value="BTC-">BTC</option>
-          <option value="ETH-">ETH</option>
-        </select>
-      </div>
-      <div class="col-md-2">
-        <select
-          class="form-control sel-val"
-          id="two"
-          @change="PairTwo($event)"
-        >
-          <option value="">All</option>
-          <option value="USDT">USDT</option>
-          <option value="BTC">BTC</option>
-        </select>
-      </div>
-      <div class="col-md-2">
-        <select
-          class="form-control sel-val"
-          id="three"
-          @change="selectside($event)"
-        >
-          <option value="">All</option>
-          <option value="buy">Buy</option>
-          <option value="sell">Sell</option>
-        </select>
-      </div>
-      <div class="col-md-2">
-        <button type="reset" @click="reset">Reset</button>
-      </div>
+                  <option value="BTC-">BTC</option>
+                  <option value="ETH-">ETH</option>
+                </select>              
+              </div>
+              <div class="input-slot half">
+                <select
+                  class="form-control sel-val"
+                  id="three"
+                  @change="selectside($event)"
+                >
+                  <option value="">All</option>
+                  <option value="buy">Buy</option>
+                  <option value="sell">Sell</option>
+                </select>              
+              </div>
+            </div>
+            <div class="col-md-2">
+                <b>Side</b>
+                <div class="input-slot">
+                  <select
+                    class="form-control sel-val"
+                    id="three"
+                    @change="selectside($event)"
+                  >
+                    <option value="">All</option>
+                    <option value="buy">Buy</option>
+                    <option value="sell">Sell</option>
+                  </select>                  
+                </div>
+            </div>
+            <div class="col-md-2">
+              <b></b>
+              <button type="reset" class="reset-btn" @click="reset">Reset</button>
+            </div>            
+          </div>
+       </div>
+     </div>
     </div>
     <div class="row">
       <div class="col-md-12">
@@ -189,10 +210,9 @@ export default {
   mounted() {
     this.geTradeHistory();
     this.getData();
-    // window.setInterval(() => {
-    //   this.getData()
-    // }, 3000)
-    //date>= startDate && date<=endDate
+    window.setInterval(() => {
+      this.getData()
+    }, 3000)
   },
 };
 </script>
