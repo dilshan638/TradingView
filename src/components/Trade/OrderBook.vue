@@ -126,6 +126,28 @@
                 </td>
                 <td class="text-right">
                   {{ parseFloat(sell[0] * sell[1]).toFixed(5) }}
+                   <transition name="fade">
+                    <div class="tooltip2">
+                      <div class="tool-row">
+                        <div class="tool-title">Avg Price:</div>
+                        <div class="tool-val">
+                          {{ parseFloat(sell[0]).toFixed(5) }}
+                        </div>
+                      </div>
+                      <div class="tool-row">
+                        <div class="tool-title">Sum {{ SelectedSymbol }}:</div>
+                        <div class="tool-val">
+                          {{ parseFloat(sell[3]).toFixed(5) }}
+                        </div>
+                      </div>
+                      <div class="tool-row">
+                        <div class="tool-title">Sum {{ pairName }}:</div>
+                        <div class="tool-val">
+                          {{ parseFloat(sell[4]).toFixed(5) }}
+                        </div>
+                      </div>
+                    </div>
+                  </transition>
                 </td>
               </tr>
 
@@ -142,6 +164,28 @@
                 </td>
                 <td class="text-right">
                   {{ parseFloat(sell[0] * sell[1]).toFixed(5) }}
+                   <transition name="fade">
+                    <div class="tooltip2">
+                      <div class="tool-row">
+                        <div class="tool-title">Avg Price:</div>
+                        <div class="tool-val">
+                          {{ parseFloat(sell[0]).toFixed(5) }}
+                        </div>
+                      </div>
+                      <div class="tool-row">
+                        <div class="tool-title">Sum {{ SelectedSymbol }}:</div>
+                        <div class="tool-val">
+                          {{ parseFloat(sell[3]).toFixed(5) }}
+                        </div>
+                      </div>
+                      <div class="tool-row">
+                        <div class="tool-title">Sum {{ pairName }}:</div>
+                        <div class="tool-val">
+                          {{ parseFloat(sell[4]).toFixed(5) }}
+                        </div>
+                      </div>
+                    </div>
+                  </transition>
                 </td>
               </tr>
             </tbody>
@@ -306,6 +350,28 @@
               </td>
               <td class="text-right">
                 {{ parseFloat(buy[0] * buy[1]).toFixed(5) }}
+                 <transition name="fade">
+                  <div class="tooltip2">
+                    <div class="tool-row">
+                      <div class="tool-title">Avg Price:</div>
+                      <div class="tool-val">
+                        {{ parseFloat(buy[0]).toFixed(5) }}
+                      </div>
+                    </div>
+                    <div class="tool-row">
+                      <div class="tool-title">Sum {{ SelectedSymbol }}:</div>
+                      <div class="tool-val">
+                        {{ parseFloat(buy[3]).toFixed(5) }}
+                      </div>
+                    </div>
+                    <div class="tool-row">
+                      <div class="tool-title">Sum {{ pairName }}:</div>
+                      <div class="tool-val">
+                        {{ parseFloat(buy[4]).toFixed(5) }}
+                      </div>
+                    </div>
+                  </div>
+                </transition>
               </td>
             </tr>
 
@@ -323,6 +389,28 @@
               </td>
               <td class="text-right">
                 {{ parseFloat(buy[0] * buy[1]).toFixed(5) }}
+                 <transition name="fade">
+                  <div class="tooltip2">
+                    <div class="tool-row">
+                      <div class="tool-title">Avg Price:</div>
+                      <div class="tool-val">
+                        {{ parseFloat(buy[0]).toFixed(5) }}
+                      </div>
+                    </div>
+                    <div class="tool-row">
+                      <div class="tool-title">Sum {{ SelectedSymbol }}:</div>
+                      <div class="tool-val">
+                        {{ parseFloat(buy[3]).toFixed(5) }}
+                      </div>
+                    </div>
+                    <div class="tool-row">
+                      <div class="tool-title">Sum {{ pairName }}:</div>
+                      <div class="tool-val">
+                        {{ parseFloat(buy[4]).toFixed(5) }}
+                      </div>
+                    </div>
+                  </div>
+                </transition>
               </td>
             </tr>
           </table>
@@ -569,30 +657,36 @@ export default {
             currency_ids: [],
             channels: ["ticker", "match", "level2", "funds", "order"],
             token: "",
-            //"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoYXJha2FAZ21haWwuY29tIiwiZXhwaXJlZEF0IjoxNjMyMTU4MDQ5LCJpZCI6NDEsInBhc3N3b3JkSGFzaCI6ImFlMDA1Y2ViN2U5YTIxN2NjZWQyZjhhYTM1NDE4N2M3In0.6KW--OvqAjUbVNP6r0b4avksK0R6MBi_FzmYtptDknQ",
-          })
+         })
         );
       } catch (error) {
         console.log(error);
       }
     },
-    //  async setData(dataSellArray, dataBuyArray, recendData, fillPrice) {
     async setData(dataSellArray, dataBuyArray, fillPrice) {
-      if (dataSellArray != undefined) {
-      
-       this.priceSellBind = dataSellArray;
-      
 
-      
-          this.priceSellBind.sort((a, b) => {
+      if (dataSellArray != undefined) {
+        this.priceSellBind = dataSellArray;
+         this.priceSellBind.sort((a, b) => {
             return b[0] - a[0];
           });
-          for (let z = 11; z > 0; z--) {
+
+          if(this.priceSellBind.length<11){
+               for (let z = this.priceSellBind.length-1; z>=0; z--) {
             this.buyAmount += parseFloat(this.priceSellBind[z][1]);
             this.priceSellBind[z][3] = this.buyAmount;
             this.buyTotal += parseFloat(this.priceSellBind[z][0]) * parseFloat(this.priceSellBind[z][1]);
             this.priceSellBind[z][4] = this.buyTotal;
           }
+          }else{
+              for (let t = 11; t>=0; t--) {
+            this.buyAmount += parseFloat(this.priceSellBind[t][1]);
+            this.priceSellBind[t][3] = this.buyAmount;
+            this.buyTotal += parseFloat(this.priceSellBind[t][0]) * parseFloat(this.priceSellBind[t][1]);
+            this.priceSellBind[t][4] = this.buyTotal;
+          }
+          }
+         
 
           
            if (this.priceSellBind.length > 11)
@@ -601,13 +695,16 @@ export default {
            }
        
 
-      }
-
+    }
+         
       if (dataBuyArray != undefined) {
         this.priceBuyBind = dataBuyArray;
-         this.priceBuyBind = dataBuyArray.sort((a, b) => {
-          return b[0] - a[0];
+        
+        this.priceBuyBind.sort((a, b) => {
+            return b[0] - a[0];
         });
+
+        
         for (let a = 0; a <= this.priceBuyBind.length; a++) {
           this.selAmount += parseFloat(this.priceBuyBind[a][1]);
           this.priceBuyBind[a][3] = this.selAmount;
@@ -689,7 +786,6 @@ export default {
       if (ts.dataAl.type == "l2update") {
         ts.priceSell = [];
         ts.priceBuy = [];
-        ts.activebuysellArraySell=[]
         ts.priceSell = ts.dataAl.asks;
         ts.priceBuy = ts.dataAl.bids;
 
@@ -714,7 +810,7 @@ export default {
           headers: headers,
         })
         .then((response) => {
-          console.log(response.data);
+         
 
           if (ts.recentData.length != 0) {
             ts.recentData = [];
@@ -727,13 +823,16 @@ export default {
             });
           }
 
-          console.log(ts.recentData);
+        
         })
         .catch(function (error) {
           console.log(error);
         });
 
       ts.setData(ts.priceSell, ts.priceBuy, ts.fill);
+   
+      console.log(ts.priceSell)
+      console.log(ts.priceBuy)
     };
 
     this.connection.onopen = function (event) {
