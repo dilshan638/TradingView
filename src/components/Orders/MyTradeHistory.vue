@@ -181,7 +181,7 @@ export default {
       const headers = {};
       axios
         .get(
-          "https://34.152.9.147:8001/api/orders?productId=BTC-USDT&status=filled&before&after&limit=100",
+          "http://34.152.9.147:8001/api/orders?productId=BTC-USDT&status=filled&before&after&limit=100",
           {
             headers: headers,
           }
@@ -209,11 +209,11 @@ export default {
 
   mounted() {
     this.geTradeHistory();
-   // this.getData();
-    // window.setInterval(() => {
-    //   this.getData()
-    // }, 3000)
-    //date>= startDate && date<=endDate
+   this.getData();
+    window.setInterval(() => {
+      this.getData()
+    }, 3000)
+   // date>= startDate && date<=endDate
   },
 };
 </script>

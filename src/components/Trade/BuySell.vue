@@ -2,7 +2,7 @@
   <div class="trade-box buysell-form buy-sell-box">
     <div class="trade-header text-center">Buy / Sell</div>
   <transition name="fade" v-on:enter="enter">
-    <div v-if="showtrademesg" class="elementToFadeInAndOut"> trade Successfully updated!</div>
+    <div v-if="showtrademesg" class="elementToFadeInAndOut"> Trade successfully Updated!</div>
   </transition>    
     <div class="trade-body">
       <div class="tab-top">
@@ -214,7 +214,7 @@ export default {
 
         axios
           .get(
-            "https://tradeapi.exus.live/api/orders?productId=BTC-USDT&status=open&before&after&limit=100",
+            "http://34.152.9.147:8001/api/orders?productId=BTC-USDT&status=open&before&after&limit=100",
             {
               headers: headers,
             }
@@ -232,7 +232,7 @@ export default {
 
         axios
           .get(
-            "https://tradeapi.exus.live/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100",
+            "http://34.152.9.147:8001/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100",
             {
               headers: headers,
             }
@@ -249,7 +249,7 @@ export default {
 
         axios
           .get(
-            "https://tradeapi.exus.live/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100",
+            "http://34.152.9.147:8001/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100",
             {
               headers: headers,
             }
@@ -320,7 +320,7 @@ export default {
 
           try {
             let response = await this.axios
-              .post("https://tradeapi.exus.live/api/orders", data, headers)
+              .post("http://34.152.9.147:8001/api/orders", data, headers)
               .then((res) => {
                 // this.sendData = response.data
                 console.log(response);

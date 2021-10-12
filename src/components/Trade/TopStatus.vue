@@ -29,9 +29,13 @@
           </div>
         </div>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-2" v-show="marketPrice != ''">
         <h4 v-bind:class="[matchFill == 'buy' ? 'buy' : 'sell']">{{marketPrice}}</h4>
-        <span class="sub-bottom">$35,988.54</span>
+        <span class="sub-bottom">${{marketPrice}}</span>
+      </div>
+       <div class="col-md-2" v-show="marketPrice == ''">
+        <h4 v-bind:class="[matchFill == 'buy' ? 'buy' : 'sell']">{{matchPriceMATCH}}</h4>
+        <span class="sub-bottom">${{matchPriceMATCH}}</span>
       </div>
       <div class="col-md-7" >
         <div class="top-sub"  >
@@ -98,7 +102,8 @@ export default {
       ldcx24hBind:"",
 
       tickerPrice:"",
-      matchFill:""
+      matchFill:"",
+      matchPriceMATCH:""
 
       
       
@@ -200,10 +205,9 @@ export default {
   mounted() {
     this.setData();
     this.getMarketDropdown();
-   // this.setCoin();
-  // this.$emit("symbol", "BTC")
-  // this.$emit("pair_name", "USDC")  
    this.setMainCoin();
+   this.matchPriceMATCH = localStorage.getItem("matchPriceMATCH");
+  
   },
   computed: {
     filterCoins: function(){
@@ -220,15 +224,7 @@ export default {
 
     this.connection.onmessage = function (event) {
      ts.dataAl = JSON.parse(event.data);
-
-    
-      // if (ts.dataAl.type == "order" || ts.dataAl.status == "filled" ||ts.dataAl.status == "ticker" ) {
-      //   // for (let a = 0; a < 1; a++) {
-      //   //   ts.fill = ts.dataAl.price;
-      //   // }
-      // }
-
-      if (ts.dataAl.type == "match") {
+   if (ts.dataAl.type == "match") {
            
          // for (let a = 0; a < 1; a++) {
              ts.fill = ts.dataAl.price;
@@ -238,10 +234,7 @@ export default {
 
 
       if(ts.dataAl.type == "ticker"){
-        // for (let a = 0; a < 1; a++) {
-        //   ts.fill = ts.dataAl.price;
-        // }
-        ts.tickerPrice=ts.dataAl.price
+       ts.tickerPrice=ts.dataAl.price
         ts.open24h=ts.dataAl.open24h
         ts.low24h=ts.dataAl.low24h
         ts.volume24h=ts.dataAl.volume24h
@@ -255,7 +248,7 @@ export default {
       }
     
       ts.setData(ts.fill, ts.open24h,ts.low24h, ts.volume24h, ts.ldcx24h);
-   
+    
     };
 
     this.connection.onopen = function (event) {
