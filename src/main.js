@@ -9,11 +9,13 @@ import VueApexCharts from "vue3-apexcharts";
 //import VueSession from 'vue-session'
 import router from './router';
 import TableLite from "vue3-table-lite";
-//import { Money3Component } from "v-money3";
+import VueDatepickerUi from 'vue-datepicker-ui'
+import 'vue-datepicker-ui/lib/vuedatepickerui.css';
 
 
 
 const app = createApp(App);
+app.use('Datepicker', VueDatepickerUi)
 app.use(router)
 app.use(TableLite)
 app.use(Toaster)

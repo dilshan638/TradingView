@@ -1,7 +1,6 @@
 <template>
   <div>
     <div class="trade-box">
-      <vue-datepicker-local v-model="time" />
       <div class="trade-header">
         Order Book
         <select class="form-control sel-val" @change="onChange($event)">
@@ -570,12 +569,10 @@
 
 <script>
 import axios from "axios";
-import VueDatepickerLocal from 'vue-datepicker-local'
 export default {
   emits: ["sellPriceOrderBookPass", "sellAmountOrderBookPass"],
   name: "orderbook",
   components: {
-    VueDatepickerLocal
   },
   props: ["SelectedSymbol", "pairName"],
 
