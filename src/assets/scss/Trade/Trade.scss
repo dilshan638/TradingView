@@ -49,6 +49,10 @@
 
             tr{
 
+                &:hover{
+                    background-color: #1f1f1f;
+                }
+
                 cursor: pointer;
 
                 &:hover{
@@ -170,7 +174,7 @@
     }
 
     .sub-bottom{
-        font-size: 0.8rem;
+        font-size: 1rem;
         color: #878787;
         font-weight: 900;
     } 
@@ -353,7 +357,7 @@
 
     h4{
         font-size: 1.3rem;
-        font-weight: 500;
+        font-weight: 700;
         color: #fff;
         line-height: 16px;
     }
@@ -561,6 +565,7 @@ select.sel-val{
     display: block;
     max-width: none;
     margin-top: 30px;
+    font-weight: 900;
   }
   .recent-body{
     top: 0 !important;

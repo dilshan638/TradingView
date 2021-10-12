@@ -60,31 +60,59 @@
           <table class="table table-hover">
             <thead>
               <tr>
-                <th scope="col">Price({{ pairName }})</th>
-                <th scope="col">Amount({{ SelectedSymbol }})</th>
+                <th scope="col" width="35%">Price({{ pairName }})</th>
+                <th scope="col" width="30%">Amount({{ SelectedSymbol }})</th>
                 <th scope="col" class="text-right">Total</th>
               </tr>
             </thead>
           </table>
         </div>
       </div>
-      <div class="top-order-book">
+      <div class="top-order-book" v-bind:class="[showsell || showbuy ? 'full-data' : 'limited-data']">
+        <div class="trade-body middle-bdy" v-if="showsell"> 
+          <table class="table table-hover special">
+            <tbody>
+              <tr v-show="price != ''">
+                <td v-bind:class="[matchFill == 'buy' ? 'buy' : 'sell']" width="35%">
+                  {{ price }}
+                </td>
+                <td class="mid" width="30%">${{ price }}</td>
+                <td class="text-right">
+                  <div class="read-more">
+                    <router-link to="/buy-sell-list">More</router-link>
+                  </div>
+                </td>
+              </tr>
+              <tr v-show="price == ''">
+                <td v-bind:class="[matchFill == 'buy' ? 'buy' : 'sell']" width="35%">
+                  {{ matchPriceMATCH }}
+                </td>
+                <td class="mid" width="30%">${{ matchPriceMATCH }}</td>
+                <td class="text-right">
+                  <div class="read-more">
+                    <router-link to="/buy-sell-list">More</router-link>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>        
         <div
           class="trade-body sell-body"
           v-if="showbuyandsell == true || showsell == true"
-          v-bind:class="[showsell ? 'sell-full' : '']"
+          v-bind:class="[showsell ? 'sell-full' : 'sell-default']"
         >
           <table class="table table-hover">
             <tbody v-if="limitRows">
-              <tr
+              <tr @mouseover="removeoverflow" @mouseleave="resetoverflow"
                 v-for="sell in priceSellBind.slice(0, 11)"
                 :key="sell"
                 v-show="deci == '0.01'"
               >
-                <td @click="sellPriceOrderBook(sell[0])">
+                <td @click="sellPriceOrderBook(sell[0])" width="35%">
                   {{ parseFloat(sell[0]).toFixed(2) }}
                 </td>
-                <td @click="amountOrderBook(sell[1])">
+                <td @click="amountOrderBook(sell[1])" width="30%">
                   {{ parseFloat(sell[1]).toFixed(5) }}
                 </td>
                 <td class="text-right">
@@ -113,15 +141,15 @@
                   </transition>
                 </td>
               </tr>
-              <tr
+              <tr @mouseover="removeoverflow" @mouseleave="resetoverflow"
                 v-for="sell in priceSellBind.slice(0, 11)"
                 :key="sell"
                 v-show="deci == '0.1'"
               >
-                <td @click="sellPriceOrderBook(sell[0])">
+                <td @click="sellPriceOrderBook(sell[0])" width="35%">
                   {{ parseFloat(sell[0]).toFixed(1) }}
                 </td>
-                <td @click="amountOrderBook(sell[1])">
+                <td @click="amountOrderBook(sell[1])" width="30%">
                   {{ parseFloat(sell[1]).toFixed(5) }}
                 </td>
                 <td class="text-right">
@@ -129,15 +157,15 @@
                 </td>
               </tr>
 
-              <tr
+              <tr @mouseover="removeoverflow" @mouseleave="resetoverflow"
                 v-for="sell in priceSellBind.slice(0, 11)"
                 :key="sell"
                 v-show="deci == '0'"
               >
-                <td @click="sellPriceOrderBook(sell[0])">
+                <td @click="sellPriceOrderBook(sell[0])" width="35%">
                   {{ parseFloat(sell[0]).toFixed(0) }}
                 </td>
-                <td @click="amountOrderBook(sell[1])">
+                <td @click="amountOrderBook(sell[1])" width="30%">
                   {{ parseFloat(sell[1]).toFixed(5) }}
                 </td>
                 <td class="text-right">
@@ -147,15 +175,15 @@
             </tbody>
 
              <tbody v-else>
-              <tr
+              <tr @mouseover="removeoverflow" @mouseleave="resetoverflow"
                 v-for="sell in priceSellBind"
                 :key="sell"
                 v-show="deci == '0.01'"
               >
-                <td @click="sellPriceOrderBook(sell[0])">
+                <td @click="sellPriceOrderBook(sell[0])" width="35%">
                   {{ parseFloat(sell[0]).toFixed(2) }}
                 </td>
-                <td @click="amountOrderBook(sell[1])">
+                <td @click="amountOrderBook(sell[1])" width="30%">
                   {{ parseFloat(sell[1]).toFixed(5) }}
                 </td>
                 <td class="text-right">
@@ -184,15 +212,15 @@
                   </transition>
                 </td>
               </tr>
-              <tr
+              <tr @mouseover="removeoverflow" @mouseleave="resetoverflow"
                 v-for="sell in priceSellBind"
                 :key="sell"
                 v-show="deci == '0.1'"
               >
-                <td @click="sellPriceOrderBook(sell[0])">
+                <td @click="sellPriceOrderBook(sell[0])" width="35%">
                   {{ parseFloat(sell[0]).toFixed(1) }}
                 </td>
-                <td @click="amountOrderBook(sell[1])">
+                <td @click="amountOrderBook(sell[1])" width="30%">
                   {{ parseFloat(sell[1]).toFixed(5) }}
                 </td>
                 <td class="text-right">
@@ -200,15 +228,15 @@
                 </td>
               </tr>
 
-              <tr
+              <tr @mouseover="removeoverflow" @mouseleave="resetoverflow"
                 v-for="sell in priceSellBind"
                 :key="sell"
                 v-show="deci == '0'"
               >
-                <td @click="sellPriceOrderBook(sell[0])">
+                <td @click="sellPriceOrderBook(sell[0])" width="35%">
                   {{ parseFloat(sell[0]).toFixed(0) }}
                 </td>
-                <td @click="amountOrderBook(sell[1])">
+                <td @click="amountOrderBook(sell[1])" width="30%">
                   {{ parseFloat(sell[1]).toFixed(5) }}
                 </td>
                 <td class="text-right">
@@ -218,14 +246,14 @@
             </tbody>
           </table>
         </div>
-        <div class="trade-body middle-bdy">
+        <div class="trade-body middle-bdy" v-if="showbuy"> 
           <table class="table table-hover special">
             <tbody>
               <tr v-show="price != ''">
-                <td v-bind:class="[matchFill == 'buy' ? 'buy' : 'sell']">
+                <td v-bind:class="[matchFill == 'buy' ? 'buy' : 'sell']" width="35%">
                   {{ price }}
                 </td>
-                <td class="mid">${{ price }}</td>
+                <td class="mid" width="30%">${{ price }}</td>
                 <td class="text-right">
                   <div class="read-more">
                     <router-link to="/buy-sell-list">More</router-link>
@@ -233,10 +261,10 @@
                 </td>
               </tr>
               <tr v-show="price == ''">
-                <td v-bind:class="[matchFill == 'buy' ? 'buy' : 'sell']">
+                <td v-bind:class="[matchFill == 'buy' ? 'buy' : 'sell']" width="35%">
                   {{ matchPriceMATCH }}
                 </td>
-                <td class="mid">${{ matchPriceMATCH }}</td>
+                <td class="mid" width="30%">${{ matchPriceMATCH }}</td>
                 <td class="text-right">
                   <div class="read-more">
                     <router-link to="/buy-sell-list">More</router-link>
@@ -247,21 +275,21 @@
           </table>
         </div>
         <div
-          class="trade-body buy-body"
+          class="trade-body buy-body" 
           v-if="showbuyandsell == true || showbuy == true"
-          v-bind:class="[showbuy ? 'buy-full' : '']"
+          v-bind:class="[showbuy ? 'buy-full' : 'buy-default']"
         >
           <table lass="table table-hover" style="width: 100% !important" v-if="limitRows">
-            <tr
+            <tr @mouseover="removeoverflow" @mouseleave="resetoverflow"
               class="plus"
               v-for="buy in priceBuyBind.slice(0, 11)"
               :key="buy"
               v-show="deci == '0.01'"
             >
-              <td @click="sellPriceOrderBook(buy[0])">
+              <td @click="sellPriceOrderBook(buy[0])" width="35%">
                 {{ parseFloat(buy[0]).toFixed(2) }}
               </td>
-              <td @click="amountOrderBook(buy[1])">
+              <td @click="amountOrderBook(buy[1])" width="30%">
                 {{ parseFloat(buy[1]).toFixed(5) }}
               </td>
               <td class="text-right">
@@ -292,16 +320,16 @@
               </td>
             </tr>
 
-            <tr
+            <tr @mouseover="removeoverflow" @mouseleave="resetoverflow"
               class="plus"
               v-for="buy in priceBuyBind.slice(0, 11)"
               :key="buy"
               v-show="deci == '0.1'"
             >
-              <td @click="sellPriceOrderBook(buy[0])">
+              <td @click="sellPriceOrderBook(buy[0])" width="35%">
                 {{ parseFloat(buy[0]).toFixed(1) }}
               </td>
-              <td @click="amountOrderBook(buy[1])">
+              <td @click="amountOrderBook(buy[1])" width="30%">
                 {{ parseFloat(buy[1]).toFixed(5) }}
               </td>
               <td class="text-right">
@@ -309,16 +337,16 @@
               </td>
             </tr>
 
-            <tr
+            <tr @mouseover="removeoverflow" @mouseleave="resetoverflow"
               class="plus"
               v-for="buy in priceBuyBind.slice(0, 11)"
               :key="buy"
               v-show="deci == '0'"
             >
-              <td @click="sellPriceOrderBook(buy[0])">
+              <td @click="sellPriceOrderBook(buy[0])" width="35%">
                 {{ parseFloat(buy[0]).toFixed(0) }}
               </td>
-              <td @click="amountOrderBook(buy[1])">
+              <td @click="amountOrderBook(buy[1])" width="30%">
                 {{ parseFloat(buy[1]).toFixed(5) }}
               </td>
               <td class="text-right">
@@ -328,16 +356,16 @@
           </table>
 
           <table lass="table table-hover" style="width: 100% !important" v-else>
-            <tr
+            <tr @mouseover="removeoverflow" @mouseleave="resetoverflow"
               class="plus"
               v-for="buy in priceBuyBind"
               :key="buy"
               v-show="deci == '0.01'"
             >
-              <td @click="sellPriceOrderBook(buy[0])">
+              <td @click="sellPriceOrderBook(buy[0])" width="35%">
                 {{ parseFloat(buy[0]).toFixed(2) }}
               </td>
-              <td @click="amountOrderBook(buy[1])">
+              <td @click="amountOrderBook(buy[1])" width="30%">
                 {{ parseFloat(buy[1]).toFixed(5) }}
               </td>
               <td class="text-right">
@@ -374,10 +402,10 @@
               :key="buy"
               v-show="deci == '0.1'"
             >
-              <td @click="sellPriceOrderBook(buy[0])">
+              <td @click="sellPriceOrderBook(buy[0])" width="35%">
                 {{ parseFloat(buy[0]).toFixed(1) }}
               </td>
-              <td @click="amountOrderBook(buy[1])">
+              <td @click="amountOrderBook(buy[1])" width="30%">
                 {{ parseFloat(buy[1]).toFixed(5) }}
               </td>
               <td class="text-right">
@@ -391,10 +419,10 @@
               :key="buy"
               v-show="deci == '0'"
             >
-              <td @click="sellPriceOrderBook(buy[0])">
+              <td @click="sellPriceOrderBook(buy[0])" width="35%">
                 {{ parseFloat(buy[0]).toFixed(0) }}
               </td>
-              <td @click="amountOrderBook(buy[1])">
+              <td @click="amountOrderBook(buy[1])" width="30%">
                 {{ parseFloat(buy[1]).toFixed(5) }}
               </td>
               <td class="text-right">
@@ -412,8 +440,8 @@
           <table class="table table-hover">
             <thead>
               <tr>
-                <th scope="col">Price({{ pairName }})</th>
-                <th scope="col">Amount({{ SelectedSymbol }})</th>
+                <th scope="col" width="35%">Price({{ pairName }})</th>
+                <th scope="col" width="30%">Amount({{ SelectedSymbol }})</th>
                 <th scope="col" class="text-right">Total</th>
               </tr>
             </thead>
@@ -428,13 +456,13 @@
               :key="recent"
               v-show="deci == '0.01'"
             >
-              <td
+              <td width="35%"
                 v-bind:class="[recent.side == 'buy' ? 'buy' : 'sell']"
                 @click="sellPriceOrderBook(recent.price)"
               >
                 {{ parseFloat(recent.price).toFixed(2) }}
               </td>
-              <td @click="amountOrderBook(recent.size)">
+              <td @click="amountOrderBook(recent.size)" width="30%">
                 {{ parseFloat(recent.size).toFixed(5) }}
               </td>
               <td class="text-right">
@@ -447,13 +475,13 @@
               :key="recent"
               v-show="deci == '0.1'"
             >
-              <td
+              <td width="35%"
                 v-bind:class="[recent.side == 'buy' ? 'buy' : 'sell']"
                 @click="sellPriceOrderBook(recent.price)"
               >
                 {{ parseFloat(recent.price).toFixed(1) }}
               </td>
-              <td @click="amountOrderBook(recent.size)">
+              <td @click="amountOrderBook(recent.size)" width="30%">
                 {{ parseFloat(recent.size).toFixed(5) }}
               </td>
               <td class="text-right">
@@ -462,13 +490,13 @@
             </tr>
 
             <tr v-for="recent in recentData" :key="recent" v-show="deci == '0'">
-              <td
+              <td width="35%"
                 v-bind:class="[recent.side == 'buy' ? 'buy' : 'sell']"
                 @click="sellPriceOrderBook(recent.price)"
               >
                 {{ parseFloat(recent.price).toFixed(0) }}
               </td>
-              <td @click="amountOrderBook(recent.size)">
+              <td @click="amountOrderBook(recent.size)" width="30%">
                 {{ parseFloat(recent.size).toFixed(5) }}
               </td>
               <td class="text-right">
@@ -659,6 +687,12 @@ export default {
 
       this.limitRows=false
     },
+    async removeoverflow() {
+      document.querySelector("body").classList.add("remove-overflow");
+    },  
+    async resetoverflow() {
+      document.querySelector("body").classList.remove("remove-overflow");
+    },       
   },
   mounted() {
     this.setData();
@@ -667,7 +701,7 @@ export default {
   },
   created: function () {
     const ts = this;
-    this.connection = new WebSocket("ws://34.152.9.147:8002/ws");
+    this.connection = new WebSocket("wss://stream.exus.live/ws");
 
     this.connection.onmessage = function (event) {
       ts.dataAl = JSON.parse(event.data);
@@ -677,6 +711,7 @@ export default {
       if (ts.dataAl.type == "snapshot") {
         ts.priceSell = ts.dataAl.asks;
         ts.priceBuy = ts.dataAl.bids;
+     
       }
 
       if (ts.dataAl.type == "l2update") {
@@ -685,6 +720,8 @@ export default {
         ts.activebuysellArraySell=[]
         ts.priceSell = ts.dataAl.asks;
         ts.priceBuy = ts.dataAl.bids;
+
+   
       } else {
         // Recent Trades //ts.dataAl.type == "order" || ts.dataAl.type == "match" || ***************To Do****************
 
@@ -701,7 +738,7 @@ export default {
       };
 
       axios
-        .get("http://34.152.9.147:8001/api/products/BTC-USDT/trades", {
+        .get("https://tradeapi.exus.live/api/products/BTC-USDT/trades", {
           headers: headers,
         })
         .then((response) => {

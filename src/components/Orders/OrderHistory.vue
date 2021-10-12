@@ -18,17 +18,6 @@
               <div class="input-slot half">
                 <select
                   class="form-control sel-val"
-                  id="two"
-                  @change="PairTwo($event)"
-                >
-                  <option value="">All</option>
-                  <option value="USDT">USDT</option>
-                  <option value="BTC">BTC</option>
-                </select>                
-              </div>
-              <div class="input-slot half">
-                <select
-                  class="form-control sel-val"
                   id="one"
                   @change="PairOne($event)"
                 >
@@ -36,7 +25,18 @@
 
                   <option value="BTC-">BTC</option>
                   <option value="ETH-">ETH</option>
-                </select>                
+                </select>
+              </div>
+              <div class="input-slot half">  
+                <select
+                  class="form-control sel-val"
+                  id="two"
+                  @change="PairTwo($event)"
+                >
+                  <option value="">All</option>
+                  <option value="USDT">USDT</option>
+                  <option value="BTC">BTC</option>
+                </select>                              
               </div>
             </div>
             <div class="col-md-2">
