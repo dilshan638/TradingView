@@ -194,6 +194,34 @@ export default {
           console.log(error);
         });
     },
+
+    // async cancelation(){
+    //    var data = {
+          
+    //       status: "withdraw",
+    //       stage: 3,
+    //     };
+    //     let hed = {
+    //       headers: {
+    //         Authorization: `Bearer ${localStorage.getItem(
+    //           "X-LDX-Inspira-Access-Token"
+    //         )}`,
+    //         "Content-Type": "application/json",
+    //       },
+    //     };
+    //     let response = await this.axios
+    //       .post("https://dapi.exus.live/api/twofa/sms/status", data, hed)
+    //       .then((res) => {
+    //         console.log(res);
+    //         console.log(response);
+            
+    //       })
+    //       .catch(function (error) {
+    //         console.log(error);
+            
+    //       });
+    // },
+   
   },
 
   mounted() {

@@ -1,7 +1,6 @@
 <template>
   <div>
     <div class="trade-box">
-      <vue-datepicker-local v-model="time" />
       <div class="trade-header">
         Order Book
         <select class="form-control sel-val" @change="onChange($event)">
@@ -151,6 +150,7 @@
                   </transition>
                 </td>
               </tr>
+
               <tr @mouseover="removeoverflow" @mouseleave="resetoverflow"
                 v-for="sell in priceSellBind.slice(0, 11)"
                 :key="sell"
@@ -189,6 +189,7 @@
                 </td>
               </tr>
             </tbody>
+
              <tbody v-else>
               <tr @mouseover="removeoverflow" @mouseleave="resetoverflow"
                 v-for="sell in priceSellBind"
@@ -264,6 +265,7 @@
                   </transition>
                 </td>
               </tr>
+
               <tr @mouseover="removeoverflow" @mouseleave="resetoverflow"
                 v-for="sell in priceSellBind"
                 :key="sell"
@@ -334,7 +336,7 @@
         </div>
         <div
           class="trade-body buy-body" 
-          v-if="showbuyandsell == true"
+          v-if="showbuyandsell == true || showbuy == true"
           v-bind:class="[showbuy ? 'buy-full' : 'buy-default']"
         >
           <table lass="table table-hover" style="width: 100% !important" v-if="limitRows">
@@ -658,18 +660,14 @@
 
 <script>
 import axios from "axios";
-import VueDatepickerLocal from 'vue-datepicker-local'
 export default {
   emits: ["sellPriceOrderBookPass", "sellAmountOrderBookPass"],
   name: "orderbook",
-  components: {
-    VueDatepickerLocal
-  },
+  components: {},
   props: ["SelectedSymbol", "pairName"],
 
   data() {
     return {
-      time: new Date(),
       buyselltab: true,
       selltab: false,
       buytab: false,
