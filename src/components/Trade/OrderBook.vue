@@ -771,10 +771,10 @@ export default {
           }
             }else{
                for (let z =11; z>=0; z--) {
-            this.buyAmount += parseFloat(this.priceSellBind[z][1]);
-            this.priceSellBind[z][3] = this.buyAmount;
-            this.buyTotal += parseFloat(this.priceSellBind[z][0]) * parseFloat(this.priceSellBind[z][1]);
-            this.priceSellBind[z][4] = this.buyTotal;
+                  this.buyAmount += parseFloat(this.priceSellBind[z][1]);
+                  this.priceSellBind[z][3] = this.buyAmount;
+                  this.buyTotal += parseFloat(this.priceSellBind[z][0]) * parseFloat(this.priceSellBind[z][1]);
+                  this.priceSellBind[z][4] = this.buyTotal;
           }
             }
               
