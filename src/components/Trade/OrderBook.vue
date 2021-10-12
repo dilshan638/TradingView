@@ -705,7 +705,7 @@ export default {
         });
 
         
-        for (let a = 0; a <= this.priceBuyBind.length; a++) {
+        for (let a = 0; a <= this.priceBuyBind.length-1; a++) {
           this.selAmount += parseFloat(this.priceBuyBind[a][1]);
           this.priceBuyBind[a][3] = this.selAmount;
           this.sellTotal += parseFloat(this.priceBuyBind[a][0]) * parseFloat(this.priceBuyBind[a][1]);
