@@ -498,6 +498,7 @@ export default {
       showbuyandsell: true,
       showbuy: false,
       showsell: false,
+      socketUrl: process.env.VUE_APP_SOCKET_URL,
 
       connection: null,
       priceSell: [],
@@ -676,7 +677,6 @@ export default {
       if (ts.dataAl.type == "snapshot") {
         ts.priceSell = ts.dataAl.asks;
         ts.priceBuy = ts.dataAl.bids;
-     
       }
 
       if (ts.dataAl.type == "l2update") {
@@ -685,8 +685,6 @@ export default {
         ts.activebuysellArraySell=[]
         ts.priceSell = ts.dataAl.asks;
         ts.priceBuy = ts.dataAl.bids;
-
-   
       } else {
         // Recent Trades //ts.dataAl.type == "order" || ts.dataAl.type == "match" || ***************To Do****************
 
