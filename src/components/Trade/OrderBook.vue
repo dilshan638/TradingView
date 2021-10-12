@@ -68,35 +68,7 @@
           </table>
         </div>
       </div>
-      <div class="top-order-book" v-bind:class="[showsell || showbuy ? 'full-data' : 'limited-data']">
-        <div class="trade-body middle-bdy" v-if="showsell"> 
-          <table class="table table-hover special">
-            <tbody>
-              <tr v-show="price != ''">
-                <td v-bind:class="[matchFill == 'buy' ? 'buy' : 'sell']" width="35%">
-                  {{ price }}
-                </td>
-                <td class="mid" width="30%">${{ price }}</td>
-                <td class="text-right">
-                  <div class="read-more">
-                    <router-link to="/buy-sell-list">More</router-link>
-                  </div>
-                </td>
-              </tr>
-              <tr v-show="price == ''">
-                <td v-bind:class="[matchFill == 'buy' ? 'buy' : 'sell']" width="35%">
-                  {{ matchPriceMATCH }}
-                </td>
-                <td class="mid" width="30%">${{ matchPriceMATCH }}</td>
-                <td class="text-right">
-                  <div class="read-more">
-                    <router-link to="/buy-sell-list">More</router-link>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>        
+      <div class="top-order-book" v-bind:class="[showsell || showbuy ? 'full-data' : 'limited-data']">      
         <div
           class="trade-body sell-body"
           v-if="showbuyandsell == true || showsell == true"
@@ -246,7 +218,7 @@
             </tbody>
           </table>
         </div>
-        <div class="trade-body middle-bdy" v-if="showbuy"> 
+        <div class="trade-body middle-bdy"> 
           <table class="table table-hover special">
             <tbody>
               <tr v-show="price != ''">
@@ -701,7 +673,7 @@ export default {
   },
   created: function () {
     const ts = this;
-    this.connection = new WebSocket("wss://stream.exus.live/ws");
+    this.connection = new WebSocket("ws://34.152.9.147:8002/ws");
 
     this.connection.onmessage = function (event) {
       ts.dataAl = JSON.parse(event.data);
@@ -738,7 +710,7 @@ export default {
       };
 
       axios
-        .get("https://tradeapi.exus.live/api/products/BTC-USDT/trades", {
+        .get("http://34.152.9.147:8001/api/products/BTC-USDT/trades", {
           headers: headers,
         })
         .then((response) => {

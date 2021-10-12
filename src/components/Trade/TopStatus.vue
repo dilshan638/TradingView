@@ -29,12 +29,8 @@
           </div>
         </div>
       </div>
-      <div class="col-md-2" v-show="marketPrice !=''">
+      <div class="col-md-2">
         <h4 v-bind:class="[matchFill == 'buy' ? 'buy' : 'sell']">{{marketPrice}}</h4>
-        <span class="sub-bottom">$35,988.54</span>
-      </div>
-       <div class="col-md-2" v-show="marketPrice ==''">
-        <h4 v-bind:class="[matchFill == 'buy' ? 'buy' : 'sell']">{{matchPriceMATCH}}</h4>
         <span class="sub-bottom">$35,988.54</span>
       </div>
       <div class="col-md-7" >
@@ -102,8 +98,7 @@ export default {
       ldcx24hBind:"",
 
       tickerPrice:"",
-      matchFill:"",
-      matchPriceMATCH:""
+      matchFill:""
 
       
       
@@ -209,7 +204,6 @@ export default {
   // this.$emit("symbol", "BTC")
   // this.$emit("pair_name", "USDC")  
    this.setMainCoin();
-    this.matchPriceMATCH= localStorage.getItem("matchPriceMATCH")
   },
   computed: {
     filterCoins: function(){
@@ -222,7 +216,7 @@ export default {
     this.setMainCoin();
    // this.setCoin();
     const ts = this;
-    this.connection = new WebSocket( "wss://stream.exus.live/ws");
+    this.connection = new WebSocket( "ws://34.152.9.147:8002/ws");
 
     this.connection.onmessage = function (event) {
      ts.dataAl = JSON.parse(event.data);

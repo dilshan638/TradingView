@@ -176,6 +176,8 @@ export default {
       priceSell: [],
       priceSellBind: [],
 
+     
+
       deci:"0",
       buyTotal:0,
       sellTotal:0
@@ -245,7 +247,7 @@ export default {
   created: function () {
     const ts = this;
     this.connection = new WebSocket(
-      "wss://stream.exus.live/ws"
+      "ws://34.152.9.147:8002/ws"
       
     );
 
