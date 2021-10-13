@@ -36,7 +36,7 @@
           <span class="sub-bottom">${{marketPrice}}</span>          
         </div>
 
-        <div class="innertop" v-show="marketPrice == ''">
+        <div class="innertop" v-show="marketPrice == '' || marketPrice ==undefined ">
           <h4 v-bind:class="[matchFill == 'buy' ? 'buy' : 'sell']">{{matchPriceMATCH}}</h4>
           <span class="sub-bottom">${{matchPriceMATCH}}</span>          
         </div>
@@ -253,6 +253,7 @@ export default {
          // for (let a = 0; a < 1; a++) {
              ts.fill = ts.dataAl.price;
               ts.priceBuy=ts.dataAl.bids;
+              
           //}
         }
 

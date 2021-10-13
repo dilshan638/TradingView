@@ -152,7 +152,7 @@
               </tr>
 
               <tr @mouseover="removeoverflow" @mouseleave="resetoverflow"
-                v-for="sell in priceSellBind.slice(0, 11)"
+                v-for="sell in priceSellBind.slice(0,11)"
                 :key="sell"
                 v-show="deci == '0'"
               >
@@ -712,7 +712,8 @@ export default {
 
      // priceSellBindSellCon:[]
 
-     limitRows:true
+     limitRows:true,
+     onlyBuy:[]
      
 
     };
@@ -755,7 +756,7 @@ export default {
 
       if (dataSellArray != undefined) {
         this.priceSellBind = dataSellArray;
-         this.priceSellBind.sort((a, b) => {
+        this.priceSellBind.sort((a, b) => {
             return b[0] - a[0];
           });
 
@@ -863,7 +864,7 @@ export default {
           });
          
        
-          console.log(this.priceSellBind)
+        
        for (let z = this.priceSellBind.length-1; z>=0; z--) {
             
 
