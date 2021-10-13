@@ -133,9 +133,11 @@ export default {
   data() {
     return {
       orderHistory: [],
+      lastDay: "",
       oneDay: "",
       oneWeek: "",
       oneMonth: "",
+      threeMonth: "",
 
       todayDate: "",
 
@@ -149,8 +151,8 @@ export default {
       oneM: false,
       startDate: new Date(),
       endDate: new Date(),
-      threeMonth: "",
-      lastDay: "",
+     
+      
     };
   },
 
@@ -297,10 +299,7 @@ export default {
       this.lastDay = date.toJSON().slice(0, 10).replace(/-/g, "-");
 
       // this.todayDate = new Date().toJSON().slice(0, 10).replace(/-/g, "-");
-      console.log(
-        `http://34.152.9.147:8001/api/orders?productId=&status=open&before&after&startDate=${this.lastDay}&endtDate=${this.todayDate}&limit=1000&side=`
-      );
-      const headers = {};
+     const headers = {};
       axios
         .get(
           `http://34.152.9.147:8001/api/orders?productId=&status=open&before&after&startDate=${this.lastDay}&endtDate=&limit=1000&side=`,
@@ -309,7 +308,7 @@ export default {
           }
         )
         .then((res) => {
-          console.log(res.data);
+          this.orderHistory = res.data;
         })
         .catch(function (error) {
           console.log(error);

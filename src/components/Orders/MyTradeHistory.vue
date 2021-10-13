@@ -5,10 +5,11 @@
        <div class="set-flter-row">
           <div class="row">
             <div class="col-md-4">
-                <button class="active">1 Day</button>
-                <button>1 Week</button>
-                <button>1 Month</button>
-                <button @click="dateRange">Range</button>
+               <button @click="oneDayFilter">1 Day</button>
+                <button  @click="oneWeekFilter">1 Week</button>
+                <button @click="oneMonthFilter">1 Month</button>
+                <button  @click="threeMonthFilter">3 Month</button>
+                
             </div>
             <div class="col-md-6">
               <span>Time</span>
@@ -20,10 +21,12 @@
                   position="right"
                   showPickerInital = 'true'
                   disabled-start-date="disabledStartDate"
-                />                
+                />   
+                            
               </div>
             </div>
             <div class="col-md-2">
+                <button @click="dateRangeFilter">Range</button>
               <button type="reset" class="reset-btn" @click="reset">Reset</button>
             </div>            
           </div>
@@ -47,7 +50,7 @@
               </tr>
             </thead>
             <tbody v-if="dataAll.length != 0">
-              <tr v-for="orders in filterCoins" :key="orders.id">
+              <tr v-for="orders in dataAll" :key="orders.id">
                 <td width="22%">{{ orders.createdAt }}</td>
                 <td width="13%">{{ orders.productId }}</td>
 
@@ -85,6 +88,13 @@ export default {
   },
   data() {
     return {
+      lastDay: "",
+      oneDay: "",
+      oneWeek: "",
+      oneMonth: "",
+      threeMonth: "",
+      todayDate: "",
+
       selectedDate: [
         new Date(new Date().getTime() - 30 * 24 * 60 * 60 * 1000),
         new Date()
@@ -117,35 +127,123 @@ export default {
 
     
     },
-    async PairTwo(pairtwo) {
-      this.pTwo = pairtwo.target.value;
+    
+     async oneDayFilter() {
+     var date = new Date();
+      date.setDate(date.getDate() - 1);
+      this.todayDate = new Date().toJSON().slice(0, 10).replace(/-/g, "-");
+      this.lastDay = date.toJSON().slice(0, 10).replace(/-/g, "-");
+
+      console.log(`http://34.152.9.147:8001/api/orders?productId=&status=open&before&after&startDate=${this.lastDay}&endtDate=${this.todayDate}&limit=1000&side=`);
+      const headers = {};
+      axios
+        .get(
+          `http://34.152.9.147:8001/api/orders?productId=&status=open&before&after&startDate=${this.lastDay}&endtDate=&limit=1000&side=`,
+          {
+            headers: headers,
+          }
+        )
+        .then((res) => {
+         this.dataAll = res.data
+         console.log(res.data)
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     },
 
-    async selectside(side) {
-      this.selectedSide = side.target.value;
-    },
-
-    async reset() {
-      var dropDown = document.getElementById("one");
-      dropDown.selectedIndex = 0;
-
-       var dropDownTwo = document.getElementById("two");
-      dropDownTwo.selectedIndex = 0;
-
-       var dropDownThree = document.getElementById("three");
-      dropDownThree.selectedIndex = 0;
-
-      this.pOne = "";
-      this.pTwo = "";
-      this.selectedSide = "";
+   async oneWeekFilter() {
      
+      var date = new Date();
+      date.setDate(date.getDate() - 7);
+      this.oneWeek = date.toJSON().slice(0, 10).replace(/-/g, "-");
+      this.todayDate = new Date().toJSON().slice(0, 10).replace(/-/g, "-");
+      const headers = {};
+      axios
+        .get(
+          `http://34.152.9.147:8001/api/orders?productId=&status=open&before&after&startDate=${this.oneWeek}&endtDate=${this.todayDate}&limit=1000&side=`,
+          {
+            headers: headers,
+          }
+        )
+        .then((res) => {
+          this.dataAll = res.data;
+          console.log(res.data)
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+    async oneMonthFilter() {
+     
+      var date = new Date();
+      date.setDate(date.getDate() - 30);
+      this.todayDate = new Date().toJSON().slice(0, 10).replace(/-/g, "-");
+      this.oneMonth = date.toJSON().slice(0, 10).replace(/-/g, "-");
+      const headers = {};
+      axios
+        .get(
+          `http://34.152.9.147:8001/api/orders?productId=&status=open&before&after&startDate=${this.oneMonth}&endtDate=${this.todayDate}&limit=1000&side=`,
+          {
+            headers: headers,
+          }
+        )
+        .then((res) => {
+          this.dataAll = res.data;
+          console.log(res.data)
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+     async threeMonthFilter() {
+      var date = new Date();
+      date.setDate(date.getDate() - 90);
+      this.todayDate = new Date().toJSON().slice(0, 10).replace(/-/g, "-");
+      this.threeMonth = date.toJSON().slice(0, 10).replace(/-/g, "-");
+      const headers = {};
+      axios
+        .get(
+          `http://34.152.9.147:8001/api/orders?productId=&status=open&before&after&startDate=${this.threeMonth}&endtDate=${this.todayDate}&limit=1000&side=`,
+          {
+            headers: headers,
+          }
+        )
+        .then((res) => {
+          this.dataAll = res.data
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+    async reset() {
+      
+      this.todayDate = "";
+      this.oneWeek = "";
+      this.oneMonth = "";
+      this.startDate = "";
+      this.endDate = "";
+      this.getData();
+    },
+     async dateRangeFilter() {
+      console.log( `http://34.152.9.147:8001/api/orders?productId=&status=open&before&after&startDate=${this.selectedDate[0].toISOString().slice(0, 10)}&endtDate=${this.selectedDate[1].toISOString().slice(0, 10)}&limit=1000&side=`);
+      const headers = {};
+      axios
+        .get(
+          `http://34.152.9.147:8001/api/orders?productId=&status=open&before&after&startDate=${this.selectedDate[0].toISOString().slice(0, 10)}&endtDate=${this.selectedDate[1].toISOString().slice(0, 10)}&limit=1000&side=`,
+          {
+            headers: headers,
+          }
+        )
+        .then((res) => {
+          this.dataAll = res.data;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     },
 
-    async dateRange(){
-         alert("1")
-       alert(this.selectedDate[0].toISOString().slice(0, 10))
-        alert(this.selectedDate[1].toISOString().slice(0, 10))
-    },
+
 
     async geTradeHistory() {
       var data = {
@@ -191,25 +289,25 @@ export default {
     },
   },
 
-  computed: {
-    filterCoins: function () {
+  // computed: {
+  //   filterCoins: function () {
       
-      return this.dataAll.filter((orders) => {
-        return (
-          orders.productId.includes(this.pOne + this.pTwo) &&
-          orders.side.includes(this.selectedSide)
-        );
-      });
-    },
-  },
+  //     return this.dataAll.filter((orders) => {
+  //       return (
+  //         orders.productId.includes(this.pOne + this.pTwo) &&
+  //         orders.side.includes(this.selectedSide)
+  //       );
+  //     });
+  //   },
+  // },
 
   mounted() {
     this.getRangeDate();
     this.geTradeHistory();
    this.getData();
-    window.setInterval(() => {
-      this.getData()
-    }, 3000)
+    // window.setInterval(() => {
+    //   this.getData()
+    // }, 3000)
    // date>= startDate && date<=endDate
   },
 };
