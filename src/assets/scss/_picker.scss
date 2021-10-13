@@ -1,0 +1,67 @@
+
+
+
+.v-calendar .calendar .selected-field .nextDateButton, .v-calendar .calendar .selected-field button {
+    min-width: auto !important;
+    min-height: auto !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.v-calendar .calendar .days .day {
+    min-width: auto !important;
+    min-height: auto !important;
+    padding-left: 2px !important;
+    padding-right: 2px !important;
+}
+
+.v-calendar .calendar .selected-field .viewButton {
+    color: #ffffff;
+    font-weight: 900;
+}
+
+.v-calendar .calendar .selected-field {
+    padding-top: 2px !important;
+    background-color: #0277fa !important;
+    padding-bottom: 15px !important;
+}
+
+.v-calendar .calendar {
+    background-color: #fff;
+}
+.v-calendar .calendar .days .day.name {
+    color: #d7eaff;
+    width: auto;
+    font-weight: 700;
+}
+
+.v-calendar .calendar .days .day.selectedDate .number {
+    background: #0277fa;
+}
+
+.trade-area .v-calendar  .content {
+    padding: 0 !important;
+    min-height: 280px !important;
+}
+
+.v-calendar .calendar .days .day .number {
+margin-right: 0 !important;
+}
+
+.v-calendar .input-field input {
+    padding-left: 20px;
+    padding-right: 20px;
+    height: 41px;
+    border-radius: 4px;
+    background-color: #4e4e4e;
+    color: #fff;
+    font-weight: inherit;
+    border: none;
+    font-weight: 700;
+}
+
+.v-calendar .input-field svg.datepicker {
+    right: 20px;
+    fill: #ffffff;
+    left: auto !important;
+}

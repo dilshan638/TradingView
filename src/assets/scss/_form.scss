@@ -252,6 +252,8 @@
 
     float: left;
     width: 100%;
+    margin-top: 10px;
+    margin-bottom: 20px;
 
     b{
       float: left;
@@ -275,6 +277,17 @@
       border-radius: 4px;
       width: 100%;
     }
+
+    span{
+      font-weight: 700;
+      float: left;
+      margin-top: 11px;
+      margin-right: 15px;
+    }
+    .time-plate{
+      float: left;
+    }
+
     .reset-btn{
       border: solid 2px #a2a4bf;
       color: #a2a4bf;
@@ -298,8 +311,31 @@
     }
 
     button{
-      min-height: 2rem !important
+      max-width: none;
+      padding-left: 10px !important;
+      padding-right: 10px !important;
+      width: auto;
+      margin-right: 10px;
+      min-height: auto !important;
+      line-height: 30px;
+      background-color: #242424;
+      font-weight: 700;
+      font-size: 0.8rem;
+      border-radius: 4px;
+      margin-top: 5px;
+
+      &:hover{
+        background-color: #4e4e4e;
+      }
+      
+      &:last-child{
+        margin-right: 0 !important;
+      }
+
     }
+    button.active{
+      background-color: #4e4e4e !important
+    }    
 
   }
 

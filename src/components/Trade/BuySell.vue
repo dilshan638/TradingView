@@ -142,6 +142,7 @@
 import useValidate from "@vuelidate/core";
 import { required, numeric } from "@vuelidate/validators";
 import { reactive, computed } from "vue";
+
 // eslint-disable-next-line no-unused-vars
 import axios from "axios";
 
@@ -156,7 +157,8 @@ export default {
     "fullPairName",
   ],
 
-  components: {},
+  components: {
+  },
   setup() {
     const state = reactive({
       amount: "",
@@ -180,7 +182,7 @@ export default {
     return { state, v$ };
   },
   data() {
-    return {
+    return {    
       buytab: true,
       selltab: false,
       limitTab: true,

@@ -4,57 +4,25 @@
      <div class="col-md-12">
        <div class="set-flter-row">
           <div class="row">
-            <!-- <div class="col-md-5">
-              <b>Date</b>
-              <div class="input-slot half">
-                <input type="date" class="form-control" />
-              </div>
-              <div class="input-slot half">
-                <input type="date" class="form-control" />
-              </div>              
-            </div> -->
-            <div class="col-md-3">
-              <b>Pair</b>
-              <div class="input-slot half">
-                <select
-                  class="form-control sel-val"
-                  id="one"
-                  @change="PairOne($event)"
-                >
-                  <option value="">All</option>
-
-                  <option value="BTC-">BTC</option>
-                  <option value="ETH-">ETH</option>
-                </select>              
-              </div>
-              <div class="input-slot half">
-                <select
-                  class="form-control sel-val"
-                  id="three"
-                  @change="selectside($event)"
-                >
-                  <option value="">All</option>
-                  <option value="buy">Buy</option>
-                  <option value="sell">Sell</option>
-                </select>              
+            <div class="col-md-4">
+                <button class="active">1 Day</button>
+                <button>1 Week</button>
+                <button>1 Month</button>
+            </div>
+            <div class="col-md-6">
+              <span>Time</span>
+              <div class="time-plate">
+                <Datepicker @blur="getRangeDate"
+                  range
+                  v-model="selectedDate" lang="en" placeholder="Change Date range"
+                  input-class="date-range-picker"
+                  position="right"
+                  showPickerInital = 'true'
+                  disabled-start-date="disabledStartDate"
+                />                
               </div>
             </div>
             <div class="col-md-2">
-                <b>Side</b>
-                <div class="input-slot">
-                  <select
-                    class="form-control sel-val"
-                    id="three"
-                    @change="selectside($event)"
-                  >
-                    <option value="">All</option>
-                    <option value="buy">Buy</option>
-                    <option value="sell">Sell</option>
-                  </select>                  
-                </div>
-            </div>
-            <div class="col-md-2">
-              <b></b>
               <button type="reset" class="reset-btn" @click="reset">Reset</button>
             </div>            
           </div>
@@ -105,21 +73,31 @@
 </template>
 
 <script>
+import 'vue-datepicker-ui/lib/vuedatepickerui.css';
+import VueDatepickerUi from 'vue-datepicker-ui';
 import axios from "axios";
 export default {
   name: "orderhistory",
   props: ["myTradeHistory"],
-  components: {},
+  components: {
+    Datepicker: VueDatepickerUi
+  },
   data() {
     return {
+      selectedDate: [
+        new Date(new Date().getTime() - 30 * 24 * 60 * 60 * 1000),
+        new Date()
+      ],
+      disabledStartDate: {
+        to: new Date('01.10.2021'),
+        from: new Date('10.10.2021')
+      },      
       tradeHistory: [],
       // myTradeHistory: [],
       dataAll: [],
       pOne: "",
       pTwo: "",
-      selectedSide: "",
-
-     
+      selectedSide: ""
     };
   },
 
@@ -127,7 +105,16 @@ export default {
     async PairOne(pairone) {
       this.pOne = pairone.target.value;
     },
+    async getRangeDate() {
+      var start_date = this.selectedDate[0];
+      var end_date = this.selectedDate[1];
 
+      var format_start_date = start_date.toISOString().slice(0, 10);
+      var format_end_date = end_date.toISOString().slice(0, 10);
+      alert(format_start_date)
+      alert(format_end_date)
+
+    },
     async PairTwo(pairtwo) {
       this.pTwo = pairtwo.target.value;
     },
@@ -208,6 +195,7 @@ export default {
   },
 
   mounted() {
+    this.getRangeDate();
     this.geTradeHistory();
    this.getData();
     window.setInterval(() => {
