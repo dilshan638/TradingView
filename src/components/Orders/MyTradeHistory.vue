@@ -12,13 +12,14 @@
             <div class="col-md-6">
               <span>Time</span>
               <div class="time-plate">
-                <Datepicker @blur="getRangeDate"
+                <Datepicker @blur="getRangeDate" 
+                show-clear-button
                   range
-                  v-model="selectedDate" lang="en" placeholder="Change Date range"
+                  v-model="selectedDate" lang="en" placeholder="YYYY-MM-DD"
                   input-class="date-range-picker"
-                  position="right"
+                  position="top"
                   showPickerInital = 'true'
-                  disabled-start-date="disabledStartDate"
+                  disabled-start-date="disabledStartDate" 
                 />                
               </div>
             </div>
@@ -85,12 +86,12 @@ export default {
   data() {
     return {
       selectedDate: [
-        new Date(new Date().getTime() - 30 * 24 * 60 * 60 * 1000),
+        new Date(new Date().getTime() - 90 * 24 * 60 * 60 * 1000),
         new Date()
       ],
       disabledStartDate: {
-        to: new Date('01.10.2021'),
-        from: new Date('10.10.2021')
+        to: new Date(new Date().getTime() + 365 * 24 * 60 * 60 * 1000),
+        from: new Date()
       },      
       tradeHistory: [],
       // myTradeHistory: [],
