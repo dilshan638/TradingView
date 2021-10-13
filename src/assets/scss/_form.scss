@@ -290,3 +290,22 @@
     position: relative;
     height: 100%;
   }
+
+  .set-flter-row{
+
+    .form-control{
+      min-height: 2.5rem;
+    }
+
+    button{
+      min-height: 2rem !important
+    }
+
+  }
+
+ body .input-slot.half.break{
+
+    margin-right: 6% !important;
+    width: 44% !important;   
+
+  }

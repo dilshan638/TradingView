@@ -15,7 +15,7 @@
             </div>
             <div class="col-md-3">
               <b>Pair</b>
-              <div class="input-slot half">
+              <div class="input-slot half break">
                 <select
                   class="form-control sel-val"
                   id="one"

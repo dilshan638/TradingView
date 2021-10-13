@@ -186,7 +186,8 @@
 
 .top-sub{
     float: left;
-    width: 100%;
+    width: auto;
+    display: grid;
 
     h3{
         color: #878787;
@@ -630,6 +631,7 @@ select.sel-val{
     float: left;
     width: auto;
     margin-right: 25px;
+    margin-top: 6px;
 
       &:last-child{
           margin-right: 0 !important;
