@@ -90,7 +90,7 @@
           </tr>
         </thead>
 
-        <tr v-for="orders in filterCoins" :key="orders.id">
+        <tr v-for="orders in orderHistory" :key="orders.id">
           <td width="22%">
             {{ orders.createdAt.substring(0, orders.createdAt.lastIndexOf(' ')) }}
           </td>
@@ -134,7 +134,11 @@ export default {
         pOne: "",
       pTwo: "",
       selectedSide: "",
-       oneeWeekArray:[]
+       oneeWeekArray:[],
+
+       oneD:false,
+       oneW:false,
+       oneM:false,
     
    
     };
@@ -168,6 +172,9 @@ export default {
       this.oneWeek=""
       this.oneMonth=""
       this.getData()
+       this.oneD=false
+       this.oneW=false
+       this.oneM=false
     },
     async getData() {
       const headers = {};
@@ -190,12 +197,18 @@ export default {
 
     async oneDayFilter(){
      this.todayDate = new Date().toJSON().slice(0, 10).replace(/-/g, "-");
-     
+       this.oneD=true
+      
     },
     async oneWeekFilter(){
+       
+       this.oneW=true
+      
        var date = new Date();
        date.setDate(date.getDate() - 7);
        this.oneWeek = date.toJSON().slice(0, 10).replace(/-/g, "-");
+        this.todayDate = new Date().toJSON().slice(0, 10).replace(/-/g, "-");
+      
 
        const headers = {};
     axios
@@ -219,8 +232,11 @@ export default {
     },
 
     async oneMonthFilter(){
+      
+       this.oneM=true
         var date = new Date();
        date.setDate(date.getDate() - 30);
+        this.todayDate = new Date().toJSON().slice(0, 10).replace(/-/g, "-");
        this.oneMonth = date.toJSON().slice(0, 10).replace(/-/g, "-");
 
        const headers = {};
@@ -241,26 +257,31 @@ export default {
           console.log(error);
         });
        
+    },
+
+async conditional(){
+ if((this.oneD==false) && (this.oneW==false) &&(this.oneM==false)){
+       window.setInterval(() => {
+      this.getData();
+    }, 3000);
     }
-
-
+},
    
-  },
+  }, 
 
   mounted() {
     this.getData();
-    window.setInterval(() => {
-      this.getData();
-    }, 3000);
+   this.conditional()
+   
   },
-  computed: {
-filterCoins: function () {
-      return this.orderHistory.filter((orders) => {
-        return (orders.productId.includes(this.pOne + this.pTwo) && orders.side.includes(this.selectedSide) && orders.createdAt.includes(this.todayDate ))
-      });
-    },
+//   computed: {
+// filterCoins: function () {
+//       return this.orderHistory.filter((orders) => {
+//         return (orders.productId.includes(this.pOne + this.pTwo) && orders.side.includes(this.selectedSide) && orders.createdAt.includes(this.todayDate ))
+//       });
+//     },
 
-  },
+//   },
 };
 </script>
 <style>
