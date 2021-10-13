@@ -8,6 +8,7 @@
                 <button class="active">1 Day</button>
                 <button>1 Week</button>
                 <button>1 Month</button>
+                <button @click="dateRange">Range</button>
             </div>
             <div class="col-md-6">
               <span>Time</span>
@@ -106,14 +107,15 @@ export default {
       this.pOne = pairone.target.value;
     },
     async getRangeDate() {
-      var start_date = this.selectedDate[0];
-      var end_date = this.selectedDate[1];
+     // var start_date = this.selectedDate[0];
+     // var end_date = this.selectedDate[1];
 
-      var format_start_date = start_date.toISOString().slice(0, 10);
-      var format_end_date = end_date.toISOString().slice(0, 10);
-      alert(format_start_date)
-      alert(format_end_date)
+    //  var format_start_date = start_date.toISOString().slice(0, 10);
+   //   var format_end_date = end_date.toISOString().slice(0, 10);
+      //alert(format_start_date)
+     // alert(format_end_date)
 
+    
     },
     async PairTwo(pairtwo) {
       this.pTwo = pairtwo.target.value;
@@ -136,6 +138,13 @@ export default {
       this.pOne = "";
       this.pTwo = "";
       this.selectedSide = "";
+     
+    },
+
+    async dateRange(){
+         alert("1")
+       alert(this.selectedDate[0].toISOString().slice(0, 10))
+        alert(this.selectedDate[1].toISOString().slice(0, 10))
     },
 
     async geTradeHistory() {
