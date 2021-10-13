@@ -150,6 +150,7 @@
                   </transition>
                 </td>
               </tr>
+
               <tr @mouseover="removeoverflow" @mouseleave="resetoverflow"
                 v-for="sell in priceSellBind.slice(0, 11)"
                 :key="sell"
@@ -188,6 +189,7 @@
                 </td>
               </tr>
             </tbody>
+
              <tbody v-else>
               <tr @mouseover="removeoverflow" @mouseleave="resetoverflow"
                 v-for="sell in priceSellBind"
@@ -203,7 +205,44 @@
                 <td class="text-right">
                   {{ parseFloat(sell[0] * sell[1]).toFixed(5) }}
                   <transition name="fade">
-                    <div class="tooltip2">
+                    <div class="tooltip3">
+                      <div class="tool-row">
+                        <div class="tool-title">Avg Price:</div>
+                        <div class="tool-val">
+                          {{ parseFloat(sell[0]).toFixed(5) }}
+                        </div>
+                      </div>
+                      <div class="tool-row">
+                        <div class="tool-title">Sum {{ SelectedSymbol }}:</div>
+                        <div class="tool-val">
+                          {{ parseFloat(sell[5]).toFixed(5) }}
+                        </div>
+                      </div>
+                      <div class="tool-row">
+                        <div class="tool-title">Sum {{ pairName }}:</div>
+                        <div class="tool-val">
+                          {{ parseFloat(sell[6]).toFixed(5) }}
+                        </div>
+                      </div>
+                    </div>
+                  </transition>
+                </td>
+              </tr>
+              <tr @mouseover="removeoverflow" @mouseleave="resetoverflow"
+                v-for="sell in priceSellBind"
+                :key="sell"
+                v-show="deci == '0.1'"
+              >
+                <td @click="sellPriceOrderBook(sell[0])" width="35%">
+                  {{ parseFloat(sell[0]).toFixed(1) }}
+                </td>
+                <td @click="amountOrderBook(sell[1])" width="30%">
+                  {{ parseFloat(sell[1]).toFixed(5) }}
+                </td>
+                <td class="text-right">
+                  {{ parseFloat(sell[0] * sell[1]).toFixed(5) }}
+                  <transition name="fade">
+                    <div class="tooltip3">
                       <div class="tool-row">
                         <div class="tool-title">Avg Price:</div>
                         <div class="tool-val">
@@ -226,21 +265,7 @@
                   </transition>
                 </td>
               </tr>
-              <tr @mouseover="removeoverflow" @mouseleave="resetoverflow"
-                v-for="sell in priceSellBind"
-                :key="sell"
-                v-show="deci == '0.1'"
-              >
-                <td @click="sellPriceOrderBook(sell[0])" width="35%">
-                  {{ parseFloat(sell[0]).toFixed(1) }}
-                </td>
-                <td @click="amountOrderBook(sell[1])" width="30%">
-                  {{ parseFloat(sell[1]).toFixed(5) }}
-                </td>
-                <td class="text-right">
-                  {{ parseFloat(sell[0] * sell[1]).toFixed(5) }}
-                </td>
-              </tr>
+
               <tr @mouseover="removeoverflow" @mouseleave="resetoverflow"
                 v-for="sell in priceSellBind"
                 :key="sell"
@@ -254,6 +279,28 @@
                 </td>
                 <td class="text-right">
                   {{ parseFloat(sell[0] * sell[1]).toFixed(5) }}
+                  <transition name="fade">
+                    <div class="tooltip3">
+                      <div class="tool-row">
+                        <div class="tool-title">Avg Price:</div>
+                        <div class="tool-val">
+                          {{ parseFloat(sell[0]).toFixed(5) }}
+                        </div>
+                      </div>
+                      <div class="tool-row">
+                        <div class="tool-title">Sum {{ SelectedSymbol }}:</div>
+                        <div class="tool-val">
+                          {{ parseFloat(sell[3]).toFixed(5) }}
+                        </div>
+                      </div>
+                      <div class="tool-row">
+                        <div class="tool-title">Sum {{ pairName }}:</div>
+                        <div class="tool-val">
+                          {{ parseFloat(sell[4]).toFixed(5) }}
+                        </div>
+                      </div>
+                    </div>
+                  </transition>
                 </td>
               </tr>
             </tbody>
@@ -289,7 +336,7 @@
         </div>
         <div
           class="trade-body buy-body" 
-          v-if="showbuyandsell == true"
+          v-if="showbuyandsell == true || showbuy == true"
           v-bind:class="[showbuy ? 'buy-full' : 'buy-default']"
         >
           <table lass="table table-hover" style="width: 100% !important" v-if="limitRows">
@@ -429,7 +476,7 @@
                 {{ parseFloat(buy[0] * buy[1]).toFixed(5) }}
 
                 <transition name="fade">
-                  <div class="tooltip2">
+                  <div class="tooltip3">
                     <div class="tool-row">
                       <div class="tool-title">Avg Price:</div>
                       <div class="tool-val">
@@ -467,6 +514,28 @@
               </td>
               <td class="text-right">
                 {{ parseFloat(buy[0] * buy[1]).toFixed(5) }}
+                <transition name="fade">
+                  <div class="tooltip3">
+                    <div class="tool-row">
+                      <div class="tool-title">Avg Price:</div>
+                      <div class="tool-val">
+                        {{ parseFloat(buy[0]).toFixed(5) }}
+                      </div>
+                    </div>
+                    <div class="tool-row">
+                      <div class="tool-title">Sum {{ SelectedSymbol }}:</div>
+                      <div class="tool-val">
+                        {{ parseFloat(buy[3]).toFixed(5) }}
+                      </div>
+                    </div>
+                    <div class="tool-row">
+                      <div class="tool-title">Sum {{ pairName }}:</div>
+                      <div class="tool-val">
+                        {{ parseFloat(buy[4]).toFixed(5) }}
+                      </div>
+                    </div>
+                  </div>
+                </transition>
               </td>
             </tr>
 
@@ -484,6 +553,28 @@
               </td>
               <td class="text-right">
                 {{ parseFloat(buy[0] * buy[1]).toFixed(5) }}
+                <transition name="fade">
+                  <div class="tooltip3">
+                    <div class="tool-row">
+                      <div class="tool-title">Avg Price:</div>
+                      <div class="tool-val">
+                        {{ parseFloat(buy[0]).toFixed(5) }}
+                      </div>
+                    </div>
+                    <div class="tool-row">
+                      <div class="tool-title">Sum {{ SelectedSymbol }}:</div>
+                      <div class="tool-val">
+                        {{ parseFloat(buy[3]).toFixed(5) }}
+                      </div>
+                    </div>
+                    <div class="tool-row">
+                      <div class="tool-title">Sum {{ pairName }}:</div>
+                      <div class="tool-val">
+                        {{ parseFloat(buy[4]).toFixed(5) }}
+                      </div>
+                    </div>
+                  </div>
+                </transition>
               </td>
             </tr>
           </table>
@@ -572,13 +663,11 @@ import axios from "axios";
 export default {
   emits: ["sellPriceOrderBookPass", "sellAmountOrderBookPass"],
   name: "orderbook",
-  components: {
-  },
+  components: {},
   props: ["SelectedSymbol", "pairName"],
 
   data() {
     return {
-      time: new Date(),
       buyselltab: true,
       selltab: false,
       buytab: false,
@@ -670,21 +759,27 @@ export default {
             return b[0] - a[0];
           });
 
-          if(this.priceSellBind.length<11){
-               for (let z = this.priceSellBind.length-1; z>=0; z--) {
-            this.buyAmount += parseFloat(this.priceSellBind[z][1]);
-            this.priceSellBind[z][3] = this.buyAmount;
-            this.buyTotal += parseFloat(this.priceSellBind[z][0]) * parseFloat(this.priceSellBind[z][1]);
-            this.priceSellBind[z][4] = this.buyTotal;
+          if(this.limitRows==true){
+
+            if(this.priceSellBind.length<11){
+
+                 for (let z = this.priceSellBind.length-1; z>=0; z--) {
+                        this.buyAmount += parseFloat(this.priceSellBind[z][1]);
+                        this.priceSellBind[z][3] = this.buyAmount;
+                        this.buyTotal += parseFloat(this.priceSellBind[z][0]) * parseFloat(this.priceSellBind[z][1]);
+                        this.priceSellBind[z][4] = this.buyTotal;
           }
-          }else{
-              for (let t = 11; t>=0; t--) {
-            this.buyAmount += parseFloat(this.priceSellBind[t][1]);
-            this.priceSellBind[t][3] = this.buyAmount;
-            this.buyTotal += parseFloat(this.priceSellBind[t][0]) * parseFloat(this.priceSellBind[t][1]);
-            this.priceSellBind[t][4] = this.buyTotal;
+            }else{
+               for (let z =11; z>=0; z--) {
+                  this.buyAmount += parseFloat(this.priceSellBind[z][1]);
+                  this.priceSellBind[z][3] = this.buyAmount;
+                  this.buyTotal += parseFloat(this.priceSellBind[z][0]) * parseFloat(this.priceSellBind[z][1]);
+                  this.priceSellBind[z][4] = this.buyTotal;
           }
+            }
+              
           }
+        //  }
          
 
           
@@ -704,7 +799,7 @@ export default {
         });
 
         
-        for (let a = 0; a <= this.priceBuyBind.length-1; a++) {
+        for (let a = 1; a <= this.priceBuyBind.length-1; a++) {
           this.selAmount += parseFloat(this.priceBuyBind[a][1]);
           this.priceBuyBind[a][3] = this.selAmount;
           this.sellTotal += parseFloat(this.priceBuyBind[a][0]) * parseFloat(this.priceBuyBind[a][1]);
@@ -729,6 +824,27 @@ export default {
       this.showsell = false;
 
       this.limitRows=true
+      
+       this.priceSellBind.sort((a, b) => {
+            return b[0] - a[0];
+          });
+      if(this.priceSellBind.length<11){
+         for (let z = this.priceSellBind.length-1; z>=0; z--) {
+                        this.buyAmount += parseFloat(this.priceSellBind[z][1]);
+                        this.priceSellBind[z][3] = this.buyAmount;
+                        this.buyTotal += parseFloat(this.priceSellBind[z][0]) * parseFloat(this.priceSellBind[z][1]);
+                        this.priceSellBind[z][4] = this.buyTotal;
+          }
+            }else{
+               for (let z =11; z>=0; z--) {
+            this.buyAmount += parseFloat(this.priceSellBind[z][1]);
+            this.priceSellBind[z][3] = this.buyAmount;
+            this.buyTotal += parseFloat(this.priceSellBind[z][0]) * parseFloat(this.priceSellBind[z][1]);
+            this.priceSellBind[z][4] = this.buyTotal;
+          }
+            }
+              
+        
     },
     async activesell() {
       this.selltab = true;
@@ -741,6 +857,21 @@ export default {
 
       this.sellTest=true
       this.limitRows=false
+
+        this.priceSellBind.sort((a, b) => {
+            return b[0] - a[0];
+          });
+         
+       
+          console.log(this.priceSellBind)
+       for (let z = this.priceSellBind.length-1; z>=0; z--) {
+            
+
+            this.buyAmount += parseFloat(this.priceSellBind[z][1])
+            this.priceSellBind[z][5] = this.buyAmount;
+            this.buyTotal += parseFloat(this.priceSellBind[z][0]) * parseFloat(this.priceSellBind[z][1]);
+            this.priceSellBind[z][6] = this.buyTotal;
+          }
 
       
     },
@@ -760,12 +891,19 @@ export default {
     },  
     async resetoverflow() {
       document.querySelector("body").classList.remove("remove-overflow");
-    },       
+    },
+   
+
   },
+
+  
   mounted() {
-    this.setData();
+    this.setData()
     this.activebuysell()
     this.matchPriceMATCH = localStorage.getItem("matchPriceMATCH");
+
+   
+
   },
   created: function () {
     const ts = this;
@@ -830,8 +968,6 @@ export default {
 
       ts.setData(ts.priceSell, ts.priceBuy, ts.fill);
    
-      console.log(ts.priceSell)
-      console.log(ts.priceBuy)
     };
 
     this.connection.onopen = function (event) {

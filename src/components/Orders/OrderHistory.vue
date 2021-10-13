@@ -6,12 +6,12 @@
           <div class="row">
             <div class="col-md-5">
               <b>Date</b>
-              <div class="input-slot half">
-                <input type="date" class="form-control" />
+              <div class="input-slot ">
+               <button class="f-btn" @click="oneDayFilter">1 Day</button>
+                <!-- <button @click="oneWeekFilter">1 Week</button>
+                 <button @click="oneMonthFilter">1 Month</button> -->
               </div>
-              <div class="input-slot half">
-                <input type="date" class="form-control" />
-              </div>              
+                         
             </div>
             <div class="col-md-3">
               <b>Pair</b>
@@ -92,9 +92,7 @@
 
         <tr v-for="orders in filterCoins" :key="orders.id">
           <td width="22%">
-            {{
-              orders.createdAt
-            }}
+            {{ orders.createdAt.substring(0, orders.createdAt.lastIndexOf(' ')) }}
           </td>
           <td width="13%">{{ orders.productId }}</td>
           <td>{{ orders.type }}</td>
@@ -163,26 +161,24 @@ export default {
       this.pOne = "";
       this.pTwo = "";
       this.selectedSide = "";
+      this.todayDate=""
+      this.oneWeek=""
+      this.oneMonth=""
+      this.getData()
     },
-    async setWeek() {
-       var date = new Date();
-      this.oneWeek = date.setDate(date.getDate() - 7);
-      this.todayDate = date.setDate(date.getDate());
-      alert(this.oneWeek)
-      alert(this.todayDate)
-      // if('2021-10-04'>= this.oneWeek && '2021-10-04'<=this.todayDate) {
-      //    alert("yes")
-      // }
-      // else{
-      //   alert("no");
-      // }
-    },
+    // async setWeek() {
+    //    var date = new Date();
+    //   this.oneWeek = date.setDate(date.getDate() - 7);
+    //   //this.todayDate = date.setDate(date.getDate());
+     
+      
+    // },
     async getData() {
       const headers = {};
 
       axios
         .get(
-          "https://34.152.9.147:8001/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100",
+          "http://34.152.9.147:8001/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100",
           {
             headers: headers,
           }
@@ -194,6 +190,93 @@ export default {
           console.log(error);
         });
     },
+
+    async oneDayFilter(){
+     this.todayDate = new Date().toJSON().slice(0, 10).replace(/-/g, "-");
+     
+    },
+    async oneWeekFilter(){
+       var date = new Date();
+       date.setDate(date.getDate() - 7);
+       this.oneWeek = date.toJSON().slice(0, 10).replace(/-/g, "-");
+       this.todayDate = new Date().toJSON().slice(0, 10).replace(/-/g, "-");
+
+       const headers = {};
+
+//`http://localhost:8081/kyc?data=${this.encData}`
+      axios
+        .get(
+          `http://34.152.9.147:8001/api/orders?productId=BTC-USDT&status=open&before&after&startDate=${this.oneWeek}&endtDate=${this.todayDate}&limit=1000`,
+          {
+            headers: headers,
+          }
+        )
+        .then((res) => {
+         console.log(res.data)
+         this.orderHistory=res.data
+         console.log(this.filterCoins)
+
+      })
+        .catch(function (error) {
+          console.log(error);
+        });
+     
+    },
+
+    async oneMonthFilter(){
+        var date = new Date();
+       date.setDate(date.getDate() - 30);
+        this.todayDate = new Date().toJSON().slice(0, 10).replace(/-/g, "-");
+       this.oneMonth = date.toJSON().slice(0, 10).replace(/-/g, "-");
+
+       const headers = {};
+        axios
+        .get(
+          `http://34.152.9.147:8001/api/orders?productId=BTC-USDT&status=open&before&after&startDate=${this.oneMonth}&endtDate=${this.todayDate}&limit=1000`,
+          {
+            headers: headers,
+          }
+        )
+        .then((res) => {
+         console.log(res.data)
+         this.orderHistory=res.data
+         console.log(this.filterCoins)
+
+      })
+        .catch(function (error) {
+          console.log(error);
+        });
+       
+    }
+
+
+    // async cancelation(){
+    //    var data = {
+          
+    //       status: "withdraw",
+    //       stage: 3,
+    //     };
+    //     let hed = {
+    //       headers: {
+    //         Authorization: `Bearer ${localStorage.getItem(
+    //           "X-LDX-Inspira-Access-Token"
+    //         )}`,
+    //         "Content-Type": "application/json",
+    //       },
+    //     };
+    //     let response = await this.axios
+    //       .post("https://dapi.exus.live/api/twofa/sms/status", data, hed)
+    //       .then((res) => {
+    //         console.log(res);
+    //         console.log(response);
+            
+    //       })
+    //       .catch(function (error) {
+    //         console.log(error);
+            
+    //       });
+    // },
+   
   },
 
   mounted() {
@@ -205,7 +288,7 @@ export default {
   computed: {
 filterCoins: function () {
       return this.orderHistory.filter((orders) => {
-        return (orders.productId.includes(this.pOne + this.pTwo) && orders.side.includes(this.selectedSide));
+        return (orders.productId.includes(this.pOne + this.pTwo) && orders.side.includes(this.selectedSide) && orders.createdAt.includes(this.todayDate ))
       });
     },
 

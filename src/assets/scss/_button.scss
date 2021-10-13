@@ -124,3 +124,18 @@ button[disabled]{
     border: solid 1px #0177fb !important;
     color: #fff;    
   }
+
+  .f-btn{
+    width: auto !important;
+    background-color: #161515 !important;
+  }
+
+  .reset-btn{
+
+    &:hover{
+        background-color: #0277fa !important;
+        border: solid 2px #0277fa !important;
+        color: #fff !important;
+    }
+
+  }

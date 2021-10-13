@@ -4,7 +4,7 @@
      <div class="col-md-12">
        <div class="set-flter-row">
           <div class="row">
-            <div class="col-md-5">
+            <!-- <div class="col-md-5">
               <b>Date</b>
               <div class="input-slot half">
                 <input type="date" class="form-control" />
@@ -12,7 +12,7 @@
               <div class="input-slot half">
                 <input type="date" class="form-control" />
               </div>              
-            </div>
+            </div> -->
             <div class="col-md-3">
               <b>Pair</b>
               <div class="input-slot half">
@@ -181,7 +181,7 @@ export default {
       const headers = {};
       axios
         .get(
-          "https://34.152.9.147:8001/api/orders?productId=BTC-USDT&status=filled&before&after&limit=100",
+          "http://34.152.9.147:8001/api/orders?productId=BTC-USDT&status=filled&before&after&limit=100",
           {
             headers: headers,
           }
@@ -209,11 +209,11 @@ export default {
 
   mounted() {
     this.geTradeHistory();
-   // this.getData();
-    // window.setInterval(() => {
-    //   this.getData()
-    // }, 3000)
-    //date>= startDate && date<=endDate
+   this.getData();
+    window.setInterval(() => {
+      this.getData()
+    }, 3000)
+   // date>= startDate && date<=endDate
   },
 };
 </script>
