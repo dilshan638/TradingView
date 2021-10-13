@@ -4,7 +4,7 @@
      <div class="col-md-12">
        <div class="set-flter-row">
           <div class="row">
-            <div class="col-md-5">
+            <!-- <div class="col-md-5">
               <b>Date</b>
               <div class="input-slot half">
                 <input type="date" class="form-control" />
@@ -12,7 +12,7 @@
               <div class="input-slot half">
                 <input type="date" class="form-control" />
               </div>              
-            </div>
+            </div> -->
             <div class="col-md-3">
               <b>Pair</b>
               <div class="input-slot half">

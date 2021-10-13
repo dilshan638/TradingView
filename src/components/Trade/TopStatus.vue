@@ -29,35 +29,59 @@
           </div>
         </div>
       </div>
-      <div class="col-md-2" v-show="marketPrice != ''">
-        <h4 v-bind:class="[matchFill == 'buy' ? 'buy' : 'sell']">{{marketPrice}}</h4>
-        <span class="sub-bottom">${{marketPrice}}</span>
-      </div>
-       <div class="col-md-2" v-show="marketPrice == ''">
-        <h4 v-bind:class="[matchFill == 'buy' ? 'buy' : 'sell']">{{matchPriceMATCH}}</h4>
-        <span class="sub-bottom">${{matchPriceMATCH}}</span>
-      </div>
-      <div class="col-md-7" >
-        <div class="top-sub"  >
-          <h3>24h Change</h3>
-          <b  >{{volume24hBind}}</b>
+      <div class="col-md-9">
+
+        <div class="innertop" v-show="marketPrice != ''">
+          <h4 v-bind:class="[matchFill == 'buy' ? 'buy' : 'sell']">{{marketPrice}}</h4>
+          <span class="sub-bottom">${{marketPrice}}</span>          
         </div>
-        <div class="top-sub" >
-          <h3>24h High</h3>
-          <b  >{{open24hBind}}</b>
+
+        <div class="innertop" v-show="marketPrice == '' || marketPrice ==undefined ">
+          <h4 v-bind:class="[matchFill == 'buy' ? 'buy' : 'sell']">{{matchPriceMATCH}}</h4>
+          <span class="sub-bottom">${{matchPriceMATCH}}</span>          
         </div>
-        <div class="top-sub"  >
-          <h3 >24h Low</h3>
-          <b >{{low24hBind}}</b>
+
+        <div class="innertop">
+          <div class="top-sub">
+            <h3>24h Change</h3>
+            <b  >{{volume24hBind}}</b>
+          </div>          
         </div>
-        <div class="top-sub" >
-          <h3 >24h Volume(LDXI)</h3>
-          <b v-bind:class="[ldcx24hBind <0? 'sell' : 'buy']">{{parseFloat(ldcx24hBind).toFixed(2)}} %</b>
+
+        <div class="innertop">
+          <div class="top-sub" >
+            <h3>24h High</h3>
+            <b  >{{open24hBind}}</b>
+          </div>          
         </div>
-        <div class="top-sub"  >
-          <h3>24h Volume(USDT)</h3>
-          <b >{{volume24hBind}}</b>
+
+        <div class="innertop">
+          <div class="top-sub" >
+            <h3>24h High</h3>
+            <b  >{{open24hBind}}</b>
+          </div>          
         </div>
+
+        <div class="innertop">
+          <div class="top-sub"  >
+            <h3 >24h Low</h3>
+            <b >{{low24hBind}}</b>
+          </div>         
+        </div>
+
+        <div class="innertop">
+          <div class="top-sub" >
+            <h3 >24h Volume(LDXI)</h3>
+            <b v-bind:class="[ldcx24hBind <0? 'sell' : 'buy']">{{parseFloat(ldcx24hBind).toFixed(2)}} %</b>
+          </div>         
+        </div>  
+
+        <div class="innertop">
+          <div class="top-sub"  >
+            <h3>24h Volume(USDT)</h3>
+            <b >{{volume24hBind}}</b>
+          </div>        
+        </div>                               
       </div>
     </div> 
   </div>
@@ -229,6 +253,7 @@ export default {
          // for (let a = 0; a < 1; a++) {
              ts.fill = ts.dataAl.price;
               ts.priceBuy=ts.dataAl.bids;
+              
           //}
         }
 
