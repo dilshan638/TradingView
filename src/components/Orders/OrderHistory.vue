@@ -213,7 +213,7 @@ export default {
        const headers = {};
     axios
         .get(
-          `http://34.152.9.147:8001/api/orders?productId=BTC-USDT&status=open&before&after&startDate=${this.oneWeek}&endtDate=${this.todayDate}&limit=1000`,
+          `http://34.152.9.147:8001/api/orders?productId=BTC-USDT&status=open&before&after&startDate=${this.oneWeek}&endtDate=${this.todayDate}&limit=1000&side=sell`,
           {
             headers: headers,
           }
@@ -242,7 +242,7 @@ export default {
        const headers = {};
         axios
         .get(
-          `http://34.152.9.147:8001/api/orders?productId=BTC-USDT&status=open&before&after&startDate=${this.oneMonth}&endtDate=${this.todayDate}&limit=1000`,
+          `http://34.152.9.147:8001/api/orders?productId=BTC-USDT&status=open&before&after&startDate=${this.oneMonth}&endtDate=${this.todayDate}&limit=1000&side=sell`,
           {
             headers: headers,
           }
