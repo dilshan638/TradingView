@@ -761,7 +761,7 @@ export default {
 
           if(this.limitRows==true){
 
-            if(this.priceSellBind.length<11){
+            if(this.priceSellBind.length<=11){
 
                  for (let z = this.priceSellBind.length-1; z>=0; z--) {
                         this.buyAmount += parseFloat(this.priceSellBind[z][1]);
@@ -769,7 +769,7 @@ export default {
                         this.buyTotal += parseFloat(this.priceSellBind[z][0]) * parseFloat(this.priceSellBind[z][1]);
                         this.priceSellBind[z][4] = this.buyTotal;
           }
-            }else{
+            }if(this.priceSellBind.length>11){
                for (let z =11; z>=0; z--) {
                   this.buyAmount += parseFloat(this.priceSellBind[z][1]);
                   this.priceSellBind[z][3] = this.buyAmount;
