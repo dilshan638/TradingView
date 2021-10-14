@@ -1,5 +1,5 @@
 <template>
-  <noBackdropModal ref="permissionmodal" class="permission-modal border50 no-footer">
+  <noBackdropModal ref="permissionmodal" class="permission-modal border50 no-footer p-modal">
     <template v-slot:header>
       <h2 style="color: black">Security Verification</h2>
     </template>
