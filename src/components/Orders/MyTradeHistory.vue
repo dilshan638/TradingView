@@ -26,7 +26,7 @@
             <div class="col-md-2" v-if="$route.path != '/orders'">
               <button type="reset" class="reset-btn" @click="reset">Reset</button>
             </div>  
-            <div class="col-md-3" v-if="$route.path != '/trade'">
+            <div class="col-md-3" v-bind:class="[$route.path != '/trade' ? 'active' : '']" v-if="$route.path != '/trade'">
               <b>Pair</b>
               <div class="input-slot half break">
                 <select

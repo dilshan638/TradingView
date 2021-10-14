@@ -96,7 +96,7 @@
           <tr v-for="orders in orderHistory" :key="orders.id">
             <td width="22%">
               {{
-                orders.createdAt.substring(0, orders.createdAt.lastIndexOf(" "))
+                orders.createdAt
               }}
             </td>
             <td width="13%">{{ orders.productId }}</td>

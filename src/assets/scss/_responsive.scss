@@ -423,6 +423,14 @@
 
 @media only screen and (min-device-width : 1152px) and (max-device-width : 1440px) {
 
+    .p-modal{
+
+        .modal__dialog{
+            position: relative;
+            top: 38px;
+        }
+    }
+
     .search-head h4 {
         font-size: 0.8rem !important;
     }
