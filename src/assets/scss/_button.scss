@@ -146,6 +146,11 @@ button[disabled]{
     border-radius: 5px !important;
     margin-left: 10px !important;
     min-width: 80px !important;
+
+    &:hover{
+        background-color: #0277fa !important;
+    }
+    
   }
   .v-calendar.top{
       float: left;

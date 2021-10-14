@@ -40,7 +40,8 @@
 }
 
 .v-calendar .calendar .days .day .number {
-margin-right: 0 !important;
+    margin-right: 0 !important;
+    margin-top: 0;
 }
 
 .v-calendar .input-field input {
@@ -59,4 +60,19 @@ margin-right: 0 !important;
     right: 20px;
     fill: #ffffff;
     left: auto !important;
+}
+.v-calendar.top .content .calendar:first-child:before {
+    left: 15px !important;
+}
+.v-calendar .calendar .days .day.selectedRange {
+    background: #0277fa !important;
+    color: #ffffff !important;
+    border-radius: 0 !important;
+}
+.v-calendar .calendar .days .day.disabledDate.selectedRange {
+    background: #0377fa;
+}
+.v-calendar .calendar .days .day.selectedRange:hover {
+    background: #fff !important;
+    color: #0377fa !important;
 }

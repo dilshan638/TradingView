@@ -4,13 +4,13 @@
      <div class="col-md-12">
        <div class="set-flter-row">
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-4" v-if="$route.path != '/orders'">
                <button @click="oneDayFilter" v-bind:class="[this.onedayaction == true ? 'active' : '']">1 Day</button>
                 <button  @click="oneWeekFilter" v-bind:class="[this.oneweekaction == true ? 'active' : '']">1 Week</button>
                 <button @click="oneMonthFilter" v-bind:class="[this.onemonthaction == true ? 'active' : '']">1 Month</button>
-                <button  @click="threeMonthFilter" v-bind:class="[this.onemonthaction == true ? 'active' : '']">3 Month</button>
+                <button  @click="threeMonthFilter" v-bind:class="[this.threemonthaction == true ? 'active' : '']">3 Month</button>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6" v-if="$route.path != '/orders'">
               <span>Time</span>
               <div class="time-plate">
                 <Datepicker @blur="getRangeDate" 
@@ -19,15 +19,14 @@
                   v-model="selectedDate" lang="en" placeholder="YYYY-MM-DD"
                   input-class="date-range-picker"
                   position="top"
-                  showPickerInital = 'true'
                 />    
                 <button @click="dateRangeFilter" class="sea-btn">Search</button>            
               </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2" v-if="$route.path != '/orders'">
               <button type="reset" class="reset-btn" @click="reset">Reset</button>
             </div>  
-            <div class="col-md-3">
+            <div class="col-md-3" v-if="$route.path != '/trade'">
               <b>Pair</b>
               <div class="input-slot half break">
                 <select
@@ -53,7 +52,7 @@
                 </select>                              
               </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2" v-if="$route.path != '/trade'">
                 <b>Side</b>
                 <div class="input-slot">
                   <select
