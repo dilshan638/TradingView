@@ -309,7 +309,7 @@
         <div class="trade-body middle-bdy"> 
           <table class="table table-hover special">
             <tbody>
-              <tr v-show="price != undefined">
+              <tr v-show="price!=undefined">
                 <td v-bind:class="[matchFill == 'buy' ? 'buy' : 'sell']" width="35%">
                   {{ price }}
                 </td>
@@ -320,7 +320,7 @@
                   </div>
                 </td>
               </tr>
-              <tr v-show="price == undefined">
+              <tr v-show="price==undefined">
                 <td v-bind:class="[matchFill == 'buy' ? 'buy' : 'sell']" width="35%">
                   {{ matchPriceMATCH }}
                 </td>
@@ -902,7 +902,7 @@ export default {
     this.setData()
     this.activebuysell()
     this.matchPriceMATCH = localStorage.getItem("matchPriceMATCH");
-
+    
 
   },
   created: function () {

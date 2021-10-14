@@ -267,14 +267,14 @@ export default {
       }
     },
     async reset() {
-      var dropDown = document.getElementById("one");
-      dropDown.selectedIndex = 0;
+      // var dropDown = document.getElementById("one");
+      // dropDown.selectedIndex = 0;
 
-       var dropDownTwo = document.getElementById("two");
-      dropDownTwo.selectedIndex = 0;
+      //  var dropDownTwo = document.getElementById("two");
+      // dropDownTwo.selectedIndex = 0;
 
-       var dropDownThree = document.getElementById("three");
-      dropDownThree.selectedIndex = 0;
+      //  var dropDownThree = document.getElementById("three");
+      // dropDownThree.selectedIndex = 0;
 
       this.pOne = "";
       this.pTwo = "";
@@ -313,21 +313,22 @@ export default {
       this.oneD = true;
       //lastDay
      var date = new Date();
-      date.setDate(date.getDate() - 1);
+      date.setDate(date.getDate() + 1);
       this.todayDate = new Date().toJSON().slice(0, 10).replace(/-/g, "-");
       this.lastDay = date.toJSON().slice(0, 10).replace(/-/g, "-");
-
+   
       // this.todayDate = new Date().toJSON().slice(0, 10).replace(/-/g, "-");
      const headers = {};
-      axios
+     axios
         .get(
-          `http://34.152.9.147:8001/api/orders?productId=&status=open&before&after&startDate=${this.lastDay}&endtDate=&limit=1000&side=`,
+          `http://34.152.9.147:8001/api/orders?productId=&before&after&startDate=${this.todayDate}&endtDate=${this.lastDay}&limit=1000&side=`,
           {
             headers: headers,
           }
         )
         .then((res) => {
           this.orderHistory = res.data;
+          console.log(res.data)
         })
         .catch(function (error) {
           console.log(error);
@@ -346,9 +347,10 @@ export default {
       this.oneWeek = date.toJSON().slice(0, 10).replace(/-/g, "-");
       this.todayDate = new Date().toJSON().slice(0, 10).replace(/-/g, "-");
       const headers = {};
+      console.log( `http://34.152.9.147:8001/api/orders?productId=&before&after&startDate=${this.oneWeek}&endtDate=${this.todayDate}&limit=1000&side=`)
       axios
         .get(
-          `http://34.152.9.147:8001/api/orders?productId=&status=open&before&after&startDate=${this.oneWeek}&endtDate=${this.todayDate}&limit=1000&side=`,
+          `http://34.152.9.147:8001/api/orders?productId=&before&after&startDate=${this.oneWeek}&endtDate=${this.todayDate}&limit=1000&side=`,
           {
             headers: headers,
           }
@@ -375,7 +377,7 @@ export default {
       const headers = {};
       axios
         .get(
-          `http://34.152.9.147:8001/api/orders?productId=&status=open&before&after&startDate=${this.oneMonth}&endtDate=${this.todayDate}&limit=1000&side=`,
+          `http://34.152.9.147:8001/api/orders?productId=&before&after&startDate=${this.oneMonth}&endtDate=${this.todayDate}&limit=1000&side=`,
           {
             headers: headers,
           }
@@ -395,11 +397,13 @@ export default {
     //     }, 3000);
     //     }
     // },
-    async dateRangeFilter() {
+   
+     async dateRangeFilter() {
       const headers = {};
+      console.log( `http://34.152.9.147:8001/api/orders?productId=&before&after&startDate=${this.selectedDate[0].toISOString().slice(0, 10)}&endtDate=${this.selectedDate[1].toISOString().slice(0, 10)}&limit=1000&side=`)
       axios
         .get(
-          `http://34.152.9.147:8001/api/orders?productId=&status=open&before&after&startDate=${this.endDate}&endtDate=${this.startDate}&limit=1000&side=`,
+          `http://34.152.9.147:8001/api/orders?productId=&before&after&startDate=${this.selectedDate[0].toISOString().slice(0, 10)}&endtDate=${this.selectedDate[1].toISOString().slice(0, 10)}&limit=1000&side=`,
           {
             headers: headers,
           }
@@ -426,7 +430,7 @@ export default {
       const headers = {};
       axios
         .get(
-          `http://34.152.9.147:8001/api/orders?productId=&status=open&before&after&startDate=${this.threeMonth}&endtDate=${this.todayDate}&limit=1000&side=`,
+          `http://34.152.9.147:8001/api/orders?productId=&before&after&startDate=${this.threeMonth}&endtDate=${this.todayDate}&limit=1000&side=`,
           {
             headers: headers,
           }

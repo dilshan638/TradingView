@@ -52,6 +52,7 @@
                 </select>                              
               </div>
             </div>
+            
             <div class="col-md-2" v-if="$route.path != '/trade'">
                 <b>Side</b>
                 <div class="input-slot">
@@ -181,7 +182,7 @@ export default {
         )
         .then((res) => {
          console.log(res.data)
-         this.orderHistory=res.data
+         this.dataAll=res.data
       })
         .catch(function (error) {
           console.log(error);
@@ -215,7 +216,7 @@ export default {
         )
         .then((res) => {
          console.log(res.data)
-         this.orderHistory=res.data
+         this.dataAll=res.data
       })
         .catch(function (error) {
           console.log(error);
@@ -234,7 +235,6 @@ export default {
         this.oneMonthFilter()
       }
         else{
-       console.log(`http://34.152.9.147:8001/api/orders?productId=&status=open&before&after&startDate=&endtDate=&limit=1000&side=${this.selectedSide}`)
       const headers = {};
         axios
         .get(
@@ -245,7 +245,7 @@ export default {
         )
         .then((res) => {
          console.log(res.data)
-         this.orderHistory=res.data
+         this.dataAll=res.data
       })
         .catch(function (error) {
           console.log(error);
@@ -270,14 +270,14 @@ export default {
        this.onemonthaction = false,
        this.threemonthaction = false
      var date = new Date();
-      date.setDate(date.getDate() - 1);
+      date.setDate(date.getDate() +1);
       this.todayDate = new Date().toJSON().slice(0, 10).replace(/-/g, "-");
       this.lastDay = date.toJSON().slice(0, 10).replace(/-/g, "-");
 
      const headers = {};
       axios
         .get(
-          `http://34.152.9.147:8001/api/orders?productId=&status=open&before&after&startDate=${this.lastDay}&endtDate=&limit=1000&side=`,
+          `http://34.152.9.147:8001/api/orders?productId=&before&after&startDate=${this.todayDate}&endtDate=${this.lastDay}&limit=1000&side=&status=filled`,
           {
             headers: headers,
           }
@@ -304,7 +304,7 @@ export default {
       const headers = {};
       axios
         .get(
-          `http://34.152.9.147:8001/api/orders?productId=&status=open&before&after&startDate=${this.oneWeek}&endtDate=${this.todayDate}&limit=1000&side=`,
+          `http://34.152.9.147:8001/api/orders?productId=&before&after&startDate=${this.oneWeek}&endtDate=${this.todayDate}&limit=1000&side=&status=filled`,
           {
             headers: headers,
           }
@@ -331,7 +331,7 @@ export default {
       const headers = {};
       axios
         .get(
-          `http://34.152.9.147:8001/api/orders?productId=&status=open&before&after&startDate=${this.oneMonth}&endtDate=${this.todayDate}&limit=1000&side=`,
+          `http://34.152.9.147:8001/api/orders?productId=&status=filled&before&after&startDate=${this.oneMonth}&endtDate=${this.todayDate}&limit=1000&side=`,
           {
             headers: headers,
           }
@@ -356,7 +356,7 @@ export default {
       const headers = {};
       axios
         .get(
-          `http://34.152.9.147:8001/api/orders?productId=&status=open&before&after&startDate=${this.threeMonth}&endtDate=${this.todayDate}&limit=1000&side=`,
+          `http://34.152.9.147:8001/api/orders?productId=&status=filled&before&after&startDate=${this.threeMonth}&endtDate=${this.todayDate}&limit=1000&side=`,
           {
             headers: headers,
           }
@@ -369,14 +369,15 @@ export default {
         });
     },
     async reset() {
-       var dropDown = document.getElementById("one");
-      dropDown.selectedIndex = 0;
+    
+      // var dropDown = document.getElementById("one");
+      // dropDown.selectedIndex = 0;
 
-       var dropDownTwo = document.getElementById("two");
-      dropDownTwo.selectedIndex = 0;
+      //  var dropDownTwo = document.getElementById("two");
+      // dropDownTwo.selectedIndex = 0;
 
-       var dropDownThree = document.getElementById("three");
-      dropDownThree.selectedIndex = 0;
+      //  var dropDownThree = document.getElementById("three");
+      // dropDownThree.selectedIndex = 0;
 
       this.pOne = "";
       this.pTwo = "";
@@ -387,12 +388,17 @@ export default {
       this.startDate = "";
       this.endDate = "";
       this.getData();
+      this.selectedDate[0]=""
+      this.selectedDate[1]=""
+      
+
+
     },
      async dateRangeFilter() {
       const headers = {};
       axios
         .get(
-          `http://34.152.9.147:8001/api/orders?productId=&status=open&before&after&startDate=${this.selectedDate[0].toISOString().slice(0, 10)}&endtDate=${this.selectedDate[1].toISOString().slice(0, 10)}&limit=1000&side=`,
+          `http://34.152.9.147:8001/api/orders?productId=&status=filled&before&after&startDate=${this.selectedDate[0].toISOString().slice(0, 10)}&endtDate=${this.selectedDate[1].toISOString().slice(0, 10)}&limit=1000&side=`,
           {
             headers: headers,
           }
