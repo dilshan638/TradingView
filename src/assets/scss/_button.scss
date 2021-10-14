@@ -125,10 +125,10 @@ button[disabled]{
     color: #fff;    
   }
 
-  .f-btn{
-    width: auto !important;
-    background-color: #161515 !important;
-  }
+//   .f-btn{
+//     width: auto !important;
+//     background-color: #161515 !important;
+//   }
 
   .reset-btn{
 
@@ -138,4 +138,15 @@ button[disabled]{
         color: #fff !important;
     }
 
+  }
+  body button.sea-btn{
+    min-height: 44px !important;
+    background-color: #141414 !important;
+    margin-top: 0 !important;
+    border-radius: 5px !important;
+    margin-left: 10px !important;
+    min-width: 80px !important;
+  }
+  .v-calendar.top{
+      float: left;
   }

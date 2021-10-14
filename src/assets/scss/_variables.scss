@@ -907,4 +907,15 @@ body.open-modal{
 
     
   }
+
+  .clearButton{
+    right: 55px !important;
+    font-size: -14px;
+    margin-top: 0 !IMPORTANT;
+    svg{
+        width: 10px !important;
+        height: 10px !important;
+        fill: #fff !important;
+    }
+}
   

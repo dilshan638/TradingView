@@ -5,31 +5,68 @@
        <div class="set-flter-row">
           <div class="row">
             <div class="col-md-4">
-               <button @click="oneDayFilter">1 Day</button>
-                <button  @click="oneWeekFilter">1 Week</button>
-                <button @click="oneMonthFilter">1 Month</button>
-                <button  @click="threeMonthFilter">3 Month</button>
-                
+               <button @click="oneDayFilter" v-bind:class="[this.onedayaction == true ? 'active' : '']">1 Day</button>
+                <button  @click="oneWeekFilter" v-bind:class="[this.oneweekaction == true ? 'active' : '']">1 Week</button>
+                <button @click="oneMonthFilter" v-bind:class="[this.onemonthaction == true ? 'active' : '']">1 Month</button>
+                <button  @click="threeMonthFilter" v-bind:class="[this.onemonthaction == true ? 'active' : '']">3 Month</button>
             </div>
             <div class="col-md-6">
               <span>Time</span>
               <div class="time-plate">
-                <Datepicker @blur="getRangeDate"
+                <Datepicker @blur="getRangeDate" 
+                show-clear-button
                   range
-                  v-model="selectedDate" lang="en" placeholder="Change Date range"
+                  v-model="selectedDate" lang="en" placeholder="YYYY-MM-DD"
                   input-class="date-range-picker"
-                  position="right"
+                  position="top"
                   showPickerInital = 'true'
-                  disabled-start-date="disabledStartDate"
-                
-                />   
-                            
+                />    
+                <button @click="dateRangeFilter" class="sea-btn">Search</button>            
               </div>
             </div>
             <div class="col-md-2">
-                <button @click="dateRangeFilter">Range</button>
               <button type="reset" class="reset-btn" @click="reset">Reset</button>
-            </div>            
+            </div>  
+            <div class="col-md-3">
+              <b>Pair</b>
+              <div class="input-slot half break">
+                <select
+                  class="form-control sel-val"
+                  id="one"
+                  @change="PairOne($event)"
+                >
+                  <option value="">All</option>
+
+                  <option value="BTC-">BTC</option>
+                  <option value="ETH-">ETH</option>
+                </select>
+              </div>
+              <div class="input-slot half">  
+                <select
+                  class="form-control sel-val"
+                  id="two"
+                  @change="PairTwo($event)"
+                >
+                  <option value="">All</option>
+                  <option value="USDT">USDT</option>
+                  <option value="BTC">BTC</option>
+                </select>                              
+              </div>
+            </div>
+            <div class="col-md-2">
+                <b>Side</b>
+                <div class="input-slot">
+                  <select
+                    class="form-control sel-val"
+                    id="three"
+                    @change="selectside($event)"
+                  >
+                    <option value="">All</option>
+                    <option value="buy">Buy</option>
+                    <option value="sell">Sell</option>
+                  </select>                  
+                </div>
+            </div>          
           </div>
        </div>
      </div>
@@ -96,13 +133,21 @@ export default {
       threeMonth: "",
       todayDate: "",
 
+      onedayaction: false,
+      oneweekaction: false,
+      onemonthaction: false,
+      threemonthaction: false,
+
+      
+
+
       selectedDate: [
-        new Date(new Date().getTime() - 30 * 24 * 60 * 60 * 1000),
+        new Date(new Date().getTime() - 90 * 24 * 60 * 60 * 1000),
         new Date()
       ],
       disabledStartDate: {
-        to: new Date('01.10.2021'),
-        from: new Date('10.10.2021')
+        to: new Date(new Date().getTime() + 365 * 24 * 60 * 60 * 1000),
+        from: new Date()
       },      
       tradeHistory: [],
       // myTradeHistory: [],
@@ -114,8 +159,99 @@ export default {
   },
 
   methods: {
-    async PairOne(pairone) {
+   async PairOne(pairone) {
       this.pOne = pairone.target.value;
+      if(this.oneD==true){
+        this.oneDayFilter()
+      }
+      if(this.oneW==true){
+        this.oneWeekFilter()
+      }
+       if(this.oneM==true){
+        this.oneMonthFilter()
+      }
+      else{
+       console.log(`http://34.152.9.147:8001/api/orders?productId=${this.pOne}&status=open&before&after&startDate=&endtDate=&limit=1000&side=` )
+      const headers = {};
+        axios
+        .get(
+          `http://34.152.9.147:8001/api/orders?productId=${this.pOne}&status=open&before&after&startDate=&endtDate=&limit=1000&side=`,
+          {
+            headers: headers,
+          }
+        )
+        .then((res) => {
+         console.log(res.data)
+         this.orderHistory=res.data
+      })
+        .catch(function (error) {
+          console.log(error);
+        });
+      }
+    },
+
+    async PairTwo(pairtwo) {
+      this.pTwo = pairtwo.target.value;
+
+       if(this.oneD==true){
+        this.oneDayFilter()
+
+      }
+      if(this.oneW==true){
+        this.oneWeekFilter()
+
+      }
+       if(this.oneM==true){
+        this.oneMonthFilter()
+      }
+        else{
+       console.log(`http://34.152.9.147:8001/api/orders?productId=${this.pTwo}&status=open&before&after&startDate=&endtDate=&limit=1000&side=`)
+      const headers = {};
+        axios
+        .get(
+          `http://34.152.9.147:8001/api/orders?productId=${this.pTwo}&status=open&before&after&startDate=&endtDate=&limit=1000&side=`,
+          {
+            headers: headers,
+          }
+        )
+        .then((res) => {
+         console.log(res.data)
+         this.orderHistory=res.data
+      })
+        .catch(function (error) {
+          console.log(error);
+        });
+      }
+    },
+    async selectside(side) {
+      this.selectedSide = side.target.value;
+       if(this.oneDay==true){
+        this.oneDayFilter()
+      }
+      if(this.oneWeek==true){
+        this.oneWeekFilter()
+      }
+       if(this.oneMonth==true){
+        this.oneMonthFilter()
+      }
+        else{
+       console.log(`http://34.152.9.147:8001/api/orders?productId=&status=open&before&after&startDate=&endtDate=&limit=1000&side=${this.selectedSide}`)
+      const headers = {};
+        axios
+        .get(
+          `http://34.152.9.147:8001/api/orders?productId=&status=open&before&after&startDate=&endtDate=&limit=1000&side=${this.selectedSide}`,
+          {
+            headers: headers,
+          }
+        )
+        .then((res) => {
+         console.log(res.data)
+         this.orderHistory=res.data
+      })
+        .catch(function (error) {
+          console.log(error);
+        });
+      }
     },
     async getRangeDate() {
      // var start_date = this.selectedDate[0];
@@ -130,6 +266,10 @@ export default {
     },
     
      async oneDayFilter() {
+       this.onedayaction = true;
+       this.oneweekaction = false;
+       this.onemonthaction = false,
+       this.threemonthaction = false
      var date = new Date();
       date.setDate(date.getDate() - 1);
       this.todayDate = new Date().toJSON().slice(0, 10).replace(/-/g, "-");
@@ -153,6 +293,10 @@ export default {
     },
 
    async oneWeekFilter() {
+       this.onedayaction = false;
+       this.oneweekaction = true;
+       this.onemonthaction = false,
+       this.threemonthaction = false     
      
       var date = new Date();
       date.setDate(date.getDate() - 7);
@@ -175,6 +319,11 @@ export default {
         });
     },
     async oneMonthFilter() {
+
+       this.onedayaction = false;
+       this.oneweekaction = false;
+       this.onemonthaction = true,
+       this.threemonthaction = false      
      
       var date = new Date();
       date.setDate(date.getDate() - 30);
@@ -197,6 +346,10 @@ export default {
         });
     },
      async threeMonthFilter() {
+       this.onedayaction = false;
+       this.oneweekaction = false;
+       this.onemonthaction = false,
+       this.threemonthaction = true       
       var date = new Date();
       date.setDate(date.getDate() - 90);
       this.todayDate = new Date().toJSON().slice(0, 10).replace(/-/g, "-");
@@ -217,7 +370,18 @@ export default {
         });
     },
     async reset() {
-      
+       var dropDown = document.getElementById("one");
+      dropDown.selectedIndex = 0;
+
+       var dropDownTwo = document.getElementById("two");
+      dropDownTwo.selectedIndex = 0;
+
+       var dropDownThree = document.getElementById("three");
+      dropDownThree.selectedIndex = 0;
+
+      this.pOne = "";
+      this.pTwo = "";
+      this.selectedSide = "";
       this.todayDate = "";
       this.oneWeek = "";
       this.oneMonth = "";

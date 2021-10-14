@@ -31,12 +31,12 @@
       </div>
       <div class="col-md-9">
 
-        <div class="innertop" v-show="marketPrice != ''">
+        <div class="innertop" v-show="marketPrice != undefined">
           <h4 v-bind:class="[matchFill == 'buy' ? 'buy' : 'sell']">{{marketPrice}}</h4>
           <span class="sub-bottom">${{marketPrice}}</span>          
         </div>
 
-        <div class="innertop" v-show="marketPrice == '' || marketPrice ==undefined ">
+        <div class="innertop" v-show="marketPrice == undefined">
           <h4 v-bind:class="[matchFill == 'buy' ? 'buy' : 'sell']">{{matchPriceMATCH}}</h4>
           <span class="sub-bottom">${{matchPriceMATCH}}</span>          
         </div>

@@ -16,23 +16,18 @@
 }
 
 .v-calendar .calendar .selected-field .viewButton {
-    color: #ffffff;
-    font-weight: 900;
-}
-
-.v-calendar .calendar .selected-field {
-    padding-top: 2px !important;
-    background-color: #0277fa !important;
-    padding-bottom: 15px !important;
+    color: #000000;
+    font-weight: 700;
+    font-size: 1.2rem !important;
 }
 
 .v-calendar .calendar {
     background-color: #fff;
 }
 .v-calendar .calendar .days .day.name {
-    color: #d7eaff;
+    color: #000000;
     width: auto;
-    font-weight: 700;
+    font-weight: 500;
 }
 
 .v-calendar .calendar .days .day.selectedDate .number {

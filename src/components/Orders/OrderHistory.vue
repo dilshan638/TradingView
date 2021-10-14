@@ -4,20 +4,32 @@
       <div class="col-md-12">
         <div class="set-flter-row">
           <div class="row">
-            <div class="col-md-5">
-              <b>Date</b>
+            <div class="col-md-4">
               <div class="input-slot">
-                <button class="f-btn" @click="oneDayFilter">1 Day</button>
-                <button class="f-btn" @click="oneWeekFilter">1 Week</button>
-                <button class="f-btn" @click="oneMonthFilter">1 Month</button>
-                <button class="f-btn" @click="threeMonthFilter">3 Month</button>
-                <input type="date" v-model="startDate" />
+                <button class="f-btn" @click="oneDayFilter" v-bind:class="[this.onedayaction == true ? 'active' : '']">1 Day</button>
+                <button class="f-btn" @click="oneWeekFilter" v-bind:class="[this.oneweekaction == true ? 'active' : '']">1 Week</button>
+                <button class="f-btn" @click="oneMonthFilter" v-bind:class="[this.onemonthaction == true ? 'active' : '']">1 Month</button>
+                <button class="f-btn" @click="threeMonthFilter" v-bind:class="[this.threemonthaction == true ? 'active' : '']">3 Months</button>
+                <!-- <input type="date" v-model="startDate" />
                 <input type="date" v-model="endDate" />
-                <button @click="dateRangeFilter">Search</button>
+                <button @click="dateRangeFilter">Search</button> -->
               </div>
             </div>
-
-            <!-- <div class="col-md-3">
+            <div class="col-md-6">
+              <span>Time</span>
+              <div class="time-plate">
+                <Datepicker
+                show-clear-button
+                  range
+                  v-model="selectedDate" lang="en" placeholder="YYYY-MM-DD"
+                  input-class="date-range-picker"
+                  position="top"
+                  showPickerInital = 'true'
+                />    
+                <button @click="dateRangeFilter" class="sea-btn">Search</button>            
+              </div>
+            </div>
+            <div class="col-md-3">
               <b>Pair</b>
               <div class="input-slot half break">
                 <select
@@ -56,9 +68,8 @@
                     <option value="sell">Sell</option>
                   </select>                  
                 </div>
-            </div> -->
+            </div>
             <div class="col-md-2">
-              <b></b>
               <button type="reset" class="reset-btn" @click="reset">
                 Reset
               </button>
@@ -127,9 +138,13 @@
 
 <script>
 import axios from "axios";
+import 'vue-datepicker-ui/lib/vuedatepickerui.css';
+import VueDatepickerUi from 'vue-datepicker-ui';
 export default {
   name: "orderhistory",
-  components: {},
+  components: {
+    Datepicker: VueDatepickerUi
+  },
   data() {
     return {
       orderHistory: [],
@@ -138,6 +153,20 @@ export default {
       oneWeek: "",
       oneMonth: "",
       threeMonth: "",
+
+      selectedDate: [
+        new Date(new Date().getTime() - 90 * 24 * 60 * 60 * 1000),
+        new Date()
+      ],
+      disabledStartDate: {
+        to: new Date(new Date().getTime() + 365 * 24 * 60 * 60 * 1000),
+        from: new Date()
+      },        
+
+      onedayaction: false,
+      oneweekaction: false,
+      onemonthaction: false,
+      threemonthaction: false,      
 
       todayDate: "",
 
@@ -157,113 +186,113 @@ export default {
   },
 
   methods: {
-    // async PairOne(pairone) {
-    //   this.pOne = pairone.target.value;
-    //   if(this.oneD==true){
-    //     this.oneDayFilter()
-    //   }
-    //   if(this.oneW==true){
-    //     this.oneWeekFilter()
-    //   }
-    //    if(this.oneM==true){
-    //     this.oneMonthFilter()
-    //   }
-    //   else{
-    //    console.log(`http://34.152.9.147:8001/api/orders?productId=${this.pOne}&status=open&before&after&startDate=&endtDate=&limit=1000&side=` )
-    //   const headers = {};
-    //     axios
-    //     .get(
-    //       `http://34.152.9.147:8001/api/orders?productId=${this.pOne}&status=open&before&after&startDate=&endtDate=&limit=1000&side=`,
-    //       {
-    //         headers: headers,
-    //       }
-    //     )
-    //     .then((res) => {
-    //      console.log(res.data)
-    //      this.orderHistory=res.data
-    //   })
-    //     .catch(function (error) {
-    //       console.log(error);
-    //     });
-    //   }
-    // },
+    async PairOne(pairone) {
+      this.pOne = pairone.target.value;
+      if(this.oneD==true){
+        this.oneDayFilter()
+      }
+      if(this.oneW==true){
+        this.oneWeekFilter()
+      }
+       if(this.oneM==true){
+        this.oneMonthFilter()
+      }
+      else{
+       console.log(`http://34.152.9.147:8001/api/orders?productId=${this.pOne}&status=open&before&after&startDate=&endtDate=&limit=1000&side=` )
+      const headers = {};
+        axios
+        .get(
+          `http://34.152.9.147:8001/api/orders?productId=${this.pOne}&status=open&before&after&startDate=&endtDate=&limit=1000&side=`,
+          {
+            headers: headers,
+          }
+        )
+        .then((res) => {
+         console.log(res.data)
+         this.orderHistory=res.data
+      })
+        .catch(function (error) {
+          console.log(error);
+        });
+      }
+    },
 
-    // async PairTwo(pairtwo) {
-    //   this.pTwo = pairtwo.target.value;
+    async PairTwo(pairtwo) {
+      this.pTwo = pairtwo.target.value;
 
-    //    if(this.oneD==true){
-    //     this.oneDayFilter()
+       if(this.oneD==true){
+        this.oneDayFilter()
 
-    //   }
-    //   if(this.oneW==true){
-    //     this.oneWeekFilter()
+      }
+      if(this.oneW==true){
+        this.oneWeekFilter()
 
-    //   }
-    //    if(this.oneM==true){
-    //     this.oneMonthFilter()
-    //   }
-    //     else{
-    //    console.log(`http://34.152.9.147:8001/api/orders?productId=${this.pTwo}&status=open&before&after&startDate=&endtDate=&limit=1000&side=`)
-    //   const headers = {};
-    //     axios
-    //     .get(
-    //       `http://34.152.9.147:8001/api/orders?productId=${this.pTwo}&status=open&before&after&startDate=&endtDate=&limit=1000&side=`,
-    //       {
-    //         headers: headers,
-    //       }
-    //     )
-    //     .then((res) => {
-    //      console.log(res.data)
-    //      this.orderHistory=res.data
-    //   })
-    //     .catch(function (error) {
-    //       console.log(error);
-    //     });
-    //   }
-    // },
-    // async selectside(side) {
-    //   this.selectedSide = side.target.value;
-    //    if(this.oneDay==true){
-    //     this.oneDayFilter()
-    //   }
-    //   if(this.oneWeek==true){
-    //     this.oneWeekFilter()
-    //   }
-    //    if(this.oneMonth==true){
-    //     this.oneMonthFilter()
-    //   }
-    //     else{
-    //    console.log(`http://34.152.9.147:8001/api/orders?productId=&status=open&before&after&startDate=&endtDate=&limit=1000&side=${this.selectedSide}`)
-    //   const headers = {};
-    //     axios
-    //     .get(
-    //       `http://34.152.9.147:8001/api/orders?productId=&status=open&before&after&startDate=&endtDate=&limit=1000&side=${this.selectedSide}`,
-    //       {
-    //         headers: headers,
-    //       }
-    //     )
-    //     .then((res) => {
-    //      console.log(res.data)
-    //      this.orderHistory=res.data
-    //   })
-    //     .catch(function (error) {
-    //       console.log(error);
-    //     });
-    //   }
-    // },
+      }
+       if(this.oneM==true){
+        this.oneMonthFilter()
+      }
+        else{
+       console.log(`http://34.152.9.147:8001/api/orders?productId=${this.pTwo}&status=open&before&after&startDate=&endtDate=&limit=1000&side=`)
+      const headers = {};
+        axios
+        .get(
+          `http://34.152.9.147:8001/api/orders?productId=${this.pTwo}&status=open&before&after&startDate=&endtDate=&limit=1000&side=`,
+          {
+            headers: headers,
+          }
+        )
+        .then((res) => {
+         console.log(res.data)
+         this.orderHistory=res.data
+      })
+        .catch(function (error) {
+          console.log(error);
+        });
+      }
+    },
+    async selectside(side) {
+      this.selectedSide = side.target.value;
+       if(this.oneDay==true){
+        this.oneDayFilter()
+      }
+      if(this.oneWeek==true){
+        this.oneWeekFilter()
+      }
+       if(this.oneMonth==true){
+        this.oneMonthFilter()
+      }
+        else{
+       console.log(`http://34.152.9.147:8001/api/orders?productId=&status=open&before&after&startDate=&endtDate=&limit=1000&side=${this.selectedSide}`)
+      const headers = {};
+        axios
+        .get(
+          `http://34.152.9.147:8001/api/orders?productId=&status=open&before&after&startDate=&endtDate=&limit=1000&side=${this.selectedSide}`,
+          {
+            headers: headers,
+          }
+        )
+        .then((res) => {
+         console.log(res.data)
+         this.orderHistory=res.data
+      })
+        .catch(function (error) {
+          console.log(error);
+        });
+      }
+    },
     async reset() {
-      // var dropDown = document.getElementById("one");
-      // dropDown.selectedIndex = 0;
+      var dropDown = document.getElementById("one");
+      dropDown.selectedIndex = 0;
 
-      //  var dropDownTwo = document.getElementById("two");
-      // dropDownTwo.selectedIndex = 0;
+       var dropDownTwo = document.getElementById("two");
+      dropDownTwo.selectedIndex = 0;
 
-      //  var dropDownThree = document.getElementById("three");
-      // dropDownThree.selectedIndex = 0;
+       var dropDownThree = document.getElementById("three");
+      dropDownThree.selectedIndex = 0;
 
-      // this.pOne = "";
-      // this.pTwo = "";
-      // this.selectedSide = "";
+      this.pOne = "";
+      this.pTwo = "";
+      this.selectedSide = "";
       this.todayDate = "";
       this.oneWeek = "";
       this.oneMonth = "";
@@ -291,9 +320,13 @@ export default {
     },
 
     async oneDayFilter() {
+      this.onedayaction = true;
+      this.oneweekaction = false;
+      this.onemonthaction  = false;
+      this.threemonthaction = false;
       this.oneD = true;
       //lastDay
-      var date = new Date();
+     var date = new Date();
       date.setDate(date.getDate() - 1);
       this.todayDate = new Date().toJSON().slice(0, 10).replace(/-/g, "-");
       this.lastDay = date.toJSON().slice(0, 10).replace(/-/g, "-");
@@ -315,6 +348,12 @@ export default {
         });
     },
     async oneWeekFilter() {
+
+      this.onedayaction = false;
+      this.oneweekaction = true;
+      this.onemonthaction  = false;
+      this.threemonthaction = false;
+
       this.oneW = true;
       var date = new Date();
       date.setDate(date.getDate() - 7);
@@ -335,8 +374,13 @@ export default {
           console.log(error);
         });
     },
-
     async oneMonthFilter() {
+
+      this.onedayaction = false;
+      this.oneweekaction = false;
+      this.onemonthaction  = true;
+      this.threemonthaction = false;
+
       this.oneM = true;
       var date = new Date();
       date.setDate(date.getDate() - 30);
@@ -366,9 +410,6 @@ export default {
     //     }
     // },
     async dateRangeFilter() {
-      console.log(
-        `http://34.152.9.147:8001/api/orders?productId=&status=open&before&after&startDate=${this.endDate}&endtDate=${this.startDate}&limit=1000&side=`
-      );
       const headers = {};
       axios
         .get(
@@ -386,6 +427,12 @@ export default {
     },
 
     async threeMonthFilter() {
+
+      this.onedayaction = false;
+      this.oneweekaction = false;
+      this.onemonthaction  = false;
+      this.threemonthaction = true;      
+      
       var date = new Date();
       date.setDate(date.getDate() - 90);
       this.todayDate = new Date().toJSON().slice(0, 10).replace(/-/g, "-");
