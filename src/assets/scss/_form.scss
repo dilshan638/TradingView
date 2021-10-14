@@ -252,8 +252,8 @@
 
     float: left;
     width: 100%;
-    margin-top: 10px;
-    margin-bottom: 20px;
+    margin-top: 15px;
+    margin-bottom: 30px;
 
     b{
       float: left;
@@ -289,9 +289,13 @@
     }
 
     .reset-btn{
-      border: solid 2px #a2a4bf;
-      color: #a2a4bf;
-      background-color: transparent;
+      float: right;
+      background-color: #585858 !important;
+      border-color: #585858 !important;
+      min-width: 80px;
+      min-height: 41px !important;
+      margin-top: 0;
+      font-weight: 900;
     }
 
   }
@@ -325,7 +329,7 @@
       margin-top: 5px;
 
       &:hover{
-        background-color: #4e4e4e;
+        background-color: #141414;
       }
       
       &:last-child{
@@ -334,7 +338,7 @@
 
     }
     button.active{
-      background-color: #4e4e4e !important
+      background-color: #141414 !important
     }    
 
   }

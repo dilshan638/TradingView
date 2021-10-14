@@ -4,19 +4,31 @@
       <div class="col-md-12">
         <div class="set-flter-row">
           <div class="row">
-            <div class="col-md-5">
-              <b>Date</b>
+            <div class="col-md-4">
               <div class="input-slot">
-                <button class="f-btn" @click="oneDayFilter">1 Day</button>
-                <button class="f-btn" @click="oneWeekFilter">1 Week</button>
-                <button class="f-btn" @click="oneMonthFilter">1 Month</button>
-                <button class="f-btn" @click="threeMonthFilter">3 Month</button>
-                <input type="date" v-model="startDate" />
+                <button class="f-btn" @click="oneDayFilter" v-bind:class="[this.onedayaction == true ? 'active' : '']">1 Day</button>
+                <button class="f-btn" @click="oneWeekFilter" v-bind:class="[this.oneweekaction == true ? 'active' : '']">1 Week</button>
+                <button class="f-btn" @click="oneMonthFilter" v-bind:class="[this.onemonthaction == true ? 'active' : '']">1 Month</button>
+                <button class="f-btn" @click="threeMonthFilter" v-bind:class="[this.threemonthaction == true ? 'active' : '']">3 Months</button>
+                <!-- <input type="date" v-model="startDate" />
                 <input type="date" v-model="endDate" />
-                <button @click="dateRangeFilter">Search</button>
+                <button @click="dateRangeFilter">Search</button> -->
               </div>
             </div>
-
+            <div class="col-md-6">
+              <span>Time</span>
+              <div class="time-plate">
+                <Datepicker
+                show-clear-button
+                  range
+                  v-model="selectedDate" lang="en" placeholder="YYYY-MM-DD"
+                  input-class="date-range-picker"
+                  position="top"
+                  showPickerInital = 'true'
+                />    
+                <button @click="dateRangeFilter" class="sea-btn">Search</button>            
+              </div>
+            </div>
             <!-- <div class="col-md-3">
               <b>Pair</b>
               <div class="input-slot half break">
@@ -58,7 +70,6 @@
                 </div>
             </div> -->
             <div class="col-md-2">
-              <b></b>
               <button type="reset" class="reset-btn" @click="reset">
                 Reset
               </button>
@@ -127,15 +138,35 @@
 
 <script>
 import axios from "axios";
+import 'vue-datepicker-ui/lib/vuedatepickerui.css';
+import VueDatepickerUi from 'vue-datepicker-ui';
 export default {
   name: "orderhistory",
-  components: {},
+  components: {
+    Datepicker: VueDatepickerUi
+  },
   data() {
     return {
       orderHistory: [],
+      lastDay: "",
       oneDay: "",
       oneWeek: "",
       oneMonth: "",
+      threeMonth: "",
+
+      selectedDate: [
+        new Date(new Date().getTime() - 90 * 24 * 60 * 60 * 1000),
+        new Date()
+      ],
+      disabledStartDate: {
+        to: new Date(new Date().getTime() + 365 * 24 * 60 * 60 * 1000),
+        from: new Date()
+      },        
+
+      onedayaction: false,
+      oneweekaction: false,
+      onemonthaction: false,
+      threemonthaction: false,      
 
       todayDate: "",
 
@@ -149,8 +180,8 @@ export default {
       oneM: false,
       startDate: new Date(),
       endDate: new Date(),
-      threeMonth: "",
-      lastDay: "",
+     
+      
     };
   },
 
@@ -289,18 +320,19 @@ export default {
     },
 
     async oneDayFilter() {
+      this.onedayaction = true;
+      this.oneweekaction = false;
+      this.onemonthaction  = false;
+      this.threemonthaction = false;
       this.oneD = true;
       //lastDay
-      var date = new Date();
+     var date = new Date();
       date.setDate(date.getDate() - 1);
       this.todayDate = new Date().toJSON().slice(0, 10).replace(/-/g, "-");
       this.lastDay = date.toJSON().slice(0, 10).replace(/-/g, "-");
 
       // this.todayDate = new Date().toJSON().slice(0, 10).replace(/-/g, "-");
-      console.log(
-        `http://34.152.9.147:8001/api/orders?productId=&status=open&before&after&startDate=${this.lastDay}&endtDate=${this.todayDate}&limit=1000&side=`
-      );
-      const headers = {};
+     const headers = {};
       axios
         .get(
           `http://34.152.9.147:8001/api/orders?productId=&status=open&before&after&startDate=${this.lastDay}&endtDate=&limit=1000&side=`,
@@ -309,13 +341,19 @@ export default {
           }
         )
         .then((res) => {
-          console.log(res.data);
+          this.orderHistory = res.data;
         })
         .catch(function (error) {
           console.log(error);
         });
     },
     async oneWeekFilter() {
+
+      this.onedayaction = false;
+      this.oneweekaction = true;
+      this.onemonthaction  = false;
+      this.threemonthaction = false;
+
       this.oneW = true;
       var date = new Date();
       date.setDate(date.getDate() - 7);
@@ -336,8 +374,13 @@ export default {
           console.log(error);
         });
     },
-
     async oneMonthFilter() {
+
+      this.onedayaction = false;
+      this.oneweekaction = false;
+      this.onemonthaction  = true;
+      this.threemonthaction = false;
+
       this.oneM = true;
       var date = new Date();
       date.setDate(date.getDate() - 30);
@@ -387,6 +430,12 @@ export default {
     },
 
     async threeMonthFilter() {
+
+      this.onedayaction = false;
+      this.oneweekaction = false;
+      this.onemonthaction  = false;
+      this.threemonthaction = true;      
+      
       var date = new Date();
       date.setDate(date.getDate() - 90);
       this.todayDate = new Date().toJSON().slice(0, 10).replace(/-/g, "-");
