@@ -52,6 +52,7 @@
                 </select>                              
               </div>
             </div>
+            
             <div class="col-md-2" v-if="$route.path != '/trade'">
                 <b>Side</b>
                 <div class="input-slot">
@@ -369,14 +370,15 @@ export default {
         });
     },
     async reset() {
-       var dropDown = document.getElementById("one");
-      dropDown.selectedIndex = 0;
+    
+      // var dropDown = document.getElementById("one");
+      // dropDown.selectedIndex = 0;
 
-       var dropDownTwo = document.getElementById("two");
-      dropDownTwo.selectedIndex = 0;
+      //  var dropDownTwo = document.getElementById("two");
+      // dropDownTwo.selectedIndex = 0;
 
-       var dropDownThree = document.getElementById("three");
-      dropDownThree.selectedIndex = 0;
+      //  var dropDownThree = document.getElementById("three");
+      // dropDownThree.selectedIndex = 0;
 
       this.pOne = "";
       this.pTwo = "";
@@ -387,6 +389,11 @@ export default {
       this.startDate = "";
       this.endDate = "";
       this.getData();
+      this.selectedDate[0]=""
+      this.selectedDate[1]=""
+      
+
+
     },
      async dateRangeFilter() {
       const headers = {};

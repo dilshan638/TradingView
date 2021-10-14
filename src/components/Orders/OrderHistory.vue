@@ -267,14 +267,14 @@ export default {
       }
     },
     async reset() {
-      var dropDown = document.getElementById("one");
-      dropDown.selectedIndex = 0;
+      // var dropDown = document.getElementById("one");
+      // dropDown.selectedIndex = 0;
 
-       var dropDownTwo = document.getElementById("two");
-      dropDownTwo.selectedIndex = 0;
+      //  var dropDownTwo = document.getElementById("two");
+      // dropDownTwo.selectedIndex = 0;
 
-       var dropDownThree = document.getElementById("three");
-      dropDownThree.selectedIndex = 0;
+      //  var dropDownThree = document.getElementById("three");
+      // dropDownThree.selectedIndex = 0;
 
       this.pOne = "";
       this.pTwo = "";
