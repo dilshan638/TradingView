@@ -472,7 +472,14 @@ export default {
   mounted() {
     this.getRangeDate();
     this.geTradeHistory();
+
+    let ts= this
+     this.eventBus.on('myTradeHistory',function(){
+      ts.getData()
+     })
    this.getData();
+   
+
     // window.setInterval(() => {
     //   this.getData()
     // }, 3000)
