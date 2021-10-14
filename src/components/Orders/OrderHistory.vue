@@ -170,7 +170,6 @@ export default {
       
     };
   },
-
   methods: {
     async PairOne(pairone) {
       this.pOne = pairone.target.value;
@@ -288,7 +287,6 @@ export default {
     },
     async getData() {
       const headers = {};
-
       axios
         .get(
           "http://34.152.9.147:8001/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100",
@@ -304,7 +302,6 @@ export default {
           console.log(error);
         });
     },
-
     async oneDayFilter() {
       this.onedayaction = true;
       this.oneweekaction = false;
@@ -335,7 +332,6 @@ export default {
         });
     },
     async oneWeekFilter() {
-
       this.onedayaction = false;
       this.oneweekaction = true;
       this.onemonthaction  = false;
@@ -363,7 +359,6 @@ export default {
         });
     },
     async oneMonthFilter() {
-
       this.onedayaction = false;
       this.oneweekaction = false;
       this.onemonthaction  = true;
@@ -389,7 +384,6 @@ export default {
           console.log(error);
         });
     },
-
     // async conditional(){
     //  if((this.oneD==false) && (this.oneW==false) &&(this.oneM==false)){
     //        window.setInterval(() => {
@@ -397,7 +391,6 @@ export default {
     //     }, 3000);
     //     }
     // },
-   
      async dateRangeFilter() {
       const headers = {};
       console.log( `http://34.152.9.147:8001/api/orders?productId=&before&after&startDate=${this.selectedDate[0].toISOString().slice(0, 10)}&endtDate=${this.selectedDate[1].toISOString().slice(0, 10)}&limit=1000&side=`)
@@ -415,9 +408,7 @@ export default {
           console.log(error);
         });
     },
-
     async threeMonthFilter() {
-
       this.onedayaction = false;
       this.oneweekaction = false;
       this.onemonthaction  = false;
@@ -443,10 +434,29 @@ export default {
         });
     },
   },
-
   mounted() {
     this.getData();
     //this.conditional()
+  },
+    watch: {
+    orderHistory: function (value) {
+      const headers = {};
+      axios
+        .get(
+          "http://34.152.9.147:8001/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100",
+          {
+            headers: headers,
+          }
+        )
+        .then((responsive) => {
+          this.orderHistory = responsive.data;
+          console.log(value)
+          //console.log(responsive)
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
   },
   //   computed: {
   // filterCoins: function () {

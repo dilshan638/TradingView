@@ -442,11 +442,11 @@ export default {
         });
     },
   },
-  computed: {
-    getPr() {
-      return this.fullPairName;
-    },
-  },
+  // computed: {
+  //   getPr() {
+  //     return this.fullPairName;
+  //   },
+  // },
   mounted() {
     this.getUserBalance();
   //  this.checkUserBalance();
