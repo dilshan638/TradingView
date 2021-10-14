@@ -309,7 +309,7 @@
         <div class="trade-body middle-bdy"> 
           <table class="table table-hover special">
             <tbody>
-              <tr v-show="price != ''">
+              <tr v-show="price != ''|| price ==undefined">
                 <td v-bind:class="[matchFill == 'buy' ? 'buy' : 'sell']" width="35%">
                   {{ price }}
                 </td>
