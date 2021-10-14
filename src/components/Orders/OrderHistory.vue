@@ -172,6 +172,11 @@ export default {
   },
 
   methods: {
+
+    async History(){
+    
+    },
+
     async PairOne(pairone) {
       this.pOne = pairone.target.value;
       if(this.oneD==true){
@@ -445,8 +450,12 @@ export default {
   },
 
   mounted() {
+    let ts= this
+     this.eventBus.on('orderHistory',function(){
+      ts.getData()
+     })
     this.getData();
-    //this.conditional()
+    //this.conditional() 
   },
   //   computed: {
   // filterCoins: function () {
@@ -456,6 +465,18 @@ export default {
   //     },
 
   //   },
+
+  watch:{
+    orderHistory(newArray){
+      if( this.orderHistory.length<newArray.length){
+       this.orderHistory=newArray
+      alert(newArray) 
+      }
+      
+    }
+  },
+
+  
 };
 </script>
 <style>

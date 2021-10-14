@@ -12,13 +12,22 @@ import TableLite from "vue3-table-lite";
 
 import VueDatepickerUi from 'vue-datepicker-ui'
 import 'vue-datepicker-ui/lib/vuedatepickerui.css';
+//import eventBus from "./event.js";
 
 
+import mitt from 'mitt'
+
+
+const eventBus = mitt()
 const app = createApp(App);
+
+app.config.globalProperties.eventBus = eventBus
+
 app.use('Datepicker', VueDatepickerUi)
 app.use(router)
 app.use(TableLite)
 app.use(Toaster)
+//app.use(eventBus)
 app.use(VueApexCharts)
 
 

@@ -12,7 +12,7 @@
           v-bind:class="[buytab == true ? 'active' : '']"
         >
           Buy
-        </div>
+        </div> 
         <div
           class="top-tab sell-btn"
           @click="togglesell"
@@ -145,6 +145,7 @@ import { reactive, computed } from "vue";
 
 // eslint-disable-next-line no-unused-vars
 import axios from "axios";
+//import eventBus from "./../../event.js";
 
 export default {
   name: "orderbook",
@@ -212,6 +213,7 @@ export default {
   },
   methods: {
       async getDataOpenOrders() {
+        this.eventBus.emit('openOrders');
         const headers = {};
 
         axios
@@ -229,7 +231,9 @@ export default {
             console.log(error);
           });
       },
+
       async getDataMyHistory() {
+        this.eventBus.emit('myTradeHistory');
         const headers = {};
 
         axios
@@ -246,7 +250,10 @@ export default {
             console.log(error);
           });
       },
+      //orderHistory
+
       async getDataOrderHistory() {
+        this.eventBus.emit('orderHistory');
         const headers = {};
 
         axios
@@ -258,7 +265,7 @@ export default {
           )
           .then((responsive) => {
             console.log(responsive.data);
-            this.orderHistory = responsive.data;
+            
           })
           .catch(function (error) {
             console.log(error);

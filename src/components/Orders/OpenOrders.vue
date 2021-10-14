@@ -75,10 +75,12 @@ export default {
   },
 
   mounted() {
+    //openOrders
+    let ts= this
+     this.eventBus.on('openOrders',function(){
+      ts.getData()
+     })
     this.getData();
-    window.setInterval(() => {
-      this.getData();
-    }, 3000);
 
    
   },
