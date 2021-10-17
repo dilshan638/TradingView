@@ -434,7 +434,7 @@ export default {
       );
 
       this.tradeHistory = response.data;
-      console.log(this.tradeHistory);
+    
     },
 
     async getData() {
@@ -455,17 +455,7 @@ export default {
     },
   },
 
-  // computed: {
-  //   filterCoins: function () {
-      
-  //     return this.dataAll.filter((orders) => {
-  //       return (
-  //         orders.productId.includes(this.pOne + this.pTwo) &&
-  //         orders.side.includes(this.selectedSide)
-  //       );
-  //     });
-  //   },
-  // },
+  
 
   mounted() {
     this.getRangeDate();
@@ -476,12 +466,7 @@ export default {
       ts.getData()
      })
    this.getData();
-   
 
-    // window.setInterval(() => {
-    //   this.getData()
-    // }, 3000)
-   // date>= startDate && date<=endDate
   },
 };
 </script>

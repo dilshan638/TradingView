@@ -471,15 +471,15 @@ export default {
 
   //   },
 
-  watch:{
-    orderHistory(newArray){
-      if( this.orderHistory.length<newArray.length){
-       this.orderHistory=newArray
-      alert(newArray) 
-      }
+  // watch:{
+  //   orderHistory(newArray){
+  //     if( this.orderHistory.length<newArray.length){
+  //      this.orderHistory=newArray
+  //     alert(newArray) 
+  //     }
       
-    }
-  },
+  //   }
+  // },
 
   
 };
