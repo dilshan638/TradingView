@@ -647,3 +647,22 @@ select.sel-val{
     }
 
   }
+  .slider-target{
+    top: -9px;
+    position: relative;
+  }
+  .vue3-slider{
+    z-index: 2;
+  }
+  .slider-tooltip{
+      display: none;
+  }
+//   .slider-handle.slider-handle-lower{
+
+//     &:hover{
+//         .slider-tooltip{
+//             display: block;
+//         }  
+//     }
+
+//   }
