@@ -542,11 +542,11 @@ export default {
         
      }
   },
-  computed: {
-    getPr() {
-      return this.fullPairName;
-    },
-  },
+  // computed: {
+  //   getPr() {
+  //     return this.fullPairName;
+  //   },
+  // },
   mounted() {
     this.getMarketPrice()
     this.getCryptoAll()
