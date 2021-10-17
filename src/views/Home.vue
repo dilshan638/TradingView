@@ -4,7 +4,7 @@
       <block-one />
       <block-two />
       <block-three />
-       <block-four />  
+      <block-four />
     </div>
   </landing-layout>
 </template>

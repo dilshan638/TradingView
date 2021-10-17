@@ -244,7 +244,7 @@ export default {
     this.setMainCoin();
    // this.setCoin();
     const ts = this;
-    this.connection = new WebSocket( "ws://34.152.9.147:8002/ws");
+    this.connection = new WebSocket( "ws://104.154.96.67:8002/ws");
 
     this.connection.onmessage = function (event) {
      ts.dataAl = JSON.parse(event.data);

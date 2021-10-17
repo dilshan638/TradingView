@@ -247,8 +247,7 @@ export default {
   created: function () {
     const ts = this;
     this.connection = new WebSocket(
-      "ws://34.152.9.147:8002/ws"
-      
+      "ws://104.154.96.67:8002/ws"
     );
 
     this.connection.onmessage = function (event) {

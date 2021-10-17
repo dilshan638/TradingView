@@ -16,7 +16,6 @@
     </div>
   </default-layout>
 </template>
-
 <script>
 import DefaultLayout from '../layout/DefaultLayout.vue'
 import WalletBalance from '../components/Dashboard/WalletBalance.vue'

@@ -218,7 +218,7 @@ export default {
 
         axios
           .get(
-            "http://34.152.9.147:8001/api/orders?productId=BTC-USDT&status=open&before&after&limit=100",
+            "http://104.154.96.67:8001/api/orders?productId=BTC-USDT&status=open&before&after&limit=100",
             {
               headers: headers,
             }
@@ -238,7 +238,7 @@ export default {
 
         axios
           .get(
-            "http://34.152.9.147:8001/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100",
+            "http://104.154.96.67:8001/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100",
             {
               headers: headers,
             }
@@ -258,7 +258,7 @@ export default {
 
         axios
           .get(
-            "http://34.152.9.147:8001/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100",
+            "http://104.154.96.67:8001/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100",
             {
               headers: headers,
             }
@@ -326,10 +326,9 @@ export default {
             type: this.type,
             timeInForce: "1616663784828",
           };
-
           try {
             let response = await this.axios
-              .post("http://34.152.9.147:8001/api/orders", data, headers)
+              .post("http://104.154.96.67:8001/api/orders", data, headers)
               .then((res) => {
                 // this.sendData = response.data
                 console.log(response);

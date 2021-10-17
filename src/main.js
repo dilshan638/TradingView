@@ -10,13 +10,12 @@ import VueApexCharts from "vue3-apexcharts";
 import router from './router';
 import TableLite from "vue3-table-lite";
 
+import CustomSlider from "vue-custom-range-slider";
+
 import VueDatepickerUi from 'vue-datepicker-ui'
 import 'vue-datepicker-ui/lib/vuedatepickerui.css';
-//import eventBus from "./event.js";
-
 
 import mitt from 'mitt'
-
 
 const eventBus = mitt()
 const app = createApp(App);
@@ -29,6 +28,7 @@ app.use(TableLite)
 app.use(Toaster)
 //app.use(eventBus)
 app.use(VueApexCharts)
+app.use(CustomSlider)
 
 
 app.mount('#app');
