@@ -1,6 +1,7 @@
 <template>
   <div class="trade-box buysell-form buy-sell-box">
     <div class="trade-header text-center">Buy / Sell</div>
+  
   <transition name="fade" v-on:enter="enter">
     <div v-if="showtrademesg" class="elementToFadeInAndOut"> Trade successfully Updated!</div>
   </transition>    
@@ -21,6 +22,7 @@
           Sell
         </div>
       </div>
+       <div class="balance"> Balance: {{balanceBuySell}} {{ pairName }}</div>
       <div class="buy-sell-content">
         <div class="inner-type">
           <div
@@ -39,13 +41,6 @@
           </div>
           <div
             class="sub-type"
-            @click="toStop"
-            v-bind:class="[stopTab == true ? 'active' : '']"
-          >
-            Stop
-          </div>
-          <div
-            class="sub-type"
             @click="toStopLimit"
             v-bind:class="[stoplimitTab == true ? 'active' : '']"
           >
@@ -54,6 +49,7 @@
         </div>
       </div>
       <div class="price-form">
+
         <div
           class="input-group mb-3"
           :class="{ 'new-error': v$.amount.$error }"
@@ -85,6 +81,7 @@
             v-model="state.price"
             aria-label=""
           />
+          
           <div class="input-group-append">
             <span class="input-group-text">{{ pairName }}</span>
           </div>
@@ -92,6 +89,17 @@
             >Price is {{ v$.price.$errors[0].$message }}
           </span>
         </div>
+         <vue3-slider  color="#52FF33"  v-model="example1.value"
+      v-bind="example1" track-color="#FEFEFE" /> 
+        <!-- <br>
+          <Slider
+      v-model="example2.value"
+      v-bind="example2"
+    ></Slider> -->
+     <Slider
+      v-model="example1.value"
+      v-bind="example1"
+    ></Slider>
         <div class="row">
           <div class="col-6">
             <div class="bottom-v">
@@ -142,10 +150,12 @@
 import useValidate from "@vuelidate/core";
 import { required, numeric } from "@vuelidate/validators";
 import { reactive, computed } from "vue";
-
+import slider from "vue3-slider"
+ import Slider from '@vueform/slider'
 // eslint-disable-next-line no-unused-vars
 import axios from "axios";
 //import eventBus from "./../../event.js";
+import "@vueform/slider/themes/default.css";
 
 export default {
   name: "orderbook",
@@ -159,6 +169,8 @@ export default {
   ],
 
   components: {
+   "vue3-slider": slider ,
+   Slider
   },
   setup() {
     const state = reactive({
@@ -183,7 +195,7 @@ export default {
     return { state, v$ };
   },
   data() {
-    return {    
+    return {   
       buytab: true,
       selltab: false,
       limitTab: true,
@@ -207,18 +219,81 @@ export default {
       side: "buy",
       type: "limit",
       timeInForce: "",
+      marketPrice:0,
+      totalArray:[],
+      cryptoAll:[],
+      balanceBuySell:"",
+    //   example2: {
+    //   value: [0, 20,40,60,80,100]
+    // },
+     example1: {
+      value: parseFloat(this.balanceBuySell)
+    },
+    
 
       VUE_APP_SERVICE_URL: process.env.VUE_APP_SERVICE_URL
     };
   },
+  
   methods: {
+      async getMarketPrice() {
+      var data = {
+        pair: "BTC/USD",
+        type: "buy",
+      };
+
+      let hed = {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
+          "Content-Type": "application/json",
+        },
+      };
+      let response = await this.axios.post(
+        "https://dapi.exus.live/api/mobile/v1//trade/marcket",
+        data,
+        hed
+      );
+      this.marketPrice = response.data.price;
+    },
+    async getCryptoAll() {
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
+      };
+       axios
+          .get(
+            "https://dapi.exus.live/api/mobile/v1/wallet/user/crypto",
+            {
+              headers: headers,
+            }
+          )
+          .then((response) => {
+           this.cryptoAll = response.data[0];
+          
+           for (let i = 0; i < this.cryptoAll.length; i++) {
+               this.totalArray.push({ symbol: this.cryptoAll[i]["symbol"], balance:  this.cryptoAll[i]["amount"]*this.marketPrice });
+            }
+             for (let j = 0; j < this.totalArray.length; j++) {
+              if(this.totalArray[j]["symbol"]==this.selectedcurrency.substring(this.selectedcurrency.lastIndexOf("/") + 1)){
+                     this.balanceBuySell = this.totalArray[j]["balance"]
+              }
+            }
+                 
+           
+         
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+    
+    },
       async getDataOpenOrders() {
         this.eventBus.emit('openOrders');
         const headers = {};
 
         axios
           .get(
-            "http://104.154.96.67:8001/api/orders?productId=BTC-USDT&status=open&before&after&limit=100",
+            "http://104.154.96.67:8080/api/orders?productId=BTC-USDT&status=open&before&after&limit=100",
             {
               headers: headers,
             }
@@ -238,7 +313,7 @@ export default {
 
         axios
           .get(
-            "http://104.154.96.67:8001/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100",
+            "http://104.154.96.67:8080/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100",
             {
               headers: headers,
             }
@@ -258,7 +333,7 @@ export default {
 
         axios
           .get(
-            "http://104.154.96.67:8001/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100",
+            "http://104.154.96.67:8080/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100",
             {
               headers: headers,
             }
@@ -287,8 +362,7 @@ export default {
             for (let i = 0; i < res.data[0].length; i++) {
               if (res.data[0][i]["pair_name"] == this.selectedcurrency) {
                 this.trade_fee = res.data[0][i].trade_fee;
-                // alert(fullPairName)
-                // alert(this.trade_fee)
+            
               }
             }
           })
@@ -303,9 +377,6 @@ export default {
         this.v$.amount.$touch();
         this.v$.price.$touch();
         if (!this.v$.amount.error && !this.v$.price.error) {
-          // if ANY fail validation
-          // alert(this.state.amount)
-          // alert(this.state.price)
           const headers = {
             Authorization: `Bearer ${localStorage.getItem(
               "X-LDX-Inspira-Access-Token"
@@ -328,7 +399,7 @@ export default {
           };
           try {
             let response = await this.axios
-              .post("http://104.154.96.67:8001/api/orders", data, headers)
+              .post("http://104.154.96.67:8080/api/orders", data, headers)
               .then((res) => {
                 // this.sendData = response.data
                 console.log(response);
@@ -347,6 +418,7 @@ export default {
       async setCuurency() {
         this.selectcurrency = localStorage.getItem("selectedmainCurrency");
         // this.setCuurency();
+        
       },
       async togglebuy() {
         this.buytab = true;
@@ -414,6 +486,15 @@ export default {
           this.authUser = false;
         }        
       },
+
+      // async pageLoadBalance(){
+      //      for (let j = 0; j < this.totalArray.length; j++) {
+      //         if(this.totalArray[j]["symbol"]==localStorage.getItem("selectedmainCoin").substring(localStorage.getItem("selectedmainCoin").lastIndexOf("/") + 1)){
+      //                this.balanceBuySell = this.totalArray[j]["balance"]
+      //         }
+      //       }
+      //    alert(this.balanceBuySell)
+      // },
       fadeMe: function() {
         this.showtrademesg = !this.showtrademesg
       },
@@ -447,6 +528,18 @@ export default {
           console.log(error);
         });
     },
+     pairName: function (valueSelected) {
+    
+            for (let j = 0; j < this.totalArray.length; j++) {
+              if(this.totalArray[j]["symbol"]==valueSelected){
+                     this.balanceBuySell = this.totalArray[j]["balance"]
+              }
+            }
+            
+         
+         
+        
+     }
   },
   // computed: {
   //   getPr() {
@@ -454,15 +547,27 @@ export default {
   //   },
   // },
   mounted() {
+    this.getMarketPrice()
+    this.getCryptoAll()
     this.getUserBalance();
   //  this.checkUserBalance();
     this.setCuurency();
     this.getPairDetails();
     this.checkAuthUser();
+    //this.pageLoadBalance()
+    
+   // alert( this.selectedcurrency.substring(this.selectedcurrency.lastIndexOf("/") + 1))
+  
   },
+ 
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 @import "../../assets/scss/Trade/Trade";
+.balance{
+  text-align: center;
+  float: left;
+  width: 100%;
+}
 </style>

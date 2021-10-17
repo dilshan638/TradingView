@@ -188,11 +188,10 @@ export default {
         this.oneMonthFilter()
       }
       else{
-       console.log(`http://104.154.96.67:8001/api/orders?productId=${this.pOne}&status=open&before&after&startDate=&endtDate=&limit=1000&side=` )
-      const headers = {};
+    const headers = {};
         axios
         .get(
-          `http://104.154.96.67:8001/api/orders?productId=${this.pOne}&status=open&before&after&startDate=&endtDate=&limit=1000&side=`,
+          `http://104.154.96.67:8080/api/orders?productId=${this.pOne}&status=open&before&after&startDate=&endtDate=&limit=1000&side=`,
           {
             headers: headers,
           }
@@ -222,11 +221,10 @@ export default {
         this.oneMonthFilter()
       }
         else{
-       console.log(`http://104.154.96.67:8001/api/orders?productId=${this.pTwo}&status=open&before&after&startDate=&endtDate=&limit=1000&side=`)
-      const headers = {};
+     const headers = {};
         axios
         .get(
-          `http://104.154.96.67:8001/api/orders?productId=${this.pTwo}&status=open&before&after&startDate=&endtDate=&limit=1000&side=`,
+          `http://104.154.96.67:8080/api/orders?productId=${this.pTwo}&status=open&before&after&startDate=&endtDate=&limit=1000&side=`,
           {
             headers: headers,
           }
@@ -252,11 +250,10 @@ export default {
         this.oneMonthFilter()
       }
         else{
-       console.log(`http://104.154.96.67:8001/api/orders?productId=&status=open&before&after&startDate=&endtDate=&limit=1000&side=${this.selectedSide}`)
-      const headers = {};
+     const headers = {};
         axios
         .get(
-          `http://104.154.96.67:8001/api/orders?productId=&status=open&before&after&startDate=&endtDate=&limit=1000&side=${this.selectedSide}`,
+          `http://104.154.96.67:8080/api/orders?productId=&status=open&before&after&startDate=&endtDate=&limit=1000&side=${this.selectedSide}`,
           {
             headers: headers,
           }
@@ -294,7 +291,7 @@ export default {
       const headers = {};
       axios
         .get(
-          "http://104.154.96.67:8001/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100",
+          "http://104.154.96.67:8080/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100",
           {
             headers: headers,
           }
@@ -323,7 +320,7 @@ export default {
      const headers = {};
      axios
         .get(
-          `http://104.154.96.67:8001/api/orders?productId=&before&after&startDate=${this.todayDate}&endtDate=${this.lastDay}&limit=1000&side=`,
+          `http://104.154.96.67:8080/api/orders?productId=&before&after&startDate=${this.todayDate}&endtDate=${this.lastDay}&limit=1000&side=`,
           {
             headers: headers,
           }
@@ -348,10 +345,9 @@ export default {
       this.oneWeek = date.toJSON().slice(0, 10).replace(/-/g, "-");
       this.todayDate = new Date().toJSON().slice(0, 10).replace(/-/g, "-");
       const headers = {};
-      console.log( `http://104.154.96.67:8001/api/orders?productId=&before&after&startDate=${this.oneWeek}&endtDate=${this.todayDate}&limit=1000&side=`)
       axios
         .get(
-          `http://104.154.96.67:8001/api/orders?productId=&before&after&startDate=${this.oneWeek}&endtDate=${this.todayDate}&limit=1000&side=`,
+          `http://104.154.96.67:8080/api/orders?productId=&before&after&startDate=${this.oneWeek}&endtDate=${this.todayDate}&limit=1000&side=`,
           {
             headers: headers,
           }
@@ -377,7 +373,7 @@ export default {
       const headers = {};
       axios
         .get(
-          `http://104.154.96.67:8001/api/orders?productId=&before&after&startDate=${this.oneMonth}&endtDate=${this.todayDate}&limit=1000&side=`,
+          `http://104.154.96.67:8080/api/orders?productId=&before&after&startDate=${this.oneMonth}&endtDate=${this.todayDate}&limit=1000&side=`,
           {
             headers: headers,
           }
@@ -398,10 +394,9 @@ export default {
     // },
      async dateRangeFilter() {
       const headers = {};
-      console.log( `http://104.154.96.67:8001/api/orders?productId=&before&after&startDate=${this.selectedDate[0].toISOString().slice(0, 10)}&endtDate=${this.selectedDate[1].toISOString().slice(0, 10)}&limit=1000&side=`)
       axios
         .get(
-          `http://104.154.96.67:8001/api/orders?productId=&before&after&startDate=${this.selectedDate[0].toISOString().slice(0, 10)}&endtDate=${this.selectedDate[1].toISOString().slice(0, 10)}&limit=1000&side=`,
+          `http://104.154.96.67:8080/api/orders?productId=&before&after&startDate=${this.selectedDate[0].toISOString().slice(0, 10)}&endtDate=${this.selectedDate[1].toISOString().slice(0, 10)}&limit=1000&side=`,
           {
             headers: headers,
           }
@@ -426,7 +421,7 @@ export default {
       const headers = {};
       axios
         .get(
-          `http://104.154.96.67:8001/api/orders?productId=&before&after&startDate=${this.threeMonth}&endtDate=${this.todayDate}&limit=1000&side=`,
+          `http://104.154.96.67:8080/api/orders?productId=&before&after&startDate=${this.threeMonth}&endtDate=${this.todayDate}&limit=1000&side=`,
           {
             headers: headers,
           }
