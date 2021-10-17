@@ -213,7 +213,8 @@ export default {
       this.$emit("symbol", currency)
       this.$emit("pair_name", pair_name.substring(pair_name.lastIndexOf("/") + 1))
       this.$emit("full_pair_name", pair_name)
-
+     
+      
     
      
 
@@ -221,7 +222,7 @@ export default {
     async setCoin() {
       localStorage.setItem("selectedmainCurrency", this.selectedcurrency)
       this.selectedcoin = localStorage.getItem("selectedmainCoin")
-      this.setSelectedCoin();
+     // this.setSelectedCoin();
       this.$emit("chooseCurrency", this.selectedcurrency)
       
     },

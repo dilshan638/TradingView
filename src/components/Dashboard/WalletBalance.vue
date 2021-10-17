@@ -146,7 +146,7 @@ export default {
 
      
 
-    },
+    }, 
 
     async getCryptoAll() {
       const headers = {
@@ -160,6 +160,7 @@ export default {
         .then((response) => {
           this.cryptoAll = response.data[0];
           
+          console.log( this.cryptoAll)
           axios
             .get("https://dapi.exus.live/api/mobile/v1/wallet/user/crypto", {
               headers: headers,
@@ -169,6 +170,7 @@ export default {
            
 
               for (let i = 0; i < this.cryptoAll.length; i++) {
+                //condition wanted
                 this.cryptoAll[i]["amount"] = this.usergetCrypto[i]["amount"];
                 this.marketvalue =  this.marketvalue +JSON.parse(this.cryptoAll[i]["amount"]);
 

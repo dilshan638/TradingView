@@ -943,7 +943,7 @@ export default {
       };
 
       axios
-        .get("http://34.152.9.147:8001/api/products/BTC-USDT/trades", {
+        .get("http://104.154.96.67:8080/api/products/BTC-USDT/trades", {
           headers: headers,
         })
         .then((response) => {
