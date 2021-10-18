@@ -918,4 +918,46 @@ body.open-modal{
         fill: #fff !important;
     }
 }
+
+.slider-tooltip.slider-tooltip-top{
+    display: none;
+}
+.slider-horizontal .slider-handle {
+    display: none;
+}
+.vue3-slider .handle, .vue3-slider .track-filled {
+    background-color: #b7bdc6 !important;
+}
+.dot-area{
+    float: left;
+    width: 100%;
+    position: relative;
+    top: 1px;
+
+    .dot{
+        width: 15px;
+        height: 15px;
+        background-color: #4e4e4e;
+        position: absolute;
+        left: 0;
+        top: -15px;
+        z-index: 1;
+        border-radius: 50%;
+    }
+    .dot.one{
+        left: 20%;
+    }
+    .dot.two{
+        left: 40%;
+    }  
+    .dot.three{
+        left: 60%;
+    }
+    .dot.four{
+        left: 80%;
+    }
+    .dot.five{
+        left: 96%;
+    }     
+}
   

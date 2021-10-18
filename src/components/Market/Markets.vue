@@ -6,7 +6,7 @@
             </div>
             <div class="col-md-3">
                 <div class="search-form">
-                    <input type="text" class="form-control" placeholder="Search" />
+                    <input type="text" class="form-control" placeholder="Search by Coin Name" v-model="searchcoin" />
                 </div>
             </div>
         </div>    
@@ -28,15 +28,7 @@
                                     <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">     
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <div class="inner-table-area">
-                                                    <button class="btn button btn-outline" v-bind:class="[BtcMarketTabShow ? 'active' : '']" @click="showBtcMarketTabShow">BTC Markets</button>
-                                                    <button class="btn button btn-outline" v-bind:class="[AltsMarketTabShow ? 'active' : '']" @click="showAltsMarketTabShow">ALTS Markets</button>                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12" v-if="BtcMarketTabShow">
-                                                <table class="table table-hover">
+                                                <table class="table table-hover" style="margin-bottom: 60px;">
                                                     <thead>
                                                         <tr>
                                                             <th scope="col">Pair</th>
@@ -49,7 +41,17 @@
                                                             <th scope="col">Edit</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody>                            
+                                                    <tbody>
+                                                        <tr v-for="marketprice in coindata" :key="marketprice.coin">
+                                                            <td scope="col">{{ marketprice.pair_name }}</td>
+                                                            <td scope="col">{{ marketprice.last_price }}</td>
+                                                            <td scope="col">-</td>
+                                                            <td scope="col">{{ marketprice.change }}</td>
+                                                            <td scope="col">-</td>
+                                                            <td scope="col">-</td>
+                                                            <td scope="col">{{ marketprice.volume }}</td>
+                                                            <td scope="col">Edit</td>
+                                                        </tr>                                                        
                                                     </tbody>
                                                 </table>                                                
                                             </div>
@@ -70,11 +72,13 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
     data(){
         return{
             BtcMarketTabShow: true,
-            AltsMarketTabShow: false
+            AltsMarketTabShow: false,
+            searchcoin: ''
         }
     },
     methods: {
@@ -85,9 +89,34 @@ export default {
         showAltsMarketTabShow() {
             this.BtcMarketTabShow = false;
             this.AltsMarketTabShow = true
-        }        
-    }
+        },
+        async coinDetails() {
+        axios.get("https://dapi.exus.live/api/mobile/v1/common/marcket/trade/pair")
+            .then((res) => {
+            this.coindata =  res.data[0];
+            console.log(this.coindata); 
 
+            for (let i = 0; i < this.coindata.length; i++) {
+                this.coin = this.coindata[i].pair_name.toLowerCase();
+                this.lastprice = this.coindata[i].price;
+                this.priceChanege = this.coindata[i].change_24h;
+            }
+        })
+            .catch(function (error) {
+            console.log(error);
+            })
+        },
+    },
+    mounted() {
+        this.coinDetails();
+    }
+    // computed: {
+    //     filterCoins: function(){
+    //         return this.coindata.filter((marketPrice) => {
+    //             return marketPrice.pair_name.toLowerCase().includes(this.searchcoin.toLowerCase())
+    //         })
+    //     }
+    // },
 }
 </script>
 

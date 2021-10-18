@@ -75,11 +75,13 @@
           <div class="input-group-prepend">
             <span class="input-group-text">Price</span>
           </div>
+         
           <input
             type="text"
             class="form-control"
             v-model="state.price"
             aria-label=""
+           
           />
           
           <div class="input-group-append">
@@ -88,9 +90,17 @@
           <span class="error-msg" v-if="v$.price.$error"
             >Price is {{ v$.price.$errors[0].$message }}
           </span>
-        </div>
+        </div>        
          <vue3-slider  color="#52FF33"  v-model="example1.value"
-      v-bind="example1" track-color="#FEFEFE" /> 
+      v-bind="example1" track-color="#393939"  /> 
+        <div class="dot-area">
+          <div class="dot"></div>
+          <div class="dot one"></div>
+          <div class="dot two"></div>
+          <div class="dot three"></div>
+          <div class="dot four"></div>
+          <div class="dot five"></div>
+        </div>      
         <!-- <br>
           <Slider
       v-model="example2.value"
@@ -98,7 +108,7 @@
     ></Slider> -->
      <Slider
       v-model="example1.value"
-      v-bind="example1"
+      v-bind="example1" 
     ></Slider>
         <div class="row">
           <div class="col-6">
@@ -275,7 +285,9 @@ export default {
             }
              for (let j = 0; j < this.totalArray.length; j++) {
               if(this.totalArray[j]["symbol"]==this.selectedcurrency.substring(this.selectedcurrency.lastIndexOf("/") + 1)){
-                     this.balanceBuySell = this.totalArray[j]["balance"]
+                     this.balanceBuySell = 75
+                     // this.totalArray[j]["balance"]
+
               }
             }
                  
@@ -293,7 +305,7 @@ export default {
 
         axios
           .get(
-            "http://104.154.96.67:8080/api/orders?productId=BTC-USDT&status=open&before&after&limit=100",
+            "http://104.154.96.67:8001/api/orders?productId=BTC-USDT&status=open&before&after&limit=100",
             {
               headers: headers,
             }
@@ -313,7 +325,7 @@ export default {
 
         axios
           .get(
-            "http://104.154.96.67:8080/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100",
+            "http://104.154.96.67:8001/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100",
             {
               headers: headers,
             }
@@ -333,7 +345,7 @@ export default {
 
         axios
           .get(
-            "http://104.154.96.67:8080/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100",
+            "http://104.154.96.67:8001/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100",
             {
               headers: headers,
             }
@@ -397,10 +409,9 @@ export default {
             type: this.type,
             timeInForce: "1616663784828",
           };
-
           try {
             let response = await this.axios
-              .post("http://104.154.96.67:8080/api/orders", data, headers)
+              .post("http://104.154.96.67:8001/api/orders", data, headers)
               .then((res) => {
                 // this.sendData = response.data
                 console.log(response);
@@ -533,7 +544,9 @@ export default {
     
             for (let j = 0; j < this.totalArray.length; j++) {
               if(this.totalArray[j]["symbol"]==valueSelected){
-                     this.balanceBuySell = this.totalArray[j]["balance"]
+                     this.balanceBuySell = 
+                     //this.totalArray[j]["balance"]
+                     75
               }
             }
             

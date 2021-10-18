@@ -31,15 +31,15 @@
       </div>
       <div class="col-md-9">
 
-        <div class="innertop" v-show="marketPrice != undefined">
+        <div class="innertop" >
           <h4 v-bind:class="[matchFill == 'buy' ? 'buy' : 'sell']">{{marketPrice}}</h4>
           <span class="sub-bottom">${{marketPrice}}</span>          
         </div>
 
-        <div class="innertop" v-show="marketPrice == undefined">
+        <!-- <div class="innertop" v-show="marketPrice == undefined">
           <h4 v-bind:class="[matchFill == 'buy' ? 'buy' : 'sell']">{{matchPriceMATCH}}</h4>
           <span class="sub-bottom">${{matchPriceMATCH}}</span>          
-        </div>
+        </div> -->
 
         <div class="innertop">
           <div class="top-sub">
@@ -48,12 +48,12 @@
           </div>          
         </div>
 
-        <div class="innertop">
+        <!-- <div class="innertop">
           <div class="top-sub" >
             <h3>24h High</h3>
             <b  >{{open24hBind}}</b>
           </div>          
-        </div>
+        </div> -->
 
         <div class="innertop">
           <div class="top-sub" >
@@ -245,7 +245,7 @@ export default {
     this.setMainCoin();
    // this.setCoin();
     const ts = this;
-    this.connection = new WebSocket( "ws://34.152.9.147:8002/ws");
+    this.connection = new WebSocket( "ws://104.154.96.67:8002/ws");
 
     this.connection.onmessage = function (event) {
      ts.dataAl = JSON.parse(event.data);

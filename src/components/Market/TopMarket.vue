@@ -11,7 +11,7 @@
               </div>
               <div class="row">
                   <div class="col-md-9">
-                      <h4>{{ marketprice.price }}</h4><span class="span-sub">{{ marketprice.price }}</span>
+                      <h4>{{ parseFloat(marketprice.price).toFixed(2) }}</h4><span class="span-sub">{{ parseFloat(marketprice.price).toFixed(2) }}</span>
                   </div>
                   <div class="col-md-3">
                       <div class="change-status" v-bind:class="[change_24h < 0 ? 'minus' : 'plus']">{{ marketprice.change_24h }}</div>
