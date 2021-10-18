@@ -75,11 +75,13 @@
           <div class="input-group-prepend">
             <span class="input-group-text">Price</span>
           </div>
+         
           <input
             type="text"
             class="form-control"
             v-model="state.price"
             aria-label=""
+           
           />
           
           <div class="input-group-append">
@@ -330,7 +332,7 @@ export default {
 
         axios
           .get(
-            "http://104.154.96.67:8080/api/orders?productId=BTC-USDT&status=open&before&after&limit=100",
+            "http://104.154.96.67:8001/api/orders?productId=BTC-USDT&status=open&before&after&limit=100",
             {
               headers: headers,
             }
@@ -350,7 +352,7 @@ export default {
 
         axios
           .get(
-            "http://104.154.96.67:8080/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100",
+            "http://104.154.96.67:8001/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100",
             {
               headers: headers,
             }
@@ -370,7 +372,7 @@ export default {
 
         axios
           .get(
-            "http://104.154.96.67:8080/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100",
+            "http://104.154.96.67:8001/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100",
             {
               headers: headers,
             }
@@ -436,7 +438,7 @@ export default {
           };
           try {
             let response = await this.axios
-              .post("http://104.154.96.67:8080/api/orders", data, headers)
+              .post("http://104.154.96.67:8001/api/orders", data, headers)
               .then((res) => {
                 // this.sendData = response.data
                 console.log(response);

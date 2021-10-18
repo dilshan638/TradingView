@@ -48,12 +48,12 @@
           </div>          
         </div>
 
-        <div class="innertop">
+        <!-- <div class="innertop">
           <div class="top-sub" >
             <h3>24h High</h3>
             <b  >{{open24hBind}}</b>
           </div>          
-        </div>
+        </div> -->
 
         <div class="innertop">
           <div class="top-sub"  >
