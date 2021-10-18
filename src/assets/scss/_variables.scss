@@ -935,6 +935,11 @@ body.open-modal{
     top: 1px;
 
     .dot{
+
+        &:first-child{
+            background-color: #b7bdc6 !important;
+        }
+
         width: 15px;
         height: 15px;
         background-color: #4e4e4e;
@@ -961,3 +966,15 @@ body.open-modal{
     }     
 }
   
+
+.vue3-slider{
+
+    &:hover{
+
+        .slider-tooltip{
+            display: block !important;
+        }
+
+    }
+
+}

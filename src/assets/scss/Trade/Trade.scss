@@ -333,7 +333,7 @@
         color: #fff;
         font-size: 0.625rem;
         line-height: 20px;
-        padding-top: 8px;
+        padding-top: 20px;
 
         b{
             float: left;
@@ -511,7 +511,7 @@ select.sel-val{
   .top-tab{
     float: left;
     margin-right: 15px;
-    margin-bottom: 15px;
+    margin-bottom: 0px;
     width: 46%;
     background-color: #393939;
     padding: 7px;
@@ -653,6 +653,7 @@ select.sel-val{
   }
   .vue3-slider{
     z-index: 2;
+    margin-top: 30px;
   }
   .slider-tooltip{
       display: none;
@@ -666,3 +667,11 @@ select.sel-val{
 //     }
 
 //   }
+
+.balance{
+    text-align: center;
+    float: left;
+    width: 100%;
+    margin-bottom: 15px;
+    font-weight: 700;
+}

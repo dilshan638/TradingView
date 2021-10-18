@@ -78,7 +78,8 @@ export default {
         return{
             BtcMarketTabShow: true,
             AltsMarketTabShow: false,
-            searchcoin: ''
+            searchcoin: '',
+            coindata: []
         }
     },
     methods: {
@@ -109,11 +110,11 @@ export default {
     },
     mounted() {
         this.coinDetails();
-    }
+    },
     // computed: {
-    //     filterCoins: function(){
-    //         return this.coindata.filter((marketPrice) => {
-    //             return marketPrice.pair_name.toLowerCase().includes(this.searchcoin.toLowerCase())
+    //     coindata: function() {
+    //         return this.coindata.filter((marketprice) => {
+    //             return marketprice.pair_name.toLowerCase().includes(this.searchcoin.toLowerCase())
     //         })
     //     }
     // },

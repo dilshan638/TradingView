@@ -71,7 +71,7 @@
             >Amount is {{ v$.amount.$errors[0].$message }}
           </span>
         </div>
-        <div class="input-group mb-3" :class="{ 'new-error': v$.price.$error }">
+        <div v-if="stoplimitTab == false" class="input-group mb-3" :class="{ 'new-error': v$.price.$error }">
           <div class="input-group-prepend">
             <span class="input-group-text">Price</span>
           </div>
@@ -88,9 +88,36 @@
           <span class="error-msg" v-if="v$.price.$error"
             >Price is {{ v$.price.$errors[0].$message }}
           </span>
-        </div>        
+        </div>
+        <div class="input-group mb-3" v-if="stoplimitTab">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Stop</span>
+          </div>
+          <input
+            type="text"
+            class="form-control"
+            aria-label=""
+          />
+          
+          <div class="input-group-append">
+            <span class="input-group-text">{{ pairName }}</span>
+          </div>
+        </div>
+        <div class="input-group mb-3" v-if="stoplimitTab">
+          <div class="input-group-prepend">
+            <span class="input-group-text">LImit</span>
+          </div>
+          <input
+            type="text"
+            class="form-control"
+            aria-label=""
+          />
+          <div class="input-group-append">
+            <span class="input-group-text">{{ pairName }}</span>
+          </div>
+        </div>         
          <vue3-slider  color="#52FF33"  v-model="example1.value"
-      v-bind="example1" track-color="#393939"  /> 
+      v-bind="example1" track-color="#4e4e4e"  /> 
         <div class="dot-area">
           <div class="dot"></div>
           <div class="dot one"></div>
@@ -104,10 +131,10 @@
       v-model="example2.value"
       v-bind="example2"
     ></Slider> -->
-     <Slider
+     <!-- <Slider
       v-model="example1.value"
       v-bind="example1" 
-    ></Slider>
+    ></Slider> -->
         <div class="row">
           <div class="col-6">
             <div class="bottom-v">
@@ -159,7 +186,7 @@ import useValidate from "@vuelidate/core";
 import { required, numeric } from "@vuelidate/validators";
 import { reactive, computed } from "vue";
 import slider from "vue3-slider"
- import Slider from '@vueform/slider'
+ //import Slider from '@vueform/slider'
 // eslint-disable-next-line no-unused-vars
 import axios from "axios";
 //import eventBus from "./../../event.js";
@@ -178,7 +205,7 @@ export default {
 
   components: {
    "vue3-slider": slider ,
-   Slider
+ //  Slider
   },
   setup() {
     const state = reactive({
@@ -283,8 +310,8 @@ export default {
             }
              for (let j = 0; j < this.totalArray.length; j++) {
               if(this.totalArray[j]["symbol"]==this.selectedcurrency.substring(this.selectedcurrency.lastIndexOf("/") + 1)){
-                     this.balanceBuySell = 75
-                     // this.totalArray[j]["balance"]
+                     this.balanceBuySell = 
+                     this.totalArray[j]["balance"]
 
               }
             }
@@ -538,20 +565,15 @@ export default {
           console.log(error);
         });
     },
-     pairName: function (valueSelected) {
-    
-            for (let j = 0; j < this.totalArray.length; j++) {
-              if(this.totalArray[j]["symbol"]==valueSelected){
-                     this.balanceBuySell = 
-                     //this.totalArray[j]["balance"]
-                     75
-              }
-            }
-            
-         
-         
-        
-     }
+    pairName: function (valueSelected) {
+      for (let j = 0; j < this.totalArray.length; j++) {
+        if(this.totalArray[j]["symbol"]==valueSelected){
+          this.balanceBuySell = 
+          this.totalArray[j]["balance"]
+          
+        }
+      } 
+    }
   },
   // computed: {
   //   getPr() {
@@ -577,9 +599,4 @@ export default {
 
 <style lang="scss" scoped >
 @import "../../assets/scss/Trade/Trade";
-.balance{
-  text-align: center;
-  float: left;
-  width: 100%;
-}
 </style>

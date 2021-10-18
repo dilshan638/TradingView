@@ -31,27 +31,20 @@
       </div>
       <div class="col-md-9">
 
-        <div class="innertop" v-show="marketPrice != undefined">
+        <div class="innertop">
           <h4 v-bind:class="[matchFill == 'buy' ? 'buy' : 'sell']">{{marketPrice}}</h4>
           <span class="sub-bottom">${{marketPrice}}</span>          
         </div>
 
-        <div class="innertop" v-show="marketPrice == undefined">
+        <!-- <div class="innertop" v-show="marketPrice == undefined">
           <h4 v-bind:class="[matchFill == 'buy' ? 'buy' : 'sell']">{{matchPriceMATCH}}</h4>
           <span class="sub-bottom">${{matchPriceMATCH}}</span>          
-        </div>
+        </div> -->
 
         <div class="innertop">
           <div class="top-sub">
             <h3>24h Change</h3>
             <b  >{{volume24hBind}}</b>
-          </div>          
-        </div>
-
-        <div class="innertop">
-          <div class="top-sub" >
-            <h3>24h High</h3>
-            <b  >{{open24hBind}}</b>
           </div>          
         </div>
 
