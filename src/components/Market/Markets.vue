@@ -42,7 +42,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr v-for="marketprice in coindata" :key="marketprice.coin">
+                                                        <tr v-for="marketprice in filtercoin" :key="marketprice.coin">
                                                             <td scope="col">{{ marketprice.pair_name }}</td>
                                                             <td scope="col">{{ marketprice.last_price }}</td>
                                                             <td scope="col">-</td>
@@ -111,13 +111,13 @@ export default {
     mounted() {
         this.coinDetails();
     },
-    // computed: {
-    //     coindata: function() {
-    //         return this.coindata.filter((marketprice) => {
-    //             return marketprice.pair_name.toLowerCase().includes(this.searchcoin.toLowerCase())
-    //         })
-    //     }
-    // },
+    computed: {
+        filtercoin: function() {
+            return this.coindata.filter((marketprice) => {
+                return marketprice.pair_name.toLowerCase().includes(this.searchcoin.toLowerCase())
+            })
+        }
+    },
 }
 </script>
 
