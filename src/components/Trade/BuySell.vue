@@ -260,6 +260,9 @@ export default {
       totalArray:[],
       cryptoAll:[],
       balanceBuySell:"",
+      resOne:[],
+      resTwo:[],
+
     //   example2: {
     //   value: [0, 20,40,60,80,100]
     // },
@@ -338,7 +341,7 @@ export default {
             }
           )
           .then((responsive) => {
-            console.log(responsive.data);
+           
             this.openOrders = responsive.data;
           })
           .catch(function (error) {
@@ -358,7 +361,7 @@ export default {
             }
           )
           .then((responsive) => {
-            console.log(responsive.data);
+          this.resOne=responsive.data
           })
           .catch(function (error) {
             console.log(error);
@@ -378,7 +381,7 @@ export default {
             }
           )
           .then((responsive) => {
-            console.log(responsive.data);
+           this.resTwo=responsive.data
             
           })
           .catch(function (error) {
@@ -398,8 +401,9 @@ export default {
           })
           .then((res) => {
             this.coindata = res.data;
+            
             for (let i = 0; i < res.data[0].length; i++) {
-              if (res.data[0][i]["pair_name"] == this.selectedcurrency) {
+              if (res.data[0][i]["pair_name"] == 'BTC/USDC') {
                 this.trade_fee = res.data[0][i].trade_fee;
             
               }
@@ -526,14 +530,7 @@ export default {
         }        
       },
 
-      // async pageLoadBalance(){
-      //      for (let j = 0; j < this.totalArray.length; j++) {
-      //         if(this.totalArray[j]["symbol"]==localStorage.getItem("selectedmainCoin").substring(localStorage.getItem("selectedmainCoin").lastIndexOf("/") + 1)){
-      //                this.balanceBuySell = this.totalArray[j]["balance"]
-      //         }
-      //       }
-      //    alert(this.balanceBuySell)
-      // },
+    
       fadeMe: function() {
         this.showtrademesg = !this.showtrademesg
       },
@@ -577,23 +574,15 @@ export default {
       } 
     }
   },
-  // computed: {
-  //   getPr() {
-  //     return this.fullPairName;
-  //   },
-  // },
+
   mounted() {
     this.getMarketPrice()
     this.getCryptoAll()
     this.getUserBalance();
-  //  this.checkUserBalance();
     this.setCuurency();
     this.getPairDetails();
     this.checkAuthUser();
-    //this.pageLoadBalance()
-    
-   // alert( this.selectedcurrency.substring(this.selectedcurrency.lastIndexOf("/") + 1))
-  
+   
   },
  
 };
