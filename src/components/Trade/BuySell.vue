@@ -347,7 +347,12 @@ export default {
     },
     async getDataMyHistory() {
       this.eventBus.emit('myTradeHistory');
-      const headers = {};
+      const headers = {
+        Authorization: `Bearer ${localStorage.getItem(
+            "X-LDX-Inspira-Access-Token"
+          )}`,
+          "Content-Type": "application/json", 
+      };
 
       axios
         .get(

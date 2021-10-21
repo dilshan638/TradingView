@@ -617,7 +617,7 @@
                 {{ parseFloat(recent.size).toFixed(5) }}
               </td>
               <td class="text-right">
-                {{ parseFloat(recent.price * recent.size).toFixed(5) }}
+                {{(recent.time.substring(recent.time.lastIndexOf("T") + 1).substring(0, recent.time.substring(recent.time.lastIndexOf("T") + 1).lastIndexOf('Z')))}}
               </td>
             </tr>
 
@@ -636,7 +636,7 @@
                 {{ parseFloat(recent.size).toFixed(5) }}
               </td>
               <td class="text-right">
-                {{ parseFloat(recent.price * recent.size).toFixed(5) }}
+                 {{recent.time.substring(0, recent.time.lastIndexOf('T'))}}
               </td>
             </tr>
 
@@ -651,7 +651,7 @@
                 {{ parseFloat(recent.size).toFixed(5) }}
               </td>
               <td class="text-right">
-                {{ parseFloat(recent.price * recent.size).toFixed(5) }}
+                {{recent.time.substring(0, recent.time.lastIndexOf('T'))}}
               </td>
             </tr>
           </table>
@@ -930,7 +930,7 @@ export default {
           headers: headers,
         })
         .then((response) => {
-         
+         console.log(response.data)
 
           if (ts.recentData.length != 0) {
             ts.recentData = [];
@@ -940,6 +940,7 @@ export default {
               side: response.data[b].side,
               size: response.data[b].size,
               price: response.data[b].price,
+              time:response.data[b].time
             });
           }
 
