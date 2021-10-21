@@ -945,26 +945,27 @@ body.open-modal{
         height: 15px;
         background-color: #4e4e4e;
         position: absolute;
+        cursor: pointer;
         left: 0;
         top: -15px;
         z-index: 9;
         border-radius: 50%;
     }
+    .dot.active{
+        background-color: #b7bdc6 !important;
+    }
     .dot.one{
-        left: 20%;
+        left: 25%;
     }
     .dot.two{
-        left: 40%;
+        left: 50%;
     }  
     .dot.three{
-        left: 60%;
+        left: 75%;
     }
     .dot.four{
-        left: 80%;
-    }
-    .dot.five{
-        left: 96%;
-    }     
+        left: 100%;
+    }    
 }
   
 

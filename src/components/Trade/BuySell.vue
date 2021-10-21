@@ -119,15 +119,14 @@
           v-model="example1.value"
           v-bind="example1"
           tooltip="true"
-          track-color="#4e4e4e" @change="findrange"
+          track-color="#4e4e4e" @change="findrange" @drag-start="testf" @drag-end="tests"
         />
         <div class="dot-area">
           <div class="dot"></div>
-          <div class="dot one"></div>
-          <div class="dot two"></div>
-          <div class="dot three"></div>
-          <div class="dot four"></div>
-          <div class="dot five"></div>
+          <div class="dot one" v-bind:class="[this.example1.value >= 25 ? 'active' : '']" @click="set25"></div>
+          <div class="dot two" v-bind:class="[this.example1.value >= 50 ? 'active' : '']" @click="set50"></div>
+          <div class="dot three" v-bind:class="[this.example1.value >= 75 ? 'active' : '']" @click="set75"></div>
+          <div class="dot four" v-bind:class="[this.example1.value >= 100 ? 'active' : '']" @click="set100"></div>
         </div>
         <div class="row">
           <div class="col-6">
@@ -255,6 +254,10 @@ export default {
       balanceBuySell:"",
       resOne:[],
       resTwo:[],
+
+      val50: false,
+      val75: false,
+      val100: false,
      example1: {
       value: parseFloat(this.balanceBuySell)
     },
@@ -265,6 +268,34 @@ export default {
     // async setPreseent() {
     //   this.
     // }
+    async set25() {
+      this.example1.value = 25
+      this.val25 = true
+      this.val50 = false
+      this.val75 = false
+      this.val100 = false      
+    },  
+    async set50() {
+      this.example1.value = 50
+      this.val25 = true
+      this.val50 = true
+      this.val75 = false
+      this.val100 = false 
+    },     
+    async set75() {
+      this.example1.value = 75
+      this.val25 = true
+      this.val50 = true
+      this.val75 = true
+      this.val100 = false 
+    },
+    async set100() {
+      this.example1.value = 100
+      this.val25 = true
+      this.val50 = true
+      this.val75 = true
+      this.val100 = true 
+    },    
     async getMarketPrice() {
       var data = {
         pair: "BTC/USD",
