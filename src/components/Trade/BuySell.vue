@@ -57,7 +57,6 @@
         >
           <div class="input-group-prepend">
             <span class="input-group-text">Amount</span>
-            <!-- :value="SellAmount" v-model="state.amount"  -->
           </div>
           <input
             type="text"
@@ -114,6 +113,7 @@
             <span class="input-group-text">{{ pairName }}</span>
           </div>
         </div>
+        <div class="present">{{ preseent }}%</div>
         <vue3-slider
           color="#52FF33"
           v-model="example1.value"
@@ -129,15 +129,6 @@
           <div class="dot four"></div>
           <div class="dot five"></div>
         </div>
-        <!-- <br>
-          <Slider
-      v-model="example2.value"
-      v-bind="example2"
-    ></Slider> -->
-        <!-- <Slider
-      v-model="example1.value"
-      v-bind="example1" 
-    ></Slider> -->
         <div class="row">
           <div class="col-6">
             <div class="bottom-v">
@@ -233,7 +224,8 @@ export default {
     return { state, v$ };
   },
   data() {
-    return {   
+    return {  
+      preseent: 0, 
       buytab: true,
       selltab: false,
       limitTab: true,
@@ -270,6 +262,9 @@ export default {
     };
   },
   methods: {
+    // async setPreseent() {
+    //   this.
+    // }
     async getMarketPrice() {
       var data = {
         pair: "BTC/USD",
@@ -524,7 +519,7 @@ export default {
       }
     },
     async findrange() {
-     // alert(this.example1.value)
+      this.preseent = this.example1.value
     },
     fadeMe: function() {
       this.showtrademesg = !this.showtrademesg;
