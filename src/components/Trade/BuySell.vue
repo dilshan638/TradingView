@@ -233,7 +233,7 @@ export default {
     return { state, v$ };
   },
   data() {
-    return {
+    return {   
       buytab: true,
       selltab: false,
       limitTab: true,
@@ -257,21 +257,18 @@ export default {
       side: "buy",
       type: "limit",
       timeInForce: "",
-      marketPrice: 0,
-      totalArray: [],
-      cryptoAll: [],
-      balanceBuySell: "",
-      //   example2: {
-      //   value: [0, 20,40,60,80,100]
-      // },
-      example1: {
-        value: parseFloat(this.balanceBuySell),
-      },
-
-      VUE_APP_SERVICE_URL: process.env.VUE_APP_SERVICE_URL,
+      marketPrice:0,
+      totalArray:[],
+      cryptoAll:[],
+      balanceBuySell:"",
+      resOne:[],
+      resTwo:[],
+     example1: {
+      value: parseFloat(this.balanceBuySell)
+    },
+      VUE_APP_SERVICE_URL: process.env.VUE_APP_SERVICE_URL
     };
   },
-
   methods: {
     async getMarketPrice() {
       var data = {
@@ -301,36 +298,36 @@ export default {
           "X-LDX-Inspira-Access-Token"
         )}`,
       };
-      axios
-        .get("https://dapi.exus.live/api/mobile/v1/wallet/user/crypto", {
-          headers: headers,
-        })
-        .then((response) => {
-          this.cryptoAll = response.data[0];
-
-          for (let i = 0; i < this.cryptoAll.length; i++) {
-            this.totalArray.push({
-              symbol: this.cryptoAll[i]["symbol"],
-              balance: this.cryptoAll[i]["amount"] * this.marketPrice,
-            });
-          }
-          for (let j = 0; j < this.totalArray.length; j++) {
-            if (
-              this.totalArray[j]["symbol"] ==
-              this.selectedcurrency.substring(
-                this.selectedcurrency.lastIndexOf("/") + 1
-              )
-            ) {
-              this.balanceBuySell = this.totalArray[j]["balance"];
+       axios
+          .get(
+            "https://dapi.exus.live/api/mobile/v1/wallet/user/crypto",
+            {
+              headers: headers,
             }
-          }
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
+          )
+          .then((response) => {
+           this.cryptoAll = response.data[0];
+          
+           for (let i = 0; i < this.cryptoAll.length; i++) {
+               this.totalArray.push({ symbol: this.cryptoAll[i]["symbol"], balance:  this.cryptoAll[i]["amount"]*this.marketPrice });
+            }
+             for (let j = 0; j < this.totalArray.length; j++) {
+              if(this.totalArray[j]["symbol"]==this.selectedcurrency.substring(this.selectedcurrency.lastIndexOf("/") + 1)){
+                     this.balanceBuySell =  this.totalArray[j]["balance"]
+
+              }
+            } 
+            
+           
+         
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+    
     },
     async getDataOpenOrders() {
-      this.eventBus.emit("openOrders");
+      this.eventBus.emit('openOrders');
       const headers = {};
 
       axios
@@ -341,15 +338,15 @@ export default {
           }
         )
         .then((responsive) => {
-          console.log(responsive.data);
+          
           this.openOrders = responsive.data;
         })
-        .catch(function(error) {
+        .catch(function (error) {
           console.log(error);
         });
     },
     async getDataMyHistory() {
-      this.eventBus.emit("myTradeHistory");
+      this.eventBus.emit('myTradeHistory');
       const headers = {};
 
       axios
@@ -360,52 +357,55 @@ export default {
           }
         )
         .then((responsive) => {
-          console.log(responsive.data);
+        this.resOne=responsive.data
         })
-        .catch(function(error) {
+        .catch(function (error) {
           console.log(error);
         });
     },
     async getDataOrderHistory() {
-      this.eventBus.emit("orderHistory");
-      const headers = {};
+        this.eventBus.emit('orderHistory');
+        const headers = {};
 
-      axios
-        .get(
-          "http://104.154.96.67:8001/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100",
-          {
-            headers: headers,
-          }
-        )
-        .then((responsive) => {
-          console.log(responsive.data);
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
+        axios
+          .get(
+            "http://104.154.96.67:8001/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100",
+            {
+              headers: headers,
+            }
+          )
+          .then((responsive) => {
+           this.resTwo=responsive.data
+            
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
     },
     async getPairDetails() {
-      const headers = {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem(
-          "X-LDX-Inspira-Access-Token"
-        )}`,
-      };
-      axios
-        .get("https://dapi.exus.live/api/mobile/v1/trade/marcket/trade/pair", {
-          headers: headers,
-        })
-        .then((res) => {
-          this.coindata = res.data;
-          for (let i = 0; i < res.data[0].length; i++) {
-            if (res.data[0][i]["pair_name"] == this.selectedcurrency) {
-              this.trade_fee = res.data[0][i].trade_fee;
+        const headers = {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem(
+            "X-LDX-Inspira-Access-Token"
+          )}`,
+        };
+        axios
+          .get("https://dapi.exus.live/api/mobile/v1/trade/marcket/trade/pair", {
+            headers: headers,
+          })
+          .then((res) => {
+            this.coindata = res.data;
+            
+            for (let i = 0; i < res.data[0].length; i++) {
+              if (res.data[0][i]["pair_name"] == 'BTC/USDC') {
+                this.trade_fee = res.data[0][i].trade_fee;
+            
+              }
             }
-          }
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
     },
     async buybtcformaction() {
       this.getDataMyHistory();
@@ -444,7 +444,8 @@ export default {
               this.fadeMe();
               this.enter();
             });
-        } catch (error) {
+        } 
+        catch (error) {
           console.log(error);
         }
       } else {
@@ -454,6 +455,7 @@ export default {
     async setCuurency() {
       this.selectcurrency = localStorage.getItem("selectedmainCurrency");
       // this.setCuurency();
+      
     },
     async togglebuy() {
       this.buytab = true;
@@ -500,6 +502,18 @@ export default {
         this.type = "stop";
       }
     },
+    getUserBalance() {
+      this.coin = JSON.parse(localStorage.getItem("arraySymbol"));
+    },
+    async checkAuthUser() {
+        this.authUser = false;
+        if(localStorage.getItem("X-LDX-Inspira-Access-Token")!=null){
+          this.authUser = true;
+        }
+        else{
+        this.authUser = false;
+      }        
+    },
     async toStopLimit() {
       this.limitTab = false;
       this.marketTab = false;
@@ -509,19 +523,8 @@ export default {
         this.type = "stoplimit";
       }
     },
-    getUserBalance() {
-      this.coin = JSON.parse(localStorage.getItem("arraySymbol"));
-    },
-    async checkAuthUser() {
-      this.authUser = false;
-      if (localStorage.getItem("X-LDX-Inspira-Access-Token") != null) {
-        this.authUser = true;
-      } else {
-        this.authUser = false;
-      }
-    },
     async findrange() {
-      alert(this.example1.value)
+     // alert(this.example1.value)
     },
     fadeMe: function() {
       this.showtrademesg = !this.showtrademesg;
@@ -531,7 +534,7 @@ export default {
       setTimeout(function() {
         that.showtrademesg = false;
       }, 3000);
-    },
+    }
   },
   watch: {
     fullPairName: function(value) {
@@ -558,31 +561,20 @@ export default {
     },
     pairName: function(valueSelected) {
       for (let j = 0; j < this.totalArray.length; j++) {
-        if (this.totalArray[j]["symbol"] == valueSelected) {
-          this.balanceBuySell = this.totalArray[j]["balance"];
+        if(this.totalArray[j]["symbol"]==valueSelected){
+          this.balanceBuySell =this.totalArray[j]["balance"]
         }
-      }
+      } 
+    
     },
-    example1: function(sliderval) {
-      alert(sliderval)
-    },    
   },
-  // computed: {
-  //   getPr() {
-  //     return this.fullPairName;
-  //   },
-  // },
   mounted() {
     this.getMarketPrice();
     this.getCryptoAll();
     this.getUserBalance();
-    //  this.checkUserBalance();
     this.setCuurency();
     this.getPairDetails();
     this.checkAuthUser();
-    //this.pageLoadBalance()
-
-    // alert( this.selectedcurrency.substring(this.selectedcurrency.lastIndexOf("/") + 1))
   },
 };
 </script>

@@ -77,7 +77,7 @@
           <table class="table table-hover">
             <tbody v-if="limitRows">
               <tr @mouseover="removeoverflow" @mouseleave="resetoverflow"
-                v-for="sell in priceSellBind.slice(0, 11)"
+                v-for="sell in priceSellBind.slice(priceSellBind.length-11, priceSellBind.length)"
                 :key="sell"
                 v-show="deci == '0.01'"
               >
@@ -114,7 +114,7 @@
                 </td>
               </tr>
               <tr @mouseover="removeoverflow" @mouseleave="resetoverflow"
-                v-for="sell in priceSellBind.slice(0, 11)"
+                v-for="sell in priceSellBind.slice(priceSellBind.length-11, priceSellBind.length)"
                 :key="sell"
                 v-show="deci == '0.1'"
               >
@@ -152,7 +152,7 @@
               </tr>
 
               <tr @mouseover="removeoverflow" @mouseleave="resetoverflow"
-                v-for="sell in priceSellBind.slice(0,11)"
+               v-for="sell in priceSellBind.slice(priceSellBind.length-11, priceSellBind.length)"
                 :key="sell"
                 v-show="deci == '0'"
               >
@@ -312,22 +312,22 @@
         <div class="trade-body middle-bdy"> 
           <table class="table table-hover special">
             <tbody>
-              <tr v-show="price!=undefined">
+              <!-- <tr v-show="price ==''">
                 <td v-bind:class="[matchFill == 'buy' ? 'buy' : 'sell']" width="35%">
-                  {{ price }}
+                  {{ matchPriceMATCH }}
                 </td>
-                <td class="mid sm" width="30%">${{ price }}</td>
+                <td class="mid" width="30%">${{ matchPriceMATCH }}</td>
                 <td class="text-right">
                   <div class="read-more">
                     <router-link to="/buy-sell-list">More</router-link>
                   </div>
                 </td>
-              </tr>
-              <tr v-show="price==undefined">
+              </tr> -->
+              <tr >
                 <td v-bind:class="[matchFill == 'buy' ? 'buy' : 'sell']" width="35%">
-                  {{ matchPriceMATCH }}
+                  {{ price }}
                 </td>
-                <td class="mid" width="30%">${{ matchPriceMATCH }}</td>
+                <td class="mid" width="30%">${{ price }}</td>
                 <td class="text-right">
                   <div class="read-more">
                     <router-link to="/buy-sell-list">More</router-link>
@@ -712,9 +712,7 @@ export default {
       matchPriceMATCH: "",
 
       sellTest:false,
-    //  activebuysellArraySell:[],
-
-     // priceSellBindSellCon:[]
+    
 
      limitRows:true,
      onlyBuy:[],
@@ -761,73 +759,58 @@ export default {
       }
     },
     async setData(dataSellArray, dataBuyArray, fillPrice,sellarray) {
-
-      if (dataSellArray != undefined) {
-        console.log(dataSellArray)
-        this.priceSellBind = dataSellArray;
-        this.priceSellBind.sort((a, b) => {
-            return b[0] - a[0];
-          });
-
-          if(this.limitRows==true){
-
-            if(this.priceSellBind.length<=11){
-
+            console.log(dataSellArray)
+              if (dataSellArray != undefined) {
+                   this.priceSellBind = dataSellArray;
+                   this.priceSellBind.sort((a, b) => {return b[0] - a[0]
+                    });
+    
+               
                  for (let z = this.priceSellBind.length-1; z>=0; z--) {
                         this.buyAmount += parseFloat(this.priceSellBind[z][1]);
                         this.priceSellBind[z][3] = this.buyAmount;
                         this.buyTotal += parseFloat(this.priceSellBind[z][0]) * parseFloat(this.priceSellBind[z][1]);
                         this.priceSellBind[z][4] = this.buyTotal;
-          }
-            }if(this.priceSellBind.length>11){
-               for (let z =11; z>=0; z--) {
-                  this.buyAmount += parseFloat(this.priceSellBind[z][1]);
-                  this.priceSellBind[z][3] = this.buyAmount;
-                  this.buyTotal += parseFloat(this.priceSellBind[z][0]) * parseFloat(this.priceSellBind[z][1]);
-                  this.priceSellBind[z][4] = this.buyTotal;
-          }
-            }
-              
-          }
-        //  }
-         
-
-          
-           if (this.priceSellBind.length > 11)
-          {
-                this.priceSellBind.shift();
-           }
-       
-
-    }
-         
-      if (dataBuyArray != undefined) {
-        this.priceBuyBind = dataBuyArray;
+                      }
         
-        this.priceBuyBind.sort((a, b) => {
-            return b[0] - a[0];
-        });
-
+                    if (this.priceSellBind.length > 11)
+                    {
+                          this.priceSellBind.shift();
+                    }
+                }
+         
+                if (dataBuyArray != undefined) {
+                  this.priceBuyBind = dataBuyArray;
+                  this.priceBuyBind.sort((a, b) => {
+                      return b[0] - a[0];
+                  });
         
-        for (let a = 1; a <= this.priceBuyBind.length-1; a++) {
-          this.selAmount += parseFloat(this.priceBuyBind[a][1]);
-          this.priceBuyBind[a][3] = this.selAmount;
-          this.sellTotal += parseFloat(this.priceBuyBind[a][0]) * parseFloat(this.priceBuyBind[a][1]);
-          this.priceBuyBind[a][4] = this.sellTotal;
-        }
-         if (this.priceBuyBind.length > 11) {
-        this.priceBuyBind.shift();
-      }
-       
-      }
-
-      if(sellarray != undefined){
-        this.onlySell=sellarray
-        console.log(sellarray)
-      }
+              for (let a = 0; a<=this.priceBuyBind.length-1; a++) {
+                this.selAmount += parseFloat(this.priceBuyBind[a][1]);
+                this.priceBuyBind[a][3] = this.selAmount;
+                this.sellTotal += parseFloat(this.priceBuyBind[a][0]) * parseFloat(this.priceBuyBind[a][1]);
+                this.priceBuyBind[a][4] = this.sellTotal;
+              }
      
+                }
 
-      this.price = fillPrice;
+                if(sellarray != undefined){
+                  this.onlySell=sellarray
+                    for (let z = this.onlySell.length-1; z>=0; z--) {
+                      this.onlyBuyAmount += parseFloat(this.onlySell[z][1])
+                      this.onlySell[z][5] = this.onlyBuyAmount;
+                      this.onlyBuyTotal += parseFloat(this.onlySell[z][0]) * parseFloat(this.onlySell[z][1]);
+                      this.onlySell[z][6] = this.onlyBuyTotal;
+                    }
+                    this.onlySell.sort((a, b) => {
+                      return b[0] - a[0];
+                    });
+                
+                }
+   
+
+                this.price = fillPrice;
+     
     },
     async activebuysell() {
       this.buyselltab = true;
@@ -840,24 +823,6 @@ export default {
 
       this.limitRows=true
       
-      //  this.priceSellBind.sort((a, b) => {
-      //       return b[0] - a[0];
-      //     });
-      // if(this.priceSellBind.length<11){
-      //    for (let z = this.priceSellBind.length-1; z>=0; z--) {
-      //                   this.buyAmount += parseFloat(this.priceSellBind[z][1]);
-      //                   this.priceSellBind[z][3] = this.buyAmount;
-      //                   this.buyTotal += parseFloat(this.priceSellBind[z][0]) * parseFloat(this.priceSellBind[z][1]);
-      //                   this.priceSellBind[z][4] = this.buyTotal;
-      //     }
-      //       }else{
-      //          for (let z =11; z>=0; z--) {
-      //       this.buyAmount += parseFloat(this.priceSellBind[z][1]);
-      //       this.priceSellBind[z][3] = this.buyAmount;
-      //       this.buyTotal += parseFloat(this.priceSellBind[z][0]) * parseFloat(this.priceSellBind[z][1]);
-      //       this.priceSellBind[z][4] = this.buyTotal;
-      //     }
-      //       }
               
         
     },
@@ -872,23 +837,7 @@ export default {
 
       this.sellTest=true
       this.limitRows=false
-
-       
-         
-       
-        
-       for (let z = this.onlySell.length-1; z>=0; z--) {
-            this.onlyBuyAmount += parseFloat(this.onlySell[z][1])
-            this.onlySell[z][5] = this.onlyBuyAmount;
-            this.onlyBuyTotal += parseFloat(this.onlySell[z][0]) * parseFloat(this.onlySell[z][1]);
-            this.onlySell[z][6] = this.onlyBuyTotal;
-          }
-           this.onlySell.sort((a, b) => {
-            return b[0] - a[0];
-          });
-
-
-      
+   
     },
     async activebuy() {
       this.buytab = true;
@@ -913,37 +862,54 @@ export default {
 
   
   mounted() {
-    this.setData()
+  //  this.setData()
     this.activebuysell()
     this.matchPriceMATCH = localStorage.getItem("matchPriceMATCH");
-    
+   
 
   },
   created: function () {
     const ts = this;
     this.connection = new WebSocket("ws://104.154.96.67:8002/ws");
-
+   
     this.connection.onmessage = function (event) {
       ts.dataAl = JSON.parse(event.data);
 
       //Oder Book Page Onload
-
+    
+       
       if (ts.dataAl.type == "snapshot") {
         ts.priceSell = ts.dataAl.asks;
         ts.priceBuy = ts.dataAl.bids;
         ts.priceSellOnlySell=ts.dataAl.asks;
-     
-      }
 
+      
+      }
+ 
       if (ts.dataAl.type == "l2update") {
+       
+        //  for(let a = 0; a<=4; a++){
+       
+        //  ts.priceSell[a][3]=0
+        //  ts.priceSell[a][4]=0
+        //  ts.priceSell[a][5]=0
+        //  ts.priceSell[a][6]=0
+         
+        // }
+     
+
         ts.priceSell = [];
         ts.priceBuy = [];
-        ts.priceSellOnlySell=[]
+        ts.priceSellOnlySell=[];
+       
         ts.priceSell = ts.dataAl.asks;
         ts.priceBuy = ts.dataAl.bids;
-         ts.priceSellOnlySell=ts.dataAl.asks;
-
-   
+        ts.priceSellOnlySell=ts.dataAl.asks;
+     
+     
+        console.log( ts.priceSell)
+     
+    
       } else {
         // Recent Trades //ts.dataAl.type == "order" || ts.dataAl.type == "match" || ***************To Do****************
 
@@ -983,6 +949,7 @@ export default {
           console.log(error);
         });
 
+     
       ts.setData(ts.priceSell, ts.priceBuy, ts.fill,ts.priceSellOnlySell);
    
     };
@@ -994,30 +961,7 @@ export default {
     };
   },
 
-  // computed: {
-  //       filterCoins: function(){
-  //           return this.coindata.filter((marketPrice) => {
-  //               return marketPrice.pair_name.toLowerCase().includes(this.searchcoin.toLowerCase())
-  //           })
-  //       }
-  //   },
-  //  watch: {
-    
-  //    pairName: function (valueSelected) {
-    
-  //           for (let j = 0; j < this.totalArray.length; j++) {
-  //             if(this.totalArray[j]["symbol"]==valueSelected){
-  //                    this.balanceBuySell = 
-  //                    //this.totalArray[j]["balance"]
-  //                    75
-  //             }
-  //           }
-            
-         
-         
-        
-  //    }
-  // },
+ 
 };
 </script>
 
