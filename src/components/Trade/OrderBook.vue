@@ -312,7 +312,7 @@
         <div class="trade-body middle-bdy"> 
           <table class="table table-hover special">
             <tbody>
-              <tr v-show="price ==''">
+              <!-- <tr v-show="price ==''">
                 <td v-bind:class="[matchFill == 'buy' ? 'buy' : 'sell']" width="35%">
                   {{ matchPriceMATCH }}
                 </td>
@@ -322,8 +322,8 @@
                     <router-link to="/buy-sell-list">More</router-link>
                   </div>
                 </td>
-              </tr>
-              <tr v-show="price !=''" >
+              </tr> -->
+              <tr >
                 <td v-bind:class="[matchFill == 'buy' ? 'buy' : 'sell']" width="35%">
                   {{ price }}
                 </td>
@@ -759,7 +759,7 @@ export default {
       }
     },
     async setData(dataSellArray, dataBuyArray, fillPrice,sellarray) {
-             //  console.log(this.dataAl.asks[0][1])
+            console.log(dataSellArray)
               if (dataSellArray != undefined) {
                    this.priceSellBind = dataSellArray;
                    this.priceSellBind.sort((a, b) => {return b[0] - a[0]
@@ -862,7 +862,7 @@ export default {
 
   
   mounted() {
-    this.setData()
+  //  this.setData()
     this.activebuysell()
     this.matchPriceMATCH = localStorage.getItem("matchPriceMATCH");
    
@@ -876,13 +876,7 @@ export default {
       ts.dataAl = JSON.parse(event.data);
 
       //Oder Book Page Onload
-      // for(let a = 0; a<=ts.dataAl.length-1; a++){
-      //     ts.dataAl.asks[a][3]=0
-      //     ts.dataAl.asks[a][4]=0
-      //     ts.dataAl.asks[a][5]=0
-      //     ts.dataAl.asks[a][6]=0
-       
-      //   }
+    
        
       if (ts.dataAl.type == "snapshot") {
         ts.priceSell = ts.dataAl.asks;
@@ -894,30 +888,27 @@ export default {
  
       if (ts.dataAl.type == "l2update") {
        
+        //  for(let a = 0; a<=4; a++){
+       
+        //  ts.priceSell[a][3]=0
+        //  ts.priceSell[a][4]=0
+        //  ts.priceSell[a][5]=0
+        //  ts.priceSell[a][6]=0
+         
+        // }
+     
+
         ts.priceSell = [];
         ts.priceBuy = [];
         ts.priceSellOnlySell=[];
-        //  for(let a = 0; a<=ts.dataAl.length-1; a++){
-        //   ts.dataAl.asks[a][3]=0
-        //   ts.dataAl.asks[a][4]=0
-        //   ts.dataAl.asks[a][5]=0
-        //   ts.dataAl.asks[a][6]=0
        
-        // }
         ts.priceSell = ts.dataAl.asks;
         ts.priceBuy = ts.dataAl.bids;
         ts.priceSellOnlySell=ts.dataAl.asks;
      
      
         console.log( ts.priceSell)
-      //    for(let a = 0; a<=ts.priceBuy.length-1; a++){
-      //     ts.priceBuy[a][3]=0
-      //     ts.priceBuy[a][4]=0
-      //     ts.priceBuy[a][5]=0
-      //     ts.priceBuy[a][6]=0
-        
-      //   }
-    
+     
     
       } else {
         // Recent Trades //ts.dataAl.type == "order" || ts.dataAl.type == "match" || ***************To Do****************

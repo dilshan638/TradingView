@@ -315,12 +315,11 @@ export default {
             }
              for (let j = 0; j < this.totalArray.length; j++) {
               if(this.totalArray[j]["symbol"]==this.selectedcurrency.substring(this.selectedcurrency.lastIndexOf("/") + 1)){
-                     this.balanceBuySell = 
-                     this.totalArray[j]["balance"]
+                     this.balanceBuySell =  this.totalArray[j]["balance"]
 
               }
-            }
-                 
+            } 
+            
            
          
           })
@@ -567,12 +566,14 @@ export default {
     pairName: function (valueSelected) {
       for (let j = 0; j < this.totalArray.length; j++) {
         if(this.totalArray[j]["symbol"]==valueSelected){
-          this.balanceBuySell = 
-          this.totalArray[j]["balance"]
+          this.balanceBuySell =this.totalArray[j]["balance"]
           
         }
       } 
-    }
+    
+    },
+
+  
   },
 
   mounted() {
