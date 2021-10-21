@@ -457,6 +457,7 @@ export default {
 };
 </script>
 <style>
+
 .buy {
   color: #18e140 !important;
 }

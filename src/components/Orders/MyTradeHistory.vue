@@ -8,7 +8,7 @@
               <span>Time</span>
               <div class="time-plate">
                 <Datepicker @blur="getRangeDate" 
-                show-clear-button
+                 show-clear-button
                   range
                   v-model="selectedDate" lang="en" placeholder="YYYY-MM-DD"
                   input-class="date-range-picker"
@@ -466,6 +466,7 @@ export default {
 </script>
 
 <style>
+ 
 .buy {
   color: #18e140 !important;
 }
