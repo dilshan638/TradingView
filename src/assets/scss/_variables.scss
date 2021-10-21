@@ -947,7 +947,7 @@ body.open-modal{
         position: absolute;
         left: 0;
         top: -15px;
-        z-index: 1;
+        z-index: 9;
         border-radius: 50%;
     }
     .dot.one{
@@ -978,4 +978,14 @@ body.open-modal{
 
     }
 
+}
+
+.present{
+    float: left;
+    width: auto;
+    background-color: #4e4e4e;
+    padding: 3px;
+    font-size: 0.8rem;
+    border-radius: 3px;
+    font-weight: 500;
 }
