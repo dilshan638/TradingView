@@ -4,7 +4,15 @@
       <div class="col-md-12">
         <div class="set-flter-row">
           <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-4">
+              <div class="input-slot">
+                <button class="f-btn" @click="oneDayFilter" v-bind:class="[this.onedayaction == true ? 'active' : '']">1 Day</button>
+                <button class="f-btn" @click="oneWeekFilter" v-bind:class="[this.oneweekaction == true ? 'active' : '']">1 Week</button>
+                <button class="f-btn" @click="oneMonthFilter" v-bind:class="[this.onemonthaction == true ? 'active' : '']">1 Month</button>
+                <button class="f-btn" @click="threeMonthFilter" v-bind:class="[this.threemonthaction == true ? 'active' : '']">3 Months</button>
+              </div>
+            </div>
+            <div class="col-md-6">
               <span>Time</span>
               <div class="time-plate">
                 <Datepicker
@@ -17,47 +25,7 @@
                 <button @click="dateRangeFilter" class="sea-btn">Search</button>            
               </div>
             </div>
-            <div class="col-md-3">
-              <b>Pair</b>
-              <div class="input-slot half break">
-                <select
-                  class="form-control sel-val"
-                  id="one"
-                  @change="PairOne($event)"
-                >
-                  <option value="">All</option>
-
-                  <option value="BTC-">BTC</option>
-                  <option value="ETH-">ETH</option>
-                </select>
-              </div>
-              <div class="input-slot half">  
-                <select
-                  class="form-control sel-val"
-                  id="two"
-                  @change="PairTwo($event)"
-                >
-                  <option value="">All</option>
-                  <option value="USDT">USDT</option>
-                  <option value="BTC">BTC</option>
-                </select>                              
-              </div>
-            </div>
             <div class="col-md-2">
-                <b>Side</b>
-                <div class="input-slot">
-                  <select
-                    class="form-control sel-val"
-                    id="three"
-                    @change="selectside($event)"
-                  >
-                    <option value="">All</option>
-                    <option value="buy">Buy</option>
-                    <option value="sell">Sell</option>
-                  </select>                  
-                </div>
-            </div>
-            <div class="col-md-2" v-if="$route.path != '/orders'">
               <button type="reset" class="reset-btn" @click="reset">
                 Reset
               </button>

@@ -50,10 +50,11 @@
 
 <script>
 import OpenOrders from '../Orders/OpenOrders.vue'
-import OrderHistory from '../Orders/OrderHistory.vue'
-import MyTradeHistory from '../Orders/MyTradeHistory.vue'
+import OrderHistory from '../Trade/OrherOrderHistory.vue'
+import MyTradeHistory from '../Trade/MyTradeHistory.vue'
 
 export default {
+    
     name:'orderhistory',
 
     props:["myTradeHistory"],

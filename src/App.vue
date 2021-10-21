@@ -9,8 +9,7 @@
 export default {
   name: 'App',
   components: {
-  
-    
+
   },
   mounted () {
     window.scrollTo(0, 0)

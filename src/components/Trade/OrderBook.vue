@@ -207,26 +207,26 @@
                   {{ parseFloat(sell[0] * sell[1]).toFixed(5) }}
 
                   <transition name="fade">
-                    <div class="tooltip3">
-                      <div class="tool-row">
-                        <div class="tool-title">Avg Price:</div>
-                        <div class="tool-val">
-                          {{ parseFloat(sell[0]).toFixed(5) }}
+                      <div class="tooltip3">
+                        <div class="tool-row">
+                          <div class="tool-title">Avg Price:</div>
+                          <div class="tool-val">
+                            {{ parseFloat(sell[0]).toFixed(5) }}
+                          </div>
                         </div>
-                      </div>
-                      <div class="tool-row">
-                        <div class="tool-title">Sum {{ SelectedSymbol }}:</div>
-                        <div class="tool-val">
-                          {{ parseFloat(sell[5]).toFixed(5) }}
+                        <div class="tool-row">
+                          <div class="tool-title">Sum {{ SelectedSymbol }}:</div>
+                          <div class="tool-val">
+                            {{ parseFloat(sell[5]).toFixed(5) }}
+                          </div>
                         </div>
-                      </div>
-                      <div class="tool-row">
-                        <div class="tool-title">Sum {{ pairName }}:</div>
-                        <div class="tool-val">
-                          {{ parseFloat(sell[6]).toFixed(5) }}
+                        <div class="tool-row">
+                          <div class="tool-title">Sum {{ pairName }}:</div>
+                          <div class="tool-val">
+                            {{ parseFloat(sell[6]).toFixed(5) }}
+                          </div>
                         </div>
-                      </div>
-                    </div>
+                      </div> 
                   </transition>
                 </td>
               </tr>
@@ -316,7 +316,7 @@
                 <td v-bind:class="[matchFill == 'buy' ? 'buy' : 'sell']" width="35%">
                   {{ price }}
                 </td>
-                <td class="mid" width="30%">${{ price }}</td>
+                <td class="mid sm" width="30%">${{ price }}</td>
                 <td class="text-right">
                   <div class="read-more">
                     <router-link to="/buy-sell-list">More</router-link>
@@ -1042,8 +1042,14 @@ export default {
 }
 
 .table.table-hover.special tr td {
-  font-size: 1rem !important;
-  font-weight: 500;
+    font-size: 1.2rem !important;
+    font-weight: 900;
+    padding-top: 6px;
+    padding-bottom: 7px;
+}
+.table.table-hover.special tr td.sm {
+    font-size: 0.8rem !important;
+    font-weight: 900;
 }
 .mid {
   color: #878787 !important;

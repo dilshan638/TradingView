@@ -377,11 +377,12 @@
 
 .search-body{
     position: absolute;
-    width: 90%;
+    width: 350px;
     padding: 15px;
     background-color: #2e2f31;
     border-radius: 0 0 5px 5px;
     z-index: 1;
+    top: 49px;
 
     .sub-tab-area{
         padding: 0;
@@ -641,9 +642,9 @@ select.sel-val{
   .top-order-book.full-data{
 
     .sell-full{
-        max-height: 486px !important;
-        min-height: 488px !important;
-        margin-bottom: 15px !important;        
+        max-height: 471px !important;
+        min-height: 471px !important;
+        margin-bottom: 15px !important;      
     }
 
   }
@@ -674,4 +675,26 @@ select.sel-val{
     width: 100%;
     margin-bottom: 15px;
     font-weight: 700;
+}
+.outer{
+    position: relative;
+    .tooltip3{
+        position: fixed;
+    }
+}
+
+.top-order-book.full-data{
+    width: 180%;
+    float: right;
+
+    .tooltip3{
+        left: -257px !important;
+    }
+
+}
+
+.sell-full,
+.buy-full{
+    float: right;
+    padding-left: 43%;
 }

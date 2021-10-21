@@ -919,12 +919,12 @@ body.open-modal{
     }
 }
 
-.slider-tooltip.slider-tooltip-top{
-    display: none;
-}
-.slider-horizontal .slider-handle {
-    display: none;
-}
+// .slider-tooltip.slider-tooltip-top{
+//     display: none;
+// }
+// .slider-horizontal .slider-handle {
+//     display: none;
+// }
 .vue3-slider .handle, .vue3-slider .track-filled {
     background-color: #b7bdc6 !important;
 }
@@ -938,6 +938,7 @@ body.open-modal{
 
         &:first-child{
             background-color: #b7bdc6 !important;
+            z-index: 9;
         }
 
         width: 15px;

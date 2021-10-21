@@ -17,13 +17,10 @@ import Permission from '../views/Permission.vue';
 import Setting from '../views/Setting.vue';
 import CryptoOne from '../components/Wallet/CryptoOne.vue';
 
-// import Websoket from '../views/WebSocket/Websoket.vue';
 import socket from '../views/WebSocket/socket.vue';
 
 import History from '../views/History.vue';
 import WithdrawalDetails from '../views/WithdrawDetails.vue';
-//Import store
-// import store from "../store";Withdrawal Details
 
  import BuyAndSellList from '../components/Trade/BuyAndSellList.vue';
 
@@ -64,14 +61,6 @@ const routes=[
         path:'/dashboard',
         component:Dashboard,
         beforeEnter : guardmyrouter
-
-    //     BeforeEnter : (to, from, next) => {
-    //          if(localStorage.getItem("X-LDX-Inspira-Access-Token")==null){
-    //             next("/signin");
-    //      } else{
-    //          next();
-    //      }
-    //  }
     },
     {
         path:'/wallet',

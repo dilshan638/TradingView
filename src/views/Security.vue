@@ -155,17 +155,6 @@ export default {
        async expUnlock(expectedUnlock){
           this.expected_unlock=expectedUnlock
        },
-
-    // async depositDetails(){
-    //  // this.minimum_deposite= localStorage.getItem("minimum_deposite");
-    //    this.avarege_arrival_time= localStorage.getItem("avarege_arrival_time");
-    //     this.expected_arrival= localStorage.getItem("expected_arrival");
-    //      this.expected_unlock= localStorage.getItem("expected_unlock");
-
-        
-
-     
-    // },
     copyTestingCode () {
       let testingCodeToCopy = document.querySelector('#testing-code')
       testingCodeToCopy.setAttribute('type', 'text')
@@ -179,28 +168,16 @@ export default {
       testingCodeToCopy.setAttribute('type', 'hidden')
       window.getSelection().removeAllRanges()
     }  
-    
-     
   },
-
   mounted() {
     this.getAddress();
    // this.depositDetails()
      this.selectCoinSymbolDeposit = JSON.parse( localStorage.getItem("selectedCoin"))
-
      this.minimum_deposite = JSON.parse( localStorage.getItem("min_deposite"))
      this.avarege_arrival_time = JSON.parse( localStorage.getItem("avg_arrival_time"))
      this.expected_arrival = JSON.parse( localStorage.getItem("exp_arrival"))
       this.expected_unlock = JSON.parse( localStorage.getItem("exp_unlock"))
-
-    
-   
-   
   },
-
- 
-
-  
 };
 </script>
 
