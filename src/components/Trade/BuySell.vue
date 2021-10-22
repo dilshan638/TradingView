@@ -331,6 +331,7 @@ export default {
           )
           .then((response) => {
            this.cryptoAll = response.data[0];
+           console.log(response.data)
           
            for (let i = 0; i < this.cryptoAll.length; i++) {
                this.totalArray.push({ symbol: this.cryptoAll[i]["symbol"], balance:  this.cryptoAll[i]["amount"]*this.marketPrice });

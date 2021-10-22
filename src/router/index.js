@@ -12,6 +12,7 @@ import Market from '../views/Market.vue';
 import Security from '../components/Security/Security.vue';
 import Home from '../views/Home.vue';
 import Permission from '../views/Permission.vue';
+import test from '../views/test.vue';
 
 
 import Setting from '../views/Setting.vue';
@@ -52,6 +53,10 @@ const routes=[
         path:'/signup',
         component:SignUp
     },
+    {
+        path:'/test',
+        component:test
+    },    
     {
         path:'/signin',
         component:SignIn,

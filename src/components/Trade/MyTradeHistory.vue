@@ -11,7 +11,7 @@
                 <button  @click="threeMonthFilter" v-bind:class="[this.threemonthaction == true ? 'active' : '']">3 Month</button>
             </div>
             <div class="col-md-6">
-              <span>Time</span>
+              <!-- <span>Time</span> -->
               <div class="time-plate">
                 <Datepicker @blur="getRangeDate" 
                 show-clear-button
@@ -20,11 +20,12 @@
                   input-class="date-range-picker"
                   position="top"
                 />    
-                <button @click="dateRangeFilter" class="sea-btn">Search</button>            
+                <button @click="dateRangeFilter" class="sea-btn">Search</button>
+                <button type="reset" class="reset-btn" @click="reset">Reset</button>
               </div>
             </div>
             <div class="col-md-2">
-              <button type="reset" class="reset-btn" @click="reset">Reset</button>
+              <button class="pull-right cancel-all">Cancel All</button>
             </div>          
           </div>
        </div>

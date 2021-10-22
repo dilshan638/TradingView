@@ -990,3 +990,18 @@ body.open-modal{
     border-radius: 3px;
     font-weight: 500;
 }
+
+.pull-right{
+    float: right !important;
+}
+.cancel-all{
+    background-color: #585858 !important;
+    padding: 5px 44px !important;
+    margin-top: 0 !important;
+    min-width: 100px !important;
+
+    &:hover{
+        background-color: #0277fa !important;
+        border-color: #0377fa !important;
+    }
+}
