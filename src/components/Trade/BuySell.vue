@@ -24,7 +24,8 @@
           Sell
         </div>
       </div>
-      <div class="balance">Balance: {{ balanceBuySell }} {{ pairName }}</div>
+      <div class="balance" v-if="side=='buy'">Amount:  {{ balanceBuySell }} {{ pairName }}</div>
+        <div class="balance" v-else>Amount:  {{ balanceSell }} USDC</div>
       <div class="buy-sell-content">
         <div class="inner-type">
           <div
@@ -252,6 +253,7 @@ export default {
       totalArray:[],
       cryptoAll:[],
       balanceBuySell:"",
+      balanceSell:"",
       resOne:[],
       resTwo:[],
 
@@ -314,6 +316,7 @@ export default {
         hed
       );
       this.marketPrice = response.data.price;
+      
     },
     async getCryptoAll() {
       const headers = {
@@ -331,17 +334,19 @@ export default {
           )
           .then((response) => {
            this.cryptoAll = response.data[0];
-           console.log(response.data)
-          
+          console.log(this.cryptoAll)
            for (let i = 0; i < this.cryptoAll.length; i++) {
-               this.totalArray.push({ symbol: this.cryptoAll[i]["symbol"], balance:  this.cryptoAll[i]["amount"]*this.marketPrice });
+             if(this.cryptoAll[i]["symbol"]=='USDC'){
+               this.balanceSell=this.cryptoAll[i]["amount"]
+             }
+              // this.totalArray.push({ symbol:   this.cryptoAll[i]["symbol"],balance:  this.cryptoAll[i]["amount"]*this.marketPrice });
             }
-             for (let j = 0; j < this.totalArray.length; j++) {
-              if(this.totalArray[j]["symbol"]==this.selectedcurrency.substring(this.selectedcurrency.lastIndexOf("/") + 1)){
-                     this.balanceBuySell =  this.totalArray[j]["balance"]
+            //  for (let j = 0; j < this.totalArray.length; j++) {
+            //   if(this.totalArray[j]["symbol"]==this.selectedcurrency.substring(this.selectedcurrency.lastIndexOf("/") + 1)){
+            //          this.balanceBuySell =  this.totalArray[j]["balance"]
 
-              }
-            } 
+            //   }
+            // } 
             
            
          
@@ -353,7 +358,12 @@ export default {
     },
     async getDataOpenOrders() {
       this.eventBus.emit('openOrders');
-      const headers = {};
+     const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem(
+          "X-LDX-Inspira-Access-Token"
+        )}`,
+      };
 
       axios
         .get(
@@ -395,7 +405,12 @@ export default {
     },
     async getDataOrderHistory() {
         this.eventBus.emit('orderHistory');
-        const headers = {};
+        const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem(
+          "X-LDX-Inspira-Access-Token"
+        )}`,
+      };
 
         axios
           .get(
@@ -592,9 +607,9 @@ export default {
         });
     },
     pairName: function(valueSelected) {
-      for (let j = 0; j < this.totalArray.length; j++) {
-        if(this.totalArray[j]["symbol"]==valueSelected){
-          this.balanceBuySell =this.totalArray[j]["balance"]
+      for (let j = 0; j < this.cryptoAll.length; j++) {
+        if(this.cryptoAll[j]["symbol"]==valueSelected){
+          this.balanceBuySell =this.cryptoAll[j]["amount"]
         }
       } 
     

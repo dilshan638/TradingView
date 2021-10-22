@@ -12,7 +12,7 @@
                   range
                   v-model="selectedDate" lang="en" placeholder="YYYY-MM-DD"
                   input-class="date-range-picker"
-                  position="top"
+                  position="bottom"
                 />    
                 <button @click="dateRangeFilter" class="sea-btn">Search</button>            
               </div>
@@ -165,7 +165,12 @@ export default {
         this.oneMonthFilter()
       }
       else{
-      const headers = {};
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem(
+          "X-LDX-Inspira-Access-Token"
+        )}`,
+      };
         axios
         .get(
           `http://104.154.96.67:8001/api/orders?productId=${this.pOne}&status=open&before&after&startDate=&endtDate=&limit=1000&side=`,

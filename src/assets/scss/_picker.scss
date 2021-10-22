@@ -34,9 +34,13 @@
     background: #0277fa;
 }
 
-.trade-area .v-calendar  .content {
+.v-calendar  .content {
     padding: 0 !important;
     min-height: 280px !important;
+    width: auto;
+}
+.v-calendar {
+    float: left;
 }
 
 .v-calendar .calendar .days .day .number {

@@ -303,7 +303,12 @@ export default {
       date.setDate(date.getDate() - 7);
       this.oneWeek = date.toJSON().slice(0, 10).replace(/-/g, "-");
       this.todayDate = new Date().toJSON().slice(0, 10).replace(/-/g, "-");
-      const headers = {};
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem(
+          "X-LDX-Inspira-Access-Token"
+        )}`,
+      };
       axios
         .get(
           `http://104.154.96.67:8001/api/orders?productId=&before&after&startDate=${this.oneWeek}&endtDate=${this.todayDate}&limit=1000&side=`,
@@ -429,5 +434,9 @@ export default {
 }
 .sell {
   color: red !important;
+}
+
+.reset{
+  margin-left: -70px;
 }
 </style>

@@ -56,7 +56,12 @@ export default {
 
   methods: {
     async getData() {
-      const headers = {};
+     const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem(
+          "X-LDX-Inspira-Access-Token"
+        )}`,
+      };
 
       axios
         .get(

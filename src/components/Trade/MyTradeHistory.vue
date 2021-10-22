@@ -398,7 +398,12 @@ export default {
     },
 
     async getData() {
-      const headers = {};
+    const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem(
+          "X-LDX-Inspira-Access-Token"
+        )}`,
+      };
       axios
         .get(
           "http://104.154.96.67:8001/api/orders?productId=BTC-USDT&status=filled&before&after&limit=100",
