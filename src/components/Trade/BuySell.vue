@@ -258,6 +258,7 @@ export default {
       val50: false,
       val75: false,
       val100: false,
+      newAmount: null,
      example1: {
       value: parseFloat(this.balanceBuySell)
     },
@@ -265,9 +266,6 @@ export default {
     };
   },
   methods: {
-    // async setPreseent() {
-    //   this.
-    // }
     async set25() {
       this.example1.value = 25
       this.val25 = true
@@ -556,6 +554,8 @@ export default {
     },
     async findrange() {
       this.preseent = this.example1.value
+      this.newAmount = this.balanceBuySell / 100 * this.preseent
+      this.state.amount = this.newAmount
     },
     fadeMe: function() {
       this.showtrademesg = !this.showtrademesg;
