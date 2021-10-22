@@ -26,9 +26,7 @@
               </div>
             </div>
             <div class="col-md-2">
-              <button type="reset" class="reset-btn" @click="reset">
-                Reset
-              </button>
+              <button type="reset" class="reset-btn reset" @click="reset"> Reset </button>
             </div>
           </div>
         </div>
@@ -304,7 +302,12 @@ export default {
       date.setDate(date.getDate() - 7);
       this.oneWeek = date.toJSON().slice(0, 10).replace(/-/g, "-");
       this.todayDate = new Date().toJSON().slice(0, 10).replace(/-/g, "-");
-      const headers = {};
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem(
+          "X-LDX-Inspira-Access-Token"
+        )}`,
+      };
       axios
         .get(
           `http://104.154.96.67:8001/api/orders?productId=&before&after&startDate=${this.oneWeek}&endtDate=${this.todayDate}&limit=1000&side=`,
@@ -430,5 +433,9 @@ export default {
 }
 .sell {
   color: red !important;
+}
+
+.reset{
+  margin-left: -70px;
 }
 </style>

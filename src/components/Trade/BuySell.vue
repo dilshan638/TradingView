@@ -352,7 +352,12 @@ export default {
     },
     async getDataOpenOrders() {
       this.eventBus.emit('openOrders');
-      const headers = {};
+     const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem(
+          "X-LDX-Inspira-Access-Token"
+        )}`,
+      };
 
       axios
         .get(
@@ -394,7 +399,12 @@ export default {
     },
     async getDataOrderHistory() {
         this.eventBus.emit('orderHistory');
-        const headers = {};
+        const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem(
+          "X-LDX-Inspira-Access-Token"
+        )}`,
+      };
 
         axios
           .get(
