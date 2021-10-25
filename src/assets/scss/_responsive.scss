@@ -412,7 +412,6 @@
         display: none;
     }
 }
-
 @media only screen and (min-device-width : 1024px) and (max-device-width : 1152px) {
 
     .head-btn {
@@ -420,7 +419,6 @@
     }
 
 }
-
 @media only screen and (min-device-width : 1152px) and (max-device-width : 1440px) {
 
     .p-modal{
@@ -436,39 +434,55 @@
     }
 
    body .top-sub h3 {
-        font-size: 0.6rem !important;
+        font-size: 0.7rem !important;
     }  
     .trade-box .trade-body table tr td{
-        font-size: 0.6rem !important;
+        font-size: 0.78rem !important;
     }   
     .trade-box .trade-body table tr th {
-        font-size: 0.6rem !important;
+        font-size: 0.75rem !important;
     } 
+    .tab-top {
+        padding: 0px !important;
+    }    
     .search-body {
-        width: 88% !important;
+        width: 320px !important;
+        top: 38px !important;
     }
     body #app .trade-history table tr td {
         font-size: 0.55rem !important;
     }
-   body .trade-history table tr th {
+    body .trade-history table tr th {
         font-size: 0.7rem !important;
     }
-
     .sub-type {
-        margin-right: 13px !important;
-        font-size: 0.6rem !important;
+        margin-right: 15px !important;
+        font-size: 0.8rem !important;
     }
-
     .trade-box {
-        padding: 0 !important;
+        padding: 15px !important;
     }
-
     .top-tab {
         padding: 8px !important;
         font-size: 0.75rem !important;
         font-weight: 500 !important;    
-        margin-bottom: 0px !important;
+        margin-bottom: 10px !important;
     }
+    .price-form{
+        padding: 0px !important;
+        margin-top: 15px !important;
+    }
+    .balance{
+        font-size: 0.9rem !important;
+        padding-top: 5px !important;
+    }    
+    .buy-sell-content {
+        padding: 0px !important;
+        margin-top: 10px !important;
+    }   
+    .dot-area .dot.four {
+        left: 94% !important;
+    }     
     .pass-btn {
         margin-top: 24px !important;
         min-height: 20px !important;
@@ -480,20 +494,16 @@
     .buysell-form .input-group {
         height: 32px !important;
     }
-
     .buysell-form .input-group .form-control {
         font-size: 0.72rem !important;
     }
-
     .barcode-detail{
         width: 70% !important;
     }
-
     .top-order-book {
         max-height: 484px !important;
         min-height: 484px !important;
     }    
-
     body.hidesidemenu{
 
         .main-area{
@@ -505,9 +515,19 @@
 
         }
     }
+    .search-head {
+        padding: 10px !important;
+        top: 1px !important;
+        i{
+            right: 13px !important;
+            top: 7px !important;
+        }
+    }
+    .trade-box.top-box{
+        padding: 10px !important;
+    }    
 
 }
-
 @media only screen and (min-width: 1441px){
 
     .sub-type {

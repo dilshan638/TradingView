@@ -1,5 +1,5 @@
 <template>
-  <div class="trade-box" style="min-height: auto;">
+  <div class="trade-box top-box" style="min-height: auto;">
     <!-- trade comoponents -->
     <div class="row status1">
       <div class="col-md-3 pos-rel">
@@ -207,11 +207,6 @@ export default {
       this.$emit("symbol", currency)
       this.$emit("pair_name", pair_name.substring(pair_name.lastIndexOf("/") + 1))
       this.$emit("full_pair_name", pair_name)
-     
-      
-    
-     
-
     },
     async setCoin() {
       localStorage.setItem("selectedmainCurrency", this.selectedcurrency)

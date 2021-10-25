@@ -1,5 +1,5 @@
 <template>
-    <div class="trade-box">
+    <div class="trade-box history-box">
         <!-- trade comoponents -->
     <div class="row">
         <div class="col-md-12">

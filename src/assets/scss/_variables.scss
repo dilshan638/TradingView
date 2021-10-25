@@ -1005,3 +1005,54 @@ body.open-modal{
         border-color: #0377fa !important;
     }
 }
+.cancel{
+    color: #288dff;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+.history-box{
+    min-height: 572px;
+}
+
+.order-area{
+
+    .set-flter-row{
+        padding-left: 15px;
+        padding-right: 15px;
+        margin-top: 0 !important;
+
+        .v-calendar .input-field input {
+            background-color: #ffffff;
+            color: #000;
+        }  
+        
+        .v-calendar .input-field svg.datepicker {
+            fill: #000000 !important;
+        } 
+        
+        .input-slot.half.break {
+            width: 37% !important;
+            margin-right: 0 !important;
+        } 
+        .input-slot.half {
+            width: 40% !important;
+            margin-top: 0 !important;
+        }  
+        
+        .sea-btn{
+            background-color: #0177fb !important;
+        }
+    }
+
+}
+
+.line1{
+    float: left;
+    color: #fff;
+    width: 8%;
+    text-align: center;
+    margin-top: 8px;
+    margin-left: 10px;
+    margin-right: 10px;
+}

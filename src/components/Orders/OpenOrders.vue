@@ -2,11 +2,7 @@
 
   <div class="row">
     <div class="col-md-12">
-      <div class="table-responsive">
-       
-          <div class="col-md-2">
-              <button class="pull-right cancel-all" @click="cancelationAll">Cancel All</button>
-            </div>   
+      <div class="table-responsive">  
         <table class="table table-hover">
           <thead>
             <tr>
@@ -18,7 +14,9 @@
               <th scope="col">Amount</th>
               <th scope="col">Filled</th>
               <th scope="col">Total</th>
-              <th scope="col">Trigger Conditions</th>
+              <th scope="col">
+                <div class="cancel" @click="cancelationAll">Cancel All</div>
+                </th>
             </tr>
           </thead>
 
