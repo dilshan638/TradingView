@@ -1,12 +1,6 @@
 <template>
   <div class="trade-box buysell-form buy-sell-box">
     <div class="trade-header text-center">Buy / Sell</div>
-
-    <transition name="fade" v-on:enter="enter">
-      <div v-if="showtrademesg" class="elementToFadeInAndOut">
-        Trade successfully Updated!
-      </div>
-    </transition>
     <div class="trade-body">
       <div class="tab-top">
         <div
@@ -24,8 +18,8 @@
           Sell
         </div>
       </div>
-      <div class="balance" v-if="side=='buy'">Amount:  {{ balanceBuySell }} {{ pairName }}</div>
-        <div class="balance" v-else>Amount:  {{ balanceSell }} USDC</div>
+      <div class="balance" v-if="side=='buy'">Amount:  {{ balanceSell }} {{ pairName }}</div>
+      <div class="balance" v-else>Amount:  {{ balancebuy }} {{ SelectedSymbol }}</div>
       <div class="buy-sell-content">
         <div class="inner-type">
           <div
@@ -254,6 +248,7 @@ export default {
       cryptoAll:[],
       balanceBuySell:"",
       balanceSell:"",
+      balancebuy: "",
       resOne:[],
       resTwo:[],
 
@@ -268,6 +263,13 @@ export default {
     };
   },
   methods: {
+    async setPairVal() {
+      for (let j = 0; j < this.cryptoAll.length; j++) {
+        if(this.cryptoAll[j]["symbol"]==this.pairName){
+          this.balanceBuySell =this.cryptoAll[j]["amount"]
+        }
+      }       
+    },
     async set25() {
       this.example1.value = 25
       this.val25 = true
@@ -336,9 +338,13 @@ export default {
            this.cryptoAll = response.data[0];
           console.log(this.cryptoAll)
            for (let i = 0; i < this.cryptoAll.length; i++) {
-             if(this.cryptoAll[i]["symbol"]=='USDC'){
+             if(this.cryptoAll[i]["symbol"]== this.pairName){
                this.balanceSell=this.cryptoAll[i]["amount"]
              }
+             if(this.cryptoAll[i]["symbol"]== this.SelectedSymbol){
+               this.balancebuy=this.cryptoAll[i]["amount"]
+             }             
+             
               // this.totalArray.push({ symbol:   this.cryptoAll[i]["symbol"],balance:  this.cryptoAll[i]["amount"]*this.marketPrice });
             }
             //  for (let j = 0; j < this.totalArray.length; j++) {
@@ -444,7 +450,6 @@ export default {
             for (let i = 0; i < res.data[0].length; i++) {
               if (res.data[0][i]["pair_name"] == 'BTC/USDC') {
                 this.trade_fee = res.data[0][i].trade_fee;
-            
               }
             }
           })
@@ -459,8 +464,6 @@ export default {
       this.v$.amount.$touch();
       this.v$.price.$touch();
       if (!this.v$.amount.error && !this.v$.price.error) {
-
- 
         const headers = {
           Authorization: `Bearer ${localStorage.getItem(
             "X-LDX-Inspira-Access-Token"
@@ -488,8 +491,10 @@ export default {
               // this.sendData = response.data
               console.log(response);
               console.log(res);
-              this.fadeMe();
-              this.enter();
+              this.state.amount = null;
+              this.state.price = null;
+              this.$v.$reset();              
+              this.$toast.show("New trade Successfully  updated.", {type: "success", position: "bottom-right"});
             });
         } 
         catch (error) {
@@ -575,15 +580,6 @@ export default {
       this.newAmount = this.balanceBuySell / 100 * this.preseent
       this.state.amount = this.newAmount
     },
-    fadeMe: function() {
-      this.showtrademesg = !this.showtrademesg;
-    },
-    enter: function() {
-      var that = this;
-      setTimeout(function() {
-        that.showtrademesg = false;
-      }, 3000);
-    }
   },
   watch: {
     fullPairName: function(value) {
@@ -614,7 +610,8 @@ export default {
           this.balanceBuySell =this.cryptoAll[j]["amount"]
         }
       } 
-    
+    this.state.amount = null;
+    this.state.price = null;   
     },
   },
   mounted() {
@@ -624,6 +621,7 @@ export default {
     this.setCuurency();
     this.getPairDetails();
     this.checkAuthUser();
+    this.setPairVal();
   
   },
 };
