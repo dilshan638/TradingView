@@ -759,7 +759,7 @@ export default {
       }
     },
     async setData(dataSellArray, dataBuyArray, fillPrice,sellarray) {
-            console.log(dataSellArray)
+          
               if (dataSellArray != undefined) {
                    this.priceSellBind = dataSellArray;
                    this.priceSellBind.sort((a, b) => {return b[0] - a[0]
@@ -907,8 +907,6 @@ export default {
         ts.priceSellOnlySell=ts.dataAl.asks;
      
      
-        console.log( ts.priceSell)
-     
     
       } else {
         // Recent Trades //ts.dataAl.type == "order" || ts.dataAl.type == "match" || ***************To Do****************
@@ -930,8 +928,7 @@ export default {
           headers: headers,
         })
         .then((response) => {
-         console.log(response.data)
-
+        
           if (ts.recentData.length != 0) {
             ts.recentData = [];
           }

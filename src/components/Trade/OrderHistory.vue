@@ -77,7 +77,9 @@ export default {
          else{
           this.authUser = false;
         }        
-      }        
+      },   
+      
+     
     },
     mounted() {
       this.checkAuthUser();

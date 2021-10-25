@@ -459,6 +459,8 @@ export default {
       this.v$.amount.$touch();
       this.v$.price.$touch();
       if (!this.v$.amount.error && !this.v$.price.error) {
+
+ 
         const headers = {
           Authorization: `Bearer ${localStorage.getItem(
             "X-LDX-Inspira-Access-Token"
@@ -467,7 +469,7 @@ export default {
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
           "Access-Control-Allow-Headers":
-            "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With",
+          "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With",
         };
         var data = {
           client_oid: "1616663784828",
@@ -622,6 +624,7 @@ export default {
     this.setCuurency();
     this.getPairDetails();
     this.checkAuthUser();
+  
   },
 };
 </script>
