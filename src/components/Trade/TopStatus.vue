@@ -132,14 +132,16 @@ export default {
       if(localStorage.getItem("selectedmainCoin")!=null){
           this.defaultCoin = localStorage.getItem("selectedmainCoin");
           this.selectedcoinimage = localStorage.getItem("selectedcoinimage");
-
-           this.$emit("symbol", this.defaultCoin.substring(0, this.defaultCoin.lastIndexOf('/')))
-           this.$emit("pair_name", this.defaultCoin.substring(this.defaultCoin.lastIndexOf("/") + 1))
-      }
+          this.$emit("symbol", this.defaultCoin.substring(0, this.defaultCoin.lastIndexOf('/')))
+          this.$emit("pair_name", this.defaultCoin.substring(this.defaultCoin.lastIndexOf("/") + 1))
+          this.$emit("full_pair_name", this.defaultCoin)
+        
+    }
       else{
           this.defaultCoin = "BTC/USDC";
-           this.$emit("symbol", "BTC")
-           this.$emit("pair_name", "USDC")
+          this.$emit("symbol", "BTC")
+          this.$emit("pair_name", "USDC")
+          this.$emit("full_pair_name", this.defaultCoin)
       }
     },
     async sendMessage() {
@@ -189,13 +191,14 @@ export default {
           if(this.defaultCoin == "BTC/USDC") {
             this.selectedcoinimage = this.coindata[i].image;
           }
-        }        
+        }         
       })
         .catch(function (error) {
           console.log(error);
          })
     },
     async selectcoin(pair_name , image, currency) {
+   
       this.dropdownshow = false;   
       this.selectedcoin = pair_name;
       this.selectedcoinimage = image;
@@ -206,11 +209,13 @@ export default {
       this.setMainCoin();
       this.$emit("symbol", currency)
       this.$emit("pair_name", pair_name.substring(pair_name.lastIndexOf("/") + 1))
-      this.$emit("full_pair_name", pair_name)
+     // this.$emit("full_pair_name", pair_name)
     },
     async setCoin() {
+     
       localStorage.setItem("selectedmainCurrency", this.selectedcurrency)
       this.selectedcoin = localStorage.getItem("selectedmainCoin")
+     
      // this.setSelectedCoin();
       this.$emit("chooseCurrency", this.selectedcurrency)
       

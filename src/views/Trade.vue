@@ -9,7 +9,7 @@
         <div class="col-md-5">
             <div class="row">
                 <div class="col-md-6 no-padding-right">
-                   <order-book @sellPriceOrderBookPass="sellPriceOrderBook" @sellAmountOrderBookPass="sellAmountOrderBook" :SelectedSymbol="SelectedSymbol" :pairName="pairName" />
+                   <order-book @sellPriceOrderBookPass="sellPriceOrderBook" @sellAmountOrderBookPass="sellAmountOrderBook" :SelectedSymbol="SelectedSymbol" :pairName="pairName" :fullPairName="fullPairName"/>
                  
                    <!-- <recent-trades /> -->
                 </div>
@@ -64,7 +64,7 @@ export default {
     methods: {
         setPairName(fullpair) {
           this.fullPairName = fullpair
-          localStorage.setItem("test1", fullpair)
+         
         },
 
         async sellPriceOrderBook(price){

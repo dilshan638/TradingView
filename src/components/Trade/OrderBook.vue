@@ -667,7 +667,7 @@ export default {
   emits: ["sellPriceOrderBookPass", "sellAmountOrderBookPass"],
   name: "orderbook",
   components: {},
-  props: ["SelectedSymbol", "pairName"],
+  props: ["SelectedSymbol", "pairName","fullPairName"],
 
   data() {
     return {
@@ -718,13 +718,23 @@ export default {
      onlyBuy:[],
      onlySell:[],
      onlyBuyAmount:0,
-     onlyBuyTotal:0
+     onlyBuyTotal:0,
 
+    pairNameSelected:""
      
 
     };
   },
+ watch: {
+   
+    fullPairName: function(valueSelected) {
+      const ts = this
+       this.pairNameSelected=valueSelected
+     
+       ts.sendMessage(valueSelected)
 
+    },
+  },
   methods: {
     async onChange(event) {
       this.deci = event.target.value;
@@ -743,12 +753,13 @@ export default {
       this.$refs.roedetails.closeModal();
     },
 
-    async sendMessage() {
-      try {
+    async sendMessage(pairName) {
+     
+      try { 
         this.connection.send(
           JSON.stringify({
             type: "subscribe",
-            product_ids: ["BTC-USDT"],
+            product_ids: [pairName],
             currency_ids: [],
             channels: ["ticker", "match", "level2", "funds", "order"],
             token: "",
