@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="order-area">
     <div class="row">
      <div class="col-md-12">
        <div class="set-flter-row">
@@ -16,10 +16,7 @@
                 />    
                 <button @click="dateRangeFilter" class="sea-btn">Search</button>            
               </div>
-            </div>
-            <div class="col-md-2" v-if="$route.path != '/orders'">
-              <button type="reset" class="reset-btn" @click="reset">Reset</button>
-            </div>  
+            </div> 
             <div class="col-md-3" v-bind:class="[$route.path != '/trade' ? 'active' : '']">
               <b>Pair</b>
               <div class="input-slot half break">
@@ -34,6 +31,7 @@
                   <option value="ETH-">ETH</option>
                 </select>
               </div>
+              <div class="line1">-</div>
               <div class="input-slot half">  
                 <select
                   class="form-control sel-val"
