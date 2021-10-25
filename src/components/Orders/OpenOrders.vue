@@ -89,6 +89,7 @@ export default {
              .then(response => {
                  console.log(response);
                   this.getData();
+                  this.eventBus.emit('cancellAll') 
              })
              .catch(function (error) {
                 console.log(error)
@@ -100,6 +101,10 @@ export default {
     //openOrders
     let ts= this
      this.eventBus.on('openOrders',function(){
+      ts.getData()
+     })
+
+      this.eventBus.on('cancell',function(){
       ts.getData()
      })
     this.getData();

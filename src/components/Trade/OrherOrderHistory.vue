@@ -451,6 +451,7 @@ export default {
              .then(response => {
                  console.log(response);
                   this.getData();
+                  this.eventBus.emit('cancell')
              })
              .catch(function (error) {
                 console.log(error)
@@ -461,6 +462,14 @@ export default {
   mounted() {
     let ts= this
      this.eventBus.on('orderHistory',function(){
+      ts.getData()
+     })
+
+      this.eventBus.on('cancellAll',function(){
+      ts.getData()
+     })
+
+      this.eventBus.on('cancell',function(){
       ts.getData()
      })
     this.getData();

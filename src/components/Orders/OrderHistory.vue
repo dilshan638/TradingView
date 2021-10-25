@@ -461,6 +461,10 @@ export default {
      this.eventBus.on('orderHistory',function(){
       ts.getData()
      })
+
+      this.eventBus.on('cancellAll',function(){
+      ts.getData()
+     })
     this.getData();
     //this.conditional() 
   },
