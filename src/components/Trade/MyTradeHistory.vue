@@ -372,15 +372,15 @@ export default {
       //  var dropDownThree = document.getElementById("three");
       // dropDownThree.selectedIndex = 0;
 
-      this.pOne = "";
-      this.pTwo = "";
-      this.selectedSide = "";
-      this.todayDate = "";
-      this.oneWeek = "";
-      this.oneMonth = "";
-      this.startDate = "";
-      this.endDate = "";
-      this.getData();
+      // this.pOne = "";
+      // this.pTwo = "";
+      // this.selectedSide = "";
+      // this.todayDate = "";
+      // this.oneWeek = "";
+      // this.oneMonth = "";
+      // this.startDate = "";
+      // this.endDate = "";
+      // this.getData();
       this.selectedDate[0]=""
       this.selectedDate[1]=""
       
