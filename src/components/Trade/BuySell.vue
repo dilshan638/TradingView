@@ -483,7 +483,7 @@ export default {
         };
         try {
           let response = await this.axios
-            .post("http://104.154.96.67:8001/api/orders", data, headers)
+            .post("http://104.154.96.67:8001/api/orders", data, {headers})
             .then((res) => {
               // this.sendData = response.data
               console.log(response);

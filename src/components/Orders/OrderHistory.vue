@@ -180,7 +180,12 @@ export default {
         this.oneMonthFilter()
       }
       else{
-    const headers = {};
+   const headers = {
+        "Content-Type": "application/json",
+         Authorization: `Bearer ${localStorage.getItem(
+          "X-LDX-Inspira-Access-Token"
+        )}`,
+      };
         axios
         .get(
           `http://104.154.96.67:8001/api/orders?productId=${this.pOne}&status=open&before&after&startDate=&endtDate=&limit=1000&side=`,
@@ -213,7 +218,12 @@ export default {
         this.oneMonthFilter()
       }
         else{
-     const headers = {};
+    const headers = {
+        "Content-Type": "application/json",
+         Authorization: `Bearer ${localStorage.getItem(
+          "X-LDX-Inspira-Access-Token"
+        )}`,
+      };
         axios
         .get(
           `http://104.154.96.67:8001/api/orders?productId=${this.pTwo}&status=open&before&after&startDate=&endtDate=&limit=1000&side=`,
@@ -242,7 +252,12 @@ export default {
         this.oneMonthFilter()
       }
         else{
-     const headers = {};
+    const headers = {
+        "Content-Type": "application/json",
+         Authorization: `Bearer ${localStorage.getItem(
+          "X-LDX-Inspira-Access-Token"
+        )}`,
+      };
         axios
         .get(
           `http://104.154.96.67:8001/api/orders?productId=&status=open&before&after&startDate=&endtDate=&limit=1000&side=${this.selectedSide}`,
