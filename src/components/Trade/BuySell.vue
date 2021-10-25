@@ -459,6 +459,8 @@ export default {
       this.v$.amount.$touch();
       this.v$.price.$touch();
       if (!this.v$.amount.error && !this.v$.price.error) {
+
+ 
         const headers = {
           Authorization: `Bearer ${localStorage.getItem(
             "X-LDX-Inspira-Access-Token"
@@ -622,6 +624,7 @@ export default {
     this.setCuurency();
     this.getPairDetails();
     this.checkAuthUser();
+  
   },
 };
 </script>

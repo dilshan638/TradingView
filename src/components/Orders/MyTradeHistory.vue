@@ -179,7 +179,7 @@ export default {
           }
         )
         .then((res) => {
-         console.log(res.data)
+         
          this.dataAll=res.data
       })
         .catch(function (error) {

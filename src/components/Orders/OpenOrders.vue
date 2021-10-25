@@ -4,7 +4,9 @@
     <div class="col-md-12">
       <div class="table-responsive">
        
-         
+          <div class="col-md-2">
+              <button class="pull-right cancel-all" @click="cancelationAll">Cancel All</button>
+            </div>   
         <table class="table table-hover">
           <thead>
             <tr>
@@ -30,7 +32,7 @@
             <td>{{ orders.price }}</td>
             <td>{{ orders.size }}</td>
             <td>{{ orders.filledSize }}</td>
-            <td>{{ orders.size * orders.price }}</td>
+            <td>{{ orders.size * orders.price }}</td>  
             <td>-</td>
           </tr>
           <tbody></tbody>
@@ -77,6 +79,23 @@ export default {
           console.log(error);
         });
     },
+     async cancelationAll(){
+      
+         const headers = {
+        "Content-Type": "application/json",
+         Authorization: `Bearer ${localStorage.getItem(
+          "X-LDX-Inspira-Access-Token"
+        )}`,
+         }
+        axios.delete('http://104.154.96.67:8001/api/orders/?productId=BTC-USDT&side=[buy,sell]', {headers})
+             .then(response => {
+                 console.log(response);
+                  this.getData();
+             })
+             .catch(function (error) {
+                console.log(error)
+             })
+      }
   },
 
   mounted() {

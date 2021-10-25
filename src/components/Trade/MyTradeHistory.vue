@@ -24,9 +24,9 @@
                 <button type="reset" class="reset-btn" @click="reset">Reset</button>
               </div>
             </div>
-            <div class="col-md-2">
+            <!-- <div class="col-md-2">
               <button class="pull-right cancel-all">Cancel All</button>
-            </div>          
+            </div>           -->
           </div>
        </div>
      </div>
@@ -131,7 +131,12 @@ export default {
         this.oneMonthFilter()
       }
       else{
-      const headers = {};
+      const headers = {
+        "Content-Type": "application/json",
+         Authorization: `Bearer ${localStorage.getItem(
+          "X-LDX-Inspira-Access-Token"
+        )}`,
+      };
         axios
         .get(
           `http://104.154.96.67:8001/api/orders?productId=${this.pOne}&status=open&before&after&startDate=&endtDate=&limit=1000&side=`,
@@ -164,7 +169,12 @@ export default {
         this.oneMonthFilter()
       }
         else{
-     const headers = {};
+    const headers = {
+        "Content-Type": "application/json",
+         Authorization: `Bearer ${localStorage.getItem(
+          "X-LDX-Inspira-Access-Token"
+        )}`,
+      };
         axios
         .get(
           `http://104.154.96.67:8001/api/orders?productId=${this.pTwo}&status=open&before&after&startDate=&endtDate=&limit=1000&side=`,
@@ -193,7 +203,12 @@ export default {
         this.oneMonthFilter()
       }
         else{
-      const headers = {};
+    const headers = {
+        "Content-Type": "application/json",
+         Authorization: `Bearer ${localStorage.getItem(
+          "X-LDX-Inspira-Access-Token"
+        )}`,
+      };
         axios
         .get(
           `http://104.154.96.67:8081/api/orders?productId=&status=open&before&after&startDate=&endtDate=&limit=1000&side=${this.selectedSide}`,
@@ -232,7 +247,12 @@ export default {
       this.todayDate = new Date().toJSON().slice(0, 10).replace(/-/g, "-");
       this.lastDay = date.toJSON().slice(0, 10).replace(/-/g, "-");
 
-     const headers = {};
+    const headers = {
+        "Content-Type": "application/json",
+         Authorization: `Bearer ${localStorage.getItem(
+          "X-LDX-Inspira-Access-Token"
+        )}`,
+      };
       axios
         .get(
           `http://104.154.96.67:8001/api/orders?productId=&before&after&startDate=${this.todayDate}&endtDate=${this.lastDay}&limit=1000&side=&status=filled`,
@@ -259,7 +279,12 @@ export default {
       date.setDate(date.getDate() - 7);
       this.oneWeek = date.toJSON().slice(0, 10).replace(/-/g, "-");
       this.todayDate = new Date().toJSON().slice(0, 10).replace(/-/g, "-");
-      const headers = {};
+     const headers = {
+        "Content-Type": "application/json",
+         Authorization: `Bearer ${localStorage.getItem(
+          "X-LDX-Inspira-Access-Token"
+        )}`,
+      };
       axios
         .get(
           `http://104.154.96.67:8001/api/orders?productId=&before&after&startDate=${this.oneWeek}&endtDate=${this.todayDate}&limit=1000&side=&status=filled`,
@@ -286,7 +311,12 @@ export default {
       date.setDate(date.getDate() - 30);
       this.todayDate = new Date().toJSON().slice(0, 10).replace(/-/g, "-");
       this.oneMonth = date.toJSON().slice(0, 10).replace(/-/g, "-");
-      const headers = {};
+     const headers = {
+        "Content-Type": "application/json",
+         Authorization: `Bearer ${localStorage.getItem(
+          "X-LDX-Inspira-Access-Token"
+        )}`,
+      };
       axios
         .get(
           `http://104.154.96.67:8001/api/orders?productId=&status=filled&before&after&startDate=${this.oneMonth}&endtDate=${this.todayDate}&limit=1000&side=`,
@@ -311,7 +341,12 @@ export default {
       date.setDate(date.getDate() - 90);
       this.todayDate = new Date().toJSON().slice(0, 10).replace(/-/g, "-");
       this.threeMonth = date.toJSON().slice(0, 10).replace(/-/g, "-");
-      const headers = {};
+     const headers = {
+        "Content-Type": "application/json",
+         Authorization: `Bearer ${localStorage.getItem(
+          "X-LDX-Inspira-Access-Token"
+        )}`,
+      };
       axios
         .get(
           `http://104.154.96.67:8001/api/orders?productId=&status=filled&before&after&startDate=${this.threeMonth}&endtDate=${this.todayDate}&limit=1000&side=`,
@@ -353,7 +388,12 @@ export default {
 
     },
      async dateRangeFilter() {
-      const headers = {};
+     const headers = {
+        "Content-Type": "application/json",
+         Authorization: `Bearer ${localStorage.getItem(
+          "X-LDX-Inspira-Access-Token"
+        )}`,
+      };
       axios
         .get(
           `http://104.154.96.67:8001/api/orders?productId=&status=filled&before&after&startDate=${this.selectedDate[0].toISOString().slice(0, 10)}&endtDate=${this.selectedDate[1].toISOString().slice(0, 10)}&limit=1000&side=`,
