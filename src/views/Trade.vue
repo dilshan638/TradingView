@@ -77,7 +77,7 @@ export default {
 
         async selectPair(Pair){
           this.pairName=Pair
-        //  alert(Pair)
+        // alert(Pair)
         },
 
         async selectSymbol(symbol){
