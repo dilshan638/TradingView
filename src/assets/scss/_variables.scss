@@ -1017,6 +1017,28 @@ body.open-modal{
 
 .order-area{
 
+    .v-calendar .input-field .clearButton, .v-calendar .input-field .clearButton svg{
+        fill: #000 !important;
+    }    
+
+    .trade-btn{
+        min-width: auto !important;
+        border-radius: 1px;
+        background-color: transparent;
+        padding: 4px 12px !important;
+        min-height: auto;
+        line-height: 15px;
+        font-size: 0.75rem;
+        border: solid 1px #0177fb !important;
+        color: #0177fb;
+        font-weight: 900;  
+        
+        &:hover{
+            background-color:#0177fb !important;
+            color: #fff !important;
+        }
+    }
+
     .set-flter-row{
         padding-left: 15px;
         padding-right: 15px;
@@ -1046,6 +1068,7 @@ body.open-modal{
     }
 
 }
+
 
 .line1{
     float: left;
