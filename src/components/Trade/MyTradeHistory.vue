@@ -4,13 +4,13 @@
      <div class="col-md-12">
        <div class="set-flter-row">
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-xl-4">
                <button @click="oneDayFilter" v-bind:class="[this.onedayaction == true ? 'active' : '']">1 Day</button>
                 <button  @click="oneWeekFilter" v-bind:class="[this.oneweekaction == true ? 'active' : '']">1 Week</button>
                 <button @click="oneMonthFilter" v-bind:class="[this.onemonthaction == true ? 'active' : '']">1 Month</button>
                 <button  @click="threeMonthFilter" v-bind:class="[this.threemonthaction == true ? 'active' : '']">3 Month</button>
             </div>
-            <div class="col-md-6">
+            <div class="col-xl-8">
               <!-- <span>Time</span> -->
               <div class="time-plate">
                 <Datepicker @blur="getRangeDate" 
