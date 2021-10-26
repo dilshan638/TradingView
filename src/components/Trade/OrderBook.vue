@@ -617,7 +617,7 @@
                 {{ parseFloat(recent.size).toFixed(5) }}
               </td>
               <td class="text-right">
-                {{(recent.time.substring(recent.time.lastIndexOf("T") + 1).substring(0, recent.time.substring(recent.time.lastIndexOf("T") + 1).lastIndexOf('Z')))}}
+                {{recent.time.slice(10, 19)}}
               </td>
             </tr>
 
@@ -731,7 +731,37 @@ export default {
  watch: {
      fullPairName: function(valueSelected) {
        this.pairNameSelected=valueSelected
+       
        this.sendMessage()
+         const headers = {
+        "Content-Type": "application/json",
+      };
+    let ts =this
+        axios
+        .get(`http://104.154.96.67:8001/api/products/trades?productId=${valueSelected}`, {
+          headers: headers,
+        })
+        .then((response) => {
+       
+          if (ts.recentData.length != 0) {
+            ts.recentData = [];
+           
+          }
+          for (let b = 0; b < response.data.length; b++) {
+            ts.recentData.push({
+              side: response.data[b].side,
+              size: response.data[b].size,
+              price: response.data[b].price,
+              time:response.data[b].time
+            });
+          }
+
+        
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+       
  },
   },
  
@@ -970,15 +1000,7 @@ export default {
  
       if (ts.dataAl.type == "l2update") {
        
-        //  for(let a = 0; a<=4; a++){
-       
-        //  ts.priceSell[a][3]=0
-        //  ts.priceSell[a][4]=0
-        //  ts.priceSell[a][5]=0
-        //  ts.priceSell[a][6]=0
-         
-        // }
-     
+        
 
         ts.priceSell = [];
         ts.priceBuy = [];
@@ -997,36 +1019,45 @@ export default {
           ts.fill = ts.dataAl.price;
           ts.matchFill = ts.dataAl.side;
            localStorage.setItem("matchPriceMATCH", ts.dataAl.price);
+         
+
+           ts.recentData.push({
+              side: ts.dataAl.side,
+              size: ts.dataAl.size,
+              price: ts.dataAl.price,
+              time:ts.dataAl.time
+            });
+         ts.recentData.reverse()
         }
       }
-
-      const headers = {
-        "Content-Type": "application/json",
-      };
-
-      axios
-        .get(`http://104.154.96.67:8001/api/products/${this.pairNameSelected}/trades`, {
-          headers: headers,
-        })
-        .then((response) => {
+     // alert("1030 "+ this.pairNameSelected)
+      // const headers = {
+      //   "Content-Type": "application/json",
+      // };
+    // alert("1036 "+this.pairNameSelected)
+      // axios
+      //   .get(`http://104.154.96.67:8001/api/products/trades?productId=BTC/USDC`, {
+      //     headers: headers,
+      //   })
+      //   .then((response) => {
        
-          if (ts.recentData.length != 0) {
-            ts.recentData = [];
-          }
-          for (let b = 0; b < response.data.length; b++) {
-            ts.recentData.push({
-              side: response.data[b].side,
-              size: response.data[b].size,
-              price: response.data[b].price,
-              time:response.data[b].time
-            });
-          }
+      //     if (ts.recentData.length != 0) {
+      //       ts.recentData = [];
+      //     }
+      //     for (let b = 0; b < response.data.length; b++) {
+      //       ts.recentData.push({
+      //         side: response.data[b].side,
+      //         size: response.data[b].size,
+      //         price: response.data[b].price,
+      //         time:response.data[b].time
+      //       });
+      //     }
 
         
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+      //   })
+      //   .catch(function (error) {
+      //     console.log(error);
+      //   });
 
      
       ts.setData(ts.priceSell, ts.priceBuy, ts.fill,ts.priceSellOnlySell);

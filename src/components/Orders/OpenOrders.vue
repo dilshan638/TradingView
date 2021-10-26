@@ -50,7 +50,8 @@ export default {
     return {
       openOrders: [],
       selectedCoin:localStorage.getItem("selectedmainCoin"),
-      pairNameSelected:""
+      pairNameSelected:"",
+       pairName:localStorage.getItem("selectedmainCoin"),
   };
   },
 
@@ -75,7 +76,7 @@ export default {
 
       axios
         .get(
-          "http://104.154.96.67:8001/api/orders?productId=BTC/USDC&status=open&before&after&limit=100",
+          `http://104.154.96.67:8001/api/orders?productId=${this.pairName}&status=open&before&after&limit=100`,
           {
             headers: headers,
           }
@@ -95,7 +96,7 @@ export default {
           "X-LDX-Inspira-Access-Token"
         )}`,
          }
-        axios.delete('http://104.154.96.67:8001/api/orders/?productId=BTC-USDT&side=[buy,sell]', {headers})
+        axios.delete(`http://104.154.96.67:8001/api/orders/?productId=${this.pairName}&side=[buy,sell]`, {headers})
              .then(response => {
                  console.log(response);
                   this.getData();
@@ -104,7 +105,11 @@ export default {
              .catch(function (error) {
                 console.log(error)
              })
-      }
+      },
+       async selectCoinEmiit(){
+        this.pairName=localStorage.getItem("selectedmainCoin")
+     
+    }
   },
 
   mounted() {
@@ -123,6 +128,11 @@ export default {
       ts.getData()
      })
     this.getData();
+
+     this.eventBus.on('selectedCoinEmitBuss',function(){
+      ts.selectCoinEmiit()
+      ts.getData();
+     }) 
    
   },
 

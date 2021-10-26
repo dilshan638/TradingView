@@ -60,7 +60,8 @@ export default {
     props:["myTradeHistory"],
     data() {
         return{
-            authUser: false
+            authUser: false,
+           
         }
     },
     components: {
@@ -70,6 +71,7 @@ export default {
     },
     methods: {   
       async checkAuthUser() {
+           
          this.authUser = false;
           if(localStorage.getItem("X-LDX-Inspira-Access-Token")!=null){
            this.authUser = true;
@@ -78,13 +80,16 @@ export default {
           this.authUser = false;
         }        
       },   
+
+      
       
      
     },
     mounted() {
       this.checkAuthUser();
+     
     }   
-
+     
 }
 </script>
 

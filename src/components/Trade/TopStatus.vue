@@ -32,7 +32,7 @@
       <div class="col-md-9">
 
         <div class="innertop"  >
-          <h4 v-bind:class="[matchFill == 'buy' ? 'buy' : 'sell']">{{marketPrice}}</h4>
+          <h4 v-bind:class="[matchFill=='buy' ? 'buy' : 'sell']">{{marketPrice}}</h4>
           <span class="sub-bottom">${{marketPrice}}</span>          
         </div>
 
@@ -65,7 +65,7 @@
         <div class="innertop">
           <div class="top-sub" >
             <h3 >24h Volume(LDXI)</h3>
-            <b v-bind:class="[ldcx24hBind <0? 'sell' : 'buy']">{{parseFloat(ldcx24hBind).toFixed(2)}} %</b>
+            <b v-bind:class="[ldcx24hBind <0? 'sell' : 'buy']">{{parseFloat(ldcx24hBind).toFixed(2)}}%</b>
           </div>         
         </div>  
 
@@ -214,7 +214,7 @@ export default {
      // this.$emit("full_pair_name", pair_name)
     },
     async setCoin() {
-     this.eventBus.emit('selectedCoin')
+     this.eventBus.emit('selectedCoinEmitBuss')
       localStorage.setItem("selectedmainCurrency", this.selectedcurrency)
       this.selectedcoin = localStorage.getItem("selectedmainCoin")
      
