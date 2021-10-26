@@ -1,172 +1,172 @@
 <template>
   <div class="trade-box buysell-form buy-sell-box">
     <div class="trade-header text-center">Buy / Sell</div>
-    <div class="trade-body">
-      <div class="tab-top">
-        <div
-          class="top-tab buy-btn"
-          @click="togglebuy"
-          v-bind:class="[buytab == true ? 'active' : '']"
-        >
-          Buy
-        </div>
-        <div
-          class="top-tab sell-btn"
-          @click="togglesell"
-          v-bind:class="[selltab == true ? 'active' : '']"
-        >
-          Sell
-        </div>
-      </div>
-      <div class="balance" v-if="side=='buy' && authUser">Amount:  {{ balanceSell }} {{ pairName }}</div>
-      <div class="balance" v-if="side=='sell' && authUser">Amount:  {{ balancebuy }} {{ SelectedSymbol }}</div>
-      <div class="buy-sell-content">
-        <div class="inner-type">
+      <div class="trade-body">
+        <div class="tab-top">
           <div
-            class="sub-type"
-            @click="toLimit"
-            v-bind:class="[limitTab == true ? 'active' : '']"
+            class="top-tab buy-btn"
+            @click="togglebuy"
+            v-bind:class="[buytab == true ? 'active' : '']"
           >
-            LImit
+            Buy
           </div>
           <div
-            class="sub-type"
-            @click="toMarket"
-            v-bind:class="[marketTab == true ? 'active' : '']"
+            class="top-tab sell-btn"
+            @click="togglesell"
+            v-bind:class="[selltab == true ? 'active' : '']"
           >
-            Market
-          </div>
-          <div
-            class="sub-type"
-            @click="toStopLimit"
-            v-bind:class="[stoplimitTab == true ? 'active' : '']"
-          >
-            Stop Limit
+            Sell
           </div>
         </div>
-      </div>
-      <div class="price-form">
-        <div
-          class="input-group mb-3"
-          :class="{ 'new-error': v$.amount.$error }"
-        >
-          <div class="input-group-prepend">
-            <span class="input-group-text">Amount</span>
-          </div>
-          <input
-            type="text"
-            class="form-control"
-            v-model="state.amount"
-            aria-label=""
-          />
-          <div class="input-group-append">
-            <span class="input-group-text">{{ SelectedSymbol }}</span>
-          </div>
-          <span class="error-msg" v-if="v$.amount.$error"
-            >Amount is {{ v$.amount.$errors[0].$message }}
-          </span>
-        </div>
-        <div
-          v-if="stoplimitTab == false"
-          class="input-group mb-3"
-          :class="{ 'new-error': v$.price.$error }"
-        >
-          <div class="input-group-prepend">
-            <span class="input-group-text">Price</span>
-          </div>
-
-          <input
-            type="text"
-            class="form-control"
-            v-model="state.price"
-            aria-label=""
-          />
-
-          <div class="input-group-append">
-            <span class="input-group-text">{{ pairName }}</span>
-          </div>
-          <span class="error-msg" v-if="v$.price.$error"
-            >Price is {{ v$.price.$errors[0].$message }}
-          </span>
-        </div>
-        <div class="input-group mb-3" v-if="stoplimitTab">
-          <div class="input-group-prepend">
-            <span class="input-group-text">Stop</span>
-          </div>
-          <input type="text" class="form-control" aria-label="" />
-
-          <div class="input-group-append">
-            <span class="input-group-text">{{ pairName }}</span>
-          </div>
-        </div>
-        <div class="input-group mb-3" v-if="stoplimitTab">
-          <div class="input-group-prepend">
-            <span class="input-group-text">LImit</span>
-          </div>
-          <input type="text" class="form-control" aria-label="" />
-          <div class="input-group-append">
-            <span class="input-group-text">{{ pairName }}</span>
-          </div>
-        </div>
-        <div class="present">{{ preseent }}%</div>
-        <vue3-slider
-          color="#52FF33"
-          v-model="example1.value"
-          v-bind="example1"
-          tooltip="true"
-          track-color="#4e4e4e" @change="findrange" @drag-start="testf" @drag-end="tests"
-        />
-        <div class="dot-area">
-          <div class="dot"></div>
-          <div class="dot one" v-bind:class="[this.example1.value >= 25 ? 'active' : '']" @click="set25"></div>
-          <div class="dot two" v-bind:class="[this.example1.value >= 50 ? 'active' : '']" @click="set50"></div>
-          <div class="dot three" v-bind:class="[this.example1.value >= 75 ? 'active' : '']" @click="set75"></div>
-          <div class="dot four" v-bind:class="[this.example1.value >= 100 ? 'active' : '']" @click="set100"></div>
-        </div>
-        <div class="row">
-          <div class="col-6">
-            <div class="bottom-v">
-              <b>Fee</b>
-              <b>{{ parseFloat(trade_fee).toFixed(3) }}</b>
-            </div>
-          </div>
-          <div class="col-6">
-            <div class="bottom-v">
-              <b>Total</b>
-              <b class="success-text">{{
-                this.state.amount * this.state.price
-              }}</b>
-            </div>
-          </div>
-        </div>
-        <div class="row" v-if="authUser">
-          <div class="col-md-12">
-            <button
-              class="btn btn-primary pass-btn buyaction"
-              @selectcoin="selectedcurrency = 'new name'"
-              v-if="buytab"
-              @click="buybtcformaction"
+        <div class="balance" v-if="side=='buy' && authUser">Amount:  {{ balanceSell }} {{ pairName }}</div>
+        <div class="balance" v-if="side=='sell' && authUser">Amount:  {{ balancebuy }} {{ SelectedSymbol }}</div>
+        <div class="buy-sell-content">
+          <div class="inner-type">
+            <div
+              class="sub-type"
+              @click="toLimit"
+              v-bind:class="[limitTab == true ? 'active' : '']"
             >
-              BUY {{ SelectedSymbol }}
-            </button>
-            <button
-              class="btn btn-primary pass-btn sellaction"
-              v-else
-              @click="buybtcformaction"
+              LImit
+            </div>
+            <div
+              class="sub-type"
+              @click="toMarket"
+              v-bind:class="[marketTab == true ? 'active' : '']"
             >
-              SELL {{ SelectedSymbol }}
-            </button>
+              Market
+            </div>
+            <div
+              class="sub-type"
+              @click="toStopLimit"
+              v-bind:class="[stoplimitTab == true ? 'active' : '']"
+            >
+              Stop Limit
+            </div>
           </div>
         </div>
-        <div class="row" v-else>
-          <div class="col-md-12">
-            <div class="login-action">
-              <router-link to="/signin">Login</router-link> to trade
+        <div class="price-form">
+          <div
+            class="input-group mb-3"
+            :class="{ 'new-error': v$.amount.$error }"
+          >
+            <div class="input-group-prepend">
+              <span class="input-group-text">Amount</span>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              v-model="state.amount"
+              aria-label=""
+            />
+            <div class="input-group-append">
+              <span class="input-group-text">{{ SelectedSymbol }}</span>
+            </div>
+            <span class="error-msg" v-if="v$.amount.$error"
+              >Amount is {{ v$.amount.$errors[0].$message }}
+            </span>
+          </div>
+          <div
+            v-if="stoplimitTab == false"
+            class="input-group mb-3"
+            :class="{ 'new-error': v$.price.$error }"
+          >
+            <div class="input-group-prepend">
+              <span class="input-group-text">Price</span>
+            </div>
+
+            <input
+              type="text"
+              class="form-control"
+              v-model="state.price"
+              aria-label=""
+            />
+
+            <div class="input-group-append">
+              <span class="input-group-text">{{ pairName }}</span>
+            </div>
+            <span class="error-msg" v-if="v$.price.$error"
+              >Price is {{ v$.price.$errors[0].$message }}
+            </span>
+          </div>
+          <div class="input-group mb-3" v-if="stoplimitTab">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Stop</span>
+            </div>
+            <input type="text" class="form-control" aria-label="" />
+
+            <div class="input-group-append">
+              <span class="input-group-text">{{ pairName }}</span>
+            </div>
+          </div>
+          <div class="input-group mb-3" v-if="stoplimitTab">
+            <div class="input-group-prepend">
+              <span class="input-group-text">LImit</span>
+            </div>
+            <input type="text" class="form-control" aria-label="" />
+            <div class="input-group-append">
+              <span class="input-group-text">{{ pairName }}</span>
+            </div>
+          </div>
+          <div class="present">{{ preseent }}%</div>
+          <vue3-slider
+            color="#52FF33"
+            v-model="example1.value"
+            v-bind="example1"
+            tooltip="true"
+            track-color="#4e4e4e" @change="findrange" @drag-start="testf" @drag-end="tests"
+          />
+          <div class="dot-area">
+            <div class="dot"></div>
+            <div class="dot one" v-bind:class="[this.example1.value >= 25 ? 'active' : '']" @click="set25"></div>
+            <div class="dot two" v-bind:class="[this.example1.value >= 50 ? 'active' : '']" @click="set50"></div>
+            <div class="dot three" v-bind:class="[this.example1.value >= 75 ? 'active' : '']" @click="set75"></div>
+            <div class="dot four" v-bind:class="[this.example1.value >= 100 ? 'active' : '']" @click="set100"></div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="bottom-v">
+                <b>Fee</b>
+                <b>{{ parseFloat(trade_fee).toFixed(3) }}</b>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="bottom-v">
+                <b>Total</b>
+                <b class="success-text">{{
+                  this.state.amount * this.state.price
+                }}</b>
+              </div>
+            </div>
+          </div>
+          <div class="row" v-if="authUser">
+            <div class="col-md-12">
+              <button
+                class="btn btn-primary pass-btn buyaction"
+                @selectcoin="selectedcurrency = 'new name'"
+                v-if="buytab"
+                @click="buybtcformaction"
+              >
+                BUY {{ SelectedSymbol }}
+              </button>
+              <button
+                class="btn btn-primary pass-btn sellaction"
+                v-else
+                @click="buybtcformaction"
+              >
+                SELL {{ SelectedSymbol }}
+              </button>
+            </div>
+          </div>
+          <div class="row" v-else>
+            <div class="col-md-12">
+              <div class="login-action">
+                <router-link to="/signin">Login</router-link> to trade
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
   </div>
 </template>
 <script>
@@ -577,8 +577,8 @@ export default {
     },
     async findrange() {
       this.preseent = this.example1.value
-      this.newAmount = this.balanceBuySell / 100 * this.preseent
-      this.state.amount = this.newAmount
+      this.newAmount = this.balanceSell / 100 * this.preseent
+      this.state.amount = this.newAmount.toFixed(12)
     },
   },
   watch: {
@@ -613,6 +613,12 @@ export default {
     this.state.amount = null;
     this.state.price = null;   
     },
+    preseent: function(sideval) {
+      console.log(sideval)
+      // if(this.side == 'sell') {
+      //   this.
+      // }
+    }
   },
   mounted() {
     this.getMarketPrice();
