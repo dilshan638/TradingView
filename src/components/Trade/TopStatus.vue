@@ -146,6 +146,7 @@ export default {
       }
     },
     async sendMessage() {
+     
       try {
         this.connection.send(
           JSON.stringify({

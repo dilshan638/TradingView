@@ -761,9 +761,23 @@ export default {
     
     
       this.productIdTemp=this.pairNameSelected
+    try { 
+    
+        this.connection.send(
+          JSON.stringify({
+            type: "subscribe",
+            product_ids: [this.pairNameSelected],
+            currency_ids: [],
+            channels: ["ticker", "match", "level2", "funds", "order"],
+           
+         })
+        );
+      } catch (error) {
+        console.log(error);
+      }
+
+    if(this.priValue!=this.pairNameSelected){
    
-  if(this.priValue!=this.pairNameSelected){
-    console.log("privs Values")
       try { 
         this.connection.send(
           JSON.stringify({
@@ -779,9 +793,9 @@ export default {
       }
   }
 
-  if(this.priValue!=this.pairNameSelected){
+ if(this.priValue!=this.pairNameSelected){
     try { 
-      console.log("New  Values")
+    
         this.connection.send(
           JSON.stringify({
             type: "subscribe",
@@ -849,6 +863,10 @@ export default {
    
 
                 this.price = fillPrice;
+                 
+                //  if(fillPrice==''||fillPrice==null){
+                //     this.getPrice()
+                //  }
      
     },
     async activebuysell() {
@@ -895,6 +913,27 @@ export default {
     async resetoverflow() {
       document.querySelector("body").classList.remove("remove-overflow");
     },
+
+    // async getPrice(){
+    //    const headers = {
+    //     "Content-Type": "application/json",
+    //   };
+    //   axios
+    //     .get(
+    //       'http://104.154.96.67:8001/api/ticker?productId=BTC/USDC',
+    //       {
+    //         headers: headers,
+    //       }
+    //     )
+    //     .then((response) => {
+    //        this.price=response.data.Open
+        
+         
+    //     })
+    //     .catch(function (error) {
+    //       console.log(error);
+    //     });
+    // }
    
 
   },
@@ -906,11 +945,7 @@ export default {
  // let ts= this
     this.activebuysell()
     this.matchPriceMATCH = localStorage.getItem("matchPriceMATCH");
-    //this.pairNameSelected=localStorage.getItem("selectedmainCoin")
-    //  this.eventBus.on('selectedCoin',function(){
-    //   ts.sendMessage()
-    //  })
-
+   // this.getPrice()
   },
   
  created: function () {
@@ -961,8 +996,7 @@ export default {
         if (ts.dataAl.type == "match") {
           ts.fill = ts.dataAl.price;
           ts.matchFill = ts.dataAl.side;
-
-          localStorage.setItem("matchPriceMATCH", ts.dataAl.price);
+           localStorage.setItem("matchPriceMATCH", ts.dataAl.price);
         }
       }
 
@@ -971,11 +1005,11 @@ export default {
       };
 
       axios
-        .get("http://104.154.96.67:8001/api/products/BTC-USDT/trades", {
+        .get(`http://104.154.96.67:8001/api/products/${this.pairNameSelected}/trades`, {
           headers: headers,
         })
         .then((response) => {
-        
+       
           if (ts.recentData.length != 0) {
             ts.recentData = [];
           }
