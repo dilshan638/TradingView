@@ -338,7 +338,6 @@ export default {
           "X-LDX-Inspira-Access-Token"
         )}`,
       };
-      console.log( `http://104.154.96.67:8001/api/orders?productId=${this.pairName}&before&after&startDate=${this.oneWeek}&endtDate=${this.todayDate}&limit=1000&side=`)
       axios
         .get(
           `http://104.154.96.67:8001/api/orders?productId=${this.pairName}&before&after&startDate=${this.oneWeek}&endtDate=${this.todayDate}&limit=1000&side=`,
