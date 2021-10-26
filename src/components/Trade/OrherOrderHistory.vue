@@ -125,6 +125,7 @@ export default {
       oneM: false,
       startDate: new Date(),
       endDate: new Date(),
+      pairName:localStorage.getItem("selectedmainCoin")
      
       
     };
@@ -264,6 +265,7 @@ export default {
       this.selectedDate[1]=""
     },
     async getData() {
+       
      const headers = {
         "Content-Type": "application/json",
          Authorization: `Bearer ${localStorage.getItem(
@@ -272,7 +274,7 @@ export default {
       };
       axios
         .get(
-          "http://104.154.96.67:8001/api/orders?productId=BTC/USDC&status=open&status=filled&status=new&before&after&limit=100",
+          `http://104.154.96.67:8001/api/orders?productId=${this.pairName}&status=open&status=filled&status=new&before&after&limit=100`,
           {
             headers: headers,
           }
@@ -306,7 +308,7 @@ export default {
       };
      axios
         .get(
-          `http://104.154.96.67:8001/api/orders?productId=&before&after&startDate=${this.todayDate}&endtDate=${this.lastDay}&limit=1000&side=`,
+          `http://104.154.96.67:8001/api/orders?productId=${this.pairName}&before&after&startDate=${this.todayDate}&endtDate=${this.lastDay}&limit=1000&side=`,
           {
             headers: headers,
           }
@@ -336,15 +338,17 @@ export default {
           "X-LDX-Inspira-Access-Token"
         )}`,
       };
+      console.log( `http://104.154.96.67:8001/api/orders?productId=${this.pairName}&before&after&startDate=${this.oneWeek}&endtDate=${this.todayDate}&limit=1000&side=`)
       axios
         .get(
-          `http://104.154.96.67:8001/api/orders?productId=&before&after&startDate=${this.oneWeek}&endtDate=${this.todayDate}&limit=1000&side=`,
+          `http://104.154.96.67:8001/api/orders?productId=${this.pairName}&before&after&startDate=${this.oneWeek}&endtDate=${this.todayDate}&limit=1000&side=`,
           {
             headers: headers,
           }
         )
         .then((res) => {
           this.orderHistory = res.data;
+          console.log( this.orderHistory)
         })
         .catch(function (error) {
           console.log(error);
@@ -369,7 +373,7 @@ export default {
       };
       axios
         .get(
-          `http://104.154.96.67:8001/api/orders?productId=&before&after&startDate=${this.oneMonth}&endtDate=${this.todayDate}&limit=1000&side=`,
+          `http://104.154.96.67:8001/api/orders?productId=${this.pairName}&before&after&startDate=${this.oneMonth}&endtDate=${this.todayDate}&limit=1000&side=`,
           {
             headers: headers,
           }
@@ -381,13 +385,7 @@ export default {
           console.log(error);
         });
     },
-    // async conditional(){
-    //  if((this.oneD==false) && (this.oneW==false) &&(this.oneM==false)){
-    //        window.setInterval(() => {
-    //       this.getData();
-    //     }, 3000);
-    //     }
-    // },
+    
      async dateRangeFilter() {
      const headers = {
         "Content-Type": "application/json",
@@ -397,7 +395,7 @@ export default {
       };
       axios
         .get(
-          `http://104.154.96.67:8001/api/orders?productId=&before&after&startDate=${this.selectedDate[0].toISOString().slice(0, 10)}&endtDate=${this.selectedDate[1].toISOString().slice(0, 10)}&limit=1000&side=`,
+          `http://104.154.96.67:8001/api/orders?productId=${this.pairName}&before&after&startDate=${this.selectedDate[0].toISOString().slice(0, 10)}&endtDate=${this.selectedDate[1].toISOString().slice(0, 10)}&limit=1000&side=`,
           {
             headers: headers,
           }
@@ -427,7 +425,7 @@ export default {
       };
       axios
         .get(
-          `http://104.154.96.67:8001/api/orders?productId=&before&after&startDate=${this.threeMonth}&endtDate=${this.todayDate}&limit=1000&side=`,
+          `http://104.154.96.67:8001/api/orders?productId=${this.pairName}&before&after&startDate=${this.threeMonth}&endtDate=${this.todayDate}&limit=1000&side=`,
           {
             headers: headers,
           }
@@ -457,6 +455,10 @@ export default {
                 console.log(error)
              })
       },
+    async selectCoinEmiit(){
+        this.pairName=localStorage.getItem("selectedmainCoin")
+     
+    }
       
   },
   mounted() {
@@ -473,7 +475,11 @@ export default {
       ts.getData()
      })
     this.getData();
-    //this.conditional() 
+   
+     this.eventBus.on('selectedCoinEmitBuss',function(){
+      ts.selectCoinEmiit()
+      ts.getData();
+     }) 
   },
   //   computed: {
   // filterCoins: function () {
