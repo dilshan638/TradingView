@@ -498,8 +498,8 @@ export default {
               // this.sendData = response.data
               console.log(response);
               console.log(res);
-              this.state.amount = null;
-              this.state.price = null;
+              this.state.amount = 0;
+              this.state.price = 0;
               this.$v.$reset();              
               this.$toast.show("New trade Successfully  updated.", {type: "success", position: "bottom-right"});
             });
