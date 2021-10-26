@@ -198,7 +198,7 @@ export default {
         this.connection.send(
           JSON.stringify({
             type: "subscribe",
-            product_ids: ["BTC-USDT"],
+            product_ids: ["BTC/USDC"],
             currency_ids: [],
             channels: ["ticker", "match", "level2", "funds", "order"],
             // "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoYXJha2FAZ21haWwuY29tIiwiZXhwaXJlZEF0IjoxNjMyMTU4MDQ5LCJpZCI6NDEsInBhc3N3b3JkSGFzaCI6ImFlMDA1Y2ViN2U5YTIxN2NjZWQyZjhhYTM1NDE4N2M3In0.6KW--OvqAjUbVNP6r0b4avksK0R6MBi_FzmYtptDknQ"

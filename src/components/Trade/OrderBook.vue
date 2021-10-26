@@ -720,21 +720,21 @@ export default {
      onlyBuyAmount:0,
      onlyBuyTotal:0,
 
-    pairNameSelected:""
-     
+     pairNameSelected:"",
+     setCoinValue:"",
+     chanelType:"",
+     productIdTemp:"",
+     priValue:""
 
     };
   },
  watch: {
-   
-    fullPairName: function(valueSelected) {
-      const ts = this
+     fullPairName: function(valueSelected) {
        this.pairNameSelected=valueSelected
-     
-       ts.sendMessage(valueSelected)
-
-    },
+       this.sendMessage()
+ },
   },
+ 
   methods: {
     async onChange(event) {
       this.deci = event.target.value;
@@ -753,21 +753,49 @@ export default {
       this.$refs.roedetails.closeModal();
     },
 
-    async sendMessage(pairName) {
-     
+    async sendMessage() {
+    
+     if(this.productIdTemp !=''){
+        this.priValue=this.productIdTemp
+      }
+    
+    
+      this.productIdTemp=this.pairNameSelected
+   
+  if(this.priValue!=this.pairNameSelected){
+    console.log("privs Values")
       try { 
         this.connection.send(
           JSON.stringify({
-            type: "subscribe",
-            product_ids: [pairName],
+            type: "unsubscribe",
+            product_ids: [this.priValue],
             currency_ids: [],
             channels: ["ticker", "match", "level2", "funds", "order"],
-            token: "",
+            
          })
         );
       } catch (error) {
         console.log(error);
       }
+  }
+
+  if(this.priValue!=this.pairNameSelected){
+    try { 
+      console.log("New  Values")
+        this.connection.send(
+          JSON.stringify({
+            type: "subscribe",
+            product_ids: [this.pairNameSelected],
+            currency_ids: [],
+            channels: ["ticker", "match", "level2", "funds", "order"],
+           
+         })
+        );
+      } catch (error) {
+        console.log(error);
+      }
+  }
+   
     },
     async setData(dataSellArray, dataBuyArray, fillPrice,sellarray) {
           
@@ -871,16 +899,24 @@ export default {
 
   },
 
+
   
   mounted() {
   //  this.setData()
+ // let ts= this
     this.activebuysell()
     this.matchPriceMATCH = localStorage.getItem("matchPriceMATCH");
-   
+    //this.pairNameSelected=localStorage.getItem("selectedmainCoin")
+    //  this.eventBus.on('selectedCoin',function(){
+    //   ts.sendMessage()
+    //  })
 
   },
-  created: function () {
+  
+ created: function () {
+    
     const ts = this;
+    
     this.connection = new WebSocket("ws://104.154.96.67:8002/ws");
    
     this.connection.onmessage = function (event) {
@@ -967,6 +1003,7 @@ export default {
       console.log(event);
       console.log("Successfully connected to the echo websocket server...");
       ts.sendMessage();
+     
     };
   },
 
