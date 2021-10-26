@@ -18,8 +18,8 @@
           Sell
         </div>
       </div>
-      <div class="balance" v-if="side=='buy'">Amount:  {{ balanceSell }} {{ pairName }}</div>
-      <div class="balance" v-else>Amount:  {{ balancebuy }} {{ SelectedSymbol }}</div>
+      <div class="balance" v-if="side=='buy' && authUser">Amount:  {{ balanceSell }} {{ pairName }}</div>
+      <div class="balance" v-if="side=='sell' && authUser">Amount:  {{ balancebuy }} {{ SelectedSymbol }}</div>
       <div class="buy-sell-content">
         <div class="inner-type">
           <div
