@@ -724,7 +724,8 @@ export default {
      setCoinValue:"",
      chanelType:"",
      productIdTemp:"",
-     priValue:""
+     priValue:"",
+     fullPairNameLocalStorage:""
 
     };
   },
@@ -944,26 +945,27 @@ export default {
       document.querySelector("body").classList.remove("remove-overflow");
     },
 
-    // async getPrice(){
-    //    const headers = {
-    //     "Content-Type": "application/json",
-    //   };
-    //   axios
-    //     .get(
-    //       'http://104.154.96.67:8001/api/ticker?productId=BTC/USDC',
-    //       {
-    //         headers: headers,
-    //       }
-    //     )
-    //     .then((response) => {
-    //        this.price=response.data.Open
+    async getPrice(){
+       
+       const headers = {
+        "Content-Type": "application/json",
+      };
+      axios
+        .get(
+          `http://104.154.96.67:8001/api/ticker?productId=${this.fullPairNameLocalStorage}`,
+          {
+            headers: headers,
+          }
+        )
+        .then((response) => {
+           this.price=response.data.Open
         
          
-    //     })
-    //     .catch(function (error) {
-    //       console.log(error);
-    //     });
-    // }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
    
 
   },
@@ -975,7 +977,8 @@ export default {
  // let ts= this
     this.activebuysell()
     this.matchPriceMATCH = localStorage.getItem("matchPriceMATCH");
-   // this.getPrice()
+    this.fullPairNameLocalStorage= localStorage.getItem("selectedmainCoin");
+  
   },
   
  created: function () {
@@ -995,6 +998,7 @@ export default {
         ts.priceBuy = ts.dataAl.bids;
         ts.priceSellOnlySell=ts.dataAl.asks;
 
+       ts.getPrice()
       
       }
  

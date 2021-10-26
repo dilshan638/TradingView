@@ -120,8 +120,8 @@ export default {
 
       tickerPrice:"",
       matchFill:"",
-      matchPriceMATCH:""
-
+      matchPriceMATCH:"",
+      fullPairNameLocalStorage:""
       
       
     };
@@ -222,13 +222,34 @@ export default {
       this.$emit("chooseCurrency", this.selectedcurrency)
       
     },
+     async getPrice(){
+      
+       const headers = {
+        "Content-Type": "application/json",
+      };
+      axios
+        .get(
+          `http://104.154.96.67:8001/api/ticker?productId=${this.fullPairNameLocalStorage}`,
+          {
+            headers: headers,
+          }
+        )
+        .then((response) => {
+            this.marketPrice=response.data.Open
+        
+         
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
   },
   mounted() {
-    this.setData();
-    this.getMarketDropdown();
-   this.setMainCoin();
-   this.matchPriceMATCH = localStorage.getItem("matchPriceMATCH");
-  
+  this.setData();
+  this.getMarketDropdown();
+  this.setMainCoin();
+  this.matchPriceMATCH = localStorage.getItem("matchPriceMATCH");
+   this.fullPairNameLocalStorage= localStorage.getItem("selectedmainCoin");
   },
   computed: {
     filterCoins: function(){
@@ -245,13 +266,10 @@ export default {
 
     this.connection.onmessage = function (event) {
      ts.dataAl = JSON.parse(event.data);
-   if (ts.dataAl.type == "match") {
-           
-         // for (let a = 0; a < 1; a++) {
+    if (ts.dataAl.type == "match") {
              ts.fill = ts.dataAl.price;
               ts.priceBuy=ts.dataAl.bids;
               
-          //}
         }
 
 
@@ -260,7 +278,7 @@ export default {
         ts.open24h=ts.dataAl.open24h
         ts.low24h=ts.dataAl.low24h
         ts.volume24h=ts.dataAl.volume24h
-       
+        ts.getPrice()
       }
 
       if(ts.open24h==0 ){
