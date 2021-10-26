@@ -113,6 +113,7 @@
           <vue3-slider
             color="#52FF33"
             v-model="example1.value"
+            v-bind:max="[authUser == true ? 100 : 0]"
             v-bind="example1"
             tooltip="true"
             track-color="#4e4e4e" @change="findrange" @drag-start="testf" @drag-end="tests"
@@ -446,16 +447,8 @@ export default {
           });
     },
     async getPairDetails() {
-        const headers = {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem(
-            "X-LDX-Inspira-Access-Token"
-          )}`,
-        };
         axios
-          .get("https://dapi.exus.live/api/mobile/v1/trade/marcket/trade/pair", {
-            headers: headers,
-          })
+          .get("https://dapi.exus.live/api/mobile/v1/common/marcket/trade/pair")
           .then((res) => {
             this.coindata = res.data;
             
@@ -612,15 +605,7 @@ export default {
   },
   watch: {
     fullPairName: function(value) {
-        const headers = {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem(
-            "X-LDX-Inspira-Access-Token"
-          )}`,
-        };
-        axios.get("https://dapi.exus.live/api/mobile/v1/trade/marcket/trade/pair", {
-          headers: headers,
-        })
+        axios.get("https://dapi.exus.live/api/mobile/v1/common/marcket/trade/pair")
         .then((res) => {
           for (let i = 0; i < res.data[0].length; i++) {
             if (res.data[0][i]["pair_name"] == value) {

@@ -14,8 +14,11 @@
 @import "tooltip";
 @import "picker";
 
-.new-error{
+.no-padding-left{
+    padding-left: 0 !important;
+}
 
+.new-error{
     border: solid 1px red !important;
 
     .error-msg{
