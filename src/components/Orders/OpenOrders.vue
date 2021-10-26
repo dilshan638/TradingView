@@ -49,13 +49,23 @@ export default {
   data() {
     return {
       openOrders: [],
-     
-
-    };
+      selectedCoin:localStorage.getItem("selectedmainCoin"),
+      pairNameSelected:""
+  };
   },
+
+//    watch: {
+   
+//     selectedCoin: function(valueSelected) {
+    
+//        this.pairNameSelected=valueSelected
+//        alert("new"+valueSelected)
+//  },
+//   },
 
   methods: {
     async getData() {
+     //alert("Open Orders"+this.selectedCoin)
      const headers = {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem(
@@ -65,7 +75,7 @@ export default {
 
       axios
         .get(
-          "http://104.154.96.67:8001/api/orders?productId=BTC-USDT&status=open&before&after&limit=100",
+          "http://104.154.96.67:8001/api/orders?productId=BTC/USDC&status=open&before&after&limit=100",
           {
             headers: headers,
           }
@@ -98,7 +108,8 @@ export default {
   },
 
   mounted() {
-    //openOrders
+    //openOrders //
+   
     let ts= this
      this.eventBus.on('openOrders',function(){
       ts.getData()
@@ -107,8 +118,11 @@ export default {
       this.eventBus.on('cancell',function(){
       ts.getData()
      })
-    this.getData();
 
+      this.eventBus.on('selectedCoin',function(){
+      ts.getData()
+     })
+    this.getData();
    
   },
 

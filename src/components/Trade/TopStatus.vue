@@ -142,6 +142,7 @@ export default {
           this.$emit("symbol", "BTC")
           this.$emit("pair_name", "USDC")
           this.$emit("full_pair_name", this.defaultCoin)
+          localStorage.setItem("selectedmainCoin",this.defaultCoin)
       }
     },
     async sendMessage() {
@@ -149,7 +150,7 @@ export default {
         this.connection.send(
           JSON.stringify({
             "type":"subscribe",
-             "product_ids":["BTC-USDT"],
+             "product_ids":["BTC/USDC"],
              "currency_ids":[],
              "channels": [ "order", "ticker","match" ]
           })
@@ -212,7 +213,7 @@ export default {
      // this.$emit("full_pair_name", pair_name)
     },
     async setCoin() {
-     
+     this.eventBus.emit('selectedCoin')
       localStorage.setItem("selectedmainCurrency", this.selectedcurrency)
       this.selectedcoin = localStorage.getItem("selectedmainCoin")
      

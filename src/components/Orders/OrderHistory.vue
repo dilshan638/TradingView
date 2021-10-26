@@ -303,7 +303,7 @@ export default {
       };
       axios
         .get(
-          "http://104.154.96.67:8001/api/orders?productId=BTC-USDT&status=open&status=filled&status=new&before&after&limit=100",
+          "http://104.154.96.67:8001/api/orders?productId=BTC/USDC&status=open&status=filled&status=new&before&after&limit=100",
           {
             headers: headers,
           }
@@ -452,9 +452,7 @@ export default {
       this.threeMonth = date.toJSON().slice(0, 10).replace(/-/g, "-");
      const headers = {
         "Content-Type": "application/json",
-         Authorization: `Bearer ${localStorage.getItem(
-          "X-LDX-Inspira-Access-Token"
-        )}`,
+         Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
       };
       axios
         .get(
