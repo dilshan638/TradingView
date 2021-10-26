@@ -75,7 +75,8 @@
               <span class="input-group-text">Price</span>
             </div>
 
-            <input
+            <input 
+              :disabled="marketTab == true"
               type="text"
               class="form-control"
               v-model="state.price"
@@ -251,6 +252,8 @@ export default {
       balancebuy: "",
       resOne:[],
       resTwo:[],
+
+      pairmarketPrice: "",
 
       val50: false,
       val75: false,
@@ -510,6 +513,10 @@ export default {
       
     },
     async togglebuy() {
+      if(this.example1.value > 0) {
+        var toggglebuyamount = this.balanceSell /100 * this.example1.value
+        this.state.amount = toggglebuyamount 
+      }     
       this.buytab = true;
       this.selltab = false;
       if (this.buytab == true) {
@@ -519,6 +526,10 @@ export default {
       }
     },
     async togglesell() {
+      if(this.example1.value > 0) {
+        var toggglesellamount = this.balancebuy /100 * this.example1.value
+        this.state.amount = toggglesellamount
+      }
       this.buytab = false;
       this.selltab = true;
       if (this.selltab == true) {
@@ -543,6 +554,7 @@ export default {
       this.stoplimitTab = false;
       if (this.marketTab == true) {
         this.type = "market";
+        this.findMarketPrice();
       }
     },
     async toStop() {
@@ -580,17 +592,25 @@ export default {
       this.newAmount = this.balanceSell / 100 * this.preseent
       this.state.amount = this.newAmount.toFixed(12)
     },
+    async findMarketPrice() {     
+        axios.get(`http://104.154.96.67:8001/api/ticker?productId=${this.fullPairName}`)
+        .then((res) => {
+            this.state.price = res.data.Open
+        })
+        .catch(function(error) {
+          console.log(error);
+        }); 
+    }
   },
   watch: {
     fullPairName: function(value) {
-      const headers = {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem(
-          "X-LDX-Inspira-Access-Token"
-        )}`,
-      };
-      axios
-        .get("https://dapi.exus.live/api/mobile/v1/trade/marcket/trade/pair", {
+        const headers = {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem(
+            "X-LDX-Inspira-Access-Token"
+          )}`,
+        };
+        axios.get("https://dapi.exus.live/api/mobile/v1/trade/marcket/trade/pair", {
           headers: headers,
         })
         .then((res) => {
@@ -602,7 +622,7 @@ export default {
         })
         .catch(function(error) {
           console.log(error);
-        });
+        });   
     },
     pairName: function(valueSelected) {
       for (let j = 0; j < this.cryptoAll.length; j++) {
@@ -611,14 +631,9 @@ export default {
         }
       } 
     this.state.amount = null;
-    this.state.price = null;   
+    this.state.price = null;
+
     },
-    preseent: function(sideval) {
-      console.log(sideval)
-      // if(this.side == 'sell') {
-      //   this.
-      // }
-    }
   },
   mounted() {
     this.getMarketPrice();
