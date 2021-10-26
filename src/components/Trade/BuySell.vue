@@ -94,7 +94,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text">Stop</span>
             </div>
-            <input type="text" class="form-control" aria-label="" />
+            <input type="text" class="form-control" v-model="this.stop" aria-label="" />
 
             <div class="input-group-append">
               <span class="input-group-text">{{ pairName }}</span>
@@ -104,7 +104,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text">LImit</span>
             </div>
-            <input type="text" class="form-control" aria-label="" />
+            <input type="text" class="form-control" v-model="this.limit" aria-label="" />
             <div class="input-group-append">
               <span class="input-group-text">{{ pairName }}</span>
             </div>
@@ -113,12 +113,13 @@
           <vue3-slider
             color="#52FF33"
             v-model="example1.value"
+            v-bind:max="[authUser == true ? 100 : 0]"
             v-bind="example1"
             tooltip="true"
             track-color="#4e4e4e" @change="findrange" @drag-start="testf" @drag-end="tests"
           />
           <div class="dot-area">
-            <div class="dot"></div>
+            <div class="dot" @click="set0"></div>
             <div class="dot one" v-bind:class="[this.example1.value >= 25 ? 'active' : '']" @click="set25"></div>
             <div class="dot two" v-bind:class="[this.example1.value >= 50 ? 'active' : '']" @click="set50"></div>
             <div class="dot three" v-bind:class="[this.example1.value >= 75 ? 'active' : '']" @click="set75"></div>
@@ -221,6 +222,8 @@ export default {
   data() {
     return {  
       preseent: 0, 
+      stop: 0,
+      limit: 0,
       buytab: true,
       selltab: false,
       limitTab: true,
@@ -273,6 +276,13 @@ export default {
         }
       }       
     },
+    async set0() {
+      this.example1.value = 0
+      this.val25 = false
+      this.val50 = false
+      this.val75 = false
+      this.val100 = false      
+    },     
     async set25() {
       this.example1.value = 25
       this.val25 = true
@@ -437,16 +447,8 @@ export default {
           });
     },
     async getPairDetails() {
-        const headers = {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem(
-            "X-LDX-Inspira-Access-Token"
-          )}`,
-        };
         axios
-          .get("https://dapi.exus.live/api/mobile/v1/trade/marcket/trade/pair", {
-            headers: headers,
-          })
+          .get("https://dapi.exus.live/api/mobile/v1/common/marcket/trade/pair")
           .then((res) => {
             this.coindata = res.data;
             
@@ -478,14 +480,16 @@ export default {
           "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With",
         };
         var data = {
-          client_oid: "1616663784828",
-          productId: "BTC-USDT",
+          client_oid: "",
+          productId: this.fullPairName,
           size: parseFloat(this.state.amount),
           funds: 0.001,
           price: parseFloat(this.state.price),
           side: this.side,
           type: this.type,
-          timeInForce: "1616663784828",
+          timeInForce: "",
+          stop: this.stop,
+          limit: this.limit
         };
         try {
           let response = await this.axios
@@ -543,6 +547,7 @@ export default {
       this.marketTab = false;
       this.stopTab = false;
       this.stoplimitTab = false;
+      this.state.price = "";
       if (this.limitTab == true) {
         this.type = "limit";
       }
@@ -553,18 +558,32 @@ export default {
       this.stopTab = false;
       this.stoplimitTab = false;
       if (this.marketTab == true) {
+          this.findmarketPrice();
         this.type = "market";
-        this.findMarketPrice();
       }
     },
-    async toStop() {
+    async toStopLimit() {
       this.limitTab = false;
       this.marketTab = false;
-      this.stopTab = true;
-      this.stoplimitTab = false;
-      if (this.stopTab == true) {
-        this.type = "stop";
+      this.stopTab = false;
+      this.stoplimitTab = true;
+      if (this.stoplimitTab == true) {
+        this.type = "stoplimit";
       }
+    },    
+    async findmarketPrice() {
+        axios.get(`http://104.154.96.67:8001/api/ticker?productId=${this.fullPairName}`)
+        .then((res) => {
+          if(res.data.Open == null) {
+            this.state.price = 0
+          }
+          else{
+            this.state.price = res.data.Open
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        }); 
     },
     getUserBalance() {
       this.coin = JSON.parse(localStorage.getItem("arraySymbol"));
@@ -578,41 +597,15 @@ export default {
         this.authUser = false;
       }        
     },
-    async toStopLimit() {
-      this.limitTab = false;
-      this.marketTab = false;
-      this.stopTab = false;
-      this.stoplimitTab = true;
-      if (this.stoplimitTab == true) {
-        this.type = "stoplimit";
-      }
-    },
     async findrange() {
       this.preseent = this.example1.value
       this.newAmount = this.balanceSell / 100 * this.preseent
-      this.state.amount = this.newAmount.toFixed(12)
-    },
-    async findMarketPrice() {     
-        axios.get(`http://104.154.96.67:8001/api/ticker?productId=${this.fullPairName}`)
-        .then((res) => {
-            this.state.price = res.data.Open
-        })
-        .catch(function(error) {
-          console.log(error);
-        }); 
+      this.state.amount = this.newAmount.toFixed(10)
     }
   },
   watch: {
     fullPairName: function(value) {
-        const headers = {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem(
-            "X-LDX-Inspira-Access-Token"
-          )}`,
-        };
-        axios.get("https://dapi.exus.live/api/mobile/v1/trade/marcket/trade/pair", {
-          headers: headers,
-        })
+        axios.get("https://dapi.exus.live/api/mobile/v1/common/marcket/trade/pair")
         .then((res) => {
           for (let i = 0; i < res.data[0].length; i++) {
             if (res.data[0][i]["pair_name"] == value) {
@@ -623,6 +616,22 @@ export default {
         .catch(function(error) {
           console.log(error);
         });   
+    
+        axios.get(`http://104.154.96.67:8001/api/ticker?productId=${value}`)
+        .then((res) => {
+          if(this.type == "market") {
+            if(res.data.Open == null) {
+              this.state.price = 0
+            }
+            else{
+              this.state.price = res.data.Open
+            }
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });    
+    
     },
     pairName: function(valueSelected) {
       for (let j = 0; j < this.cryptoAll.length; j++) {
@@ -630,10 +639,21 @@ export default {
           this.balanceBuySell =this.cryptoAll[j]["amount"]
         }
       } 
-    this.state.amount = null;
-    this.state.price = null;
-
+      this.state.amount = null;
+      this.state.price = null;
     },
+    type: function(value) {
+      if(value == "market") {
+        axios.get('http://104.154.96.67:8001/api/ticker?productId=${fullPairName}')
+        .then((res) => {        
+            this.state.price = res.data.Open
+        })
+        .catch(function(error) {
+          console.log(error);
+        }); 
+
+      }
+    }
   },
   mounted() {
     this.getMarketPrice();

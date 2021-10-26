@@ -32,7 +32,7 @@
                     <img :src="crypto.image" />
                     <h4>
                       {{ crypto.symbol }} 
-                      <span>{{ crypto.name }}</span>
+                      <span class="no-padding-left">{{ crypto.name }}</span>
                     </h4>
                   </td>
 

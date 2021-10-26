@@ -21,8 +21,8 @@
                 <tbody>
                     <tr v-for="marketprice in filterCoins" :key="marketprice.coin">
                         <td @click="selectcoin(marketprice.pair_name, marketprice.image, marketprice.currency, marketprice)">{{ marketprice.pair_name }}</td>
-                        <td @click="selectcoin(marketprice.pair_name, marketprice.image, marketprice.currency)">{{ marketprice.price }}</td>
-                        <td @click="selectcoin(marketprice.pair_name, marketprice.image, marketprice.currency)" class="text-right success-text">{{marketprice.change_24h}}%</td>
+                        <td @click="selectcoin(marketprice.pair_name, marketprice.image, marketprice.currency)">{{ marketprice.last_price }}</td>
+                        <td @click="selectcoin(marketprice.pair_name, marketprice.image, marketprice.currency)" class="text-right success-text">{{marketprice.change}}%</td>
                     </tr>                                                                                                                                                                                           
                 </tbody>
               </table>
@@ -173,21 +173,16 @@ export default {
             this.ldcx24hBind=((filledPrice-open24hBnd)/ open24hBnd)*100
          }
     },
-    async getMarketDropdown() {
-      const headers = {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem(
-          "X-LDX-Inspira-Access-Token"
-        )}`,
-      };           
-       axios.get("https://dapi.exus.live/api/mobile/v1/dashboard/summary/GBP?volume_24h=desc", {headers: headers})
+    async getMarketDropdown() {          
+       axios.get("https://dapi.exus.live/api/mobile/v1/common/marcket/trade/pair")
         .then((res) => {
-        this.coindata =  res.data;
+        this.coindata =  res.data[0];
+        console.log(res.data[0])
       
         for (let i = 0; i < this.coindata.length; i++) {
             this.coin = this.coindata[i].pair_name.toLowerCase();
-            this.lastprice = this.coindata[i].price;
-            this.priceChanege = this.coindata[i].change_24h;
+            // this.lastprice = this.coindata[i].price;
+            // this.priceChanege = this.coindata[i].change_24h;
         }
         for (let i = 0; i < this.coindata.length; i++) {
           if(this.defaultCoin == "BTC/USDC") {
