@@ -739,7 +739,7 @@ export default {
       };
     let ts =this
         axios
-        .get(`http://104.154.96.67:8001/api/products/trades?productId=${valueSelected}`, {
+        .get(`https://tradeapi.exus.live/api/products/trades?productId=${valueSelected}`, {
           headers: headers,
         })
         .then((response) => {
@@ -952,7 +952,7 @@ export default {
       };
       axios
         .get(
-          `http://104.154.96.67:8001/api/ticker?productId=${this.fullPairNameLocalStorage}`,
+          `https://tradeapi.exus.live/api/ticker?productId=${this.fullPairNameLocalStorage}`,
           {
             headers: headers,
           }
@@ -985,7 +985,7 @@ export default {
     
     const ts = this;
     
-    this.connection = new WebSocket("ws://104.154.96.67:8002/ws");
+    this.connection = new WebSocket("wss://stream.exus.live/ws");
    
     this.connection.onmessage = function (event) {
       ts.dataAl = JSON.parse(event.data);

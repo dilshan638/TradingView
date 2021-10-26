@@ -188,7 +188,7 @@ export default {
       };
         axios
         .get(
-          `http://104.154.96.67:8001/api/orders?productId=${this.pOne}&status=open&before&after&startDate=&endtDate=&limit=1000&side=`,
+          `https://tradeapi.exus.live/api/orders?productId=${this.pOne}&status=open&before&after&startDate=&endtDate=&limit=1000&side=`,
           {
             headers: headers,
           }
@@ -226,7 +226,7 @@ export default {
       };
         axios
         .get(
-          `http://104.154.96.67:8001/api/orders?productId=${this.pTwo}&status=open&before&after&startDate=&endtDate=&limit=1000&side=`,
+          `https://tradeapi.exus.live/api/orders?productId=${this.pTwo}&status=open&before&after&startDate=&endtDate=&limit=1000&side=`,
           {
             headers: headers,
           }
@@ -260,7 +260,7 @@ export default {
       };
         axios
         .get(
-          `http://104.154.96.67:8001/api/orders?productId=&status=open&before&after&startDate=&endtDate=&limit=1000&side=${this.selectedSide}`,
+          `https://tradeapi.exus.live/api/orders?productId=&status=open&before&after&startDate=&endtDate=&limit=1000&side=${this.selectedSide}`,
           {
             headers: headers,
           }
@@ -303,7 +303,7 @@ export default {
       };
       axios
         .get(
-          "http://104.154.96.67:8001/api/orders?productId=BTC/USDC&status=open&status=filled&status=new&before&after&limit=100",
+          "https://tradeapi.exus.live/api/orders?productId=BTC/USDC&status=open&status=filled&status=new&before&after&limit=100",
           {
             headers: headers,
           }
@@ -337,7 +337,7 @@ export default {
       };
      axios
         .get(
-          `http://104.154.96.67:8001/api/orders?productId=&before&after&startDate=${this.todayDate}&endtDate=${this.lastDay}&limit=1000&side=`,
+          `https://tradeapi.exus.live/api/orders?productId=&before&after&startDate=${this.todayDate}&endtDate=${this.lastDay}&limit=1000&side=`,
           {
             headers: headers,
           }
@@ -369,7 +369,7 @@ export default {
       };
       axios
         .get(
-          `http://104.154.96.67:8001/api/orders?productId=&before&after&startDate=${this.oneWeek}&endtDate=${this.todayDate}&limit=1000&side=`,
+          `https://tradeapi.exus.live/api/orders?productId=&before&after&startDate=${this.oneWeek}&endtDate=${this.todayDate}&limit=1000&side=`,
           {
             headers: headers,
           }
@@ -400,7 +400,7 @@ export default {
       };
       axios
         .get(
-          `http://104.154.96.67:8001/api/orders?productId=&before&after&startDate=${this.oneMonth}&endtDate=${this.todayDate}&limit=1000&side=`,
+          `https://tradeapi.exus.live/api/orders?productId=&before&after&startDate=${this.oneMonth}&endtDate=${this.todayDate}&limit=1000&side=`,
           {
             headers: headers,
           }
@@ -428,7 +428,7 @@ export default {
       };
       axios
         .get(
-          `http://104.154.96.67:8001/api/orders?productId=&before&after&startDate=${this.selectedDate[0].toISOString().slice(0, 10)}&endtDate=${this.selectedDate[1].toISOString().slice(0, 10)}&limit=1000&side=`,
+          `https://tradeapi.exus.live/api/orders?productId=&before&after&startDate=${this.selectedDate[0].toISOString().slice(0, 10)}&endtDate=${this.selectedDate[1].toISOString().slice(0, 10)}&limit=1000&side=`,
           {
             headers: headers,
           }
@@ -456,7 +456,7 @@ export default {
       };
       axios
         .get(
-          `http://104.154.96.67:8001/api/orders?productId=&before&after&startDate=${this.threeMonth}&endtDate=${this.todayDate}&limit=1000&side=`,
+          `https://tradeapi.exus.live/api/orders?productId=&before&after&startDate=${this.threeMonth}&endtDate=${this.todayDate}&limit=1000&side=`,
           {
             headers: headers,
           }

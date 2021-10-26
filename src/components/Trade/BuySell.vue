@@ -386,7 +386,7 @@ export default {
 
       axios
         .get(
-          "http://104.154.96.67:8001/api/orders?productId=BTC/USDC&status=open&before&after&limit=100",
+          "https://tradeapi.exus.live/api/orders?productId=BTC/USDC&status=open&before&after&limit=100",
           {
             headers: headers,
           }
@@ -410,7 +410,7 @@ export default {
 
       axios
         .get(
-          "http://104.154.96.67:8001/api/orders?productId=BTC/USDC&status=open&status=filled&status=new&before&after&limit=100",
+          "https://tradeapi.exus.live/api/orders?productId=BTC/USDC&status=open&status=filled&status=new&before&after&limit=100",
           {
             headers: headers,
           }
@@ -433,7 +433,7 @@ export default {
 
         axios
           .get(
-            "http://104.154.96.67:8001/api/orders?productId=BTC/USDC&status=open&status=filled&status=new&before&after&limit=100",
+            "https://tradeapi.exus.live/api/orders?productId=BTC/USDC&status=open&status=filled&status=new&before&after&limit=100",
             {
               headers: headers,
             }
@@ -493,7 +493,7 @@ export default {
         };
         try {
           let response = await this.axios
-            .post("http://104.154.96.67:8001/api/orders", data, {headers})
+            .post("https://tradeapi.exus.live/api/orders", data, {headers})
             .then((res) => {
               // this.sendData = response.data
               console.log(response);
@@ -572,7 +572,7 @@ export default {
       }
     },    
     async findmarketPrice() {
-        axios.get(`http://104.154.96.67:8001/api/ticker?productId=${this.fullPairName}`)
+        axios.get(`https://tradeapi.exus.live/api/ticker?productId=${this.fullPairName}`)
         .then((res) => {
           if(res.data.Open == null) {
             this.state.price = 0
@@ -617,7 +617,7 @@ export default {
           console.log(error);
         });   
     
-        axios.get(`http://104.154.96.67:8001/api/ticker?productId=${value}`)
+        axios.get(`https://tradeapi.exus.live/api/ticker?productId=${value}`)
         .then((res) => {
           if(this.type == "market") {
             if(res.data.Open == null) {
@@ -644,7 +644,7 @@ export default {
     },
     type: function(value) {
       if(value == "market") {
-        axios.get('http://104.154.96.67:8001/api/ticker?productId=${fullPairName}')
+        axios.get('https://tradeapi.exus.live/api/ticker?productId=${fullPairName}')
         .then((res) => {        
             this.state.price = res.data.Open
         })
