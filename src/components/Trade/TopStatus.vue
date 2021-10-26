@@ -218,7 +218,7 @@ export default {
       
     },
      async getPrice(){
-      
+       
        const headers = {
         "Content-Type": "application/json",
       };
@@ -274,6 +274,7 @@ export default {
         ts.low24h=ts.dataAl.low24h
         ts.volume24h=ts.dataAl.volume24h
         ts.getPrice()
+     
       }
 
       if(ts.open24h==0 ){

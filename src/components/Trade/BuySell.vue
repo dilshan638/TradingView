@@ -60,7 +60,7 @@
               aria-label=""
             />
             <div class="input-group-append">
-              <span class="input-group-text">{{ SelectedSymbol }}</span>
+              <span class="input-group-text">{{ fullPairName.substring(0, fullPairName.lastIndexOf('/')) }}</span>
             </div>
             <span class="error-msg" v-if="v$.amount.$error"
               >Amount is {{ v$.amount.$errors[0].$message }}
@@ -653,7 +653,8 @@ export default {
         }); 
 
       }
-    }
+    },
+    
   },
   mounted() {
     this.getMarketPrice();
@@ -663,6 +664,7 @@ export default {
     this.getPairDetails();
     this.checkAuthUser();
     this.setPairVal();
+    
   
   },
 };
