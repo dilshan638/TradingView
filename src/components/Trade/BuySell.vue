@@ -375,77 +375,7 @@ export default {
           });
     
     },
-    async getDataOpenOrders() {
-      this.eventBus.emit('openOrders');
-     const headers = {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem(
-          "X-LDX-Inspira-Access-Token"
-        )}`,
-      };
-
-      axios
-        .get(
-          "http://104.154.96.67:8001/api/orders?productId=BTC/USDC&status=open&before&after&limit=100",
-          {
-            headers: headers,
-          }
-        )
-        .then((responsive) => {
-          
-          this.openOrders = responsive.data;
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
-    async getDataMyHistory() {
-      this.eventBus.emit('myTradeHistory');
-      const headers = {
-        Authorization: `Bearer ${localStorage.getItem(
-            "X-LDX-Inspira-Access-Token"
-          )}`,
-          "Content-Type": "application/json", 
-      };
-
-      axios
-        .get(
-          "http://104.154.96.67:8001/api/orders?productId=BTC/USDC&status=open&status=filled&status=new&before&after&limit=100",
-          {
-            headers: headers,
-          }
-        )
-        .then((responsive) => {
-        this.resOne=responsive.data
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
-    async getDataOrderHistory() {
-        this.eventBus.emit('orderHistory');
-        const headers = {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem(
-          "X-LDX-Inspira-Access-Token"
-        )}`,
-      };
-
-        axios
-          .get(
-            "http://104.154.96.67:8001/api/orders?productId=BTC/USDC&status=open&status=filled&status=new&before&after&limit=100",
-            {
-              headers: headers,
-            }
-          )
-          .then((responsive) => {
-           this.resTwo=responsive.data
-            
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-    },
+    
     async getPairDetails() {
         axios
           .get("https://dapi.exus.live/api/mobile/v1/common/marcket/trade/pair")
@@ -463,9 +393,12 @@ export default {
           });
     },
     async buybtcformaction() {
-      this.getDataMyHistory();
-      this.getDataOpenOrders();
-      this.getDataOrderHistory();
+     // this.getDataMyHistory();
+    //  this.getDataOpenOrders();
+     // this.getDataOrderHistory();
+      this.eventBus.emit('orderHistory');
+      this.eventBus.emit('myTradeHistory');
+      this.eventBus.emit('openOrders');
       this.v$.amount.$touch();
       this.v$.price.$touch();
       if (!this.v$.amount.error && !this.v$.price.error) {
@@ -498,9 +431,9 @@ export default {
               // this.sendData = response.data
               console.log(response);
               console.log(res);
-              this.state.amount = null;
-              this.state.price = null;
-              this.$v.$reset();
+              this.state.amount = 0;
+              this.state.price = 0;
+             // this.$v.$reset();              
               this.$toast.show("New trade Successfully  updated.", {type: "success", position: "bottom-right"});
             });
         } 
@@ -639,8 +572,8 @@ export default {
           this.balanceBuySell =this.cryptoAll[j]["amount"]
         }
       } 
-      this.state.amount = null;
-      this.state.price = null;
+      this.state.amount = 0;
+      this.state.price = 0;
     },
     type: function(value) {
       if(value == "market") {
