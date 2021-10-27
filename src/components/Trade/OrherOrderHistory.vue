@@ -4,7 +4,7 @@
       <div class="col-md-12">
         <div class="set-flter-row">
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-xl-4">
               <div class="input-slot">
                 <button class="f-btn" @click="oneDayFilter" v-bind:class="[this.onedayaction == true ? 'active' : '']">1 Day</button>
                 <button class="f-btn" @click="oneWeekFilter" v-bind:class="[this.oneweekaction == true ? 'active' : '']">1 Week</button>
@@ -12,7 +12,7 @@
                 <button class="f-btn" @click="threeMonthFilter" v-bind:class="[this.threemonthaction == true ? 'active' : '']">3 Months</button>
               </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-xl-8">
               <!-- <span>Time</span> -->
               <div class="time-plate">
                 <Datepicker
@@ -46,7 +46,7 @@
               <th scope="col">Executed</th>
               <th scope="col">Amount</th>
               <th scope="col">Filled</th>
-              <th scope="col">Total</th>
+              <th width="18%" scope="col">Total</th>
               <th scope="col">Status</th>
               <th scope="col">Action</th>
             </tr>
@@ -67,7 +67,7 @@
             <td>{{ orders.executedValue }}</td>
             <td>{{ orders.size }}</td>
             <td>{{ orders.filledSize }}</td>
-            <td>{{ orders.size * orders.price }}</td>
+            <td width="18%">{{ orders.size * orders.price }}</td>
             <td>{{ orders.status }}</td>
             <td v-if="orders.status == 'open'">
               <button class="trade-btn" @click="cancelation(orders.id)">Cancel</button>

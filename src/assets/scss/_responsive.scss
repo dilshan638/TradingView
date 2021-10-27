@@ -421,6 +421,41 @@
 }
 @media only screen and (min-device-width : 1152px) and (max-device-width : 1440px) {
 
+    body .set-flter-row button {
+        max-width: none;
+        padding-left: 4px !important;
+        padding-right: 4px !important;
+        font-size: 0.75rem !important;
+        margin-right: 2px;
+        margin-top: 0;
+
+    }    
+
+    .tooltip3 {
+        padding: 10px !important;
+        max-width: 165px !important;
+
+        .tool-row{
+            margin-bottom: 1px !important;
+            font-size: 0.65rem !important;
+            font-weight: 900 !important;      
+            
+            .tool-title{
+                margin-bottom: 1px;
+                font-size: 0.65rem;
+                font-weight: 900 !important;
+                width: 40% !important;
+            }
+            .tool-val{
+                width: 60% !important;
+            }          
+        }
+    }   
+    
+   body .top-order-book.full-data .tooltip3 {
+        left: -186px !important;
+    }    
+
     .p-modal{
 
         .modal__dialog{
