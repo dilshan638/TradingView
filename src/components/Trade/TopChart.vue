@@ -1,6 +1,6 @@
 <template>
     <div class="trade-box">
-        <div class="row status1">
+        <!-- <div class="row status1">
             <div class="row">
                 <div class="col-md-12">
                     <div class="row">
@@ -49,7 +49,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="row">
             <div class="col-md-12">
                 <!-- <img src="images/logo/chart.jpeg" class="img-responsive" /> -->
