@@ -247,7 +247,7 @@ export default {
   created: function () {
     const ts = this;
     this.connection = new WebSocket(
-      "ws://104.154.96.67:8002/ws"
+      "wss://stream.exus.live/ws"
     );
 
     this.connection.onmessage = function (event) {
