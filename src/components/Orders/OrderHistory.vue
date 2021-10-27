@@ -242,6 +242,7 @@ export default {
     },
     async selectside(side) {
       this.selectedSide = side.target.value;
+      
        if(this.oneDay==true){
         this.oneDayFilter()
       }
@@ -258,6 +259,7 @@ export default {
           "X-LDX-Inspira-Access-Token"
         )}`,
       };
+      console.log( `https://tradeapi.exus.live/api/orders?productId=&status=open&before&after&startDate=&endtDate=&limit=1000&side=${this.selectedSide}`)
         axios
         .get(
           `https://tradeapi.exus.live/api/orders?productId=&status=open&before&after&startDate=&endtDate=&limit=1000&side=${this.selectedSide}`,

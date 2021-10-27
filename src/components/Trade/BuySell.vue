@@ -434,7 +434,7 @@ export default {
               this.state.amount = 0;
               this.state.price = 0;
              // this.$v.$reset();              
-              this.$toast.show("New trade Successfully  updated.", {type: "success", position: "bottom-right"});
+              this.$toast.show("New trade successfully  updated.", {type: "success", position: "bottom-right"});
             });
         } 
         catch (error) {
