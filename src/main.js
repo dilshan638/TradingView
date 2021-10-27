@@ -9,10 +9,10 @@ import VueApexCharts from "vue3-apexcharts";
 //import VueSession from 'vue-session'
 import router from './router';
 import TableLite from "vue3-table-lite";
+import VueTradingView from 'vue-trading-view';
 
 import VueDatepickerUi from 'vue-datepicker-ui'
 import 'vue-datepicker-ui/lib/vuedatepickerui.css';
-import TradingVue from 'trading-vue-js'
 
 import mitt from 'mitt'
 
@@ -23,7 +23,7 @@ app.config.globalProperties.eventBus = eventBus
 
 app.use('Datepicker', VueDatepickerUi)
 app.use(router)
-app.use(TradingVue)
+app.use(VueTradingView)
 app.use(TableLite)
 app.use(Toaster)
 //app.use(eventBus)

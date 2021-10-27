@@ -500,7 +500,7 @@ export default {
               console.log(res);
               this.state.amount = null;
               this.state.price = null;
-              this.$v.$reset();              
+              this.$v.$reset();
               this.$toast.show("New trade Successfully  updated.", {type: "success", position: "bottom-right"});
             });
         } 

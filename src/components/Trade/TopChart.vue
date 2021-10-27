@@ -52,13 +52,22 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <img src="images/logo/chart.jpeg" class="img-responsive" />
+                <!-- <img src="images/logo/chart.jpeg" class="img-responsive" /> -->
+                <div class="hello">
+                  <VueTradingView :options="{
+                    symbol: 'NASDAQ:AAPL',
+                    theme: 'dark',
+                    autosize: true
+                  }" />
+                </div>                
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import VueTradingView from 'vue-trading-view/src/vue-trading-view';
+
 const dataMapper = (data) =>
   [
     { name: "ETH", prop: "coinsPerHour" },
@@ -72,6 +81,7 @@ const dataMapper = (data) =>
 export default {
   name: "App",
   components: {
+    VueTradingView
   },
   data: () => ({
     dailyStats: [],
