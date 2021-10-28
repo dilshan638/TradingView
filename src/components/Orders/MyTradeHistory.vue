@@ -14,7 +14,8 @@
                   input-class="date-range-picker"
                   position="bottom"
                 />    
-                <button @click="dateRangeFilter" class="sea-btn">Search</button>            
+                <button @click="dateRangeFilter" class="sea-btn">Search</button>
+                <button class="reset-btn" style="min-height: 44px !important;">Reset</button>  
               </div>
             </div> 
             <div class="col-md-3" v-bind:class="[$route.path != '/trade' ? 'active' : '']">
