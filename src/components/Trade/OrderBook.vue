@@ -843,13 +843,13 @@ export default {
    
     },
     async setData(dataSellArray, dataBuyArray, fillPrice,sellarray) {
-          
+         
               if (dataSellArray != undefined) {
                    this.priceSellBind = dataSellArray;
                    this.priceSellBind.sort((a, b) => {return b[0] - a[0]
                     });
     
-               
+              
                  for (let z = this.priceSellBind.length-1; z>=0; z--) {
                         this.buyAmount += parseFloat(this.priceSellBind[z][1]);
                         this.priceSellBind[z][3] = this.buyAmount;
@@ -864,11 +864,12 @@ export default {
                 }
          
                 if (dataBuyArray != undefined) {
+                  
                   this.priceBuyBind = dataBuyArray;
                   this.priceBuyBind.sort((a, b) => {
                       return b[0] - a[0];
                   });
-        
+
               for (let a = 0; a<=this.priceBuyBind.length-1; a++) {
                 this.selAmount += parseFloat(this.priceBuyBind[a][1]);
                 this.priceBuyBind[a][3] = this.selAmount;
@@ -891,13 +892,9 @@ export default {
                     });
                 
                 }
-   
-
                 this.price = fillPrice;
                  
-                //  if(fillPrice==''||fillPrice==null){
-                //     this.getPrice()
-                //  }
+                
      
     },
     async activebuysell() {
@@ -958,7 +955,7 @@ export default {
           }
         )
         .then((response) => {
-           this.price=response.data.Open
+           this.price=response.data.Close
         
          
         })
@@ -972,9 +969,7 @@ export default {
 
 
   
-  mounted() {
-  //  this.setData()
- // let ts= this
+mounted() {
     this.activebuysell()
     this.matchPriceMATCH = localStorage.getItem("matchPriceMATCH");
     this.fullPairNameLocalStorage= localStorage.getItem("selectedmainCoin");
@@ -983,38 +978,66 @@ export default {
   
  created: function () {
     
-    const ts = this;
-    
+    let ts = this;
     this.connection = new WebSocket("wss://stream.exus.live/ws");
    
     this.connection.onmessage = function (event) {
+      console.log(JSON.parse(event.data))
+      ts.dataAl=[]
+      console.log(ts.dataAl)
       ts.dataAl = JSON.parse(event.data);
-
-      //Oder Book Page Onload
-    
+       console.log(ts.dataAl)
+     
+     
+      if ( JSON.parse(event.data).type == "snapshot") {
+        ts.priceSell =  JSON.parse(event.data).asks;
+        ts.priceBuy =  JSON.parse(event.data).bids;
+        ts.priceSellOnlySell= JSON.parse(event.data).asks;
        
-      if (ts.dataAl.type == "snapshot") {
-        ts.priceSell = ts.dataAl.asks;
-        ts.priceBuy = ts.dataAl.bids;
-        ts.priceSellOnlySell=ts.dataAl.asks;
+        ts.getPrice()
 
-       ts.getPrice()
-      
+                  // for (let z =0; z<=ts.priceSell.length-1; z++)
+                  //  {
+                  //       ts.buyAmount += parseFloat(ts.priceSell[z][1]);
+                  //       ts.priceSell[z][3] = ts.buyAmount;
+                  //       ts.buyTotal += parseFloat(ts.priceSell[z][0]) * parseFloat(ts.priceSell[z][1]);
+                  //       ts.priceSell[z][4] = ts.buyTotal;
+                  //     }
+
+                  // for (let a = 0; a<=ts.priceBuy.length-1; a++) {
+                  //   ts.selAmount += parseFloat(ts.priceBuy[a][1]);
+                  //   ts.priceBuy[a][3] = ts.selAmount;
+                  //   ts.sellTotal += parseFloat(ts.priceBuy[a][0]) * parseFloat(ts.priceBuy[a][1]);
+                  //   ts.priceBuy[a][4] = ts.sellTotal;
+                  // }
+  
       }
  
-      if (ts.dataAl.type == "l2update") {
-       
-        
-
+      if (JSON.parse(event.data).type == "l2update") {
         ts.priceSell = [];
         ts.priceBuy = [];
         ts.priceSellOnlySell=[];
        
-        ts.priceSell = ts.dataAl.asks;
-        ts.priceBuy = ts.dataAl.bids;
-        ts.priceSellOnlySell=ts.dataAl.asks;
+
+        ts.priceSell =  JSON.parse(event.data).asks;
+        ts.priceBuy =  JSON.parse(event.data).bids;
+        ts.priceSellOnlySell= JSON.parse(event.data).asks;
      
-     
+     console.log(ts.priceSell)
+
+                  // for (let z = ts.priceSell.length-1; z>=0; z--) {
+                  //       ts.buyAmount += parseFloat(ts.priceSell[z][1]);
+                  //       ts.priceSell[z][3] = ts.buyAmount;
+                  //       ts.buyTotal += parseFloat(ts.priceSell[z][0]) * parseFloat(ts.priceSell[z][1]);
+                  //       ts.priceSell[z][4] = ts.buyTotal;
+                  //     }
+
+                  // for (let a = 0; a<=ts.priceBuy.length-1; a++) {
+                  //   ts.selAmount += parseFloat(ts.priceBuy[a][1]);
+                  //   ts.priceBuy[a][3] = ts.selAmount;
+                  //   ts.sellTotal += parseFloat(ts.priceBuy[a][0]) * parseFloat(ts.priceBuy[a][1]);
+                  //   ts.priceBuy[a][4] = ts.sellTotal;
+                  // }
     
       } else {
         // Recent Trades //ts.dataAl.type == "order" || ts.dataAl.type == "match" || ***************To Do****************
@@ -1022,7 +1045,7 @@ export default {
         if (ts.dataAl.type == "match") {
           ts.fill = ts.dataAl.price;
           ts.matchFill = ts.dataAl.side;
-           localStorage.setItem("matchPriceMATCH", ts.dataAl.price);
+          localStorage.setItem("matchPriceMATCH", ts.dataAl.price);
          
 
            ts.recentData.push({
@@ -1034,37 +1057,7 @@ export default {
          ts.recentData.reverse()
         }
       }
-     // alert("1030 "+ this.pairNameSelected)
-      // const headers = {
-      //   "Content-Type": "application/json",
-      // };
-    // alert("1036 "+this.pairNameSelected)
-      // axios
-      //   .get(`http://104.154.96.67:8001/api/products/trades?productId=BTC/USDC`, {
-      //     headers: headers,
-      //   })
-      //   .then((response) => {
-       
-      //     if (ts.recentData.length != 0) {
-      //       ts.recentData = [];
-      //     }
-      //     for (let b = 0; b < response.data.length; b++) {
-      //       ts.recentData.push({
-      //         side: response.data[b].side,
-      //         size: response.data[b].size,
-      //         price: response.data[b].price,
-      //         time:response.data[b].time
-      //       });
-      //     }
-
-        
-      //   })
-      //   .catch(function (error) {
-      //     console.log(error);
-      //   });
-
-     
-      ts.setData(ts.priceSell, ts.priceBuy, ts.fill,ts.priceSellOnlySell);
+    ts.setData(ts.priceSell, ts.priceBuy, ts.fill,ts.priceSellOnlySell);
    
     };
 

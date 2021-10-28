@@ -29,8 +29,8 @@
                     >
                       <option value="">All</option>
 
-                      <option value="BTC-">BTC</option>
-                      <option value="ETH-">ETH</option>
+                      <option value="BTC">BTC</option>
+                      <option value="ETH">ETH</option>
                     </select>
                   </div>
                   <div class="line1">-</div>
@@ -41,7 +41,7 @@
                       @change="PairTwo($event)"
                     >
                       <option value="">All</option>
-                      <option value="USDT">USDT</option>
+                      <option value="USDC">USDC</option>
                       <option value="BTC">BTC</option>
                     </select>                              
                   </div>
@@ -71,41 +71,45 @@
         <table class="table table-hover">
           <thead>
             <tr>
-              <th width="22%" scope="col">Date</th>
+              <!-- <th width="22%" scope="col">Date</th> -->
               <th width="13%" scope="col">Pair</th>
               <th scope="col">Type</th>
               <th scope="col">Side</th>
+              <th scope="col">Average</th>
               <th scope="col">Price</th>
               <th scope="col">Executed</th>
               <th scope="col">Amount</th>
-              <th scope="col">Filled</th>
+              <!-- <th scope="col">Filled</th> -->
               <th scope="col">Total</th>
+               <th scope="col">Trigger Conditions</th>
               <th scope="col">Status</th>
-              <th scope="col">Action</th>
+              <!-- <th scope="col">Action</th> -->
             </tr>
           </thead>
 
           <tr v-for="orders in orderHistory" :key="orders.id">
-            <td width="22%">
+            <!-- <td width="22%">
               {{
                 orders.createdAt
               }}
-            </td>
+            </td> -->
             <td width="13%">{{ orders.productId }}</td>
             <td>{{ orders.type }}</td>
             <td v-bind:class="[orders.side == 'buy' ? 'buy' : 'sell']">
               {{ orders.side }}
             </td>
-            <td>{{ orders.price }}</td>
+            <td>-</td>
+             <td>{{ orders.price }}</td>
             <td>{{ orders.executedValue }}</td>
             <td>{{ orders.size }}</td>
-            <td>{{ orders.filledSize }}</td>
-            <td>{{ orders.size * orders.price }}</td>
+            <!-- <td>{{ orders.filledSize }}</td> -->
+            <td>{{ orders.size * orders.price }} </td>
+            <td>-</td>
             <td>{{ orders.status }}</td>
-            <td v-if="orders.status == 'open'">
+            <!-- <td v-if="orders.status == 'open'">
               <button class="trade-btn">Cancel</button>
             </td>
-            <td class="text-center" v-else>-</td>
+            <td class="text-center" v-else>-</td> -->
           </tr>
           <tbody></tbody>
         </table>
@@ -170,25 +174,27 @@ export default {
 
     async PairOne(pairone) {
       this.pOne = pairone.target.value;
-      if(this.oneD==true){
-        this.oneDayFilter()
-      }
-      if(this.oneW==true){
-        this.oneWeekFilter()
-      }
-       if(this.oneM==true){
-        this.oneMonthFilter()
-      }
-      else{
+     
+      // if(this.oneD==true){
+      //   this.oneDayFilter()
+      // }
+      // if(this.oneW==true){
+      //   this.oneWeekFilter()
+      // }
+      //  if(this.oneM==true){
+      //   this.oneMonthFilter()
+      // }
+    //  else{
    const headers = {
         "Content-Type": "application/json",
          Authorization: `Bearer ${localStorage.getItem(
           "X-LDX-Inspira-Access-Token"
         )}`,
       };
+      console.log(`https://tradeapi.exus.live/api/orders?productId=&before&after&limit=100&startDate=${this.selectedDate[0].toISOString().slice(0, 10)}&endtDate=${this.selectedDate[1].toISOString().slice(0, 10)}&side=${this.selectedSide}&baseCurrency=${this.pOne}&quoteCurrency=${this.pTwo}`)
         axios
         .get(
-          `https://tradeapi.exus.live/api/orders?productId=${this.pOne}&status=open&before&after&startDate=&endtDate=&limit=1000&side=`,
+         `https://tradeapi.exus.live/api/orders?productId=&before&after&limit=100&startDate=${this.selectedDate[0].toISOString().slice(0, 10)}&endtDate=${this.selectedDate[1].toISOString().slice(0, 10)}&side=${this.selectedSide}&baseCurrency=${this.pOne}&quoteCurrency=${this.pTwo}`,
           {
             headers: headers,
           }
@@ -200,33 +206,35 @@ export default {
         .catch(function (error) {
           console.log(error);
         });
-      }
+     // }
     },
 
     async PairTwo(pairtwo) {
       this.pTwo = pairtwo.target.value;
 
-       if(this.oneD==true){
-        this.oneDayFilter()
+      //  if(this.oneD==true){
+      //   this.oneDayFilter()
 
-      }
-      if(this.oneW==true){
-        this.oneWeekFilter()
+      // }
+      // if(this.oneW==true){
+      //   this.oneWeekFilter()
 
-      }
-       if(this.oneM==true){
-        this.oneMonthFilter()
-      }
-        else{
+      // }
+      //  if(this.oneM==true){
+      //   this.oneMonthFilter()
+      // }
+       // else{
     const headers = {
         "Content-Type": "application/json",
          Authorization: `Bearer ${localStorage.getItem(
           "X-LDX-Inspira-Access-Token"
         )}`,
       };
+        console.log(`https://tradeapi.exus.live/api/orders?productId=&before&after&limit=100&startDate=${this.selectedDate[0].toISOString().slice(0, 10)}&endtDate=${this.selectedDate[1].toISOString().slice(0, 10)}&side=${this.selectedSide}&baseCurrency=${this.pOne}&quoteCurrency=${this.pTwo}`)
+     
         axios
         .get(
-          `https://tradeapi.exus.live/api/orders?productId=${this.pTwo}&status=open&before&after&startDate=&endtDate=&limit=1000&side=`,
+           `https://tradeapi.exus.live/api/orders?productId=&before&after&limit=100&startDate=${this.selectedDate[0].toISOString().slice(0, 10)}&endtDate=${this.selectedDate[1].toISOString().slice(0, 10)}&side=${this.selectedSide}&baseCurrency=${this.pOne}&quoteCurrency=${this.pTwo}`,
           {
             headers: headers,
           }
@@ -238,31 +246,30 @@ export default {
         .catch(function (error) {
           console.log(error);
         });
-      }
+     // }
     },
     async selectside(side) {
       this.selectedSide = side.target.value;
       
-       if(this.oneDay==true){
-        this.oneDayFilter()
-      }
-      if(this.oneWeek==true){
-        this.oneWeekFilter()
-      }
-       if(this.oneMonth==true){
-        this.oneMonthFilter()
-      }
-        else{
+      //  if(this.oneDay==true){
+      //   this.oneDayFilter()
+      // }
+      // if(this.oneWeek==true){
+      //   this.oneWeekFilter()
+      // }
+      //  if(this.oneMonth==true){
+      //   this.oneMonthFilter()
+      // }
+      //   else{
     const headers = {
         "Content-Type": "application/json",
          Authorization: `Bearer ${localStorage.getItem(
           "X-LDX-Inspira-Access-Token"
         )}`,
       };
-      console.log( `https://tradeapi.exus.live/api/orders?productId=&status=open&before&after&startDate=&endtDate=&limit=1000&side=${this.selectedSide}`)
-        axios
+       axios
         .get(
-          `https://tradeapi.exus.live/api/orders?productId=&status=open&before&after&startDate=&endtDate=&limit=1000&side=${this.selectedSide}`,
+          `https://tradeapi.exus.live/api/orders?productId=&before&after&limit=100&startDate=${this.selectedDate[0].toISOString().slice(0, 10)}&endtDate=${this.selectedDate[1].toISOString().slice(0, 10)}&side=${this.selectedSide}&baseCurrency=${this.pOne}&quoteCurrency=${this.pTwo}`,
           {
             headers: headers,
           }
@@ -274,7 +281,7 @@ export default {
         .catch(function (error) {
           console.log(error);
         });
-      }
+      //}
     },
     async reset() {
       // var dropDown = document.getElementById("one");
@@ -294,7 +301,7 @@ export default {
       this.oneMonth = "";
       this.startDate = "";
       this.endDate = "";
-      this.getData();
+      //this.getData();
     },
     async getData() {
        const headers = {
@@ -414,23 +421,18 @@ export default {
           console.log(error);
         });
     },
-    // async conditional(){
-    //  if((this.oneD==false) && (this.oneW==false) &&(this.oneM==false)){
-    //        window.setInterval(() => {
-    //       this.getData();
-    //     }, 3000);
-    //     }
-    // },
+    
      async dateRangeFilter() {
+      
       const headers = {
         "Content-Type": "application/json",
          Authorization: `Bearer ${localStorage.getItem(
           "X-LDX-Inspira-Access-Token"
         )}`,
       };
-      axios
+     axios
         .get(
-          `https://tradeapi.exus.live/api/orders?productId=&before&after&startDate=${this.selectedDate[0].toISOString().slice(0, 10)}&endtDate=${this.selectedDate[1].toISOString().slice(0, 10)}&limit=1000&side=`,
+         `https://tradeapi.exus.live/api/orders?productId=&before&after&limit=100&startDate=${this.selectedDate[0].toISOString().slice(0, 10)}&endtDate=${this.selectedDate[1].toISOString().slice(0, 10)}&side=${this.selectedSide}&baseCurrency=${this.pOne}&quoteCurrency=${this.pTwo}`,
           {
             headers: headers,
           }
@@ -470,9 +472,14 @@ export default {
           console.log(error);
         });
     },
+    //  async dateSet(){
+    //      this.selectedDate[0].toISOString().slice(0, 10)=""
+    //      this.selectedDate[1].toISOString().slice(0, 10)=""
+    //  }
   },
   mounted() {
     let ts= this
+  
      this.eventBus.on('orderHistory',function(){
       ts.getData()
      })

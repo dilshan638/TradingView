@@ -27,8 +27,8 @@
                 >
                   <option value="">All</option>
 
-                  <option value="BTC-">BTC</option>
-                  <option value="ETH-">ETH</option>
+                  <option value="BTC">BTC</option>
+                  <option value="ETH">ETH</option>
                 </select>
               </div>
               <div class="line1">-</div>
@@ -39,7 +39,7 @@
                   @change="PairTwo($event)"
                 >
                   <option value="">All</option>
-                  <option value="USDT">USDT</option>
+                  <option value="USDC">USDC</option>
                   <option value="BTC">BTC</option>
                 </select>                              
               </div>
@@ -153,25 +153,26 @@ export default {
   methods: {
    async PairOne(pairone) {
       this.pOne = pairone.target.value;
-      if(this.oneD==true){
-        this.oneDayFilter()
-      }
-      if(this.oneW==true){
-        this.oneWeekFilter()
-      }
-       if(this.oneM==true){
-        this.oneMonthFilter()
-      }
-      else{
+      // if(this.oneD==true){
+      //   this.oneDayFilter()
+      // }
+      // if(this.oneW==true){
+      //   this.oneWeekFilter()
+      // }
+      //  if(this.oneM==true){
+      //   this.oneMonthFilter()
+      // }
+     // else{
       const headers = {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem(
           "X-LDX-Inspira-Access-Token"
         )}`,
       };
+       
         axios
         .get(
-          `https://tradeapi.exus.live/api/orders?productId=${this.pOne}&status=open&before&after&startDate=&endtDate=&limit=1000&side=`,
+          `https://tradeapi.exus.live/api/orders?productId=&before&after&limit=100&startDate=${this.selectedDate[0].toISOString().slice(0, 10)}&endtDate=${this.selectedDate[1].toISOString().slice(0, 10)}&side=${this.selectedSide}&baseCurrency=${this.pOne}&quoteCurrency=${this.pTwo}`,
           {
             headers: headers,
           }
@@ -183,33 +184,33 @@ export default {
         .catch(function (error) {
           console.log(error);
         });
-      }
+     // }
     },
 
     async PairTwo(pairtwo) {
       this.pTwo = pairtwo.target.value;
 
-       if(this.oneD==true){
-        this.oneDayFilter()
+      //  if(this.oneD==true){
+      //   this.oneDayFilter()
 
-      }
-      if(this.oneW==true){
-        this.oneWeekFilter()
+      // }
+      // if(this.oneW==true){
+      //   this.oneWeekFilter()
 
-      }
-       if(this.oneM==true){
-        this.oneMonthFilter()
-      }
-        else{
+      // }
+      //  if(this.oneM==true){
+      //   this.oneMonthFilter()
+      // }
+      //   else{
    const headers = {
         "Content-Type": "application/json",
          Authorization: `Bearer ${localStorage.getItem(
           "X-LDX-Inspira-Access-Token"
         )}`,
       };
-        axios
+       axios
         .get(
-          `https://tradeapi.exus.live/api/orders?productId=${this.pTwo}&status=open&before&after&startDate=&endtDate=&limit=1000&side=`,
+         `https://tradeapi.exus.live/api/orders?productId=&before&after&limit=100&startDate=${this.selectedDate[0].toISOString().slice(0, 10)}&endtDate=${this.selectedDate[1].toISOString().slice(0, 10)}&side=${this.selectedSide}&baseCurrency=${this.pOne}&quoteCurrency=${this.pTwo}`,
           {
             headers: headers,
           }
@@ -221,20 +222,20 @@ export default {
         .catch(function (error) {
           console.log(error);
         });
-      }
+     // }
     },
     async selectside(side) {
       this.selectedSide = side.target.value;
-       if(this.oneDay==true){
-        this.oneDayFilter()
-      }
-      if(this.oneWeek==true){
-        this.oneWeekFilter()
-      }
-       if(this.oneMonth==true){
-        this.oneMonthFilter()
-      }
-        else{
+      //  if(this.oneDay==true){
+      //   this.oneDayFilter()
+      // }
+      // if(this.oneWeek==true){
+      //   this.oneWeekFilter()
+      // }
+      //  if(this.oneMonth==true){
+      //   this.oneMonthFilter()
+      // }
+      //   else{
      const headers = {
         "Content-Type": "application/json",
          Authorization: `Bearer ${localStorage.getItem(
@@ -243,7 +244,7 @@ export default {
       };
         axios
         .get(
-          `http://104.154.96.67:8081/api/orders?productId=&status=open&before&after&startDate=&endtDate=&limit=1000&side=${this.selectedSide}`,
+          `https://tradeapi.exus.live/api/orders?productId=&before&after&limit=100&startDate=${this.selectedDate[0].toISOString().slice(0, 10)}&endtDate=${this.selectedDate[1].toISOString().slice(0, 10)}&side=${this.selectedSide}&baseCurrency=${this.pOne}&quoteCurrency=${this.pTwo}`,
           {
             headers: headers,
           }
@@ -255,19 +256,9 @@ export default {
         .catch(function (error) {
           console.log(error);
         });
-      }
+      //}
     },
-    async getRangeDate() {
-     // var start_date = this.selectedDate[0];
-     // var end_date = this.selectedDate[1];
-
-    //  var format_start_date = start_date.toISOString().slice(0, 10);
-   //   var format_end_date = end_date.toISOString().slice(0, 10);
-      //alert(format_start_date)
-     // alert(format_end_date)
-
-    
-    },
+   
     
      async oneDayFilter() {
        this.onedayaction = true;
@@ -287,7 +278,7 @@ export default {
       };
       axios
         .get(
-          `https://tradeapi.exus.live/api/orders?productId=&before&after&startDate=${this.todayDate}&endtDate=${this.lastDay}&limit=1000&side=&status=filled`,
+         `https://tradeapi.exus.live/api/orders?productId=&before&after&limit=100&startDate=${this.selectedDate[0].toISOString().slice(0, 10)}&endtDate=${this.selectedDate[1].toISOString().slice(0, 10)}&side=${this.selectedSide}&baseCurrency=${this.pOne}&quoteCurrency=${this.pTwo}`,
           {
             headers: headers,
           }
@@ -404,15 +395,15 @@ export default {
       //  var dropDownThree = document.getElementById("three");
       // dropDownThree.selectedIndex = 0;
 
-      this.pOne = "";
-      this.pTwo = "";
-      this.selectedSide = "";
-      this.todayDate = "";
-      this.oneWeek = "";
-      this.oneMonth = "";
-      this.startDate = "";
-      this.endDate = "";
-      this.getData();
+      // this.pOne = "";
+      // this.pTwo = "";
+      // this.selectedSide = "";
+      // this.todayDate = "";
+      // this.oneWeek = "";
+      // this.oneMonth = "";
+      // this.startDate = "";
+      // this.endDate = "";
+      // this.getData();
       this.selectedDate[0]=""
       this.selectedDate[1]=""
       
@@ -428,7 +419,7 @@ export default {
       };
       axios
         .get(
-          `https://tradeapi.exus.live/api/orders?productId=&status=filled&before&after&startDate=${this.selectedDate[0].toISOString().slice(0, 10)}&endtDate=${this.selectedDate[1].toISOString().slice(0, 10)}&limit=1000&side=`,
+          `https://tradeapi.exus.live/api/orders?productId=&before&after&limit=100&startDate=${this.selectedDate[0].toISOString().slice(0, 10)}&endtDate=${this.selectedDate[1].toISOString().slice(0, 10)}&side=${this.selectedSide}&baseCurrency=${this.pOne}&quoteCurrency=${this.pTwo}`,
           {
             headers: headers,
           }
@@ -495,7 +486,7 @@ export default {
   
 
   mounted() {
-    this.getRangeDate();
+   
     this.geTradeHistory();
 
     let ts= this

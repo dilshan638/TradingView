@@ -230,7 +230,7 @@ export default {
           }
         )
         .then((response) => {
-            this.marketPrice=response.data.Open
+            this.marketPrice=response.data.Close
         
          
         })
