@@ -455,7 +455,6 @@ export default {
                 console.log(res);
                 this.state.amount = "";
                 this.state.price = "";
-                alert("test");
                 this.v$.amount.$reset();
                 this.v$.price.$reset();
                 this.$toast.show("New trade successfully  updated.", {type: "success", position: "bottom-right"});
@@ -473,6 +472,7 @@ export default {
 
       } else {
         console.log("invalid form validation");
+        alert("invalid")
       }
     },
     async setCuurency() {

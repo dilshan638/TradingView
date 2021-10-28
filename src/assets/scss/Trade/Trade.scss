@@ -709,3 +709,29 @@ select.sel-val{
 #vue-trading-view{
     height: 530px !important;
 }
+
+body.fullscreen-chart{
+
+    .main-chart-area{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 99999;
+    }
+
+}
+
+.chart-grid{
+    position: relative;
+
+    i{
+        position: absolute;
+        top: 7px;
+        right: 54px;
+        z-index: 99999;
+        cursor: pointer;
+        color: #b2b2b2;
+    }
+}

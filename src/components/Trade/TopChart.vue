@@ -1,9 +1,10 @@
 <template>
-    <div class="trade-box">
+    <div class="trade-box main-chart-area">
         <div class="row">
             <div class="col-md-12">
                 <!-- <img src="images/logo/chart.jpeg" class="img-responsive" /> -->
-                <div class="hello">
+                <div class="hello chart-grid">
+                  <i v-bind:class="[expand == true ? 'ri-fullscreen-exit-line' : 'ri-fullscreen-line']" @click="toggleview"></i>
                   <VueTradingView :options="widgetOptions" />
                 </div>                
             </div>
@@ -39,8 +40,22 @@ export default {
       //  fullscreen: false,
         autosize: true,    
       //  container_id: 'tv_chart_container'        
-      }
+      },
+      expand: false
     }
+  },
+  methods: {
+    async toggleview() {
+      this.expand = !this.expand
+      if(this.expand == true) {
+        document.querySelector("body").classList.add("fullscreen-chart");
+      }
+      else{
+        document.querySelector("body").classList.remove("fullscreen-chart");
+      }
+      
+    }
+
   }
 };
 </script>
