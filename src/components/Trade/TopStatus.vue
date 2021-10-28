@@ -45,7 +45,7 @@
           <div class="top-sub">
             <h3>24h Change</h3>
             <b  >{{volume24hBind}}</b>
-          </div>          
+          </div>          Volume
         </div>
 
         <div class="innertop">
@@ -202,6 +202,7 @@ export default {
       this.selectedcurrency = currency;
       localStorage.setItem("selectedmainCoin", pair_name)
       localStorage.setItem("selectedcoinimage", image)
+    //  alert(local)
       this.setCoin();
       this.setMainCoin();
       this.$emit("symbol", currency)
