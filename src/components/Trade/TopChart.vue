@@ -24,17 +24,21 @@ export default {
         debug: false,
         symbol: 'NASDAQ:AAPL',
       // datafeed: Datafeed, // our datafeed object
-        interval: '15',
+        interval: 'D',
+        fullscreen: true,
        // container_id: 'tv_chart_container',
       // library_path: '/charting_library/',
         locale: 'en',
         theme: 'dark',
+        style: 1,
       //  disabled_features: ['use_localstorage_for_settings'],
         enabled_features: [],
+        withdateranges: true,
       //  client_id: 'test',
       //  user_id: 'public_user_id',
-        fullscreen: false,
-        autosize: true,            
+      //  fullscreen: false,
+        autosize: true,    
+      //  container_id: 'tv_chart_container'        
       }
     }
   }
