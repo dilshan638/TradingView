@@ -17,7 +17,7 @@
                       position="bottom"
                     />    
                     <button @click="dateRangeFilter" class="sea-btn">Search</button>
-                    <button class="reset-btn" style="min-height: 44px !important;">Reset</button>    
+                    <button class="reset-btn" style="min-height: 44px !important;" @click="reset">Reset</button>    
                   </div>
                 </div>
                 <div class="col-md-3">
@@ -302,7 +302,7 @@ export default {
       this.oneMonth = "";
       this.startDate = "";
       this.endDate = "";
-      //this.getData();
+      this.getData();
     },
     async getData() {
        const headers = {
