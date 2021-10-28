@@ -147,14 +147,14 @@
                 class="btn btn-primary pass-btn buyaction"
                 @selectcoin="selectedcurrency = 'new name'"
                 v-if="buytab"
-                @click="buybtcformaction"
+                @click="buybtcformaction(this.side)"
               >
                 BUY {{ SelectedSymbol }}
               </button>
               <button
                 class="btn btn-primary pass-btn sellaction"
                 v-else
-                @click="buybtcformaction"
+                @click="buybtcformaction(this.side)"
               >
                 SELL {{ SelectedSymbol }}
               </button>
@@ -255,6 +255,8 @@ export default {
       balancebuy: "",
       resOne:[],
       resTwo:[],
+
+      trade: false,
 
       pairmarketPrice: "",
 
@@ -392,16 +394,17 @@ export default {
             console.log(error);
           });
     },
-    async buybtcformaction() {
-     // this.getDataMyHistory();
-    //  this.getDataOpenOrders();
-     // this.getDataOrderHistory();
+    async buybtcformaction(side) {
+
+      this.trade = false
+
       this.eventBus.emit('orderHistory');
       this.eventBus.emit('myTradeHistory');
       this.eventBus.emit('openOrders');
       this.v$.amount.$touch();
       this.v$.price.$touch();
       if (!this.v$.amount.error && !this.v$.price.error) {
+
         const headers = {
           Authorization: `Bearer ${localStorage.getItem(
             "X-LDX-Inspira-Access-Token"
@@ -424,24 +427,52 @@ export default {
           stop: this.stop,
           limit: this.limit
         };
-        try {
-          let response = await this.axios
-            .post("https://tradeapi.exus.live/api/orders", data, {headers})
-            .then((res) => {
-              // this.sendData = response.data
-              console.log(response);
-              console.log(res);
-              this.state.amount = 0;
-              this.state.price = 0;
-             // this.$v.$reset();              
-              this.$toast.show("New trade successfully  updated.", {type: "success", position: "bottom-right"});
-            });
-        } 
-        catch (error) {
-          console.log(error);
+
+        if(side == 'buy') {
+            if(this.balanceSell <= this.state.amount * this.state.price) {
+              this.trade = false
+            }
+            else{
+              this.trade = true
+            }
         }
+        else{
+            if(this.balancebuy <= this.state.amount * this.state.price) {
+              this.trade = false
+            }
+            else{
+              this.trade = true
+            }        
+        }
+
+        if(this.trade == true){
+
+          try {
+            let response = await this.axios
+              .post("https://tradeapi.exus.live/api/orders", data, {headers})
+              .then((res) => {
+                console.log(response);
+                console.log(res);
+                this.state.amount = "";
+                this.state.price = "";
+                this.v$.amount.$reset();
+                this.v$.price.$reset();
+                this.$toast.show("New trade successfully  updated.", {type: "success", position: "bottom-right"});
+              });
+          } 
+          catch (error) {
+            console.log(error);
+          }        
+          
+        }
+
+        else{
+          this.$toast.show("Not sufficient your credit balance", {type: "error", position: "bottom-right"});
+        }
+
       } else {
         console.log("invalid form validation");
+        alert("invalid")
       }
     },
     async setCuurency() {
@@ -572,8 +603,9 @@ export default {
           this.balanceBuySell =this.cryptoAll[j]["amount"]
         }
       } 
-      this.state.amount = 0;
-      this.state.price = 0;
+      this.state.amount = "";
+      this.state.price = "";
+
     },
     type: function(value) {
       if(value == "market") {
@@ -587,6 +619,19 @@ export default {
 
       }
     },
+    total: function(value) {
+      alert(value)
+      // if(value == "market") {
+      //   axios.get('https://tradeapi.exus.live/api/ticker?productId=${fullPairName}')
+      //   .then((res) => {        
+      //       this.state.price = res.data.Open
+      //   })
+      //   .catch(function(error) {
+      //     console.log(error);
+      //   }); 
+
+      // }
+    },    
     
   },
   mounted() {

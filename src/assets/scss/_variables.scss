@@ -991,7 +991,7 @@ body.open-modal{
 .present{
     float: left;
     width: auto;
-    background-color: #4e4e4e;
+    background-color: #26303c;
     padding: 3px;
     font-size: 0.8rem;
     border-radius: 3px;
@@ -1085,4 +1085,13 @@ body.open-modal{
     margin-top: 8px;
     margin-left: 10px;
     margin-right: 10px;
+}
+
+body.fullscreen-chart{
+    overflow: hidden !important;
+
+    #vue-trading-view {
+        height: 95vh !important;
+    }
+
 }
