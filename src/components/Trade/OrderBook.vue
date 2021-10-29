@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="trade-box">
+    <div class="trade-box order-book-box">
       <div class="trade-header">
         Order Book
         <select class="form-control sel-val" @change="onChange($event)">
