@@ -23,8 +23,8 @@ export default {
     return{
       widgetOptions: {
         debug: false,
-        symbol: 'NASDAQ:AAPL',
-      // datafeed: Datafeed, // our datafeed object
+        symbol: 'BTCUSDT',
+        datafeed: [],//Datafeed, // our datafeed object
         interval: 'D',
         fullscreen: true,
        // container_id: 'tv_chart_container',
