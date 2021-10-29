@@ -403,7 +403,6 @@ export default {
       this.eventBus.emit('openOrders');
       this.v$.amount.$touch();
       this.v$.price.$touch();
-      if (!this.v$.amount.error && !this.v$.price.error) {
 
         const headers = {
           Authorization: `Bearer ${localStorage.getItem(
@@ -427,6 +426,8 @@ export default {
           stop: this.stop,
           limit: this.limit
         };
+
+      if (!this.v$.amount.error && !this.v$.price.error) {
 
         if(side == 'buy') {
             if(this.balanceSell <= this.state.amount * this.state.price) {

@@ -2,7 +2,6 @@
     <div class="trade-box main-chart-area">
         <div class="row">
             <div class="col-md-12">
-                <!-- <img src="images/logo/chart.jpeg" class="img-responsive" /> -->
                 <div class="hello chart-grid">
                   <i v-bind:class="[expand == true ? 'ri-fullscreen-exit-line' : 'ri-fullscreen-line']" @click="toggleview"></i>
                   <VueTradingView :options="widgetOptions" />
@@ -23,10 +22,11 @@ export default {
     return{
       widgetOptions: {
         debug: false,
-        symbol: 'NASDAQ:AAPL',
+        symbol: 'BTC/USDT',
       // datafeed: Datafeed, // our datafeed object
         interval: 'D',
         fullscreen: true,
+        hide_side_toolbar: false,
        // container_id: 'tv_chart_container',
       // library_path: '/charting_library/',
         locale: 'en',

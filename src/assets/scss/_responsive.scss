@@ -421,12 +421,16 @@
 }
 @media only screen and (min-device-width : 1152px) and (max-device-width : 1440px) {
 
+    .order-book-box{
+        min-height: 633px !important;
+    }
+
     body .set-flter-row button {
         max-width: none;
-        padding-left: 4px !important;
-        padding-right: 4px !important;
-        font-size: 0.75rem !important;
-        margin-right: 2px;
+        padding-left: 6px !important;
+        padding-right: 5px !important;
+        font-size: 0.7rem !important;
+        margin-right: 10px;
         margin-top: 0;
 
     }    
@@ -523,8 +527,8 @@
         min-height: 20px !important;
         line-height: 30px !important;
     }
-    .trade-box.buy-sell-box{
-        min-height: 551px !important;
+    body.trade-box.buy-sell-box{
+        min-height: 635px !important;
     }
     .buysell-form .input-group {
         height: 32px !important;
