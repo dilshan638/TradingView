@@ -4,7 +4,7 @@
             <div class="col-md-12">
                 <div class="hello chart-grid">
                   <i v-bind:class="[expand == true ? 'ri-fullscreen-exit-line' : 'ri-fullscreen-line']" @click="toggleview"></i>
-                  <VueTradingView :options="widgetOptions" />
+                  <VueTradingView :options="widgetOptions"/>
                 </div>                
             </div>
         </div>
@@ -12,18 +12,21 @@
 </template>
 
 <script>
+//const Datafeeds = chartapi();
 import VueTradingView from 'vue-trading-view/src/vue-trading-view';
 export default {
   name: "App",
   components: {
     VueTradingView
   },
+  
   data() {
     return{
+     //  datafeeds: new Datafeeds.UDFCompatibleDatafeed("http://yourhost/tradingview", 10000),
       widgetOptions: {
         debug: false,
-        symbol: 'BTC/USDT',
-      // datafeed: Datafeed, // our datafeed object
+        symbol: ' BTC/USDC',
+       // datafeed: datafeeds,
         interval: 'D',
         fullscreen: true,
         hide_side_toolbar: false,
@@ -39,8 +42,15 @@ export default {
       //  user_id: 'public_user_id',
       //  fullscreen: false,
         autosize: true,    
-      //  container_id: 'tv_chart_container'        
+      //  container_id: 'tv_chart_container'    
+      //  time: '2018-12-19',
+      //  open: 130,
+      //  high: 170,
+      //  low: 115,
+      //  close: 150,  
+       
       },
+      //test:[1415398768, 0.32, 4.2, 0.35, 4.2, 12.3 ],
       expand: false
     }
   },
@@ -54,7 +64,10 @@ export default {
         document.querySelector("body").classList.remove("fullscreen-chart");
       }
       
-    }
+    },
+
+   
+   
 
   }
 };

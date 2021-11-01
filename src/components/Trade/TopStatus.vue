@@ -30,10 +30,12 @@
         </div>
       </div>
       <div class="col-md-9">
-        <div class="innertop"  >
+        <div class="innertop"   >
           <h4 v-bind:class="[matchFill=='buy' ? 'buy' : 'sell']">{{marketPrice}}</h4>
           <span class="sub-bottom">${{marketPrice}}</span>          
         </div>
+       
+        
 
         <!-- <div class="innertop" v-show="marketPrice==''">
           <h4 v-bind:class="[matchFill == 'buy' ? 'buy' : 'sell']">{{matchPriceMATCH}}</h4>
@@ -43,7 +45,8 @@
         <div class="innertop">
           <div class="top-sub">
             <h3>24h Change</h3>
-            <b>{{volume24hBind}}</b>
+            <b v-bind:class="[ldcx24hBind <0? 'sell' : 'buy']">{{parseFloat(ldcx24hBind).toFixed(2)}}%</b>
+            
           </div>
         </div>
         <div class="innertop">
@@ -60,14 +63,14 @@
         </div>
         <div class="innertop">
           <div class="top-sub" >
-            <h3 >24h Volume(LDXI)</h3>
-            <b v-bind:class="[ldcx24hBind <0? 'sell' : 'buy']">{{parseFloat(ldcx24hBind).toFixed(2)}}%</b>
+            <h3 >24h Volume(BTC)</h3>
+           <b>{{volume24hBind}}</b>
           </div>         
         </div>  
         <div class="innertop">
           <div class="top-sub"  >
-            <h3>24h Volume(USDT)</h3>
-            <b >{{volume24hBind}}</b>
+            <h3>24h Volume(USDC)</h3>
+            <b >{{Volume24Second}}</b>
           </div>        
         </div>                               
       </div>
@@ -116,7 +119,9 @@ export default {
       tickerPrice:"",
       matchFill:"",
       matchPriceMATCH:"",
-      fullPairNameLocalStorage:""
+      fullPairNameLocalStorage:"",
+      Volume24Second:"",
+      marketPricePageLoad:""
       
       
     };
@@ -155,17 +160,23 @@ export default {
         console.log(error);
       }
     },
-    async setData(filledPrice,open24hBnd,low24hBnd,volume24hBnd,ldcx24hBnd) {
-      
+    async setData(filledPrice,open24hBnd,low24hBnd,volume24hBnd,ldcx24hBnd, volumsecond) {
+      this.fullPairNameLocalStorage= localStorage.getItem("selectedmainCoin");
+    
         this.marketPrice = filledPrice
         this.open24hBind = open24hBnd;
         this.low24hBind = low24hBnd;
          this.volume24hBind = volume24hBnd;
-           
+         this.Volume24Second=volumsecond
+          
          if(ldcx24hBnd==undefined ||ldcx24hBnd==0){
              this.ldcx24hBind=0
          }else{
             this.ldcx24hBind=((filledPrice-open24hBnd)/ open24hBnd)*100
+         }
+
+         if( this.marketPrice==undefined ||this.marketPrice==''){
+            this.getPrice()
          }
     },
     async getMarketDropdown() {          
@@ -214,10 +225,11 @@ export default {
       
     },
      async getPrice(){
-       
+     
        const headers = {
         "Content-Type": "application/json",
       };
+     
       axios
         .get(
           `https://tradeapi.exus.live/api/ticker?productId=${this.fullPairNameLocalStorage}`,
@@ -226,12 +238,23 @@ export default {
           }
         )
         .then((response) => {
-            this.marketPrice=response.data.Close
-        
+        console.log(response)
+           this.marketPrice=response.data.Open //Price..
          
+            this.volume24hBind=response.data.Volume //24h Volume(BTC)..
+            this.low24hBind=response.data.Low //24h Low..
+            this.open24hBind=response.data.Open //*amount //24h High..
+            this.Volume24Second=response.data.Open *response.data.Volume  //..             //24h Volume(USDC
+        
+         if(this.open24hBind==undefined ||this.open24hBind==0){
+             this.ldcx24hBind=0
+         }else{
+            this.ldcx24hBind=(( this.marketPrice-this.open24hBind)/ this.open24hBind)*100
+         }
         })
         .catch(function (error) {
           console.log(error);
+       
         });
     }
   },
@@ -240,7 +263,8 @@ export default {
   this.getMarketDropdown();
   this.setMainCoin();
   this.matchPriceMATCH = localStorage.getItem("matchPriceMATCH");
-   this.fullPairNameLocalStorage= localStorage.getItem("selectedmainCoin");
+  this.fullPairNameLocalStorage= localStorage.getItem("selectedmainCoin");
+ 
   },
   computed: {
     filterCoins: function(){
@@ -251,27 +275,29 @@ export default {
   },
   created: function () {
     this.setMainCoin();
-   // this.setCoin();
     const ts = this;
     this.connection = new WebSocket( "wss://stream.exus.live/ws");
 
     this.connection.onmessage = function (event) {
      ts.dataAl = JSON.parse(event.data);
+    
     if (ts.dataAl.type == "match") {
              ts.fill = ts.dataAl.price;
-              ts.priceBuy=ts.dataAl.bids;
+             ts.priceBuy=ts.dataAl.bids;
               
         }
 
 
       if(ts.dataAl.type == "ticker"){
-       ts.tickerPrice=ts.dataAl.price
+       // ts.fill = ts.dataAl.price;
+
+        ts.tickerPrice=ts.dataAl.price
         ts.open24h=ts.dataAl.open24h
         ts.low24h=ts.dataAl.low24h
         ts.volume24h=ts.dataAl.volume24h
-        ts.getPrice()
-     
-      }
+        ts.volume24hsecond=JSON.parse(event.data).low24h*JSON.parse(event.data).price
+      
+     }
 
       if(ts.open24h==0 ){
          ts.ldcx24h==0
@@ -279,7 +305,7 @@ export default {
           ts.ldcx24h=((ts.tickerPrice - ts.open24h)/ts.open24h )* 100
       }
     
-      ts.setData(ts.fill, ts.open24h,ts.low24h, ts.volume24h, ts.ldcx24h);
+      ts.setData(ts.fill, ts.open24h,ts.low24h, ts.volume24h, ts.ldcx24h,ts.volume24hsecond);
     
     };
 
@@ -288,7 +314,44 @@ export default {
       ts.sendMessage();
     };
 
-    
+  
+  },
+
+  watch:{
+    selectedcoin(pairName){
+       const headers = {
+        "Content-Type": "application/json",
+      };
+     // alert(`https://tradeapi.exus.live/api/ticker?productId=${pairName}`)
+      axios
+        .get(
+          `https://tradeapi.exus.live/api/ticker?productId=${pairName}`,
+          {
+            headers: headers,
+          }
+        )
+        .then((response) => {
+          console.log(response)
+            this.marketPrice=response.data.Open //Price..
+            this.volume24hBind=response.data.Volume //24h Volume(BTC)..
+            this.low24hBind=response.data.Low //24h Low..
+            this.open24hBind=response.data.Open //*amount //24h High..
+            this.Volume24Second=response.data.Open *response.data.Volume  //..             //24h Volume(USDC
+       //  alert(this.marketPrice)
+         if(this.open24hBind==undefined ||this.open24hBind==0){
+             this.ldcx24hBind=0
+         }else{
+            this.ldcx24hBind=(( this.marketPrice-this.open24hBind)/ this.open24hBind)*100
+         }
+        })
+        .catch(function (error) {
+          console.log(error);
+       //alert("Watch err TopStatus")
+       // this.marketPrice=0
+       //  alert(this.marketPrice)
+        });
+      
+    }
   },
 };
 </script>
