@@ -24,9 +24,13 @@ export default {
         debug: false,
         symbol: 'BTC/USDT',
       // datafeed: Datafeed, // our datafeed object
+      datafeed: [
+
+      ],
         interval: 'D',
         fullscreen: true,
         hide_side_toolbar: false,
+        //datafeed: new Datafeeds.UDFCompatibleDatafeed("{{ URL::to('chartapi') }}"+'/'+pair_data.chartPair),
        // container_id: 'tv_chart_container',
       // library_path: '/charting_library/',
         locale: 'en',
@@ -38,8 +42,13 @@ export default {
       //  client_id: 'test',
       //  user_id: 'public_user_id',
       //  fullscreen: false,
-        autosize: true,    
-      //  container_id: 'tv_chart_container'        
+        autosize: true,
+      //  container_id: 'tv_chart_container'       
+      // overrides: {
+      //   paneProperties: {
+      //     background: '#131722'
+      //   }    
+      // }       
       },
       expand: false
     }
