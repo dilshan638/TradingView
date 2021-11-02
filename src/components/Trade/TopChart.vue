@@ -6,12 +6,11 @@
                   <i v-bind:class="[expand == true ? 'ri-fullscreen-exit-line' : 'ri-fullscreen-line']" @click="toggleview"></i>
                   <!-- <VueTradingView :options="widgetOptions"/> -->
                   <iframe src="http://localhost:8081/" width="100%" height="516px" frameborder="0" sandbox="allow-scripts" class="app-iframe"></iframe>
-                </div>                
+                </div>
             </div>
         </div>
     </div>
 </template>
-
 <script>
 //const Datafeeds = chartapi();
 //import VueTradingView from 'vue-trading-view/src/vue-trading-view';
