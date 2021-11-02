@@ -381,7 +381,7 @@ export default {
       // this.oneMonth = "";
       // this.startDate = "";
       // this.endDate = "";
-      // this.getData();
+       this.getData();
       this.selectedDate[0]=""
       this.selectedDate[1]=""
       

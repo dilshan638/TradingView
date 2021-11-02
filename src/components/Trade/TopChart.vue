@@ -2,9 +2,10 @@
     <div class="trade-box main-chart-area">
         <div class="row">
             <div class="col-md-12">
-                <div class="hello chart-grid">
+                <div class="hello chart-grid" id="chartBox" ref="chartBox">
                   <i v-bind:class="[expand == true ? 'ri-fullscreen-exit-line' : 'ri-fullscreen-line']" @click="toggleview"></i>
-                  <VueTradingView :options="widgetOptions" />
+                  <!-- <VueTradingView :options="widgetOptions"/> -->
+                  <iframe src="http://localhost:8081/" width="100%" height="516px" frameborder="0" sandbox="allow-scripts" class="app-iframe"></iframe>
                 </div>                
             </div>
         </div>
@@ -12,27 +13,27 @@
 </template>
 
 <script>
-import VueTradingView from 'vue-trading-view/src/vue-trading-view';
-export default {
+//const Datafeeds = chartapi();
+//import VueTradingView from 'vue-trading-view/src/vue-trading-view';
+
+export default { 
   name: "App",
   components: {
-    VueTradingView
+   // VueTradingView
   },
   data() {
     return{
       widgetOptions: {
+        Datafeeds: "",
         debug: false,
-        symbol: 'BTC/USDT',
-      // datafeed: Datafeed, // our datafeed object
-      datafeed: [
-
-      ],
+        symbol: ' BTC/USDC',
         interval: 'D',
         fullscreen: true,
         hide_side_toolbar: false,
-        //datafeed: new Datafeeds.UDFCompatibleDatafeed("{{ URL::to('chartapi') }}"+'/'+pair_data.chartPair),
-       // container_id: 'tv_chart_container',
-      // library_path: '/charting_library/',
+     //   test: DATAFEED.userInput,
+     //   test2: DATAFEED.widget,
+      //  datafeed: new Datafeeds.UDFCompatibleDatafeed('http://tradeapi.exus.live/api/ticker?productId=BTC/USDC&granularity=15'),
+      //  datafeed: DATAFEED,
         locale: 'en',
         theme: 'dark',
         style: 1,
@@ -42,14 +43,16 @@ export default {
       //  client_id: 'test',
       //  user_id: 'public_user_id',
       //  fullscreen: false,
-        autosize: true,
-      //  container_id: 'tv_chart_container'       
-      // overrides: {
-      //   paneProperties: {
-      //     background: '#131722'
-      //   }    
-      // }       
+        autosize: true,    
+      //  container_id: 'tv_chart_container'    
+      //  time: '2018-12-19',
+      //  open: 130,
+      //  high: 170,
+      //  low: 115,
+      //  close: 150,  
+       
       },
+      //test:[1415398768, 0.32, 4.2, 0.35, 4.2, 12.3 ],
       expand: false
     }
   },
@@ -62,9 +65,16 @@ export default {
       else{
         document.querySelector("body").classList.remove("fullscreen-chart");
       }
-      
-    }
-
+    },
+    async matchHeight() {
+      let height = this.$refs.chartBox.clientHeight;
+      console.log(height)
+    },    
+  },
+  mounted() {
+   // this.testf();
+  //  this.initOnReady();
+  this.matchHeight()
   }
 };
 </script>

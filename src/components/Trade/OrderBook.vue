@@ -762,6 +762,24 @@ export default {
         .catch(function (error) {
           console.log(error);
         });
+
+
+        axios
+        .get(
+          `https://tradeapi.exus.live/api/ticker?productId=${valueSelected}`,
+          {
+            headers: headers,
+          }
+        )
+        .then((response) => {
+         
+            this.price=response.data.Open //Price..
+           
+        })
+        .catch(function (error) {
+          console.log(error);
+        //  alert("Err")
+        });
        
  },
   },
@@ -843,7 +861,7 @@ export default {
    
     },
     async setData(dataSellArray, dataBuyArray, fillPrice,sellarray) {
-         
+          this.fullPairNameLocalStorage= localStorage.getItem("selectedmainCoin");
               if (dataSellArray != undefined) {
                    this.priceSellBind = dataSellArray;
                    this.priceSellBind.sort((a, b) => {return b[0] - a[0]
@@ -893,6 +911,9 @@ export default {
                 
                 }
                 this.price = fillPrice;
+                if(this.price==undefined || this.price==''){
+                  this.getPrice()
+                }
                  
                 
      
@@ -955,12 +976,14 @@ export default {
           }
         )
         .then((response) => {
-           this.price=response.data.Close
+           this.price=response.data.Open
         
          
         })
         .catch(function (error) {
           console.log(error);
+         // alert("err")
+         // this.price=="0"
         });
     }
    
@@ -994,7 +1017,7 @@ mounted() {
         ts.priceBuy =  JSON.parse(event.data).bids;
         ts.priceSellOnlySell= JSON.parse(event.data).asks;
        
-        ts.getPrice()
+       
 
                   // for (let z =0; z<=ts.priceSell.length-1; z++)
                   //  {

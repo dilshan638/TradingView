@@ -15,7 +15,7 @@
                   position="bottom"
                 />    
                 <button @click="dateRangeFilter" class="sea-btn">Search</button>
-                <button class="reset-btn" style="min-height: 44px !important;">Reset</button>  
+                <button class="reset-btn" style="min-height: 44px !important;" @click="reset">Reset</button>  
               </div>
             </div> 
             <div class="col-md-3" v-bind:class="[$route.path != '/trade' ? 'active' : '']">
@@ -396,17 +396,17 @@ export default {
       //  var dropDownThree = document.getElementById("three");
       // dropDownThree.selectedIndex = 0;
 
-      // this.pOne = "";
-      // this.pTwo = "";
-      // this.selectedSide = "";
-      // this.todayDate = "";
-      // this.oneWeek = "";
-      // this.oneMonth = "";
-      // this.startDate = "";
-      // this.endDate = "";
-      // this.getData();
-      this.selectedDate[0]=""
-      this.selectedDate[1]=""
+      this.pOne = "";
+      this.pTwo = "";
+      this.selectedSide = "";
+      this.todayDate = "";
+      this.oneWeek = "";
+      this.oneMonth = "";
+      this.startDate = "";
+      this.endDate = "";
+       this.getData();
+     // this.selectedDate[0]=""
+     // this.selectedDate[1]=""
       
 
 

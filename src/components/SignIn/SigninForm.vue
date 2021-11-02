@@ -142,7 +142,7 @@ import Modal from "../Modal/Modal.vue";
 var generator = require('generate-password');
 import CryptoJS from "crypto-js";
 import axios from 'axios'
-
+//var AmazonCognitoIdentity = require('amazon-cognito-identity-js');
 export default {
     name:'signin',
     components: {
@@ -220,6 +220,8 @@ export default {
             valid_password: false,
             submitdisabled: true,
             phone_number:"",
+              UserPoolIdUserAttributes:"",
+               ClientIdUserAttributes:"",
  
              data: {
                 firstName: "",
@@ -274,6 +276,13 @@ export default {
                     localStorage.setItem('usermobile', data.signInUserSession.idToken.payload.phone_number)
                     localStorage.setItem('X-LDX-Inspira-Access-Token',data.signInUserSession.accessToken.jwtToken)
                     console.log(data.signInUserSession.idToken.payload.phone_number)
+                     console.log("UserPoolId   "+data.pool.userPoolId)
+                     console.log("ClientId   "+data.pool.clientId)
+                     
+                    this.UserPoolIdUserAttributes= data.pool.userPoolId
+                    this.ClientIdUserAttributes=data.pool.clientId
+                     
+                      
                 })
                 this.loginbtn = false;
                     console.log('Yes')
@@ -282,7 +291,29 @@ export default {
                   //  window.location.href = `http://localhost:8080/#/dashboard`
 
                    // this.$router.push("/dashboard");
-                   
+
+
+                  // alert(this.UserPoolIdUserAttributes)
+                  // alert(this.ClientIdUserAttributes)
+
+                //     var poolData = {
+                //     UserPoolId: this.UserPoolIdUserAttributes, 
+                //     ClientId: this.ClientIdUserAttributes, 
+                //     };
+                //     var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+                //     var userData = {
+                //     Username: this.state.email,
+                //     Pool: userPool,
+                //     };
+                //     var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData); 
+                //     cognitoUser.getUserAttributes(function(err, result) {
+                //     if (err) {
+                //         alert(err.message || JSON.stringify(err));
+                //         return;
+                //     }
+                //    console.log(result)
+                //     });                   
+
               const headers = { "Content-Type": "application/json", Authorization: this.accToken, };
            
              axios .get("https://dapi.exus.live/api/mobile/v1/user/cognito/info", { headers: headers, })
@@ -303,7 +334,6 @@ export default {
                          }
                         if(responsive.data.result.UserAttributes[i].Name=="custom:2fa_mobile_status"){
                           this.fa_mobile_status = responsive.data.result.UserAttributes[i].Value;
-                       // this.fa_mobile_status = 'false'
                             localStorage.setItem('fa_mobile_status',this.fa_mobile_status )
                         }
                          if(responsive.data.result.UserAttributes[i].Name=="custom:2fa_ga_status"){
