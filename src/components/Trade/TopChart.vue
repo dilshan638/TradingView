@@ -14,6 +14,8 @@
 <script>
 //const Datafeeds = chartapi();
 import VueTradingView from 'vue-trading-view/src/vue-trading-view';
+
+
 export default {
   name: "App",
   components: {
@@ -25,8 +27,10 @@ export default {
      //  datafeeds: new Datafeeds.UDFCompatibleDatafeed("http://yourhost/tradingview", 10000),
       widgetOptions: {
         debug: false,
-        symbol: ' BTC/USDC',
+        symbol:'BTC/USDC',
+       // datafeed: new window.Datafeeds.UDFCompatibleDatafeed(),
        // datafeed: datafeeds,
+       // datafeed: new Datafeeds.UDFCompatibleDatafeed(),
         interval: 'D',
         fullscreen: true,
         hide_side_toolbar: false,
@@ -65,6 +69,8 @@ export default {
       }
       
     },
+
+   
 
    
    

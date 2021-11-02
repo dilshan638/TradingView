@@ -332,23 +332,32 @@ export default {
         )
         .then((response) => {
           console.log(response)
+          if(response.data.Open=='' && response.data.Volume=='' && response.data.Low=='' &&response.data.High=='' ){
+            this.marketPrice="-" //Price..
+            this.volume24hBind="-" //24h Volume(BTC)..
+            this.low24hBind="-" //24h Low..
+            this.open24hBind="-" //*amount //24h High..
+            this.Volume24Second="-" 
+            this.ldcx24hBind="-"
+          }
+          else{
             this.marketPrice=response.data.Open //Price..
             this.volume24hBind=response.data.Volume //24h Volume(BTC)..
             this.low24hBind=response.data.Low //24h Low..
-            this.open24hBind=response.data.Open //*amount //24h High..
+            this.open24hBind=response.data.High //*amount //24h High..
             this.Volume24Second=response.data.Open *response.data.Volume  //..             //24h Volume(USDC
-       //  alert(this.marketPrice)
+       
          if(this.open24hBind==undefined ||this.open24hBind==0){
              this.ldcx24hBind=0
          }else{
             this.ldcx24hBind=(( this.marketPrice-this.open24hBind)/ this.open24hBind)*100
          }
+          }
+            
         })
         .catch(function (error) {
           console.log(error);
-       //alert("Watch err TopStatus")
-       // this.marketPrice=0
-       //  alert(this.marketPrice)
+       
         });
       
     }
