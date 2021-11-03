@@ -5,7 +5,7 @@
                 <div class="hello chart-grid" id="chartBox" ref="chartBox">
                   <i v-bind:class="[expand == true ? 'ri-fullscreen-exit-line' : 'ri-fullscreen-line']" @click="toggleview"></i>
                   <!-- <VueTradingView :options="widgetOptions"/> -->
-                  <iframe src="http://localhost:8081/" width="100%" height="516px" frameborder="0" sandbox="allow-scripts" class="app-iframe"></iframe>
+                  <iframe src="http://localhost:8081/?pair=BTC/USDC" width="100%" height="516px" frameborder="0" sandbox="allow-scripts" class="app-iframe"></iframe>
                 </div>
             </div>
         </div>
@@ -17,11 +17,16 @@
 
 export default { 
   name: "App",
+   props: [
+   
+    "fullPairName",
+  ],
   components: {
    // VueTradingView
   },
   data() {
     return{
+      pairName:"",
       widgetOptions: {
         Datafeeds: "",
         debug: false,
@@ -70,10 +75,15 @@ export default {
       console.log(height)
     },    
   },
+    watch: {
+    fullPairName: function(value) {
+      this.pairName=value
+    }},
   mounted() {
    // this.testf();
   //  this.initOnReady();
   this.matchHeight()
+    //alert(window.location.href.split("?pair=")[1])
   }
 };
 </script>

@@ -201,7 +201,7 @@ export default {
          })
     },
     async selectcoin(pair_name , image, currency) {
-   
+      
       this.dropdownshow = false;   
       this.selectedcoin = pair_name;
       this.selectedcoinimage = image;
@@ -214,6 +214,9 @@ export default {
       this.$emit("symbol", currency)
       this.$emit("pair_name", pair_name.substring(pair_name.lastIndexOf("/") + 1))
      // this.$emit("full_pair_name", pair_name)
+     
+       //this.$router.push(`http://localhost:8081/trade?pair=${pair_name}`);
+       //window.location.href = `http://localhost:8081/trade?pair=${pair_name}`
     },
     async setCoin() {
      this.eventBus.emit('selectedCoinEmitBuss')

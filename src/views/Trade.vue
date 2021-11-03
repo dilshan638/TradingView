@@ -3,7 +3,7 @@
     <div class="row"> 
         <div class="col-md-7 no-padding-right">
           <top-status @symbol="selectSymbol" @pair_name="selectPair" @full_pair_name="setPairName" />
-          <top-chart />
+          <top-chart :fullPairName="fullPairName" />
           <order-history  />
         </div>
         <div class="col-md-5">
@@ -64,6 +64,7 @@ export default {
     methods: {
         setPairName(fullpair) {
           this.fullPairName = fullpair
+          
          
         },
 
