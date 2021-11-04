@@ -463,7 +463,6 @@ export default {
                 const headers2 = {
                   "Content-Type": "application/json",
                 };                
-                alert(`https://tradeapi.exus.live/api/products/candles?productId=${this.fullPairName}&granularity=60`)
                 axios.get(`https://tradeapi.exus.live/api/products/candles?productId=${this.fullPairName}&granularity=60`,{headers: headers2,})
                 .then((response) => {
                   this.ohlcv=response.data
