@@ -5,13 +5,14 @@
                 <div class="hello chart-grid" id="chartBox" ref="chartBox">
                   <i v-bind:class="[expand == true ? 'ri-fullscreen-exit-line' : 'ri-fullscreen-line']" @click="toggleview"></i>
                   <!-- <VueTradingView :options="widgetOptions"/> -->
-                  <iframe src="http://localhost:8081/?pair=BTC/USDC" width="100%" height="516px" frameborder="0" sandbox="allow-scripts" class="app-iframe"></iframe>
+                  <iframe :src="url" width="100%" height="516px" frameborder="0" sandbox="allow-scripts" class="app-iframe"></iframe>
                 </div>
             </div>
         </div>
     </div>
 </template>
 <script>
+//import axios from 'axios';
 //const Datafeeds = chartapi();
 //import VueTradingView from 'vue-trading-view/src/vue-trading-view';
 
@@ -26,6 +27,7 @@ export default {
   },
   data() {
     return{
+      url:"",
       pairName:"",
       widgetOptions: {
         Datafeeds: "",
@@ -78,7 +80,13 @@ export default {
     watch: {
     fullPairName: function(value) {
       this.pairName=value
-    }},
+    // axios.post('http://localhost:8080',this.pairName)
+    // .then(res=>console.log(res))
+    // .catch(err=>console.log(err)) 
+    this.url=`http://localhost:8081/chart?pair=${value}`
+ 
+     }
+    },
   mounted() {
    // this.testf();
   //  this.initOnReady();

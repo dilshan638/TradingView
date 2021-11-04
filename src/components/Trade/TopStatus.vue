@@ -267,7 +267,7 @@ export default {
   this.setMainCoin();
   this.matchPriceMATCH = localStorage.getItem("matchPriceMATCH");
   this.fullPairNameLocalStorage= localStorage.getItem("selectedmainCoin");
- 
+
   },
   computed: {
     filterCoins: function(){
