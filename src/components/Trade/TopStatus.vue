@@ -201,6 +201,8 @@ export default {
          })
     },
     async selectcoin(pair_name , image, currency) {
+
+
       
       this.dropdownshow = false;   
       this.selectedcoin = pair_name;
@@ -259,9 +261,15 @@ export default {
           console.log(error);
        
         });
-    }
+    },
+    async test1() {
+      var bifrostCors = new bifrostCors("http://localhost:8081",false)
+      bifrostCors.setLocalStorage({key: "user", value: "persons"})
+    }    
+
   },
   mounted() {
+    this.test1();
   this.setData();
   this.getMarketDropdown();
   this.setMainCoin();
