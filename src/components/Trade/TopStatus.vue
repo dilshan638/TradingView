@@ -45,7 +45,8 @@
         <div class="innertop">
           <div class="top-sub">
             <h3>24h Change</h3>
-            <b v-bind:class="[ldcx24hBind <0? 'sell' : 'buy']">{{parseFloat(ldcx24hBind).toFixed(2)}}%</b>
+            <b v-if="ldcx24hBind=='-'" v-bind:class="[ldcx24hBind <0? 'sell' : 'buy']">{{ldcx24hBind}}</b>
+             <b v-else v-bind:class="[ldcx24hBind <0? 'sell' : 'buy']">{{parseFloat(ldcx24hBind).toFixed(2)}}%</b>
             
           </div>
         </div>
@@ -243,8 +244,16 @@ export default {
           }
         )
         .then((response) => {
-        console.log(response)
-           this.marketPrice=response.data.Open //Price..
+        console.log(response.data)
+          if(response.data==null){
+            this.marketPrice='-'
+             this.volume24hBind='-'
+             this.low24hBind='-'
+             this.open24hBind='-'
+              this.Volume24Second='-'
+              this.ldcx24hBind='-'
+          }else{
+             this.marketPrice=response.data.Open //Price..
          
             this.volume24hBind=response.data.Volume //24h Volume(BTC)..
             this.low24hBind=response.data.Low //24h Low..
@@ -256,6 +265,7 @@ export default {
          }else{
             this.ldcx24hBind=(( this.marketPrice-this.open24hBind)/ this.open24hBind)*100
          }
+          }
         })
         .catch(function (error) {
           console.log(error);
@@ -275,7 +285,7 @@ export default {
   this.setMainCoin();
   this.matchPriceMATCH = localStorage.getItem("matchPriceMATCH");
   this.fullPairNameLocalStorage= localStorage.getItem("selectedmainCoin");
- 
+
   },
   computed: {
     filterCoins: function(){
@@ -343,21 +353,21 @@ export default {
         )
         .then((response) => {
           console.log(response)
-          if(response.data.Open=='' && response.data.Volume=='' && response.data.Low=='' &&response.data.High=='' ){
-            this.marketPrice="-" //Price..
-            this.volume24hBind="-" //24h Volume(BTC)..
-            this.low24hBind="-" //24h Low..
-            this.open24hBind="-" //*amount //24h High..
-            this.Volume24Second="-" 
-            this.ldcx24hBind="-"
-          }
-          else{
-            this.marketPrice=response.data.Open //Price..
+          if(response.data==null){
+            this.marketPrice='-'
+             this.volume24hBind='-'
+             this.low24hBind='-'
+             this.open24hBind='-'
+              this.Volume24Second='-'
+              this.ldcx24hBind='-'
+          }else{
+             this.marketPrice=response.data.Open //Price..
+         
             this.volume24hBind=response.data.Volume //24h Volume(BTC)..
             this.low24hBind=response.data.Low //24h Low..
-            this.open24hBind=response.data.High //*amount //24h High..
+            this.open24hBind=response.data.Open //*amount //24h High..
             this.Volume24Second=response.data.Open *response.data.Volume  //..             //24h Volume(USDC
-       
+        
          if(this.open24hBind==undefined ||this.open24hBind==0){
              this.ldcx24hBind=0
          }else{

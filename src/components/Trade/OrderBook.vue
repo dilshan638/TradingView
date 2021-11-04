@@ -773,7 +773,12 @@ export default {
         )
         .then((response) => {
          
-            this.price=response.data.Open //Price..
+            
+            if(response.data==null){
+                 this.price='-'
+            }else{
+              this.price=response.data.Open //Price..
+            }
            
         })
         .catch(function (error) {
@@ -781,7 +786,7 @@ export default {
         //  alert("Err")
         });
        
- },
+ }, 
   },
  
   methods: {
@@ -976,7 +981,11 @@ export default {
           }
         )
         .then((response) => {
-           this.price=response.data.Open
+            if(response.data==null){
+                 this.price='-'
+            }else{
+              this.price=response.data.Open //Price..
+            }
         
          
         })
