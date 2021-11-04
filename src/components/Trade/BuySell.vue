@@ -458,15 +458,27 @@ export default {
                 this.state.price = "";
                 this.v$.amount.$reset();
                 this.v$.price.$reset();
-                this.$toast.show("New trade successfully  updated.", {type: "success", position: "bottom-right"});
+                this.$toast.show("New trade successfully  updated.", {type: "success", position: "bottom-right"});               
+
+                const headers2 = {
+                  "Content-Type": "application/json",
+                };                
+                alert(`https://tradeapi.exus.live/api/products/candles?productId=${this.fullPairName}&granularity=60`)
+                axios.get(`https://tradeapi.exus.live/api/products/candles?productId=${this.fullPairName}&granularity=60`,{headers: headers2,})
+                .then((response) => {
+                  this.ohlcv=response.data
+                  console.log(response.data);
+                  console.log(this.ohlcv)
+                })
+                .catch(function (error) {
+                  console.log(error);
+                });                
               });
           } 
           catch (error) {
             console.log(error);
-          }        
-          
+          }         
         }
-
         else{
           this.$toast.show("Not sufficient your credit balance", {type: "error", position: "bottom-right"});
         }

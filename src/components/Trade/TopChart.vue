@@ -84,8 +84,7 @@ export default {
     // .then(res=>console.log(res))
     // .catch(err=>console.log(err)) 
     this.url=`http://localhost:8081/chart?pair=${value}`
-    alert(this.url)
-  // window.parent.postMessage(value, 'http://localhost:8081/')
+ 
      }
     },
   mounted() {
