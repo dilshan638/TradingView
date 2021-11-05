@@ -272,14 +272,11 @@ export default {
        
         });
     },
-    async test1() {
-      var bifrostCors = new bifrostCors("http://localhost:8081",false)
-      bifrostCors.setLocalStorage({key: "user", value: "persons"})
-    }    
+    
 
   },
   mounted() {
-    this.test1();
+   
   this.setData();
   this.getMarketDropdown();
   this.setMainCoin();

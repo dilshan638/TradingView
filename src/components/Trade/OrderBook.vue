@@ -1015,6 +1015,7 @@ mounted() {
    
     this.connection.onmessage = function (event) {
       console.log(JSON.parse(event.data))
+     
       ts.dataAl=[]
       console.log(ts.dataAl)
       ts.dataAl = JSON.parse(event.data);
@@ -1028,21 +1029,7 @@ mounted() {
        
        
 
-                  // for (let z =0; z<=ts.priceSell.length-1; z++)
-                  //  {
-                  //       ts.buyAmount += parseFloat(ts.priceSell[z][1]);
-                  //       ts.priceSell[z][3] = ts.buyAmount;
-                  //       ts.buyTotal += parseFloat(ts.priceSell[z][0]) * parseFloat(ts.priceSell[z][1]);
-                  //       ts.priceSell[z][4] = ts.buyTotal;
-                  //     }
-
-                  // for (let a = 0; a<=ts.priceBuy.length-1; a++) {
-                  //   ts.selAmount += parseFloat(ts.priceBuy[a][1]);
-                  //   ts.priceBuy[a][3] = ts.selAmount;
-                  //   ts.sellTotal += parseFloat(ts.priceBuy[a][0]) * parseFloat(ts.priceBuy[a][1]);
-                  //   ts.priceBuy[a][4] = ts.sellTotal;
-                  // }
-  
+                
       }
  
       if (JSON.parse(event.data).type == "l2update") {

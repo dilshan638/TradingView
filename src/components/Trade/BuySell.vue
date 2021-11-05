@@ -19,7 +19,7 @@
           </div>
         </div>
         <div class="balance" v-if="side=='buy' && authUser">Amount:  {{ balanceSell }} {{ pairName }}</div>
-        <div class="balance" v-if="side=='sell' && authUser">Amount:  {{ balancebuy }} {{ SelectedSymbol }}</div>
+        <div class="balance" v-if="side=='sell' && authUser">Amount:  {{ balancebuy }} {{ fullPairName.substring(0, fullPairName.lastIndexOf('/')) }}</div>
         <div class="buy-sell-content">
           <div class="inner-type">
             <div
