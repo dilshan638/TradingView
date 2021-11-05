@@ -81,10 +81,10 @@
                 :key="sell"
                 v-show="deci == '0.01'"
               >
-                <td @click="sellPriceOrderBook(sell[0])" width="35%">
+                <td @click="sellPriceOrderBook(sell[0], sell[1])" width="35%">
                   {{ parseFloat(sell[0]).toFixed(2) }} 
                 </td>
-                <td @click="amountOrderBook(sell[1])" width="30%">
+                <td @click="sellPriceOrderBook(sell[0], sell[1])" width="30%">
                   {{ parseFloat(sell[1]).toFixed(5) }}
                 </td>
                 <td class="text-right">
@@ -118,10 +118,10 @@
                 :key="sell"
                 v-show="deci == '0.1'"
               >
-                <td @click="sellPriceOrderBook(sell[0])" width="35%">
+                <td @click="sellPriceOrderBook(sell[0], sell[1])" width="35%">
                   {{ parseFloat(sell[0]).toFixed(1) }}
                 </td>
-                <td @click="amountOrderBook(sell[1])" width="30%">
+                <td @click="sellPriceOrderBook(sell[0], sell[1])" width="30%">
                   {{ parseFloat(sell[1]).toFixed(5) }}
                 </td>
                 <td class="text-right">
@@ -150,16 +150,15 @@
                   </transition>
                 </td>
               </tr>
-
               <tr @mouseover="removeoverflow" @mouseleave="resetoverflow"
                v-for="sell in priceSellBind.slice(priceSellBind.length-11, priceSellBind.length)"
                 :key="sell"
                 v-show="deci == '0'"
               >
-                <td @click="sellPriceOrderBook(sell[0])" width="35%">
+                <td @click="sellPriceOrderBook(sell[0], sell[1])" width="35%">
                   {{ parseFloat(sell[0]).toFixed(0) }}
                 </td>
-                <td @click="amountOrderBook(sell[1])" width="30%">
+                <td @click="sellPriceOrderBook(sell[0], sell[1])" width="30%">
                   {{ parseFloat(sell[1]).toFixed(5) }}
                 </td>
                 <td class="text-right">
@@ -197,10 +196,10 @@
                 :key="sell"
                 v-show="deci == '0.01'"
               >
-                <td @click="sellPriceOrderBook(sell[0])" width="35%">
+                <td @click="sellPriceOrderBook(sell[0], sell[1])" width="35%">
                   {{ parseFloat(sell[0]).toFixed(2) }}
                 </td>
-                <td @click="amountOrderBook(sell[1])" width="30%">
+                <td @click="sellPriceOrderBook(sell[0], sell[1])" width="30%">
                   {{ parseFloat(sell[1]).toFixed(5) }}
                 </td>
                 <td class="text-right">
@@ -235,10 +234,10 @@
                 :key="sell"
                 v-show="deci == '0.1'"
               >
-                <td @click="sellPriceOrderBook(sell[0])" width="35%">
+                <td @click="sellPriceOrderBook(sell[0], sell[1])" width="35%">
                   {{ parseFloat(sell[0]).toFixed(1) }}
                 </td>
-                <td @click="amountOrderBook(sell[1])" width="30%">
+                <td @click="sellPriceOrderBook(sell[0], sell[1])" width="30%">
                   {{ parseFloat(sell[1]).toFixed(5) }}
                 </td>
                 <td class="text-right">
@@ -274,10 +273,10 @@
                 :key="sell"
                 v-show="deci == '0'"
               >
-                <td @click="sellPriceOrderBook(sell[0])" width="35%">
+                <td @click="sellPriceOrderBook(sell[0], sell[1])" width="35%">
                   {{ parseFloat(sell[0]).toFixed(0) }}
                 </td>
-                <td @click="amountOrderBook(sell[1])" width="30%">
+                <td @click="sellPriceOrderBook(sell[0], sell[1])" width="30%">
                   {{ parseFloat(sell[1]).toFixed(5) }}
                 </td>
                 <td class="text-right">
@@ -349,10 +348,10 @@
               :key="buy"
               v-show="deci == '0.01'"
             >
-              <td @click="sellPriceOrderBook(buy[0])" width="35%">
+              <td @click="sellPriceOrderBook(buy[0], buy[1])" width="35%">
                 {{ parseFloat(buy[0]).toFixed(2) }}
               </td>
-              <td @click="amountOrderBook(buy[1])" width="30%">
+              <td @click="sellPriceOrderBook(buy[0], buy[1])" width="30%">
                 {{ parseFloat(buy[1]).toFixed(5) }}
               </td>
               <td class="text-right">
@@ -389,10 +388,10 @@
               :key="buy"
               v-show="deci == '0.1'"
             >
-              <td @click="sellPriceOrderBook(buy[0])" width="35%">
+              <td @click="sellPriceOrderBook(buy[0], buy[1])" width="35%">
                 {{ parseFloat(buy[0]).toFixed(1) }}
               </td>
-              <td @click="amountOrderBook(buy[1])" width="30%">
+              <td @click="sellPriceOrderBook(buy[0], buy[1])" width="30%">
                 {{ parseFloat(buy[1]).toFixed(5) }}
               </td>
               <td class="text-right">
@@ -428,10 +427,10 @@
               :key="buy"
               v-show="deci == '0'"
             >
-              <td @click="sellPriceOrderBook(buy[0])" width="35%">
+              <td @click="sellPriceOrderBook(buy[0], buy[1])" width="35%">
                 {{ parseFloat(buy[0]).toFixed(0) }}
               </td>
-              <td @click="amountOrderBook(buy[1])" width="30%">
+              <td @click="sellPriceOrderBook(buy[0], buy[1])" width="30%">
                 {{ parseFloat(buy[1]).toFixed(5) }}
               </td>
               <td class="text-right">
@@ -469,10 +468,10 @@
               :key="buy"
               v-show="deci == '0.01'"
             >
-              <td @click="sellPriceOrderBook(buy[0])" width="35%">
+              <td @click="sellPriceOrderBook(buy[0], buy[1])" width="35%">
                 {{ parseFloat(buy[0]).toFixed(2) }}
               </td>
-              <td @click="amountOrderBook(buy[1])" width="30%">
+              <td @click="sellPriceOrderBook(buy[0], buy[1])" width="30%">
                 {{ parseFloat(buy[1]).toFixed(5) }}
               </td>
               <td class="text-right">
@@ -509,10 +508,10 @@
               :key="buy"
               v-show="deci == '0.1'"
             >
-              <td @click="sellPriceOrderBook(buy[0])" width="35%">
+              <td @click="sellPriceOrderBook(buy[0], buy[1])" width="35%">
                 {{ parseFloat(buy[0]).toFixed(1) }}
               </td>
-              <td @click="amountOrderBook(buy[1])" width="30%">
+              <td @click="sellPriceOrderBook(buy[0], buy[1])" width="30%">
                 {{ parseFloat(buy[1]).toFixed(5) }}
               </td>
               <td class="text-right">
@@ -548,10 +547,10 @@
               :key="buy"
               v-show="deci == '0'"
             >
-              <td @click="sellPriceOrderBook(buy[0])" width="35%">
+              <td @click="sellPriceOrderBook(buy[0], buy[1])" width="35%">
                 {{ parseFloat(buy[0]).toFixed(0) }}
               </td>
-              <td @click="amountOrderBook(buy[1])" width="30%">
+              <td @click="sellPriceOrderBook(buy[0], buy[1])" width="30%">
                 {{ parseFloat(buy[1]).toFixed(5) }}
               </td>
               <td class="text-right">
@@ -609,11 +608,10 @@
             >
               <td width="35%"
                 v-bind:class="[recent.side == 'buy' ? 'buy' : 'sell']"
-                @click="sellPriceOrderBook(recent.price)"
               >
                 {{ parseFloat(recent.price).toFixed(2) }}
               </td>
-              <td @click="amountOrderBook(recent.size)" width="30%">
+              <td width="30%">
                 {{ parseFloat(recent.size).toFixed(5) }}
               </td>
               <td class="text-right">
@@ -628,11 +626,10 @@
             >
               <td width="35%"
                 v-bind:class="[recent.side == 'buy' ? 'buy' : 'sell']"
-                @click="sellPriceOrderBook(recent.price)"
               >
                 {{ parseFloat(recent.price).toFixed(1) }}
               </td>
-              <td @click="amountOrderBook(recent.size)" width="30%">
+              <td width="30%">
                 {{ parseFloat(recent.size).toFixed(5) }}
               </td>
               <td class="text-right">
@@ -643,11 +640,10 @@
             <tr v-for="recent in recentData" :key="recent" v-show="deci == '0'">
               <td width="35%"
                 v-bind:class="[recent.side == 'buy' ? 'buy' : 'sell']"
-                @click="sellPriceOrderBook(recent.price)"
               >
                 {{ parseFloat(recent.price).toFixed(0) }}
               </td>
-              <td @click="amountOrderBook(recent.size)" width="30%">
+              <td width="30%">
                 {{ parseFloat(recent.size).toFixed(5) }}
               </td>
               <td class="text-right">
@@ -796,12 +792,13 @@ export default {
     async selectedSymbol(SelectedSymbol) {
       this.symbol = SelectedSymbol;
     },
-    async sellPriceOrderBook(value) {
+    async sellPriceOrderBook(value,value2) {
       this.$emit("sellPriceOrderBookPass", value);
+      this.$emit("sellAmountOrderBookPass", value2);
     },
-    async amountOrderBook(amount) {
-      this.$emit("sellAmountOrderBookPass", amount);
-    },
+    // async amountOrderBook(amount) {
+    //   this.$emit("sellAmountOrderBookPass", amount);
+    // },
 
     async closeModalDetail() {
       this.$refs.roedetails.closeModal();

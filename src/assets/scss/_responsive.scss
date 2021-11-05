@@ -421,6 +421,11 @@
 }
 @media only screen and (min-device-width : 1152px) and (max-device-width : 1440px) {
 
+   body .limited-data .trade-body.middle-bdy {
+        position: absolute !important;
+        top: 249px!important;
+    }
+
     .order-book-box{
         min-height: 633px !important;
     }

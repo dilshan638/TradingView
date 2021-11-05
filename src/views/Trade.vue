@@ -68,8 +68,9 @@ export default {
          
         },
 
-        async sellPriceOrderBook(price){
+        async sellPriceOrderBook(price, amount){
           this.SellPrice=price
+          this.amount2 = amount
        },
 
        async sellAmountOrderBook(amount){

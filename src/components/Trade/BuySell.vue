@@ -463,6 +463,7 @@ export default {
                 const headers2 = {
                   "Content-Type": "application/json",
                 };                
+
                 axios.get(`https://tradeapi.exus.live/api/products/candles?productId=${this.fullPairName}&granularity=60`,{headers: headers2,})
                 .then((response) => {
                   this.ohlcv=response.data
@@ -577,6 +578,9 @@ export default {
       this.preseent = this.example1.value
       this.newAmount = this.balanceSell / 100 * this.preseent
       this.state.amount = this.newAmount.toFixed(10)
+    },
+    setclickval() {
+
     }
   },
   watch: {
@@ -617,6 +621,8 @@ export default {
       } 
       this.state.amount = "";
       this.state.price = "";
+      this.v$.amount.$reset();
+      this.v$.price.$reset();
 
     },
     type: function(value) {
@@ -643,8 +649,15 @@ export default {
       //   }); 
 
       // }
-    },    
+    },
+    sellPrice: function(val) {
+      this.state.price = val
+    },
+    SellAmount(val) {
+      this.state.amount = val
+    }
     
+
   },
   mounted() {
     this.getMarketPrice();
