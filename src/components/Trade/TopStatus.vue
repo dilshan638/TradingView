@@ -263,14 +263,11 @@ export default {
        
         });
     },
-    async test1() {
-      var bifrostCors = new bifrostCors("http://localhost:8081",false)
-      bifrostCors.setLocalStorage({key: "user", value: "persons"})
-    }    
+    
 
   },
   mounted() {
-    this.test1();
+   
   this.setData();
   this.getMarketDropdown();
   this.setMainCoin();
@@ -296,6 +293,7 @@ export default {
     if (ts.dataAl.type == "match") {
              ts.fill = ts.dataAl.price;
              ts.priceBuy=ts.dataAl.bids;
+             ts.matchFill = ts.dataAl.side;
               
         }
 
@@ -308,6 +306,7 @@ export default {
         ts.low24h=ts.dataAl.low24h
         ts.volume24h=ts.dataAl.volume24h
         ts.volume24hsecond=JSON.parse(event.data).low24h*JSON.parse(event.data).price
+        ts.matchFill = ts.dataAl.side;
       
      }
 
