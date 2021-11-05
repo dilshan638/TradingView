@@ -1011,12 +1011,12 @@ mounted() {
     this.connection = new WebSocket("wss://stream.exus.live/ws");
    
     this.connection.onmessage = function (event) {
-      console.log(JSON.parse(event.data))
+    //  console.log(JSON.parse(event.data))
      
       ts.dataAl=[]
       console.log(ts.dataAl)
       ts.dataAl = JSON.parse(event.data);
-       console.log(ts.dataAl)
+       //console.log(ts.dataAl)
      
      
       if ( JSON.parse(event.data).type == "snapshot") {
@@ -1039,7 +1039,7 @@ mounted() {
         ts.priceBuy =  JSON.parse(event.data).bids;
         ts.priceSellOnlySell= JSON.parse(event.data).asks;
      
-     console.log(ts.priceSell)
+     //console.log(ts.priceSell)
 
                   // for (let z = ts.priceSell.length-1; z>=0; z--) {
                   //       ts.buyAmount += parseFloat(ts.priceSell[z][1]);
