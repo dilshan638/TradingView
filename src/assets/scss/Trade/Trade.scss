@@ -743,3 +743,17 @@ body.fullscreen-chart{
         color: #b2b2b2;
     }
 }
+
+.limited-data{
+
+    .trade-body.middle-bdy{
+        position: absolute !important;
+        top: 256px !important;
+    }
+
+    .trade-body.buy-body.buy-default{
+        position: absolute;
+        top: 290px;
+    }
+
+}
