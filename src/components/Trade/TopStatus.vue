@@ -34,20 +34,11 @@
           <h4 v-bind:class="[matchFill=='buy' ? 'buy' : 'sell']">{{marketPrice}}</h4>
           <span class="sub-bottom">${{marketPrice}}</span>          
         </div>
-       
-        
-
-        <!-- <div class="innertop" v-show="marketPrice==''">
-          <h4 v-bind:class="[matchFill == 'buy' ? 'buy' : 'sell']">{{matchPriceMATCH}}</h4>
-          <span class="sub-bottom">${{matchPriceMATCH}}</span>          
-        </div> -->
-
         <div class="innertop">
           <div class="top-sub">
             <h3>24h Change</h3>
             <b v-if="ldcx24hBind=='-'" v-bind:class="[ldcx24hBind <0? 'sell' : 'buy']">{{ldcx24hBind}}</b>
              <b v-else v-bind:class="[ldcx24hBind <0? 'sell' : 'buy']">{{parseFloat(ldcx24hBind).toFixed(2)}}%</b>
-            
           </div>
         </div>
         <div class="innertop">
@@ -57,14 +48,14 @@
           </div>          
         </div>
         <div class="innertop">
-          <div class="top-sub"  >
+          <div class="top-sub">
             <h3 >24h Low</h3>
             <b >{{low24hBind}}</b>
           </div>         
         </div>
         <div class="innertop">
           <div class="top-sub" >
-            <h3 >24h Volume(BTC)</h3>
+            <h3>24h Volume(BTC)</h3>
            <b>{{volume24hBind}}</b>
           </div>         
         </div>  
