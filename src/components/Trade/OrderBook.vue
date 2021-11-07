@@ -192,7 +192,7 @@
             <!-- Sells Only -->
              <tbody v-else>
               <tr @mouseover="removeoverflow" @mouseleave="resetoverflow"
-                v-for="sell in onlySell"
+                v-for="sell in priceSellBind"
                 :key="sell"
                 v-show="deci == '0.01'"
               >
@@ -216,13 +216,13 @@
                         <div class="tool-row">
                           <div class="tool-title">Sum {{ SelectedSymbol }}:</div>
                           <div class="tool-val">
-                            {{ parseFloat(sell[5]).toFixed(5) }}
+                            {{ parseFloat(sell[3]).toFixed(5) }}
                           </div>
                         </div>
                         <div class="tool-row">
                           <div class="tool-title">Sum {{ pairName }}:</div>
                           <div class="tool-val">
-                            {{ parseFloat(sell[6]).toFixed(5) }}
+                            {{ parseFloat(sell[4]).toFixed(5) }}
                           </div>
                         </div>
                       </div> 
@@ -230,7 +230,7 @@
                 </td>
               </tr>
               <tr @mouseover="removeoverflow" @mouseleave="resetoverflow"
-                v-for="sell in onlySell"
+                v-for="sell in priceSellBind"
                 :key="sell"
                 v-show="deci == '0.1'"
               >
@@ -254,13 +254,13 @@
                       <div class="tool-row">
                         <div class="tool-title">Sum {{ SelectedSymbol }}:</div>
                         <div class="tool-val">
-                          {{ parseFloat(sell[5]).toFixed(5) }}
+                          {{ parseFloat(sell[3]).toFixed(5) }}
                         </div>
                       </div>
                       <div class="tool-row">
                         <div class="tool-title">Sum {{ pairName }}:</div>
                         <div class="tool-val">
-                          {{ parseFloat(sell[6]).toFixed(5) }}
+                          {{ parseFloat(sell[4]).toFixed(5) }}
                         </div>
                       </div>
                     </div>
@@ -269,7 +269,7 @@
               </tr>
 
               <tr @mouseover="removeoverflow" @mouseleave="resetoverflow"
-                v-for="sell in onlySell"
+                v-for="sell in priceSellBind"
                 :key="sell"
                 v-show="deci == '0'"
               >
@@ -292,13 +292,13 @@
                       <div class="tool-row">
                         <div class="tool-title">Sum {{ SelectedSymbol }}:</div>
                         <div class="tool-val">
-                          {{ parseFloat(sell[5]).toFixed(5) }}
+                          {{ parseFloat(sell[3]).toFixed(5) }}
                         </div>
                       </div>
                       <div class="tool-row">
                         <div class="tool-title">Sum {{ pairName }}:</div>
                         <div class="tool-val">
-                          {{ parseFloat(sell[6]).toFixed(5) }}
+                          {{ parseFloat(sell[4]).toFixed(5) }}
                         </div>
                       </div>
                     </div>
@@ -615,7 +615,7 @@
                 {{ parseFloat(recent.size).toFixed(5) }}
               </td>
               <td class="text-right">
-                {{recent.time.slice(10, 19)}}
+                {{recent.time.slice(11, 19)}}
               </td>
             </tr>
 
@@ -633,7 +633,7 @@
                 {{ parseFloat(recent.size).toFixed(5) }}
               </td>
               <td class="text-right">
-                 {{recent.time.substring(0, recent.time.lastIndexOf('T'))}}
+                {{recent.time.slice(11, 19)}}
               </td>
             </tr>
 
@@ -647,7 +647,7 @@
                 {{ parseFloat(recent.size).toFixed(5) }}
               </td>
               <td class="text-right">
-                {{recent.time.substring(0, recent.time.lastIndexOf('T'))}}
+               {{recent.time.slice(11, 19)}}
               </td>
             </tr>
           </table>
@@ -870,12 +870,12 @@ export default {
                     });
     
               
-                 for (let z = this.priceSellBind.length-1; z>=0; z--) {
-                        this.buyAmount += parseFloat(this.priceSellBind[z][1]);
-                        this.priceSellBind[z][3] = this.buyAmount;
-                        this.buyTotal += parseFloat(this.priceSellBind[z][0]) * parseFloat(this.priceSellBind[z][1]);
-                        this.priceSellBind[z][4] = this.buyTotal;
-                      }
+                //  for (let z = this.priceSellBind.length-1; z>=0; z--) {
+                //         this.buyAmount += parseFloat(this.priceSellBind[z][1]);
+                //         this.priceSellBind[z][3] = this.buyAmount;
+                //         this.buyTotal += parseFloat(this.priceSellBind[z][0]) * parseFloat(this.priceSellBind[z][1]);
+                //         this.priceSellBind[z][4] = this.buyTotal;
+                //       }
         
                     if (this.priceSellBind.length > 11)
                     {
@@ -890,23 +890,23 @@ export default {
                       return b[0] - a[0];
                   });
 
-              for (let a = 0; a<=this.priceBuyBind.length-1; a++) {
-                this.selAmount += parseFloat(this.priceBuyBind[a][1]);
-                this.priceBuyBind[a][3] = this.selAmount;
-                this.sellTotal += parseFloat(this.priceBuyBind[a][0]) * parseFloat(this.priceBuyBind[a][1]);
-                this.priceBuyBind[a][4] = this.sellTotal;
-              }
+              // for (let a = 0; a<=this.priceBuyBind.length-1; a++) {
+              //   this.selAmount += parseFloat(this.priceBuyBind[a][1]);
+              //   this.priceBuyBind[a][3] = this.selAmount;
+              //   this.sellTotal += parseFloat(this.priceBuyBind[a][0]) * parseFloat(this.priceBuyBind[a][1]);
+              //   this.priceBuyBind[a][4] = this.sellTotal;
+              // }
      
                 }
 
                 if(sellarray != undefined){
                   this.onlySell=sellarray
-                    for (let z = this.onlySell.length-1; z>=0; z--) {
-                      this.onlyBuyAmount += parseFloat(this.onlySell[z][1])
-                      this.onlySell[z][5] = this.onlyBuyAmount;
-                      this.onlyBuyTotal += parseFloat(this.onlySell[z][0]) * parseFloat(this.onlySell[z][1]);
-                      this.onlySell[z][6] = this.onlyBuyTotal;
-                    }
+                    // for (let z = this.onlySell.length-1; z>=0; z--) {
+                    //   this.onlyBuyAmount += parseFloat(this.onlySell[z][1])
+                    //   this.onlySell[z][5] = this.onlyBuyAmount;
+                    //   this.onlyBuyTotal += parseFloat(this.onlySell[z][0]) * parseFloat(this.onlySell[z][1]);
+                    //   this.onlySell[z][6] = this.onlyBuyTotal;
+                    // }
                     this.onlySell.sort((a, b) => {
                       return b[0] - a[0];
                     });
@@ -1016,17 +1016,14 @@ mounted() {
       ts.dataAl=[]
       console.log(ts.dataAl)
       ts.dataAl = JSON.parse(event.data);
-       //console.log(ts.dataAl)
+       console.log(ts.dataAl)
      
      
       if ( JSON.parse(event.data).type == "snapshot") {
         ts.priceSell =  JSON.parse(event.data).asks;
         ts.priceBuy =  JSON.parse(event.data).bids;
         ts.priceSellOnlySell= JSON.parse(event.data).asks;
-       
-       
-
-                
+               
       }
  
       if (JSON.parse(event.data).type == "l2update") {
@@ -1061,6 +1058,7 @@ mounted() {
         if (ts.dataAl.type == "match") {
           ts.fill = ts.dataAl.price;
           ts.matchFill = ts.dataAl.side;
+            
           localStorage.setItem("matchPriceMATCH", ts.dataAl.price);
          
 
