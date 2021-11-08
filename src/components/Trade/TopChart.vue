@@ -83,7 +83,7 @@ export default {
     // axios.post('http://localhost:8080',this.pairName)
     // .then(res=>console.log(res))
     // .catch(err=>console.log(err)) 
-    this.url=`http://localhost:8081/?pair=${value}`
+    this.url=`http://localhost:3016/?pair=${value}`
  
      }
     },
