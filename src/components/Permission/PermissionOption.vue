@@ -34,7 +34,7 @@
     </div>
 
     <div
-      v-if="fa_email_status == 'true'"
+      v-if="fa_email_status == 'true' && fa_mobile_status == 'false'"
       class="form-group single-row pos-rel security-row"
     >
       <p>Please enter the 6 Digit code that we have sent a to {{ emailmask }}</p>
