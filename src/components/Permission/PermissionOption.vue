@@ -4,7 +4,8 @@
       v-if="fa_mobile_status == 'true'"
       class="form-group single-row pos-rel security-row"
     >
-      <p>Please enter the 6 Digit code that we have sent a to {{ usermobilenumber }}</p>
+      <p>Please enter the 6 Digit code that we have sent a to <br/>
+      {{ usermobilenumber }}</p>
       <input
         type="text"
         class="form-control"
