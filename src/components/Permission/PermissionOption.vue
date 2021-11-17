@@ -34,7 +34,7 @@
     </div>
 
     <div
-      v-if="fa_email_status == 'true' && fa_mobile_status == 'false'"
+      v-if="fa_email_status == 'true'"
       class="form-group single-row pos-rel security-row"
     >
       <p>Please enter the 6 Digit code that we have sent a to {{ emailmask }}</p>
@@ -549,7 +549,7 @@ export default {
       this.fa_mobile_status = localStorage.getItem("fa_mobile_status");
       this.fa_email_status = localStorage.getItem("fa_email_status");
       this.fa_ga_status = localStorage.getItem("fa_ga_status");
-      
+     
     },
     async clearStatus() {
       const headers = {
