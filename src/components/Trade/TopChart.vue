@@ -2,44 +2,56 @@
     <div class="trade-box main-chart-area">
         <div class="row">
             <div class="col-md-12">
-                <div class="hello chart-grid" id="chartBox" ref="chartBox">
+                <div class="hello chart-grid">
                   <i v-bind:class="[expand == true ? 'ri-fullscreen-exit-line' : 'ri-fullscreen-line']" @click="toggleview"></i>
-                  <!-- <VueTradingView :options="widgetOptions"/> -->
-                  <iframe :src="url" width="100%" height="516px" frameborder="0" sandbox="allow-scripts" class="app-iframe"></iframe>
-                </div>
+                  <VueTradingView :options="widgetOptions" />
+                </div>                
             </div>
         </div>
     </div>
 </template>
-<script>
-//import axios from 'axios';
-//const Datafeeds = chartapi();
-//import VueTradingView from 'vue-trading-view/src/vue-trading-view';
 
-export default { 
+<script>
+//const Datafeeds = chartapi();
+import VueTradingView from 'vue-trading-view/src/vue-trading-view';
+//import Datafeeds from '../../assets/datafeeds/udf/dist/bundle';
+
+// let Datafeeds=[1551128400000, 33,  37.1, 14,  14,  196]
+
+export default {
   name: "App",
    props: [
-   
-    "fullPairName",
+   "fullPairName",
   ],
   components: {
-   // VueTradingView
+    VueTradingView
   },
+
+ 
+  
   data() {
     return{
-      url:"",
-      pairName:"",
+    
       widgetOptions: {
-        Datafeeds: "",
         debug: false,
-        symbol: ' BTC/USDC',
+        symbol:'BTC/USDC',
+//         datafeed: new Datafeeds.UDFCompatibleDatafeed([[ 1551128400000, 33,  37.1, 14,  14,  196 ],
+//          [ 1551132000000, 13.7, 30, 6.6,  30,  206 ],
+//          [ 1551135600000, 29.9, 33, 21.3, 21.8, 74 ],
+//          [ 1551139200000, 21.7, 25.9, 18, 24,  140 ],
+//         [ 1551142800000, 24.1, 24.1, 24, 24.1, 29 ]
+// ]),
+        datafeed:[
+          [ 1551132000000, 13.7, 30, 6.6,  30,  206 ],
+          [ 1551135600000, 29.9, 33, 21.3, 21.8, 74 ],
+          [ 1551139200000, 21.7, 25.9, 18, 24,  140 ],
+          [ 1551142800000, 24.1, 24.1, 24, 24.1, 29 ]
+        ],
         interval: 'D',
         fullscreen: true,
         hide_side_toolbar: false,
-     //   test: DATAFEED.userInput,
-     //   test2: DATAFEED.widget,
-      //  datafeed: new Datafeeds.UDFCompatibleDatafeed('http://tradeapi.exus.live/api/ticker?productId=BTC/USDC&granularity=15'),
-      //  datafeed: DATAFEED,
+       // container_id: 'tv_chart_container',
+      // library_path: '/charting_library/',
         locale: 'en',
         theme: 'dark',
         style: 1,
@@ -59,9 +71,23 @@ export default {
        
       },
       //test:[1415398768, 0.32, 4.2, 0.35, 4.2, 12.3 ],
-      expand: false
+      expand: false,
+      pairName:"",
+      
     }
   },
+
+  watch: {
+    fullPairName: function(value) {
+      this.widgetOptions.symbol=value
+  if (localStorage.getItem("reloaded")) {
+      localStorage.removeItem("reloaded");
+    } else {
+      localStorage.setItem("reloaded", "1");
+      location.reload();
+    }
+     }
+    },
   methods: {
     async toggleview() {
       this.expand = !this.expand
@@ -71,27 +97,12 @@ export default {
       else{
         document.querySelector("body").classList.remove("fullscreen-chart");
       }
+      
     },
-    async matchHeight() {
-      let height = this.$refs.chartBox.clientHeight;
-      console.log(height)
-    },    
-  },
-    watch: {
-    fullPairName: function(value) {
-      this.pairName=value
-    // axios.post('http://localhost:8080',this.pairName)
-    // .then(res=>console.log(res))
-    // .catch(err=>console.log(err)) 
-    this.url=`http://localhost:3016/?pair=${value}`
- 
-     }
-    },
-  mounted() {
-   // this.testf();
-  //  this.initOnReady();
-  this.matchHeight()
-    //alert(window.location.href.split("?pair=")[1])
+
+   
+   
+
   }
 };
 </script>
