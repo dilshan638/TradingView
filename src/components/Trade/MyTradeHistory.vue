@@ -13,13 +13,19 @@
             <div class="col-xl-8">
               <!-- <span>Time</span> -->
               <div class="time-plate">
-                <Datepicker @blur="getRangeDate" 
+                <!-- <Datepicker @blur="getRangeDate" 
                 show-clear-button
                   range
                   v-model="selectedDate" lang="en" placeholder="YYYY-MM-DD"
                   input-class="date-range-picker"
                   position="top"
-                />    
+                />     -->
+              <Datepicker 
+                v-model="date" 
+                range 
+                twoCalendars
+                placeholder="YYYY-MM-DD" 
+                textInput />                
                 <button @click="dateRangeFilter" class="sea-btn">Search</button>
                 <button type="reset" class="reset-btn" @click="reset">Reset</button>
               </div>
@@ -75,14 +81,19 @@
 </template>
 
 <script>
-import 'vue-datepicker-ui/lib/vuedatepickerui.css';
-import VueDatepickerUi from 'vue-datepicker-ui';
+// import 'vue-datepicker-ui/lib/vuedatepickerui.css';
+// import VueDatepickerUi from 'vue-datepicker-ui';
+
+  import Datepicker from 'vue3-date-time-picker';
+  import 'vue3-date-time-picker/dist/main.css'
+
 import axios from "axios";
 export default {
   name: "orderhistory",
   props: ["myTradeHistory"],
   components: {
-    Datepicker: VueDatepickerUi
+    // Datepicker: VueDatepickerUi
+    Datepicker
   },
   data() {
     return {

@@ -11,8 +11,11 @@ import router from './router';
 import TableLite from "vue3-table-lite";
 import VueTradingView from 'vue-trading-view';
 
-import VueDatepickerUi from 'vue-datepicker-ui'
-import 'vue-datepicker-ui/lib/vuedatepickerui.css';
+// import VueDatepickerUi from 'vue-datepicker-ui'
+// import 'vue-datepicker-ui/lib/vuedatepickerui.css';
+
+import Datepicker from 'vue3-date-time-picker';
+import 'vue3-date-time-picker/dist/main.css'
 
 import mitt from 'mitt'
 
@@ -21,9 +24,10 @@ const app = createApp(App);
 
 app.config.globalProperties.eventBus = eventBus
 
-app.use('Datepicker', VueDatepickerUi)
+// app.use('Datepicker', VueDatepickerUi)
 app.use(router)
 app.use(VueTradingView)
+app.use('Datepicker', Datepicker)
 app.use(TableLite)
 app.use(Toaster)
 //app.use(eventBus)

@@ -54,6 +54,7 @@
     "vue-trading-view": "^1.0.1",
     "vue-websocket": "^0.2.3",
     "vue3-apexcharts": "^1.4.1",
+    "vue3-date-time-picker": "^2.3.5",
     "vue3-highcharts": "^0.1.3",
     "vue3-progress": "0.0.1-beta3",
     "vue3-slider": "^1.6.6",
