@@ -7,48 +7,14 @@
             </div>
           </div>        
           <div class="row">
-            <div class="col-lg-2 col-6 col-md-4">
+            <div class="col-lg-2 col-6 col-md-4" v-for="data in coindata"  :key="data.pair_name">
               <div class="block-line">
-                <span>LDXI/USD <b>+6.22 %</b></span>
-                <h6>1.9323</h6>
-                <p>$ 300.32</p>
+                <span>{{data.pair_name}} <b>+{{data.change}} </b></span>
+                <h6>{{data.volume}}</h6>
+                <p>$ {{data.last_price}}</p>
               </div>
             </div>
-            <div class="col-lg-2 col-6  col-md-4">
-              <div class="block-line">
-                <span>LDXI/USD <b class="minus">+6.22 %</b></span>
-                <h6>1.9323</h6>
-                <p>$ 300.32</p>
-              </div>
-            </div>
-            <div class="col-lg-2 col-6  col-md-4">
-              <div class="block-line">
-                <span>LDXI/USD <b>+6.22 %</b></span>
-                <h6>1.9323</h6>
-                <p>$ 300.32</p>
-              </div>
-            </div>
-            <div class="col-lg-2 col-6  col-md-4">
-              <div class="block-line">
-                <span>LDXI/USD <b class="minus">+6.22 %</b></span>
-                <h6>1.9323</h6>
-                <p>$ 300.32</p>
-              </div>
-            </div>
-            <div class="col-lg-2 col-6  col-md-4">
-              <div class="block-line">
-                <span>LDXI/USD <b>+6.22 %</b></span>
-                <h6>1.9323</h6>
-                <p>$ 300.32</p>
-              </div>
-            </div>
-            <div class="col-lg-2 col-6  col-md-4">
-              <div class="block-line">
-                <span>LDXI/USD <b>+6.22 %</b></span>
-                <h6>1.9323</h6>
-                <p>$ 300.32</p>
-              </div>
-            </div>            
+                     
           </div>
           <div class="row">
             <div class="col-md-12">
@@ -60,9 +26,36 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
+data(){
+  return{
+    coindata:[]
+  }
+},
+ methods: {
+       
+        async coinDetails() {
+        axios.get("https://dapi.exus.live/api/mobile/v1/common/marcket/trade/pair")
+            .then((res) => {
+            this.coindata =  res.data[0];
+            console.log(this.coindata); 
 
-}
+            // for (let i = 0; i < this.coindata.length; i++) {
+            //     this.coin = this.coindata[i].pair_name.toLowerCase();
+            //     this.lastprice = this.coindata[i].price;
+            //     this.priceChanege = this.coindata[i].change_24h;
+            // }
+        })
+            .catch(function (error) {
+            console.log(error);
+            })
+        },
+    },
+     mounted() {
+        this.coinDetails();
+    },
+}  
 </script>
 
 <style lang="scss" scoped>

@@ -51,7 +51,7 @@ export default {
         fullscreen: true,
         hide_side_toolbar: false,
        // container_id: 'tv_chart_container',
-      // library_path: '/charting_library/',
+       library_path: '/charting_library',
         locale: 'en',
         theme: 'dark',
         style: 1,
