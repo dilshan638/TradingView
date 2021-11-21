@@ -52,7 +52,7 @@ export default {
         hide_side_toolbar: false,
        // container_id: 'tv_chart_container',
        //library_path: '/charting_library',
-        locale: 'en',
+        locale: 'en', 
         theme: 'dark',
         style: 1,
       //  disabled_features: ['use_localstorage_for_settings'],
