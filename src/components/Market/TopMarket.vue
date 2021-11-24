@@ -5,13 +5,13 @@
               <div class="row">
                   <div class="col-md-7">
                     <img :src="marketprice.image"/>
-                    <h5>{{ marketprice.pair_name }}</h5>
+                    <h5 v-bind:class="[change_24h < 0 ? 'minus' : 'plus']">{{ marketprice.pair_name }}</h5>
                   </div>
                   <div class="col-md-5"></div>
               </div>
               <div class="row">
                   <div class="col-md-9">
-                      <h4>{{ parseFloat(marketprice.price).toFixed(2) }}</h4><span class="span-sub">{{ parseFloat(marketprice.price).toFixed(2) }}</span>
+                      <h4  >${{ parseFloat(marketprice.price).toFixed(2) }}</h4><span class="span-sub">${{ parseFloat(marketprice.price).toFixed(2) }}</span>
                   </div>
                   <div class="col-md-3">
                       <div class="change-status" v-bind:class="[change_24h < 0 ? 'minus' : 'plus']">{{ marketprice.change_24h }}</div>
@@ -19,7 +19,7 @@
               </div>
               <div class="row">
                   <div class="col-md-12">
-                      <h3>{{ marketprice.price }}</h3>
+                      <h3>$ {{ marketprice.price }}</h3>
                       <b>Volume</b>
                   </div>
               </div>
