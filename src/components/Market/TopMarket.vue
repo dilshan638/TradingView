@@ -2,13 +2,14 @@
       <div class="row">
         <div class="col-md-3" v-for="marketprice in coindata" :key="marketprice.coin">
             <div class="market-box">
-              <div class="row">
-                  <div class="col-md-5">
+              <div class="row mb-4">
+                  <div class="col-md-6">
                     <img :src="marketprice.image"/>
                     <h5 v-bind:class="[change_24h < 0 ? 'minus' : 'plus']">{{ marketprice.pair_name }}</h5>
                   </div>
-                  <div class="col-md-7">
+                  <div class="col-md-6">
                     <apexchart
+                    height="40"
                         :options="chartOptions"
                         :series="series">
                     </apexchart>                        
@@ -45,12 +46,15 @@ export default {
             coindata: [],
               series: [{
             name: "STOCK ABC",
-            data: [10,20,40,50,60]
+            data: [10,20,23,26,30]
           }],
       chartOptions: {
             chart: {
               type: 'area',
-              width: 150,
+              parentHeightOffset: 0,
+                sparkline: {
+                    enabled: true
+                },              
             toolbar: {
             show: false
             },
@@ -92,15 +96,25 @@ export default {
             },           
             grid: {
                 show: false,      // you can either change hear to disable all grids
+                padding: {
+                    left: 0,
+                  right: 0
+                },                
                 xaxis: {
                     lines: {
                         show: false  //or just here to disable only x axis grids
-                    }
+                    },
+                    labels: {
+                    show: false,
+                },                    
                 },  
                 yaxis: {
                     lines: { 
                         show: false  //or just here to disable only y axis
-                    }
+                    },
+                    labels: {
+                        show: false,
+                    },                    
                 },   
             },            
             xaxis: {
@@ -112,6 +126,13 @@ export default {
                 }                
             },   
             yaxis: {
+                y: 0,
+                offsetX: 0,
+                offsetY: 0,
+                padding: {
+                    left: 0,
+                    right: 0
+                },                
                 labels: {
                     show: false
                 },

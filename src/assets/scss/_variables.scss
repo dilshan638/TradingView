@@ -1099,3 +1099,17 @@ body.fullscreen-chart{
 .dp__main.dp__theme_light{
     float: left !important;
 }
+.success-text{
+    color: green !important;
+}
+.error-text{
+    color: red !important;
+}
+.market-btn{
+    background-color: #f14848 !important;
+    padding: 7px 30px !important;
+    min-height: auto !important;
+    line-height: inherit;
+    max-width: 235px !important;
+    min-width: auto;
+}

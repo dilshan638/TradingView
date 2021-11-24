@@ -27,7 +27,7 @@
     h4{
         float: left;
         color: #fff;
-        font-size: 1rem;
+        font-size: 1.5rem;
         margin-left: 15px;
         margin-top: 7px;
         font-weight: 900;
@@ -38,7 +38,9 @@
         font-weight: 500;
         float: left;
         margin-left: 15px;
-        margin-top: 4px;
+        margin-top: 8px;
+        font-size: 1.2rem;
+        font-weight: 700;
     }
 
     h3{
@@ -109,6 +111,17 @@
 
             table{
                 margin-top: 30px;
+
+                tr{
+
+                    td{
+                        font-size: 1rem;
+                        padding: 25px 30px;
+                        font-weight: 700;                        
+                    }
+
+                }
+
             }
         }
 
