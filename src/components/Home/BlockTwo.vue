@@ -14,7 +14,9 @@
                 <p>$ {{data.last_price}}</p>
               </div>
             </div>
-                     
+            
+            
+
           </div>
           <div class="row">
             <div class="col-md-12">
@@ -22,16 +24,24 @@
             </div>
           </div>            
       </div>
+     
   </section>
 </template>
 
 <script>
 import axios from 'axios';
+//import TrendChart from "vue-trend-chart"
 export default {
+  //  components: {
+  //   TrendChart
+  // },
 data(){
   return{
-    coindata:[]
-  }
+
+  
+    coindata:[],
+   
+         }
 },
  methods: {
        

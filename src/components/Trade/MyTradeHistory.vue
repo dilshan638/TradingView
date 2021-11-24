@@ -11,7 +11,7 @@
                 <button  @click="threeMonthFilter" v-bind:class="[this.threemonthaction == true ? 'active' : '']">3 Month</button>
             </div>
             <div class="col-xl-8">
-              <!-- <span>Time</span> -->
+              <!-- <span>Time</span> --> 
               <div class="time-plate">
                 <!-- <Datepicker @blur="getRangeDate" 
                 show-clear-button
@@ -103,7 +103,7 @@ export default {
       oneMonth: "",
       threeMonth: "",
       todayDate: "",
-
+      
       onedayaction: false,
       oneweekaction: false,
       onemonthaction: false,

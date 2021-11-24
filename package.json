@@ -52,6 +52,7 @@
     "vue-slider-component": "^4.0.0-beta.4",
     "vue-socket.io": "^3.0.10",
     "vue-trading-view": "^1.0.1",
+    "vue-trend-chart": "^0.15.3",
     "vue-websocket": "^0.2.3",
     "vue3-apexcharts": "^1.4.1",
     "vue3-date-time-picker": "^2.3.5",

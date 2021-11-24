@@ -5,6 +5,12 @@
               <div class="row">
                   <div class="col-md-7">
                     <img :src="marketprice.image"/>
+                    <apexchart
+                     class="chart"
+                        width="220"
+                        :options="chartOptions"
+                        :series="series">
+                    </apexchart>  
                     <h5 v-bind:class="[change_24h < 0 ? 'minus' : 'plus']">{{ marketprice.pair_name }}</h5>
                   </div>
                   <div class="col-md-5"></div>
@@ -37,7 +43,58 @@ export default {
 
     data() {
         return{
-            coindata: []
+            coindata: [],
+              series: [{
+            name: "STOCK ABC",
+            data: [10,20,40,50,2,12,100,55,32,45]
+          }],
+      chartOptions: {
+            chart: {
+              type: 'area',
+              height: 115,
+             
+              zoom: {
+                enabled: false,
+               
+                
+              }
+            },
+            dataLabels: {
+              enabled: false,
+              
+            },
+            stroke: {
+             // curve: 'straight'
+            },
+            
+            title: {
+            //  text: 'Fundamental Analysis of Stocks',
+              align: 'left'
+            },
+            subtitle: {
+            //  text: 'Price Movements',
+              align: 'left'
+            },
+            labels:[],
+            xaxis: {
+             // type: 'datetime',
+                opposite: false,
+                
+                
+            },
+            yaxis: {
+              opposite: false
+            },
+            
+            
+             axisTicks: {
+             show: false
+            },
+            axisBorder: {
+              show: false
+            },
+  
+          },
         }
     },
 
@@ -74,4 +131,10 @@ export default {
 
 <style lang="scss" scoped>
   @import "../../assets/scss/Market/Market";
+  .chart{
+    color: green;
+    margin-left: 142px;
+    margin-top: -30px;
+  }
+  
 </style>
