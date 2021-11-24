@@ -3,11 +3,16 @@
         <div class="col-md-3" v-for="marketprice in coindata" :key="marketprice.coin">
             <div class="market-box">
               <div class="row">
-                  <div class="col-md-7">
+                  <div class="col-md-5">
                     <img :src="marketprice.image"/>
                     <h5 v-bind:class="[change_24h < 0 ? 'minus' : 'plus']">{{ marketprice.pair_name }}</h5>
                   </div>
-                  <div class="col-md-5"></div>
+                  <div class="col-md-7">
+                    <apexchart
+                        :options="chartOptions"
+                        :series="series">
+                    </apexchart>                        
+                  </div>
               </div>
               <div class="row">
                   <div class="col-md-9">
@@ -37,7 +42,91 @@ export default {
 
     data() {
         return{
-            coindata: []
+            coindata: [],
+              series: [{
+            name: "STOCK ABC",
+            data: [10,20,40,50,60]
+          }],
+      chartOptions: {
+            chart: {
+              type: 'area',
+              width: 150,
+            toolbar: {
+            show: false
+            },
+              zoom: {
+                enabled: false,
+                
+              }
+            },
+            stroke: {
+             // curve: 'straight'
+            },
+            
+            title: {
+            //  text: 'Fundamental Analysis of Stocks',
+              align: 'left'
+            },
+            subtitle: {
+            //  text: 'Price Movements',
+              align: 'left'
+            },
+            labels:['Dec 07','Dec 08','Dec 09','Dec 10','Dec 11'],
+            tooltip: {
+                enabled: false             
+            },
+            fill: {
+            type: 'gradient',
+                gradient: {
+                    shadeIntensity: 1,
+                    opacityFrom: 0.7,
+                    opacityTo: 0.0,
+                    stops: [0, 100]
+                },
+            },            
+            dataLabels: {
+                enabled: false
+            },
+            legend: {
+                show: false
+            },           
+            grid: {
+                show: false,      // you can either change hear to disable all grids
+                xaxis: {
+                    lines: {
+                        show: false  //or just here to disable only x axis grids
+                    }
+                },  
+                yaxis: {
+                    lines: { 
+                        show: false  //or just here to disable only y axis
+                    }
+                },   
+            },            
+            xaxis: {
+                labels: {
+                    show: false
+                },
+                lines: {
+                    show: false  //or just here to disable only x axis grids
+                }                
+            },   
+            yaxis: {
+                labels: {
+                    show: false
+                },
+                lines: {
+                    show: false  //or just here to disable only x axis grids
+                }                
+            },        
+             axisTicks: {
+             show: false
+            },
+            axisBorder: {
+              show: false
+            },
+  
+          },
         }
     },
 
