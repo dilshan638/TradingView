@@ -1,6 +1,6 @@
 <template>
   <div class="inner-guard">
-    <p>Select Coin</p>
+    <!-- <p>Select Coin</p>  -->
     <div class="form-field">
     <p class="labels">Select Coin </p>
       <div class="dropdown-area">
@@ -24,7 +24,7 @@
         </div>
     </div>
 
-      <select
+      <!-- <select
         class="form-control "
         v-model="selectCoin"
         @change="onChange($event)"
@@ -38,7 +38,7 @@
         >
           {{ coins.symbol }} 
         </option>
-      </select>
+      </select> -->
     </div>
   </div>
 </template>
@@ -73,6 +73,29 @@ export default {
       this.selectedsymbol = image;
       this.showdropdown = false;
       this.onChangeCoin = symbol;
+       this.$emit("depositCoin", symbol);
+     
+       var data = {
+        currency: symbol,
+      };
+       let hed = {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
+          "Content-Type": "application/json",
+        },
+      };
+      let response = await this.axios.post(
+        "https://dapi.exus.live/api/mobile/v1/wallet/create/crypto",
+        data,
+        hed
+      );
+      console.log(response);
+      this.createdAddress = response.data.address;
+      localStorage.setItem("createdAddressSelectList", this.createdAddress);
+
+      this.$emit("AddList", this.createdAddress);
+      
+      this.getCryptoAll();
     },      
     async getCoins() {
       this.arrayCoins = JSON.parse(localStorage.getItem("arraySymbol"));
@@ -111,35 +134,35 @@ export default {
 
 
     },
-    async onChange(event) {
-      this.onChangeCoin = event.target.value;
+  //  async onChange(event) {
+      //this.onChangeCoin = event.target.value;
      // localStorage.setItem("depositSelectCoin", event.target.value);
-      this.$emit("depositCoin", event.target.value);
+     // this.$emit("depositCoin", event.target.value);
 
 
-      var data = {
-        currency: event.target.value,
-      };
+      // var data = {
+      //   currency: event.target.value,
+      // };
 
-      let hed = {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
-          "Content-Type": "application/json",
-        },
-      };
-      let response = await this.axios.post(
-        "https://dapi.exus.live/api/mobile/v1/wallet/create/crypto",
-        data,
-        hed
-      );
-      console.log(response);
-      this.createdAddress = response.data.address;
-      localStorage.setItem("createdAddressSelectList", this.createdAddress);
+      // let hed = {
+      //   headers: {
+      //     Authorization: `Bearer ${localStorage.getItem("X-LDX-Inspira-Access-Token")}`,
+      //     "Content-Type": "application/json",
+      //   },
+      // };
+      // let response = await this.axios.post(
+      //   "https://dapi.exus.live/api/mobile/v1/wallet/create/crypto",
+      //   data,
+      //   hed
+      // );
+      // console.log(response);
+      // this.createdAddress = response.data.address;
+      // localStorage.setItem("createdAddressSelectList", this.createdAddress);
 
-      this.$emit("AddList", this.createdAddress);
+      // this.$emit("AddList", this.createdAddress);
       
-      this.getCryptoAll();
-    },
+      // this.getCryptoAll();
+  //  },
     async pageLoad() {
       var data = {
         currency: this.selectedsingkeCoin,
@@ -199,9 +222,8 @@ export default {
 
         })
         .catch(function (error) {
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
+          console.log(error);
+         
         });
     },
     dropdowntoggle() {
