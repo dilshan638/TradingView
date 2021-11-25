@@ -5,12 +5,6 @@
               <div class="row mb-4">
                   <div class="col-md-6">
                     <img :src="marketprice.image"/>
-                    <apexchart
-                     class="chart"
-                        width="220"
-                        :options="chartOptions"
-                        :series="series">
-                    </apexchart>  
                     <h5 v-bind:class="[change_24h < 0 ? 'minus' : 'plus']">{{ marketprice.pair_name }}</h5>
                   </div>
                   <div class="col-md-6">
@@ -35,24 +29,63 @@
                       <b>Volume</b>
                   </div>
               </div>
+              
             </div>
         </div>                     
     </div>
+    <Carousel :settings="settings" :breakpoints="breakpoints">
+    <Slide v-for="slide in 10" :key="slide">
+      <div class="carousel__item"> <h2>Hello {{ slide }}</h2></div>
+    </Slide>
+
+    <template #addons>
+      <Navigation />
+    </template>
+  </Carousel>
 </template>
 
 <script>
 
 import axios from 'axios';
+//import { defineComponent } from 'vue';
+import { Carousel, Navigation, Slide } from 'vue3-carousel';
+
+import 'vue3-carousel/dist/carousel.css';
+
 export default {
   props: {
   },
-
+   components: {
+    Carousel,
+    Slide,
+    Navigation,
+  },
+ 
     data() {
         return{
+                // carousel settings
+    settings: {
+      itemsToShow: 1,
+      snapAlign: 'center',
+    },
+    // breakpoints are mobile first
+    // any settings not specified will fallback to the carousel settings
+    breakpoints: {
+      // 700px and up
+      700: {
+        itemsToShow: 3.5,
+        snapAlign: 'center',
+      },
+      // 1024 and up
+      1024: {
+        itemsToShow: 5,
+        snapAlign: 'start',
+      },
+    },
             coindata: [],
               series: [{
-            name: "STOCK ABC",
-            data: [10,20,23,26,30]
+           // name: "STOCK ABC",
+            data: [10,20,3,26,86,36]
           }],
       chartOptions: {
             chart: {
@@ -81,7 +114,7 @@ export default {
             //  text: 'Price Movements',
               align: 'left'
             },
-            labels:['Dec 07','Dec 08','Dec 09','Dec 10','Dec 11'],
+            //labels:['Dec 07','Dec 08','Dec 09','Dec 10','Dec 11'],
             tooltip: {
                 enabled: false             
             },
@@ -190,10 +223,4 @@ export default {
 
 <style lang="scss" scoped>
   @import "../../assets/scss/Market/Market";
-  .chart{
-    color: green;
-    margin-left: 142px;
-    margin-top: -30px;
-  }
-  
 </style>

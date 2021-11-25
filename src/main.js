@@ -18,7 +18,8 @@ import Datepicker from 'vue3-date-time-picker';
 import 'vue3-date-time-picker/dist/main.css'
 
 import mitt from 'mitt'
-//import TrendChart from "vue-trend-chart"
+
+
 const eventBus = mitt()
 const app = createApp(App);
 
@@ -30,9 +31,10 @@ app.use(VueTradingView)
 app.use('Datepicker', Datepicker)
 app.use(TableLite)
 app.use(Toaster)
-//app.use(TrendChart)
-//app.use(eventBus)
+
+
 app.use(VueApexCharts)
+
 
 
 app.mount('#app');

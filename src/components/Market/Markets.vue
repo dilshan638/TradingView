@@ -38,7 +38,7 @@
                                                             <th scope="col">24h Low</th>
                                                             <th scope="col">Market Cap</th>
                                                             <th scope="col">24h Volume</th>
-                                                            <th scope="col">Edit</th>
+                                                            <th scope="col">Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
