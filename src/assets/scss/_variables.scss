@@ -1113,3 +1113,11 @@ body.fullscreen-chart{
     max-width: 235px !important;
     min-width: auto;
 }
+.carousel__prev,
+.carousel__next{
+    width: 32px !important;
+    height: 32px !important;
+    min-width: auto;
+    min-height: auto;
+    background-color: #263a93;
+}

@@ -1,6 +1,6 @@
 <template>
       <div class="row">
-        <div class="col-md-3" v-for="marketprice in coindata" :key="marketprice.coin">
+        <!-- <div class="col-md-3" v-for="marketprice in coindata" :key="marketprice.coin">
             <div class="market-box">
               <div class="row mb-4">
                   <div class="col-md-6">
@@ -31,19 +31,49 @@
               </div>
               
             </div>
-        </div>                     
+        </div>                      -->
     </div>
     <Carousel :settings="settings" :breakpoints="breakpoints">
-    <Slide v-for="slide in 10" :key="slide">
-      <div class="carousel__item"> <h2>Hello {{ slide }}</h2></div>
+    <Slide v-for="marketprice in coindata" :key="marketprice.coin">
+      <div class="carousel__item">
+            <div class="market-box">
+              <div class="row mb-4">
+                  <div class="col-md-5">
+                    <img :src="marketprice.image"/>
+                    <h5 v-bind:class="[change_24h < 0 ? 'minus' : 'plus']">{{ marketprice.pair_name }}</h5>
+                  </div>
+                  <div class="col-md-7">
+                    <apexchart
+                    height="40"
+                        :options="chartOptions"
+                        :series="series">
+                    </apexchart>                        
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-9">
+                      <h4  >${{ parseFloat(marketprice.price).toFixed(2) }}</h4><span class="span-sub">${{ parseFloat(marketprice.price).toFixed(2) }}</span>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="change-status" v-bind:class="[change_24h < 0 ? 'minus' : 'plus']">{{ marketprice.change_24h }}</div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-12">
+                      <h3>$ {{ marketprice.price }}</h3>
+                      <b>Volume</b>
+                  </div>
+              </div>
+              
+            </div>          
+      </div>
     </Slide>
-
     <template #addons>
-      <Navigation />
+      <navigation />
+      <pagination />
     </template>
   </Carousel>
 </template>
-
 <script>
 
 import axios from 'axios';
@@ -65,20 +95,20 @@ export default {
         return{
                 // carousel settings
     settings: {
-      itemsToShow: 1,
       snapAlign: 'center',
+      margin: 0
     },
     // breakpoints are mobile first
     // any settings not specified will fallback to the carousel settings
     breakpoints: {
       // 700px and up
       700: {
-        itemsToShow: 3.5,
+        itemsToShow: 1,
         snapAlign: 'center',
       },
       // 1024 and up
       1024: {
-        itemsToShow: 5,
+        itemsToShow: 4,
         snapAlign: 'start',
       },
     },
