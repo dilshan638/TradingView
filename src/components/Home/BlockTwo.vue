@@ -14,37 +14,33 @@
                 <p>$ {{data.last_price}}</p>
               </div>
             </div>
-            
-            
-
           </div>
           <div class="row">
             <div class="col-md-12">
               <p class="sm-text">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed</p>
             </div>
           </div>            
-      </div>
-     
+      </div> 
   </section>
 </template>
-
 <script>
 import axios from 'axios';
 //import TrendChart from "vue-trend-chart"
+import { Carousel, Navigation, Slide } from 'vue3-carousel';
+import 'vue3-carousel/dist/carousel.css';
+
 export default {
-  //  components: {
-  //   TrendChart
-  // },
+   components: {
+    Carousel,
+    Slide,
+    Navigation
+  },
 data(){
   return{
-
-  
     coindata:[],
-   
-         }
+  }
 },
  methods: {
-       
         async coinDetails() {
         axios.get("https://dapi.exus.live/api/mobile/v1/common/marcket/trade/pair")
             .then((res) => {

@@ -79,7 +79,6 @@
 import axios from 'axios';
 //import { defineComponent } from 'vue';
 import { Carousel, Navigation, Slide } from 'vue3-carousel';
-
 import 'vue3-carousel/dist/carousel.css';
 
 export default {
