@@ -42,7 +42,7 @@
                     <img :src="marketprice.image"/>
                     <h5 v-bind:class="[change_24h < 0 ? 'minus' : 'plus']">{{ marketprice.pair_name }}</h5>
                   </div>
-                  <div class="col-md-7">
+                  <div class="col-md-7 temp" >
                     <apexchart
                     height="40"
                         :options="chartOptions"
@@ -108,7 +108,7 @@ export default {
       },
       // 1024 and up
       1024: {
-        itemsToShow: 4,
+        itemsToShow: 2,
         snapAlign: 'start',
       },
     },
@@ -253,4 +253,6 @@ export default {
 
 <style lang="scss" scoped>
   @import "../../assets/scss/Market/Market";
+
+  
 </style>
