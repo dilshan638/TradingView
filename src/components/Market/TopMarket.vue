@@ -34,7 +34,7 @@
         </div>                      -->
     </div>
     <Carousel :settings="settings" :breakpoints="breakpoints">
-    <Slide v-for="marketprice in coindata" :key="marketprice.coin">
+    <Slide v-for="data in coindata"  :key="data.pair_name">
       <div class="carousel__item">
             <div class="market-box">
               <div class="row mb-4">
@@ -92,131 +92,127 @@ export default {
  
     data() {
         return{
-                // carousel settings
-    settings: {
-      snapAlign: 'center',
-      margin: 0
-    },
-    // breakpoints are mobile first
-    // any settings not specified will fallback to the carousel settings
-    breakpoints: {
-      // 700px and up
-      700: {
-        itemsToShow: 1,
-        snapAlign: 'center',
-      },
-      // 1024 and up
-      1024: {
-        itemsToShow: 2,
-        snapAlign: 'start',
-      },
-    },
-            coindata: [],
-              series: [{
-           // name: "STOCK ABC",
+          settings: {
+            snapAlign: 'center',
+            margin: 0
+          },
+          breakpoints: {
+            // 700px and up
+            700: {
+              itemsToShow: 1,
+              snapAlign: 'center',
+            },
+            // 1024 and up
+            1024: {
+              itemsToShow: 2,
+              snapAlign: 'start',
+            },
+          },
+          coindata: [],
+          series: [{
             data: [10,20,3,26,86,36]
           }],
-      chartOptions: {
-            chart: {
-              type: 'area',
-              parentHeightOffset: 0,
-                sparkline: {
-                    enabled: true
-                },              
-            toolbar: {
-            show: false
-            },
-              zoom: {
-                enabled: false,
-                
-              }
-            },
-            stroke: {
-             // curve: 'straight'
-            },
-            
-            title: {
-            //  text: 'Fundamental Analysis of Stocks',
-              align: 'left'
-            },
-            subtitle: {
-            //  text: 'Price Movements',
-              align: 'left'
-            },
-            //labels:['Dec 07','Dec 08','Dec 09','Dec 10','Dec 11'],
-            tooltip: {
-                enabled: false             
-            },
-            fill: {
-            type: 'gradient',
-                gradient: {
-                    shadeIntensity: 1,
-                    opacityFrom: 0.7,
-                    opacityTo: 0.0,
-                    stops: [0, 100]
-                },
-            },            
-            dataLabels: {
-                enabled: false
-            },
-            legend: {
-                show: false
-            },           
-            grid: {
-                show: false,      // you can either change hear to disable all grids
-                padding: {
-                    left: 0,
-                  right: 0
-                },                
-                xaxis: {
-                    lines: {
-                        show: false  //or just here to disable only x axis grids
-                    },
-                    labels: {
-                    show: false,
-                },                    
-                },  
-                yaxis: {
-                    lines: { 
-                        show: false  //or just here to disable only y axis
-                    },
-                    labels: {
-                        show: false,
-                    },                    
-                },   
-            },            
-            xaxis: {
-                labels: {
-                    show: false
-                },
-                lines: {
-                    show: false  //or just here to disable only x axis grids
-                }                
-            },   
-            yaxis: {
-                y: 0,
-                offsetX: 0,
-                offsetY: 0,
-                padding: {
-                    left: 0,
-                    right: 0
-                },                
-                labels: {
-                    show: false
-                },
-                lines: {
-                    show: false  //or just here to disable only x axis grids
-                }                
-            },        
-             axisTicks: {
-             show: false
-            },
-            axisBorder: {
-              show: false
-            },
-  
+    chartOptions: {
+          chart: {
+            type: 'area',
+            parentHeightOffset: 0,
+              sparkline: {
+                  enabled: true
+              },              
+          toolbar: {
+          show: false
           },
-        }
+            zoom: {
+              enabled: false,
+              
+            }
+          },
+          stroke: {
+            // curve: 'straight'
+          },
+          
+          title: {
+          //  text: 'Fundamental Analysis of Stocks',
+            align: 'left'
+          },
+          subtitle: {
+          //  text: 'Price Movements',
+            align: 'left'
+          },
+          //labels:['Dec 07','Dec 08','Dec 09','Dec 10','Dec 11'],
+          tooltip: {
+              enabled: false             
+          },
+          fill: {
+          type: 'gradient',
+              gradient: {
+                  shadeIntensity: 1,
+                  opacityFrom: 0.7,
+                  opacityTo: 0.0,
+                  stops: [0, 100]
+              },
+          },            
+          dataLabels: {
+              enabled: false
+          },
+          legend: {
+              show: false
+          },           
+          grid: {
+              show: false,      // you can either change hear to disable all grids
+              padding: {
+                  left: 0,
+                right: 0
+              },                
+              xaxis: {
+                  lines: {
+                      show: false  //or just here to disable only x axis grids
+                  },
+                  labels: {
+                  show: false,
+              },                    
+              },  
+              yaxis: {
+                  lines: { 
+                      show: false  //or just here to disable only y axis
+                  },
+                  labels: {
+                      show: false,
+                  },                    
+              },   
+          },            
+          xaxis: {
+              labels: {
+                  show: false
+              },
+              lines: {
+                  show: false  //or just here to disable only x axis grids
+              }                
+          },   
+          yaxis: {
+              y: 0,
+              offsetX: 0,
+              offsetY: 0,
+              padding: {
+                  left: 0,
+                  right: 0
+              },                
+              labels: {
+                  show: false
+              },
+              lines: {
+                  show: false  //or just here to disable only x axis grids
+              }                
+          },        
+            axisTicks: {
+            show: false
+          },
+          axisBorder: {
+            show: false
+          },
+
+    },
+    }
     },
 
     methods: {

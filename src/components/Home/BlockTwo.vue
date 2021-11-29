@@ -7,12 +7,24 @@
             </div>
           </div>        
           <div class="row">
-            <div class="col-lg-2 col-6 col-md-4" v-for="data in coindata"  :key="data.pair_name">
-              <div class="block-line">
-                <span>{{data.pair_name}} <b>+{{data.change}} </b></span>
-                <h6>{{data.volume}}</h6>
-                <p>$ {{data.last_price}}</p>
+            <div class="col-lg-12 col-12 col-md-12">
+
+          <Carousel :settings="settings" :breakpoints="breakpoints">
+            <Slide v-for="data in coindata"  :key="data.pair_name">
+              <div class="carousel__item">
+                <div class="block-line">
+                  <span>{{data.pair_name}} <b>+{{data.change}} </b></span>
+                  <h6>{{data.volume}}</h6>
+                  <p>$ {{data.last_price}}</p>
+                </div>          
               </div>
+            </Slide>
+            <template #addons>
+              <navigation />
+              <pagination />
+            </template>            
+          </Carousel>
+
             </div>
           </div>
           <div class="row">
@@ -38,6 +50,25 @@ export default {
 data(){
   return{
     coindata:[],
+          settings: {
+            snapAlign: 'center',
+            margin: 0
+          },
+          breakpoints: {
+            // 700px and up
+            700: {
+              itemsToShow: 1,
+              snapAlign: 'center',
+            },
+            // 1024 and up
+            1024: {
+              itemsToShow: 6,
+              snapAlign: 'start',
+            },
+          },   
+            series: [{
+            data: [10,20,3,26,86,36]
+          }],         
   }
 },
  methods: {
