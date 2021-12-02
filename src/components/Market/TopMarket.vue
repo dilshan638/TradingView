@@ -42,6 +42,7 @@
                     <img :src="marketprice.image"/>
                     <h5 v-bind:class="[change_24h < 0 ? 'minus' : 'plus']">{{ marketprice.pair_name }}</h5>
                   </div>
+                 
                   <div class="col-md-7 temp" >
                     <apexchart
                     height="40"
@@ -64,9 +65,12 @@
                       <b>Volume</b>
                   </div>
               </div>
-              
-            </div>          
+               
+            </div> 
+                    
       </div>
+      
+     
     </Slide>
     <template #addons>
       <navigation />
