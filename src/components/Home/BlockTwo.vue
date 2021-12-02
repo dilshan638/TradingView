@@ -22,7 +22,7 @@
             <template #addons>
               <navigation />
               <pagination />
-            </template>            
+            </template>
           </Carousel>
 
             </div>
