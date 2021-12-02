@@ -9,13 +9,12 @@ At Inspira we aim to inspire, by investing in future technologies which will adv
 All our services and investments are managed digitally offering a cost effective, agile wealth management solution.</p>
             </div>
             <div class="col-lg-6 bg-right">
-              
+                <img src="images/handshake.png" class="img-responsive" />
             </div>
         </div>
     </div>
   </section>
 </template>
-
 <script>
 export default {
 

@@ -1,6 +1,6 @@
 <template>
 <div class="header-area">
-  <div class="container-fluid">
+  <div class="container">
     <div class="row">
       <div class="col-2 col-md-3 col-lg-2">
             <router-link class="navbar-brand" to="/">
