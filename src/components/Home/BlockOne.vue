@@ -9,8 +9,7 @@
                       <a href="#" class="block-btn btn">Apply for INSPIRA Membership</a>
                   </div>
                   <div class="col-lg-4 right-col order-1 order-md-2">
-                    <h1>INSPIRA</h1>
-                    <h4>Digital Wealth Club</h4>
+                      <img src="images/inspira.png" class="img-responsive" />
                   </div>
               </div>
           </div>
