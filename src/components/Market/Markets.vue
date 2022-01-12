@@ -20,9 +20,9 @@
                                     <li class="nav-item">
                                         <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Spot Market</a>
                                     </li>
-                                    <!-- <li class="nav-item">
+                                    <li class="nav-item">
                                         <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Favourites</a>
-                                    </li> -->
+                                    </li>
                                 </ul>
                                 <div class="tab-content" id="pills-tabContent">
                                     <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">     
@@ -38,7 +38,7 @@
                                                             <th scope="col">24h Low</th>
                                                             <th scope="col">Market Cap</th>
                                                             <th scope="col">24h Volume</th>
-                                                            <th scope="col">Action</th>
+                                                            <th scope="col">Edit</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -50,7 +50,7 @@
                                                             <td scope="col">-</td>
                                                             <td scope="col">-</td>
                                                             <td scope="col">{{ marketprice.volume }}</td>
-                                                            <td scope="col"><button class="btn-primary market-btn">Trade</button></td>
+                                                            <td scope="col">Edit</td>
                                                         </tr>                                                        
                                                     </tbody>
                                                 </table>                                                

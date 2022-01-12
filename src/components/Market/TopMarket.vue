@@ -1,23 +1,17 @@
 <template>
       <div class="row">
-        <!-- <div class="col-md-3" v-for="marketprice in coindata" :key="marketprice.coin">
+        <div class="col-md-3" v-for="marketprice in coindata" :key="marketprice.coin">
             <div class="market-box">
-              <div class="row mb-4">
-                  <div class="col-md-6">
+              <div class="row">
+                  <div class="col-md-7">
                     <img :src="marketprice.image"/>
-                    <h5 v-bind:class="[change_24h < 0 ? 'minus' : 'plus']">{{ marketprice.pair_name }}</h5>
+                    <h5>{{ marketprice.pair_name }}</h5>
                   </div>
-                  <div class="col-md-6">
-                    <apexchart
-                    height="40"
-                        :options="chartOptions"
-                        :series="series">
-                    </apexchart>                        
-                  </div>
+                  <div class="col-md-5"></div>
               </div>
               <div class="row">
                   <div class="col-md-9">
-                      <h4  >${{ parseFloat(marketprice.price).toFixed(2) }}</h4><span class="span-sub">${{ parseFloat(marketprice.price).toFixed(2) }}</span>
+                      <h4>{{ parseFloat(marketprice.price).toFixed(2) }}</h4><span class="span-sub">{{ parseFloat(marketprice.price).toFixed(2) }}</span>
                   </div>
                   <div class="col-md-3">
                       <div class="change-status" v-bind:class="[change_24h < 0 ? 'minus' : 'plus']">{{ marketprice.change_24h }}</div>
@@ -25,202 +19,25 @@
               </div>
               <div class="row">
                   <div class="col-md-12">
-                      <h3>$ {{ marketprice.price }}</h3>
+                      <h3>{{ marketprice.price }}</h3>
                       <b>Volume</b>
                   </div>
               </div>
-              
             </div>
-        </div>                      -->
+        </div>                     
     </div>
-    <Carousel :settings="settings" :breakpoints="breakpoints">
-    <Slide v-for="marketprice in coindata" :key="marketprice.coin">
-      <div class="carousel__item">
-            <div class="market-box">
-              <div class="row mb-4">
-                  <div class="col-md-5">
-                    <img :src="marketprice.image"/>
-                    <h5 v-bind:class="[change_24h < 0 ? 'minus' : 'plus']">{{ marketprice.pair_name }}</h5>
-                  </div>
-                 
-                  <div class="col-md-7 temp" >
-                    <apexchart
-                    height="40"
-                        :options="chartOptions"
-                        :series="series">
-                    </apexchart>                        
-                  </div>
-              </div>
-              <div class="row">
-                  <div class="col-md-9">
-                      <h4  >${{ parseFloat(marketprice.price).toFixed(2) }}</h4><span class="span-sub">${{ parseFloat(marketprice.price).toFixed(2) }}</span>
-                  </div>
-                  <div class="col-md-3">
-                      <div class="change-status" v-bind:class="[change_24h < 0 ? 'minus' : 'plus']">{{ marketprice.change_24h }}</div>
-                  </div>
-              </div>
-              <div class="row">
-                  <div class="col-md-12">
-                      <h3>$ {{ marketprice.price }}</h3>
-                      <b>Volume</b>
-                  </div>
-              </div>
-               
-            </div> 
-                    
-      </div>
-      
-     
-    </Slide>
-    <template #addons>
-      <navigation />
-      <pagination />
-    </template>
-  </Carousel>
 </template>
+
 <script>
 
 import axios from 'axios';
-//import { defineComponent } from 'vue';
-import { Carousel, Navigation, Slide } from 'vue3-carousel';
-
-import 'vue3-carousel/dist/carousel.css';
-
 export default {
   props: {
   },
-   components: {
-    Carousel,
-    Slide,
-    Navigation,
-  },
- 
+
     data() {
         return{
-                // carousel settings
-    settings: {
-      snapAlign: 'center',
-      margin: 0
-    },
-    // breakpoints are mobile first
-    // any settings not specified will fallback to the carousel settings
-    breakpoints: {
-      // 700px and up
-      700: {
-        itemsToShow: 1,
-        snapAlign: 'center',
-      },
-      // 1024 and up
-      1024: {
-        itemsToShow: 4,
-        snapAlign: 'start',
-      },
-    },
-            coindata: [],
-              series: [{
-           // name: "STOCK ABC",
-            data: [10,20,3,26,86,36]
-          }],
-      chartOptions: {
-            chart: {
-              type: 'area',
-              parentHeightOffset: 0,
-                sparkline: {
-                    enabled: true
-                },              
-            toolbar: {
-            show: false
-            },
-              zoom: {
-                enabled: false,
-                
-              }
-            },
-            stroke: {
-             // curve: 'straight'
-            },
-            
-            title: {
-            //  text: 'Fundamental Analysis of Stocks',
-              align: 'left'
-            },
-            subtitle: {
-            //  text: 'Price Movements',
-              align: 'left'
-            },
-            //labels:['Dec 07','Dec 08','Dec 09','Dec 10','Dec 11'],
-            tooltip: {
-                enabled: false             
-            },
-            fill: {
-            type: 'gradient',
-                gradient: {
-                    shadeIntensity: 1,
-                    opacityFrom: 0.7,
-                    opacityTo: 0.0,
-                    stops: [0, 100]
-                },
-            },            
-            dataLabels: {
-                enabled: false
-            },
-            legend: {
-                show: false
-            },           
-            grid: {
-                show: false,      // you can either change hear to disable all grids
-                padding: {
-                    left: 0,
-                  right: 0
-                },                
-                xaxis: {
-                    lines: {
-                        show: false  //or just here to disable only x axis grids
-                    },
-                    labels: {
-                    show: false,
-                },                    
-                },  
-                yaxis: {
-                    lines: { 
-                        show: false  //or just here to disable only y axis
-                    },
-                    labels: {
-                        show: false,
-                    },                    
-                },   
-            },            
-            xaxis: {
-                labels: {
-                    show: false
-                },
-                lines: {
-                    show: false  //or just here to disable only x axis grids
-                }                
-            },   
-            yaxis: {
-                y: 0,
-                offsetX: 0,
-                offsetY: 0,
-                padding: {
-                    left: 0,
-                    right: 0
-                },                
-                labels: {
-                    show: false
-                },
-                lines: {
-                    show: false  //or just here to disable only x axis grids
-                }                
-            },        
-             axisTicks: {
-             show: false
-            },
-            axisBorder: {
-              show: false
-            },
-  
-          },
+            coindata: []
         }
     },
 
@@ -257,6 +74,4 @@ export default {
 
 <style lang="scss" scoped>
   @import "../../assets/scss/Market/Market";
-
-  
 </style>

@@ -1,6 +1,6 @@
 <template>
 <div class="header-area">
-  <div class="container">
+  <div class="container-fluid">
     <div class="row">
       <div class="col-2 col-md-3 col-lg-2">
             <router-link class="navbar-brand" to="/">
@@ -18,7 +18,7 @@
             <span class="navbar-toggler-icon"></span>
             <i class="ri-more-fill"></i>
           </button>          
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item desktop-hide" v-if="alareadylogin">
                 <router-link class="nav-link" to="/signin" @click="logout">Logout</router-link>
@@ -39,16 +39,16 @@
                 <a class="nav-link" href="#">Learn</a>
               </li>
             </ul>
-          </div>
+          </div> -->
         </nav>
       </div>
-      <div class="col-md-4" style="text-align:right">
+      <!-- <div class="col-md-4" style="text-align:right">
         <router-link to="/dashboard"><button class="btn btn-outline-success my-2 my-sm-0 mobile-hide head-btn" v-if="alareadylogin && $route.path != '/dashboard'">
           Back to Dashboard
           </button></router-link>
         <button class="btn btn-outline my-2 my-sm-0 mobile-hide head-btn" v-if="alareadylogin" @click="logout">Logout</button>
         <router-link v-else  to="/signin"> <button class="btn btn-outline-success my-2 my-sm-0 mobile-hide head-btn">Login</button></router-link>
-      </div>
+      </div> -->
     </div>
   </div>
 </div> 
